@@ -2,19 +2,19 @@
 
 #Variables
 GITHUB_ACCESS_TOKEN=c6289bbe7d5a39dbfffcfd3c0ad3905b83252226 #Это надо для yii. Потом переметим куда надо
-PROJECT_NAME=slp
+PROJECT_NAME=quick-engine
 SOURCES_PATH=$(pwd)
 
 INSTALL_PHP=true
-INSTALL_NODEJS=true
-INSTALL_MYSQL=true
-INSTALL_MONGO=true
+INSTALL_NODEJS=false
+INSTALL_MYSQL=false
+INSTALL_MONGO=false
 INSTALL_APACHE=true
 
-INSTALL_ADMINMONGO=true
-INSTALL_PHPMYADMIN=true
-INSTALL_ROCKMONGO=true
-INSTALL_PHPMONGODB=true
+INSTALL_ADMINMONGO=false
+INSTALL_PHPMYADMIN=false
+INSTALL_ROCKMONGO=false
+INSTALL_PHPMONGODB=false
 
 INSTALL_PROJECT=true
 
@@ -149,7 +149,7 @@ if $INSTALL_PROJECT && $INSTALL_PHP && $INSTALL_APACHE; then
 
     cd /project
     composer install --no-interaction
-    cp /project/app/config/parameters.yml.dist /project/app/config/parameters.yml
+#    cp /project/app/config/parameters.yml.dist /project/app/config/parameters.yml
 
     sudo mkdir /var/log/project
 
