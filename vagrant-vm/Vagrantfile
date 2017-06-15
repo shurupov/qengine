@@ -1,0 +1,23 @@
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = "ubuntu/xenial64"
+
+  config.vm.provision "file", source: "init/db/", destination: "db/"
+  config.vm.provision "file", source: "init/vhosts/", destination: "vhosts/"
+
+  config.vm.provision "shell", path: "init/initvm.sh"
+
+  config.vm.synced_folder "../project", "/project"
+
+  config.vm.network "private_network", ip: "192.168.20.20"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "1024"
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "ssp_vm"
+  end
+
+end
