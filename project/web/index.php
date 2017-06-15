@@ -7,7 +7,7 @@ $app = new Silex\Application();
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',
     'twig.options' => array(
-        'cache' => __DIR__.'/../views_c/'
+        'cache' => __DIR__.'/../cache/views/'
     )
 ));
 
