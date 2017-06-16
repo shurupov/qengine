@@ -12,8 +12,19 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->get('/', function () use ($app) {
+    return $app['twig']->render('index.html.twig');
+});
 
-    return $app['twig']->render('index.html.twig', ['var' => 'data']);
+$app->get('/{name}', function ($name) use ($app) {
+
+//    echo $name . '.html.twig'; die;
+
+    try {
+        return $app['twig']->render($name . '.html.twig');
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
 
 });
 

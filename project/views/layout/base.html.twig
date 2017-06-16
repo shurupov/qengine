@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+    <title>{% block title %}{{ page.title }}{% if page.title|length > 0 %} | {% endif %}Адаптивный шаблон для классных сайтов{% endblock %}</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,300italic,400italic,500italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link href='/common/bootstrap/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link href='/common/font-awesome/css/font-awesome.css' rel='stylesheet' type='text/css'>
+    <link href='/startup-kit/plugins/flexslider/flexslider.css' rel='stylesheet' type='text/css'>
+    <link href='/startup-kit/css/styles.css' rel='stylesheet' type='text/css'>
+
+    <link  href="/plugins/fancybox-3.0/dist/jquery.fancybox.min.css" rel="stylesheet">
+
+    <link  href="/css/additional.css" rel="stylesheet">
+
+    {% block stylesheets %}{% endblock %}
+
+</head>
+
+<body data-spy="scroll" data-target="#page-nav">
+
+<!-- ******HEADER****** -->
+<header id="header" class="header">
+    <div class="container">
+        <h1 class="logo">
+            <a href="/"><img src="/i/logo.png" alt="">&nbsp;<span class="text">221-03-39</span></a>
+        </h1><!--//logo-->
+        <nav class="main-nav navbar-right" role="navigation">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button><!--//nav-toggle-->
+            </div><!--//navbar-header-->
+            <div id="navbar-collapse" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% for p in pages %}
+                        <li class="{% if p.slug == page.slug %}active {% endif %}nav-item"><a href="/{{ p.slug }}{% if editMode %}{% if p.slug != '' %}/{% endif %}edit{% endif %}">{{ p.title }}</a></li>
+                    {% endfor %}
+                    <li class="nav-item nav-item-cta last"><a class="btn-signup" href="/{{ page.slug }}{% if not editMode %}{% if page.slug != '' %}/{% endif %}edit{% endif %}">{% if not editMode %}Редактировать{% else %}Смотреть{% endif %}</a></li>
+                </ul><!--//nav-->
+            </div><!--//navabr-collapse-->
+        </nav><!--//main-nav-->
+    </div><!--//container-->
+</header><!--//header-->
+
+{% block body %}{% endblock %}
+
+<!-- ******FOOTER****** -->
+<footer class="footer">
+    <div class="container">
+        <div class="divider"></div>
+        <div class="footer-bottom text-center">
+            <ul class="social-media list-inline">
+                <li><a href="http://vk.com"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+            </ul>
+
+            <small class="copyright">Разработано <a href="http://vk.com/shurupov" target="_blank">Евгением</a></small>
+        </div>
+    </div><!--//container-->
+</footer><!--//footer-->
+
+<script src="/common/jquery/jquery-1.12.4.min.js"></script>
+<script src="/common/bootstrap/js/bootstrap.min.js"></script>
+<script src="/startup-kit/plugins/bootstrap-hover-dropdown.min.js"></script>
+<script src="/startup-kit/plugins/back-to-top.js"></script>
+<script src="/startup-kit/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+<script src="/startup-kit/plugins/flexslider/jquery.flexslider-min.js"></script>
+<script src="/startup-kit/js/main.js"></script>
+<script src="/startup-kit/js/home.js"></script>
+
+<script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+
+<script src="/startup-kit/js/vimeo.js"></script>
+
+<script src="/plugins/fancybox-3.0/dist/jquery.fancybox.min.js"></script>
+
+{% block javascripts %}{% endblock %}
+
+</body>
+</html>
