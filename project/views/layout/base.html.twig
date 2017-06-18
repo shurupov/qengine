@@ -46,8 +46,26 @@
             </div><!--//navbar-header-->
             <div id="navbar-collapse" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    {% set pages = [
+                        {
+                            slug : '',
+                            title : 'Главная'
+                        } ,{
+                            slug : 'price',
+                            title : 'Цены'
+                        } ,{
+                            slug : 'faq',
+                            title : 'Вопрос-ответ'
+                        } ,{
+                            slug : 'gallery',
+                            title : 'Галерея'
+                        } ,{
+                            slug : 'contacts',
+                            title : 'Контакты'
+                        }
+                    ] %}
                     {% for p in pages %}
-                        <li class="{% if p.slug == page.slug %}active {% endif %}nav-item"><a href="/{{ p.slug }}{% if editMode %}{% if p.slug != '' %}/{% endif %}edit{% endif %}">{{ p.title }}</a></li>
+                        <li class="{% if p.slug == slug %}active {% endif %}nav-item"><a href="/{{ p.slug }}">{{ p.title }}</a></li>
                     {% endfor %}
                 </ul><!--//nav-->
             </div><!--//navabr-collapse-->

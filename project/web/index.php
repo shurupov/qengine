@@ -14,17 +14,17 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app->get('/', function () use ($app) {
 
     try {
-        return $app['twig']->render('page/index.html.twig');
+        return $app['twig']->render('page/index.html.twig', ['slug' => '']);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 
 });
 
-$app->get('/{name}', function ($name) use ($app) {
+$app->get('/{slug}', function ($slug) use ($app) {
 
     try {
-        return $app['twig']->render('page/' . $name . '.html.twig');
+        return $app['twig']->render('page/' . $slug . '.html.twig', ['slug' => $slug]);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
