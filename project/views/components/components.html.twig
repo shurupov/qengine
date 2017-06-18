@@ -53,6 +53,37 @@
 
 {% endmacro %}
 
+{% macro ServicesComponent(services) %}
+    <section id="customers-section" class="customers-section section">
+        <h2 class="section-title">{{ services.title }}</h2>
+        <div class="section-intro">{{ services.intro }}</div>
+        <div class="container">
+            <div class="stories-wrapper row">
+
+                {% for item in services.list %}
+                    <div class="item item-3 col-xs-12 col-md-4{% if item.mobileHidden %} hidden-md hidden-lg{% endif %}">
+                        <div class="item-inner text-center" style="background-image: url({{ item.image | raw }});">
+                            <div class="item-mask"></div>
+                            <div class="item-content">
+                                <h3 class="content-title">{{ item.title | raw }}</h3>
+                                <div class="content-desc">
+                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    <p>{{ item.description | raw }}</p>
+                                </div>
+                                {#<a class="item-link" href="#"></a>#}
+                            </div><!--//item-content-->
+                        </div><!--//item-inner-->
+                    </div><!--//item-->
+                {% endfor %}
+
+            </div><!--//row-->
+            {#<div class="action-wrapper text-center">
+                <a class="btn btn-secondary" href="stories.html">All Customer Stories</a>
+            </div>#}
+        </div><!--//container-->
+    </section><!--//customers-section-->
+{% endmacro %}
+
 {% macro KeyFeaturesComponent(component, editMode) %}
 
     {% import "SspTemplateBundle:common:data.html.twig" as data %}

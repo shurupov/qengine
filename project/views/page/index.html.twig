@@ -27,271 +27,78 @@
         {'id': 'features-section', 'title': 'Наши преимущества'},
     ]) }}
 
-    {#{{ components.services({
+    {{ components.ServicesComponent({
         title : 'Наши услуги',
         intro : 'Мы предлагаем широкий спектр услуг в сфере водоснабжения.',
         list : [
             {
                 title : 'Замена труб <br>водоснабжения',
-                description : 'Компания <strong style="white-space: nowrap;">&laquo;Самарская водопроводная компания&raquo;</strong> предлагает услуги по монтажу и замене водопроводных труб в квартире, доме, а так же производственных помещениях.'
+                description : 'Компания <strong style="white-space: nowrap;">&laquo;Самарская водопроводная компания&raquo;</strong> предлагает услуги по монтажу и замене водопроводных труб в квартире, доме, а так же производственных помещениях.',
+                image : '/i/services/1.jpg'
             }, {
                 title : 'Замена стояков <br>водоснабжения',
-                description : 'Для замены стояков водоснабжения мы используем современные полипропиленовые трубы известных фирм производителей, таких как Pilsa, Valtec, Firat, Kalde.'
+                description : 'Для замены стояков водоснабжения мы используем современные полипропиленовые трубы известных фирм производителей, таких как Pilsa, Valtec, Firat, Kalde.',
+                image : '/i/services/2.jpg'
             }, {
                 title : 'Установка <br>водосчётчиков',
-                description : 'Сегодня в связи с постоянным ростом тарифов на услуги ЖКХ, установка водосчетчиков является весьма актуальной, так как позволяет значительно снизить суммы счетов за коммунальные услуги.'
+                description : 'Сегодня в связи с постоянным ростом тарифов на услуги ЖКХ, установка водосчетчиков является весьма актуальной, так как позволяет значительно снизить суммы счетов за коммунальные услуги.',
+                image : '/i/services/3.jpg',
+                mobileHidden : true
             }, {
                 title : 'Установка и замена <br>смесителей',
-                description : 'Сломался смеситель? Нет времени ехать и покупать новый? Звоните нам, мы поможем. Специалисты нашей компании приобретут для Вас смеситель и произведут его установку в удобное для Вас время.'
+                description : 'Сломался смеситель? Нет времени ехать и покупать новый? Звоните нам, мы поможем. Специалисты нашей компании приобретут для Вас смеситель и произведут его установку в удобное для Вас время.',
+                image : '/i/services/4.jpg'
             }, {
                 title : 'Замена труб <br>канализации',
-                description : 'Для замены труб канализации мы используем современные пластиковые трубы, которые в отличие от старых чугунных труб, имеют более привлекательный внешний вид, и увеличенный срок службы.'
+                description : 'Для замены труб канализации мы используем современные пластиковые трубы, которые в отличие от старых чугунных труб, имеют более привлекательный внешний вид, и увеличенный срок службы.',
+                image : '/i/services/5.jpg'
             }, {
                 title : 'Устновка и замена <br>радиаторов отопления',
-                description : 'Специалисты нашей компании бесплатно приедут и произведут расчет стоимости работ по замене батарей отопления в вашей квартире, доме или офисе.'
+                description : 'Специалисты нашей компании бесплатно приедут и произведут расчет стоимости работ по замене батарей отопления в вашей квартире, доме или офисе.',
+                image : '/i/services/6.jpg'
             }, {
-                title : '',
-                description : ''
+                title : 'Замена <br>полотенцесушителя',
+                description : 'Для замены полотенцесушителей в Самаре мы используем современные высококачественные материалы, хорошо зарекомендовавшие себя как в процессе работы, так и в процессе эксплуатации.',
+                image : '/i/services/7.jpg'
             }, {
-                title : '',
-                description : ''
+                title : 'Установка <br>инсталяции',
+                description : 'Если Вы решили произвести установку инсталяции в своем туалете, важно обратить внимание на то, какая инсталяция необходима в вашем конкретном случае.',
+                image : '/i/services/8.jpg'
+            }, {
+                title : 'Установка <br>ванны',
+                description : 'Сотрудники нашей компании произведут качественную установку акриловых, чугунных, стальных, пластиковых и металлических ванн, а так же ванн с гидромассажем.',
+                image : '/i/services/9.jpg'
+            }, {
+                title : 'Установка <br>унитаза',
+                description : 'Мы производим установку унитазов всех видов, независимо от типа и фирмы производителя. Если вам необходимо произвести замену старого унитаза на новый, вы так же можете обратиться к нам, мы вам поможем.',
+                image : '/i/services/10.jpg'
+            }, {
+                title : 'Установка мойки <br>и раковины',
+                description : 'Специалисты нашей компании приедут и произведут профессиональный монтаж мойки в вашей квартире, доме или офисе.',
+                image : '/i/services/11.jpg'
+            }, {
+                title : 'Отопление частных домов <br>и коттеджей',
+                description : 'Для монтажа систем отопления мы используем качественные материалы, хорошо зарекомендовавшие себя в процессе работы и эксплуатации. На все выполненные работы мы предоставляем гарантию сроком на 36 месяцев.',
+                image : '/i/services/12.jpg',
+            }, {
+                title : 'Установка и подключение <br>стиральных машин',
+                description : 'Вам необходимо установить стиральную машину на кухне или в ванной, в квартире или в частном доме, вы можете заказать установку стиральной машинки в нашей компании. Если в вашей квартире не установлен кран для забора воды и не смонтирован слив в канализацию, мы сделаем это.',
+                image : '/i/services/13.jpg'
+            }, {
+                title : 'Установка и подключение <br>посудомоечных машин',
+                description : 'Все работы по подключению и установке проводят высококвалифицированные специалисты <strong style="white-space: nowrap;">&laquo;Самарской Водопроводной Компании&raquo;</strong>.',
+                image : '/i/services/14.jpg'
+            }, {
+                title : 'Установка <br>водонагревателей',
+                description : '',
+                image : '/i/services/15.jpg'
+            }, {
+                title : 'Установка и сборка <br>душевых кабин',
+                description : 'Если вам необходимо произвести установку душевой кабины в квартире, доме или другом помещении, вы можете обратиться за помощью в нашу компанию. Мы производим сборку, установку и замену душевых кабин любых типов и фирм производителей.',
+                image : '/i/services/16.jpg'
             }
         ]
-    }) }}#}
-
-    <section id="customers-section" class="customers-section section">
-        <h2 class="section-title">Наши услуги</h2>
-        <div class="section-intro">Мы предлагаем широкий спектр услуг в сфере водоснабжения.</div>
-        <div class="container">
-            <div class="stories-wrapper row">
-                <div class="item item-1 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/1.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Замена труб <br>водоснабжения</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Компания <strong style="white-space: nowrap;">&laquo;Самарская водопроводная компания&raquo;</strong> предлагает услуги по монтажу и замене водопроводных труб в квартире, доме, а так же производственных помещениях.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-                <div class="item item-2 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/2.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Замена стояков <br>водоснабжения</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Для замены стояков водоснабжения мы используем современные полипропиленовые трубы известных фирм производителей, таких как Pilsa, Valtec, Firat, Kalde.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-                <div class="item item-3 col-xs-12 col-md-4 hidden-md hidden-lg">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/3.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка <br>водосчётчиков</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Сегодня в связи с постоянным ростом тарифов на услуги ЖКХ, установка водосчетчиков является весьма актуальной, так как позволяет значительно снизить суммы счетов за коммунальные услуги.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/4.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка и замена <br>смесителей</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Сломался смеситель? Нет времени ехать и покупать новый? Звоните нам, мы поможем. Специалисты нашей компании приобретут для Вас смеситель и произведут его установку в удобное для Вас время.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/5.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Замена труб <br>канализации</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Для замены труб канализации мы используем современные пластиковые трубы, которые в отличие от старых чугунных труб, имеют более привлекательный внешний вид, и увеличенный срок службы.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/6.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Устновка и замена <br>радиаторов отопления</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Специалисты нашей компании бесплатно приедут и произведут расчет стоимости работ по замене батарей отопления в вашей квартире, доме или офисе.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/7.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Замена <br>полотенцесушителя</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Для замены полотенцесушителей в Самаре мы используем современные высококачественные материалы, хорошо зарекомендовавшие себя как в процессе работы, так и в процессе эксплуатации.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/8.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка <br>инсталяции</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Если Вы решили произвести установку инсталяции в своем туалете, важно обратить внимание на то, какая инсталяция необходима в вашем конкретном случае.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/9.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка <br>ванны</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Сотрудники нашей компании произведут качественную установку акриловых, чугунных, стальных, пластиковых и металлических ванн, а так же ванн с гидромассажем.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/10.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка <br>унитаза</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Мы производим установку унитазов всех видов, независимо от типа и фирмы производителя. Если вам необходимо произвести замену старого унитаза на новый, вы так же можете обратиться к нам, мы вам поможем.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/11.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка мойки <br>и раковины</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Специалисты нашей компании приедут и произведут профессиональный монтаж мойки в вашей квартире, доме или офисе.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/12.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Отопление частных домов <br>и коттеджей</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Для монтажа систем отопления мы используем качественные материалы, хорошо зарекомендовавшие себя в процессе работы и эксплуатации. На все выполненные работы мы предоставляем гарантию сроком на 36 месяцев.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/13.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка и подключение <br>стиральных машин</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Вам необходимо установить стиральную машину на кухне или в ванной, в квартире или в частном доме, вы можете заказать установку стиральной машинки в нашей компании. Если в вашей квартире не установлен кран для забора воды и не смонтирован слив в канализацию, мы сделаем это.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/14.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка и подключение <br>посудомоечных машин</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Все работы по подключению и установке проводят высококвалифицированные специалисты <strong style="white-space: nowrap;">&laquo;Самарской Водопроводной Компании&raquo;</strong>.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/15.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка <br>водонагревателей</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p><strong style="white-space: nowrap;">&laquo;Самарская Водопроводная Компания&raquo;</strong> оказывает услуги по установке и подключению посудомоечных машин в Самаре.Мы производим профессиональную установку и подключение посудомоечных машин в квартирах, домах и организациях общепита.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-                <div class="item item-4 col-xs-12 col-md-4">
-                    <div class="item-inner text-center" style="background-image: url(/i/services/16.jpg);">
-                        <div class="item-mask"></div>
-                        <div class="item-content">
-                            <h3 class="content-title">Установка и сборка <br>душевых кабин</h3>
-                            <div class="content-desc">
-                                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                <p>Если вам необходимо произвести установку душевой кабины в квартире, доме или другом помещении, вы можете обратиться за помощью в нашу компанию. Мы производим сборку, установку и замену душевых кабин любых типов и фирм производителей.</p>
-                            </div>
-                            {#<a class="item-link" href="#"></a>#}
-                        </div><!--//item-content-->
-                    </div><!--//item-inner-->
-                </div><!--//item-->
-
-            </div><!--//row-->
-            {#<div class="action-wrapper text-center">
-                <a class="btn btn-secondary" href="stories.html">All Customer Stories</a>
-            </div>#}
-        </div><!--//container-->
-    </section><!--//customers-section-->
-
+    }) }}
 
 {% endblock %}
 
