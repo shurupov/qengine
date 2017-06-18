@@ -1,0 +1,106 @@
+{% extends '/layout/base.html.twig' %}
+{% import "/components/top.html.twig" as top %}
+{% import "/components/components.html.twig" as components %}
+{% import "/common/nav.html.twig" as nav %}
+
+{% block body %}
+
+    {{ top.simple({
+        "type" : "SimpleHeadingComponent",
+        "slideButton" : {
+            "exists" : true,
+            "caption" : "",
+            "url" : "#faqs-block"
+        },
+        "header" : "Вопрос-Ответ",
+        "descriptor" : "",
+        "background" : "/backs/faq.jpg"
+    }) }}
+
+    <div class="faqs-block" id="faqs-block">
+        <div class="container">
+            {#<h2 class="block-heading text-center">Вопросы</h2>#}
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" class="panel-toggle collapsed" href="#faq1" aria-expanded="false"><i class="fa fa-plus-square"></i>Здравствуйте. Подскажите примерную стоимость по установке 2-х водосчетчиков на металлические трубы? Живем п Семейкино. Спасибо.</a></h4>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="faq1" aria-expanded="false" style="height: 0px;">
+                            <div class="panel-body">
+                                Добрый вечер.Примерная стоимость составит:1. Работа - 2500 руб. (за 2 счетчика)2. Счетчики (2 шт.) - 1400 руб.3. Муфты соединительные (2шт.) - 300 руб.Итого: 4200 руб. +300 руб. (выезд в п.Семейкино) Если потребуется замена кранов вводных (если не перекрывают воду), то будет +1600 руб.
+                            </div>
+                        </div>
+                    </div><!--//panel-->
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" class="panel-toggle" href="#faq2"><i class="fa fa-plus-square"></i>Здравствуйте, сколько примерно будет стоить прокладка водопровода и канализации в новостройке? Стояки в подъезде, отдельное водоснабжение и водоотведение на кухне и в санузле. Спасибо.</a></h4>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="faq2">
+                            <div class="panel-body">
+                                Добрый день. Для расчета работ данного типа, рекомендуем вызвать специалиста нашей компании для осмотра объекта где необходимо произвести работы. Это позволит дать более точную оценку стоимости. Вызов специалиста бесплатный, достаточно позвонить нам по телефону 221-03-39 и согласовать время.
+                            </div>
+                        </div>
+                    </div><!--//panel-->
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" class="panel-toggle" href="#faq3"><i class="fa fa-plus-square"></i>Здравствуйте, сколько примерно будет стоить прокладка водопровода и канализации в новостройке? Стояки в подъезде, отдельное водоснабжение и водоотведение на кухне и в санузле. Спасибо.</a></h4>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="faq3">
+                            <div class="panel-body">
+                                Добрый день. Для расчета работ данного типа, рекомендуем вызвать специалиста нашей компании для осмотра объекта где необходимо произвести работы. Это позволит дать более точную оценку стоимости. Вызов специалиста бесплатный, достаточно позвонить нам по телефону 221-03-39 и согласовать время.
+                            </div>
+                        </div>
+                    </div><!--//panel-->
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" class="panel-toggle" href="#faq5"><i class="fa fa-plus-square"></i>Здравствуйте, а можно поменять стояк канализации без разрешения соседей? И Вы сами договариваетесь с Жэком на счет перекрытия воды и т. д?</a></h4>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="faq5">
+                            <div class="panel-body">
+                                Добрый вечер. Да, если есть такая возможность. Нет, заявление на отключение воды, вам необходимо написать самостоятельно в ЖЭКе.
+                            </div>
+                        </div>
+                    </div><!--//panel-->
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" class="panel-toggle" href="#faq6"><i class="fa fa-plus-square"></i>Сколько времени необходимо для установки одного радиатора отопления? Возможно ли установка нами купленного радиатора или только ваш? У нас батареи в стене,только сверху и снизу выступают трубы,каким способом удобнее будет устанавливать?</a></h4>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="faq6">
+                            <div class="panel-body">
+                                Добрый день! Установка 1-го радиатора займёт 2-3 часа. Да, возможна. Не совсем понятен Ваш вопрос, если мы правильно поняли, снизу будет удобнее.
+                            </div>
+                        </div>
+                    </div><!--//panel-->
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a data-parent="#accordion" data-toggle="collapse" class="panel-toggle" href="#faq7"><i class="fa fa-plus-square"></i>Сколько времени необходимо для установки одного радиатора отопления? Возможно ли установка нами купленного радиатора или только ваш? У нас батареи в стене,только сверху и снизу выступают трубы,каким способом удобнее будет устанавливать?</a></h4>
+                        </div>
+
+                        <div class="panel-collapse collapse" id="faq7">
+                            <div class="panel-body">
+                                Добрый день. Для расчета работ данного типа, рекомендуем вызвать специалиста нашей компании для осмотра объекта где необходимо произвести работы. Это позволит дать более точную оценку стоимости. Вызов специалиста бесплатный, достаточно позвонить нам по телефону 221-03-39 и согласовать время.
+                            </div>
+                        </div>
+                    </div><!--//panel-->
+
+                </div>
+            </div><!--//row-->
+
+        </div>
+    </div><!--//faqs-block-->
+
+{% endblock %}
+
