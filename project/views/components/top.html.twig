@@ -156,10 +156,7 @@
 
 {% endmacro %}
 
-{% macro simple(section, editMode) %}
-
-    {% import "SspTemplateBundle:common:data.html.twig" as data %}
-    {% import _self as top %}
+{% macro simple(section) %}
 
     <section class="career-page heading-section section section-on-bg">
         <div class="hero-wrapper">
@@ -167,28 +164,13 @@
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            {{ top.tools(section.type, editMode) }}
-            <h2 class="headline">{{- data.shortText(section.header, 'header', 'Заголовок', editMode, true, '33%') -}}</h2>
-            <div class="intro">{{ data.shortText(section.descriptor, 'descriptor', 'Промо дескриптор', editMode, true, '45%') }}</div>
-            {% if editMode or section.slideButton.exists %}
+            <h2 class="headline">{{ section.header }}</h2>
+            <div class="intro">{{ section.descriptor }}</div>
+            {% if section.slideButton.exists %}
             <div class="actions">
-                {{ data.editTick(section.slideButton.exists, 'slideButton[exists]', 'Показать', editMode) }}
-                {{ data.link(
-                    {'class': 'scrollto-no-offset'},
-                    {'href': section.slideButton.url},
-                    section.slideButton.caption, 'slideButton[caption]', 'Текст ссылки',
-                    section.slideButton.url, 'slideButton[url]', 'Адрес ссылки',
-                    editMode) }}
-                {#{{ data.button('a', {'class': 'scrollto-no-offset'}, {'href': section.slideButton.url}, section.slideButton.caption, 'slideButton[caption]', 'Ссылка', editMode) }}#}
-                {#<a class="scrollto-no-offset" href="#overview-section">View available jobs</a>#}
-                {% if not editMode %}<a class="scrollto-no-offset" href="{{ section.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
+                <a class="scrollto-no-offset" href="{{ section.slideButton.url }}">{{ section.slideButton.caption }}</a>
+                <a class="scrollto-no-offset" href="{{ section.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>
             </div><!--//actions-->
-            {% endif %}
-            {% if editMode %}
-                <div>
-                    <a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=section-background" data-type="iframe" href="javascript:;">Изменить фон</a>
-                    <input type="hidden" name="background" id="section-background" value="{{ section.background }}">
-                </div>
             {% endif %}
         </div><!--//container-->
     </section><!--//heading-section-->
