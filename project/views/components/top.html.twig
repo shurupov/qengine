@@ -56,10 +56,10 @@
             <p class="tagline">{{ section.descriptor }}</p>
             <div class="actions">
                 <a class="btn btn-cta btn-primary" href="#" data-toggle="modal" data-target="#get-contacts-modal">Сделать заявку</a>
-                <br class="visible-xs-block">
+                {#<br class="visible-xs-block">
                 <a class="play-trigger" href="#" data-toggle="modal" data-target="#modal-video">
                     <img class="play-icon" src="/startup-kit/images/play-icon.svg" alt="">{{ section.videoLinkCaption }}
-                </a>
+                </a>#}
             </div>
 
         </div><!--//container-->
@@ -68,14 +68,13 @@
     {{ top.videoModal(section.videoUrl) }}
 
     <!-- Signup Modal -->
-    {#<div class="bs-example bs-example-modal" data-example-id="static-modal">#}
     <div class="modal modal-auth modal-signup" id="get-contacts-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 id="signupModalLabel" class="modal-title text-center">
-                        {{ data.shortText(section.callToAction.header, 'callToAction[header]', 'Заголовок', editMode) }}
+                        {{ section.callToAction.header }}
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -108,7 +107,6 @@
             </div><!--//modal-content-->
         </div><!--//modal-dialog-->
     </div><!--//modal-->
-    {#</div>#}
 
 {% endmacro %}
 

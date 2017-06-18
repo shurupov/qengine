@@ -1,0 +1,13 @@
+{% macro pageNav(links) %}
+    <div class="page-nav-space-holder hidden-xs">
+        <div id="page-nav-wrapper" class="page-nav-wrapper text-center">
+            <div class="container">
+                <ul id="page-nav" class="nav page-nav list-inline">
+                    {% for link in links %}
+                        <li><a class="scrollto" href="#{{ link.id }}">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul><!--//page-nav-->
+            </div>
+        </div><!--//page-nav-wrapper-->
+    </div><!--//page-nav-space-holder-->
+{% endmacro %}
