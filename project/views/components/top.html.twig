@@ -1,0 +1,316 @@
+
+{% macro heading(section, editMode) %}
+
+    {% import _self as top %}
+
+    {% if editMode %}
+        <form action="edit/top" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="type" value="{{ section.type }}">
+    {% endif %}
+
+    {% if section.type == 'ActionHeadingComponent' %}
+        {{ top.action(section, editMode) }}
+    {% elseif section.type == 'ButtonsHeadingComponent' %}
+        {{ top.buttons(section, editMode) }}
+    {% elseif section.type == 'SimpleHeadingComponent' %}
+        {{ top.simple(section, editMode) }}
+    {% endif %}
+
+    {% if editMode %}
+        </form>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro tools(type, editMode, position = 'top') %}
+    {% if editMode %}
+        <div{% if position == 'top' %} style="margin-top: -60px; margin-bottom: 9px;"{% endif %}{% if position == 'bottom' %} style="margin-top: 10px;"{% endif %}>
+            <button type="submit" class="btn btn-cta btn-primary"><span class="glyphicon glyphicon-floppy-disk visible-xs-inline" aria-hidden="true"></span><span class="hidden-xs">Сохранить</span></button>
+            <button type="submit" class="btn btn-cta btn-primary" name="andWatch" value="true"><span class="glyphicon glyphicon-floppy-disk visible-xs-inline" aria-hidden="true"></span> <span class="glyphicon glyphicon-eye-open visible-xs-inline" aria-hidden="true"></span><span class="hidden-xs">Сохранить и посмотреть</span></button>
+            <select name="changeType" class="btn btn-cta btn-primary hidden-xs">
+                <option value="ActionHeadingComponent"{% if type == 'ActionHeadingComponent' %} selected{% endif %}><span class="hidden-xs hidden-sm">Шапка с призывом к действию</option>
+                <option value="ButtonsHeadingComponent"{% if type == 'ButtonsHeadingComponent' %} selected{% endif %}>Шапка с кнопками</option>
+                <option value="SimpleHeadingComponent"{% if type == 'SimpleHeadingComponent' %} selected{% endif %}>Шапка с заголовком</option>
+            </select>
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro action(section) %}
+
+    {% import _self as top %}
+
+    <section class="promo-section section section-on-bg">
+        <div class="hero-slider-wrapper">
+            <div class="flexslider hero-slider">
+                <ul class="slides">
+                    {% for i,imgUri in section.carouselImages %}
+                        <li class="slide slide-1" style="background-image: url(/source{{ imgUri }})"></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="hero-slider-mask"></div>
+        </div><!--//hero-slider-wrapper-->
+        <div class="container promo-content">
+            <h2 class="headline">{{ section.header }}</h2>
+            <p class="tagline">{{ section.descriptor }}</p>
+            <div class="actions">
+                <a class="btn btn-cta btn-primary" href="#" data-toggle="modal" data-target="#get-contacts-modal">Сделать заявку</a>
+                <br class="visible-xs-block">
+                <a class="play-trigger" href="#" data-toggle="modal" data-target="#modal-video">
+                    <img class="play-icon" src="/startup-kit/images/play-icon.svg" alt="">{{ section.videoLinkCaption }}
+                </a>
+            </div>
+
+        </div><!--//container-->
+    </section><!--//promo-section-->
+
+    {{ top.videoModal(section.videoUrl) }}
+
+    <!-- Signup Modal -->
+    {#<div class="bs-example bs-example-modal" data-example-id="static-modal">#}
+    <div class="modal modal-auth modal-signup" id="get-contacts-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="signupModalLabel" class="modal-title text-center">
+                        {{ data.shortText(section.callToAction.header, 'callToAction[header]', 'Заголовок', editMode) }}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="login-form-container">
+                        <form class="login-form" action="/post" method="post">
+                            <input type="hidden" name="captions[enterNameCaption]" value="{{ section.callToAction.enterNameCaption }}">
+                            <input type="hidden" name="captions[enterEmailCaption]" value="{{ section.callToAction.enterEmailCaption }}">
+                            <input type="hidden" name="captions[enterPhoneCaption]" value="{{ section.callToAction.enterPhoneCaption }}">
+                            <div class="form-group full-name">
+                                <i class="material-icons icon">&#xE7FD;</i>
+                                <label class="sr-only" for="signup-fullname">{{ section.callToAction.enterNameCaption }}</label>
+                                <input id="signup-fullname" name="enterNameCaption" type="text" class="form-control signup-email" placeholder="{{ section.callToAction.enterNameCaption }}">
+                            </div><!--//form-group-->
+                            <div class="form-group email">
+                                <i class="material-icons icon">&#xE0BE;</i>
+                                <label class="sr-only" for="signup-email">{{ section.callToAction.enterEmailCaption }}</label>
+                                <input id="signup-email" name="enterEmailCaption" type="email" class="form-control signup-email" placeholder="{{ section.callToAction.enterEmailCaption }}">
+                            </div><!--//form-group-->
+                            <div class="form-group phone">
+                                <i class="material-icons icon">&#xE32C;</i>
+                                <label class="sr-only" for="signup-phone">{{ section.callToAction.enterPhoneCaption }}</label>
+                                <input id="signup-phone" name="enterPhoneCaption" type="phone" class="form-control signup-phone" placeholder="{{ section.callToAction.enterPhoneCaption }}">
+                            </div><!--//form-group-->
+                            {#<div class="legal-note">By signing up, you agree to our terms of services and privacy policy.</div>#}
+                            <button class="btn btn-block btn-primary btn-cta" type="submit">Отправить</button>
+
+                        </form>
+                    </div><!--//login-form-container-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+    {#</div>#}
+
+{% endmacro %}
+
+{% macro buttons(section, editMode) %}
+
+    {% import "SspTemplateBundle:common:data.html.twig" as data %}
+    {% import _self as top %}
+
+    <section class="heading-section section section-on-bg features-page">
+        <div class="hero-wrapper">
+            <div class="hero-holder" style="background-image: url(/source{{ section.background }});"></div>
+            <div class="hero-mask-gradient"></div>
+        </div><!--//hero-wrapper-->
+        <div class="container heading-content">
+            <h2 class="headline">{{- data.shortText(section.header, 'header', 'Промо заголовок', editMode, true, '33%') -}}</h2>
+            <p class="tagline">{{ data.shortText(section.descriptor, 'descriptor', 'Промо дескриптор', editMode, true, '45%') }}</p>
+            <div class="actions">
+                {{ data.editTick(section.firstButton.exists, 'firstButton[exists]', 'Показать', editMode) }}
+                {% if editMode or section.firstButton.exists %}
+                    {{ data.button('a', {'class': 'play-trigger btn btn-cta btn-primary'}, {'data-toggle': 'modal', 'data-target': '#modal-video'}, section.firstButton.caption, 'firstButton[caption]', 'Кнопка с видео', editMode) }}
+                {% endif %}
+                {% if editMode %}
+                    {{ data.shortText(section.firstButton.url, 'firstButton[url]', 'URL видео', editMode) }}
+                {% endif %}
+                <br class="visible-xs-block">
+                {{ data.editTick(section.secondButton.exists, 'secondButton[exists]', 'Показать', editMode) }}
+                {% if editMode or section.secondButton.exists %}
+                    {{ data.button('a', {'class': 'btn btn-cta btn-ghost'}, {'href': section.secondButton.url}, section.secondButton.caption, 'secondButton[caption]', 'Кнопка с ссылкой', editMode) }}
+                {% endif %}
+                {% if editMode %}
+                    {{ data.shortText(section.secondButton.url, 'secondButton[url]', 'URL ссылки', editMode) }}
+                {% endif %}
+            </div>
+            {% if editMode %}
+                <div>
+                    <a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=section-background" data-type="iframe" href="javascript:;">Изменить фон</a>
+                    <input type="hidden" name="background" id="section-background" value="{{ section.background }}">
+                </div>
+            {% endif %}
+            {{ top.tools(section.type, editMode, 'bottom') }}
+        </div><!--//container-->
+    </section><!--//heading-section-->
+
+    {% import _self as top %}
+
+    {{ top.videoModal(section.firstButton.url, editMode) }}
+
+{% endmacro %}
+
+{% macro simple(section, editMode) %}
+
+    {% import "SspTemplateBundle:common:data.html.twig" as data %}
+    {% import _self as top %}
+
+    <section class="career-page heading-section section section-on-bg">
+        <div class="hero-wrapper">
+            <div class="hero-holder" style="background-image: url(/source{{ section.background }});"></div>
+            <div class="hero-mask-gradient"></div>
+        </div><!--//hero-wrapper-->
+        <div class="container heading-content">
+            {{ top.tools(section.type, editMode) }}
+            <h2 class="headline">{{- data.shortText(section.header, 'header', 'Заголовок', editMode, true, '33%') -}}</h2>
+            <div class="intro">{{ data.shortText(section.descriptor, 'descriptor', 'Промо дескриптор', editMode, true, '45%') }}</div>
+            {% if editMode or section.slideButton.exists %}
+            <div class="actions">
+                {{ data.editTick(section.slideButton.exists, 'slideButton[exists]', 'Показать', editMode) }}
+                {{ data.link(
+                    {'class': 'scrollto-no-offset'},
+                    {'href': section.slideButton.url},
+                    section.slideButton.caption, 'slideButton[caption]', 'Текст ссылки',
+                    section.slideButton.url, 'slideButton[url]', 'Адрес ссылки',
+                    editMode) }}
+                {#{{ data.button('a', {'class': 'scrollto-no-offset'}, {'href': section.slideButton.url}, section.slideButton.caption, 'slideButton[caption]', 'Ссылка', editMode) }}#}
+                {#<a class="scrollto-no-offset" href="#overview-section">View available jobs</a>#}
+                {% if not editMode %}<a class="scrollto-no-offset" href="{{ section.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
+            </div><!--//actions-->
+            {% endif %}
+            {% if editMode %}
+                <div>
+                    <a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=section-background" data-type="iframe" href="javascript:;">Изменить фон</a>
+                    <input type="hidden" name="background" id="section-background" value="{{ section.background }}">
+                </div>
+            {% endif %}
+        </div><!--//container-->
+    </section><!--//heading-section-->
+{% endmacro %}
+
+{% macro headingJs(section, editMode) %}
+
+    {% import _self as top %}
+
+    {% if section.type == 'ActionHeadingComponent' %}
+        {{ top.actionJs(section, editMode) }}
+    {% elseif section.type == 'ButtonsHeadingComponent' %}
+        {{ top.changeBackgroundJs(section, editMode) }}
+    {% elseif section.type == 'SimpleHeadingComponent' %}
+        {{ top.changeBackgroundJs(section, editMode) }}
+    {% endif %}
+
+{% endmacro %}
+
+{% macro actionJs(section, editMode) %}
+
+    {% if editMode %}
+        <script>
+
+            var promoAddedCarouselImages = 0;
+
+            function responsive_filemanager_callback(field_id){
+
+                var uri;
+
+                if (field_id == 'addHeadingCarouselImage') {
+
+                    $.fancybox.close();
+
+                    uri = jQuery('#'+field_id).val().replace(/.*?\/source\//, '/');
+
+                    promoAddedCarouselImages++;
+
+                    var thumbHtml = '' +
+                            '<td class="carousel-image-thumb" data-added-image-number="' + promoAddedCarouselImages + '">' +
+                                '<span class="glyphicon glyphicon-remove-sign remove-button" aria-hidden="true"></span>' +
+                                '<img src="/thumbs' + uri + '" />' +
+                            '</td>';
+
+                    $('.promo-content table.images tr').append(thumbHtml);
+
+                    $('.promo-content div.hidden-inputs').append('<input id="addedPromoCarouselImage' + promoAddedCarouselImages + '" type="hidden" name="newImages[]" value="' + uri + '">');
+
+                    $('.carousel-image-thumb .remove-button').on('click', function () {
+                        console.log('pressed');
+                        var imageNumber = $(this).parent().data('image-number');
+                        if (imageNumber) {
+                            $('.promo-content div.hidden-inputs').append('<input type="hidden" name="removeImages[]" value="' + imageNumber + '">');
+                        } else {
+                            $('#addedPromoCarouselImage' + $(this).parent().data('added-image-number')).remove();
+                        }
+                        $(this).hide();
+                        $(this).parent().hide(500);
+                    });
+                } else {
+                    $.fancybox.close();
+
+                    uri = $('#'+field_id).val().replace(/.*?\/source\//, '/');
+
+                    $('#'+field_id).val(uri);
+                }
+            }
+
+            $(document).ready(function () {
+                $('.carousel-image-thumb .remove-button').on('click', function () {
+                    console.log('pressed');
+                    var imageNumber = $(this).parent().data('image-number');
+                    if (imageNumber != undefined) {
+                        $('.promo-content div.hidden-inputs').append('<input type="hidden" name="removeImages[]" value="' + imageNumber + '">');
+                    } else {
+                        $('#addedPromoCarouselImage' + $(this).parent().data('added-image-number')).remove();
+                    }
+                    $(this).hide();
+                    $(this).parent().hide(500);
+                });
+            });
+
+        </script>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro changeBackgroundJs(section, editMode) %}
+
+    {% if editMode %}
+        <script>
+
+            function responsive_filemanager_callback(field_id){
+                if (field_id == 'section-background') {
+                    $.fancybox.close();
+                    var uri=jQuery('#'+field_id).val().replace(/.*?\/source\//, '/');
+                    $('#section-background').val(uri);
+                }
+            }
+
+        </script>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro videoModal(contentUrl) %}
+    <!-- Video Modal -->
+    <div class="modal modal-video" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="videoModalLabel" class="modal-title sr-only">Видео тур</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="video-container embed-responsive embed-responsive-16by9">
+                        <iframe id="vimeo-video" src="{{ contentUrl }}" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div><!--//video-container-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+{% endmacro %}

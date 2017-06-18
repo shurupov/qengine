@@ -1,0 +1,54 @@
+{% extends '/layout/base.html.twig' %}
+{% import "/components/top.html.twig" as top %}
+{% import "/components/components.html.twig" as components %}
+{#{% import "/svk/common.html.twig" as svk %}#}
+
+{% block body %}
+
+    {{ top.action({
+        header : 'Заголовок'
+    }) }}
+
+    {{ components.all(page.components, editMode) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {{ top.headingJs(page.headingSection, editMode) }}
+
+    {{ components.js(page.components, editMode) }}
+
+    {#<script>
+        $(document).ready(function () {
+
+            $('input[data-autowidth=true]').each(function (i, el) {
+                var $input = $(el);
+                var id = $input.attr('id');
+                var $buffer = $('<div></div>');
+                $buffer.attr('id', 'width-' + id);
+                $buffer.addClass('input-buffer');
+                $buffer.css('font-size', $input.css('font-size') );
+                $buffer.css('font-family', $input.css('font-family') );
+                $buffer.css('font-weight', $input.css('font-weight') );
+                $buffer.css('text-decoration', $input.css('text-decoration') );
+                $buffer.css('letter-spacing', $input.css('letter-spacing') );
+                $buffer.text( $input.val() );
+                $('body').append($buffer);
+                $input.width($buffer.width());
+            });
+
+            $('input[data-autowidth=true]').on('input', function () {
+                var $input = $(this);
+                var id = $input.attr('id');
+                var $buffer = $('#width-' + id);
+                $buffer.text( $input.val() );
+                $input.width($buffer.width());
+            });
+
+        });
+    </script>#}
+
+{% endblock %}

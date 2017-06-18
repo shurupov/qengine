@@ -49,7 +49,6 @@
                     {% for p in pages %}
                         <li class="{% if p.slug == page.slug %}active {% endif %}nav-item"><a href="/{{ p.slug }}{% if editMode %}{% if p.slug != '' %}/{% endif %}edit{% endif %}">{{ p.title }}</a></li>
                     {% endfor %}
-                    <li class="nav-item nav-item-cta last"><a class="btn-signup" href="/{{ page.slug }}{% if not editMode %}{% if page.slug != '' %}/{% endif %}edit{% endif %}">{% if not editMode %}Редактировать{% else %}Смотреть{% endif %}</a></li>
                 </ul><!--//nav-->
             </div><!--//navabr-collapse-->
         </nav><!--//main-nav-->

@@ -12,19 +12,22 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->get('/', function () use ($app) {
-    return $app['twig']->render('index.html.twig');
-});
-
-$app->get('/{name}', function ($name) use ($app) {
-
-//    echo $name . '.html.twig'; die;
 
     try {
-        return $app['twig']->render($name . '.html.twig');
+        return $app['twig']->render('page/index.html.twig');
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 
+});
+
+$app->get('/{name}', function ($name) use ($app) {
+
+    try {
+        return $app['twig']->render('page/' . $name . '.html.twig');
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 
 });
 

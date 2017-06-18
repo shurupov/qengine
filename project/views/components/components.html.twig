@@ -1,0 +1,238 @@
+
+{% macro all(componentsData, editMode) %}
+
+    {% import _self as components %}
+
+    {% for componentData in componentsData %}
+        {{ components.component(componentData, editMode, loop.index0) }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro js(componentsData, editMode) %}
+    {% import _self as components %}
+
+    {% for componentData in componentsData %}
+
+        {% if componentData.type == "KeyFeaturesComponent" %}
+            {{ components.KeyFeaturesComponentJs(componentData, editMode) }}
+        {% endif %}
+
+    {% endfor %}
+{% endmacro %}
+
+{% macro tools(type, editMode, position = 'top') %}
+    {% if editMode %}
+        <div{% if position == 'top' %} style="margin-top: -60px; margin-bottom: 9px;"{% endif %}{% if position == 'bottom' %} style="margin-top: 10px;"{% endif %}>
+            <button type="submit" class="btn btn-cta btn-primary"><span class="glyphicon glyphicon-floppy-disk visible-xs-inline" aria-hidden="true"></span><span class="hidden-xs">Сохранить</span></button>
+            <button type="submit" class="btn btn-cta btn-primary" name="andWatch" value="true"><span class="glyphicon glyphicon-floppy-disk visible-xs-inline" aria-hidden="true"></span> <span class="glyphicon glyphicon-eye-open visible-xs-inline" aria-hidden="true"></span><span class="hidden-xs">Сохранить и посмотреть</span></button>
+            {#<select name="changeType" class="btn btn-cta btn-primary hidden-xs">
+                <option value="ActionHeadingComponent"{% if type == 'ActionHeadingComponent' %} selected{% endif %}><span class="hidden-xs hidden-sm">Шапка с призывом к действию</option>
+                <option value="ButtonsHeadingComponent"{% if type == 'ButtonsHeadingComponent' %} selected{% endif %}>Шапка с кнопками</option>
+                <option value="SimpleHeadingComponent"{% if type == 'SimpleHeadingComponent' %} selected{% endif %}>Шапка с заголовком</option>
+            </select>#}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro component(settings, editMode, componentIndex) %}
+
+    {% import _self as components %}
+
+    {% if editMode %}
+        <form action="edit/component/{{ componentIndex }}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="type" value="{{ settings.type }}">
+    {% endif %}
+
+    {% if settings.type == "KeyFeaturesComponent" %}
+        {{ components.KeyFeaturesComponent(settings, editMode) }}
+    {% endif %}
+
+    {% if editMode %}
+        </form>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro KeyFeaturesComponent(component, editMode) %}
+
+    {% import "SspTemplateBundle:common:data.html.twig" as data %}
+    {% import _self as components %}
+
+    <section id="features-section" class="features-section section">
+
+        <h2 class="section-title">
+            {{ data.shortText(component.title, 'title', 'Заголовок компонента', editMode) }}
+        </h2>
+        <div class="container">
+
+            {{ components.tools("KeyFeaturesComponent", editMode) }}
+
+            <div class="row">
+                <div class="features-content-wrapper col-xs-12 col-sm-7 com-md-7">
+                    <div class="intro">
+                        {{ data.longText(component.description, 'description', 'Вводный текст', editMode) }}
+                    </div><!--//intro-->
+                    <ul class="feature-list list-unstyled">
+                        {% for feature in component.features %}
+                            <li><img class="tick-icon" src="/startup-kit/images/tick.svg" alt="">{{ data.shortText(feature, 'features[]', 'Особенность', editMode, true, '25%') }}{% if editMode %}<span style="cursor: pointer;" onclick="$(this).parent().remove();"><i class="material-icons">&#xE92B;</i></span>{% endif %}</li>
+                        {% endfor %}
+                        {% if editMode %}
+                            <span style="cursor: pointer; vertical-align: middle; line-height: 20px;" onclick="var $li = $(this).parent().find('li:last'); $('<li>' + $li.html().replace($li.find('input').val(), '') + '</li>').insertAfter($li);"><i class="material-icons">&#xE147;</i> Добавить свойство</span>
+                        {% endif %}
+                    </ul><!--//feature-list-->
+
+
+                    <div id="reviews-carousel" class="reviews-carousel carousel slide" data-ride="carousel">
+                        <!--//wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            {% for opinion in component.opinions %}
+                                <div class="item{% if loop.first %} active{% endif %}">
+                                    <blockquote class="review center-block">
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                        <p>{{ opinion.text | raw }}</p>
+                                    </blockquote><!--//review-->
+                                    <div class="source">
+                                        <div class="rating">
+                                            {% for i in 1..opinion.rating %}
+                                                <i class="fa fa-star"></i>
+                                            {% endfor %}
+                                        </div><!--//rating-->
+                                        <img class="profile" src="/source{{ opinion.photo }}" alt="" />
+                                        <div class="name">{{ opinion.signature }}</div>
+                                    </div><!--//source-->
+                                </div><!--//item-->
+
+                            {% endfor %}
+
+                        </div><!--//carousel-inner-->
+
+                        <!--//Indicators-->
+                        <ol class="carousel-indicators">
+                            {% for i in 1..component.opinions|length %}
+                                <li data-target="#reviews-carousel" data-slide-to="{{ i - 1 }}"{% if loop.first %} class="active"{% endif %}></li>
+                            {% endfor %}
+                        </ol>
+
+                    </div><!--//reviews-carousel-->
+
+                    {% if editMode %}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#opinionsModal">
+                            Редактировать отзывы
+                        </button>
+                    {% endif %}
+
+                </div><!--//features-content-wrapper-->
+            </div><!--//row-->
+        </div><!--//container-->
+
+        {% if editMode %}
+            <!-- Modal -->
+            <div class="modal fade" id="opinionsModal" tabindex="-1" role="dialog" aria-labelledby="opinionsModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="opinionsModal">Редактировать отзывы</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="table-responsive">
+                                <table class="table opinions-table" data-opinion-count="{{ component.opinions | length }}">
+                                    <tr>
+                                        <th>Отзыв</th>
+                                        <th>Рейтинг</th>
+                                        <th>Подпись</th>
+                                        <th>Фото</th>
+                                        <th></th>
+                                    </tr>
+                                    {% for i, opinion in component.opinions %}
+                                        <tr>
+                                            <td>
+                                                <textarea name="opinions[{{ i }}][text]" rows="2">{{ opinion.text | raw }}</textarea>
+                                            </td>
+                                            <td>
+                                                <select name="opinions[{{ i }}][rating]">
+                                                    <option value="1"{% if opinion.rating == 1 %} selected{% endif %}>1</option>
+                                                    <option value="2"{% if opinion.rating == 2 %} selected{% endif %}>2</option>
+                                                    <option value="3"{% if opinion.rating == 3 %} selected{% endif %}>3</option>
+                                                    <option value="4"{% if opinion.rating == 4 %} selected{% endif %}>4</option>
+                                                    <option value="5"{% if opinion.rating == 5 %} selected{% endif %}>5</option>
+                                                </select>
+                                            </td>
+                                            <td><input name="opinions[{{ i }}][signature]" type="text" value="{{ opinion.signature | raw }}"></td>
+                                            <td>
+                                                <a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=opinion-photo-{{ i }}" data-type="iframe" href="javascript:;">Аватар</a>
+                                                <input type="hidden" name="opinions[{{ i }}][photo]" id="opinion-photo-{{ i }}" value="{{ opinion.photo }}">
+                                            </td>
+                                            <td><span style="cursor: pointer;" onclick="$(this).parent().parent().remove();"><i class="material-icons">&#xE92B;</i></span></td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default add-opinion">Добавить отзыв</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Готово</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="features-figure-wrapper">
+            {% if editMode %}
+                <div style="float: left;">
+                    <a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=component-image" data-type="iframe" href="javascript:;">Изменить фон</a>
+                    <input type="hidden" name="image" id="component-image" value="{{ component.image }}">
+                </div>
+            {% endif %}
+            <img class="img-responsive" src="/source{{ component.image }}" alt="">
+        </div><!--//features-figure-wrapper-->
+
+        <div class="action-wrapper text-center">
+
+            {{ data.editTick(component.button.exists, 'button[exists]', 'Показать', editMode) }}
+            {% if editMode or component.button.exists %}
+                {{ data.button('a', {'class': 'btn btn-secondary'}, {'href': component.button.url}, component.button.caption, 'button[caption]', 'Кнопка с ссылкой', editMode) }}
+            {% endif %}
+            {% if editMode %}
+                {{ data.shortText(component.button.url, 'button[url]', 'URL ссылки', editMode) }}
+            {% endif %}
+
+        </div>
+
+    </section><!--//features-section-->
+{% endmacro %}
+
+{% macro KeyFeaturesComponentJs(component, editMode) %}
+    <script>
+        $(document).ready(function () {
+            var count = {{ component.opinions | length }};
+
+            $('.add-opinion').click(function () {
+                count++;
+                $('.opinions-table').append(
+                    '<tr>' +
+                        '<td><textarea name="opinions[' + count + '][text]" rows="2"></textarea></td>' +
+                        '<td>' +
+                            '<select name="opinions[' + count + '][rating]>' +
+                                '<option value="1">1</option>' +
+                                '<option value="2">2</option>' +
+                                '<option value="3">3</option>' +
+                                '<option value="4">4</option>' +
+                                '<option value="5">5</option>' +
+                            '</select>' +
+                        '</td>' +
+                        '<td><input name="opinions[' + count + '][signature]" type="text" value=""></td>' +
+                        '<td>' +
+                            '<a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=opinion-photo-' + count + '" data-type="iframe" href="javascript:;">Аватар</a>' +
+                            '<input type="hidden" name="opinions[' + count + '][photo]" id="opinion-photo-' + count + '" value="">' +
+                        '</td>' +
+                        '<td><span style="cursor: pointer;" onclick="$(this).parent().parent().remove();"><i class="material-icons">&#xE92B;</i></span></td>' +
+                    '</tr>'
+                );
+            });
+
+        });
+    </script>
+{% endmacro %}
