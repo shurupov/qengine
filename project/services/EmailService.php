@@ -4,6 +4,7 @@ namespace Qe;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Swift_Image;
 
 /**
  * Created by PhpStorm.
@@ -13,28 +14,35 @@ use Pimple\ServiceProviderInterface;
  */
 class EmailService implements ServiceProviderInterface
 {
+    /** @var \Twig_Environment $twig **/
+    private $twig;
+
+    /** @var \Swift_Mailer $mailer **/
+    private $mailer;
+
     public function sendEmail($contentParameters, $email)
     {
 
-        $message = \Swift_Message::newInstance();
+        $message = new \Swift_Message();
 
         $embedImage = $message->embed(Swift_Image::fromPath('/project/web/i/logo.png'));
 
         $message->setSubject($contentParameters['subject'])
-            ->setFrom($this->container->getParameter('mailer_user'))
+            ->setFrom('bakalibriki.online@ya.ru')
             ->setTo($email)
             ->setBody(
                 $this->twig->render('email/layout.html.twig', array_merge($contentParameters, ['logoSrc' => $embedImage])),
                 'text/html'
             )
         ;
-        $this->mailer->send($message);
+
+        return $this->mailer->send($message);
 
     }
 
     public function sendEmailToAdmin($contentParameters)
     {
-        $this->sendEmail($contentParameters, 'bolteg86@ya.ru');
+        return $this->sendEmail($contentParameters, 'bolteg86@ya.ru');
     }
 
     /**
@@ -47,6 +55,9 @@ class EmailService implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
+        $this->twig = $app['twig'];
+        $this->mailer = $app['mailer'];
+
         $app['emailService'] = function () use ($app) {
             return $this;
         };

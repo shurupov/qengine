@@ -17,53 +17,43 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     )
 ));
 
-//$app->register(new Qe\PostService(), array());
+$app['swiftmailer.use_spool'] = false;
+$app['swiftmailer.options'] = array(
+    'transport' => 'smtp',
+    'host' => 'smtp.yandex.ru',
+    'port' => '587',
+    'username' => 'bakalibriki.online@ya.ru',
+    'password' => 'Y0RtyT3xLh',
+    'encryption' => 'tls',
+    'auth_mode' => 'login'
+);
 
-/*$app['postService'] = $app->factory(function () {
-    return new PostService();
-});*/
-
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app->register(new EmailService());
 $app->register(new PostService());
 
 $app->get('/', function () use ($app) {
 
-    try {
-        return $app['twig']->render('page/index.html.twig', ['slug' => '']);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    return $app['twig']->render('page/index.html.twig', ['slug' => '']);
 
 });
 
 $app->get('/{slug}', function ($slug) use ($app) {
 
-    try {
-        return $app['twig']->render('page/' . $slug . '.html.twig', ['slug' => $slug]);
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }
+    return $app['twig']->render('page/' . $slug . '.html.twig', ['slug' => $slug]);
 
 });
 
 $app->post('/post', function (Request $request) use ($app) {
 
-    $app['postService']->test($request->request->all());
+    $sent = $app['postService']->post($request->request->all());
 
-
-//    var_dump($request->request->all());
-//    (new Qe\PostService())->test($request->request->all());
-//    die;
-
-//    return new \Symfony\Component\HttpFoundation\Response('ee');
-
-    /*try {
-        $app['postService']->test($request->request->all());
-        die;
-    } catch (Exception $e) {
-        echo $e->getMessage();
-    }*/
+    return $app->redirect("/?sent=" . $sent);
 
 });
 
-$app->run();
+try {
+    $app->run();
+} catch (Exception $e) {
+    echo $e->getTraceAsString();
+}

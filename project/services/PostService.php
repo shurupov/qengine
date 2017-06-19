@@ -14,6 +14,7 @@ use Pimple\ServiceProviderInterface;
 class PostService implements ServiceProviderInterface
 {
 
+    /** @var EmailService $emailService **/
     private $emailService;
 
     public function test($arr)
@@ -21,10 +22,8 @@ class PostService implements ServiceProviderInterface
         var_dump($arr);
     }
 
-    public function post()
+    public function post($enteredData)
     {
-
-        $enteredData = $this->request->request->all();
         $data = [];
 
         foreach ($enteredData as $key=>$value) {
@@ -33,13 +32,12 @@ class PostService implements ServiceProviderInterface
             $data[$enteredData['captions'][$key]] = $value;
         }
 
-        $this->emailService->sendEmailToAdmin([
+        return $this->emailService->sendEmailToAdmin([
             'subject' => "Отправлена форма с сайта",
             'preheader' => "Отправлена форма с сайта",
             'data' => $data
         ]);
 
-        return $this->request->server->get('HTTP_REFERER');
     }
 
     /**
