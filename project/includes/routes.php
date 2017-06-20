@@ -26,6 +26,17 @@ $app->get('/{slug}', function ($slug) use ($app) {
 
 });
 
+$app->get('/{slug}/{subslug}', function ($slug, $subslug) use ($app) {
+
+    try {
+        return $app['twig']->render("page/$slug/$subslug.html.twig", ['slug' => $slug]);
+    } catch (Twig_Error_Loader $e) {
+        $app->abort(404);
+        return null;
+    }
+
+});
+
 $app->post('/post', function (Request $request) use ($app) {
 
     $app['postService']->post($request->request->all());

@@ -1,0 +1,48 @@
+{% extends '/layout/base.html.twig' %}
+{% import "/components/top.html.twig" as top %}
+{% import "/components/components.html.twig" as components %}
+{% import "/common/nav.html.twig" as nav %}
+
+{% block body %}
+
+    {{ top.simple({
+        "type" : "SimpleHeadingComponent",
+        "slideButton" : {
+            "exists" : true,
+            "caption" : "",
+            "url" : "#story-article-block"
+        },
+        "header" : title,
+        "descriptor" : "",
+        "background" : "/services/" ~ id ~ ".jpg"
+    }) }}
+
+    <div id="story-article-block" class="story-article-block">
+
+        <div class="client-meta text-center">
+            <div class="row">
+                <div class="item col-xs-12 col-sm-4">
+                    <div class="meta-icon"><i class="material-icons">&#xE8A1;</i></div>
+                    <div class="meta-title">Стоимость услуги</div>
+                    <div class="meta-info">от {{ price }} <i class="fa fa-rub" aria-hidden="true"></i></div>
+                </div><!--//item-->
+                <div class="item col-xs-12 col-sm-4">
+                    <div class="meta-icon"><i class="material-icons">&#xE325;</i></div>
+                    <div class="meta-title">Телефон</div>
+                    <div class="meta-info">221-03-39</div>
+                </div><!--//item-->
+                <div class="item col-xs-12 col-sm-4">
+                    <div class="meta-icon"><i class="material-icons">&#xE913;</i></div>
+                    <div class="meta-title">Заказать</div>
+                    <div class="meta-info"><a href="/contacts#contact-form">Заказать</a></div>
+                </div><!--//item-->
+            </div><!--//row-->
+        </div><!--//client-meta-->
+
+        {% block text %}{% endblock %}
+
+    </div><!--//story-article-block-->
+
+
+{% endblock %}
+
