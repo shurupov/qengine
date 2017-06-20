@@ -17,6 +17,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     )
 ));
 
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+
 $app['swiftmailer.use_spool'] = false;
 $app['swiftmailer.options'] = array(
     'transport' => 'smtp',
@@ -28,9 +30,14 @@ $app['swiftmailer.options'] = array(
     'auth_mode' => 'login'
 );
 
-$app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app->register(new EmailService());
 $app->register(new PostService());
+
+
+
+// Вывод логов
+$logger = new Swift_Plugins_Loggers_EchoLogger();
+$app['mailer']->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
 
 $app->get('/', function () use ($app) {
 
@@ -48,7 +55,7 @@ $app->post('/post', function (Request $request) use ($app) {
 
     $sent = $app['postService']->post($request->request->all());
 
-    return $app->redirect("/?sent=" . $sent);
+    return $app['twig']->render('page/contacts.html.twig', ['slug' => 'contacts']);
 
 });
 
@@ -57,3 +64,5 @@ try {
 } catch (Exception $e) {
     echo $e->getTraceAsString();
 }
+
+print $logger->dump();
