@@ -10,6 +10,10 @@ require_once __DIR__.'/../services/include_services.php';
 
 $app = new Silex\Application();
 
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+    'monolog.logfile' => __DIR__.'/../cache/log/log',
+));
+
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',
     'twig.options' => array(
@@ -17,18 +21,18 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     )
 ));
 
-$app->register(new Silex\Provider\SwiftmailerServiceProvider());
-
-$app['swiftmailer.use_spool'] = false;
-$app['swiftmailer.options'] = array(
-    'transport' => 'smtp',
-    'host' => 'smtp.yandex.ru',
-    'port' => '587',
-    'username' => 'bakalibriki.online@ya.ru',
-    'password' => 'Y0RtyT3xLh',
-    'encryption' => 'tls',
-    'auth_mode' => 'login'
-);
+$app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
+    'swiftmailer.use_spool' => false,
+    'swiftmailer.options' => array(
+        'transport' => 'smtp',
+        'host' => 'smtp.yandex.ru',
+        'port' => '587',
+        'username' => 'bakalibriki.online@ya.ru',
+        'password' => 'Y0RtyT3xLh',
+        'encryption' => 'tls',
+        'auth_mode' => 'login'
+    )
+]);
 
 $app->register(new EmailService());
 $app->register(new PostService());
@@ -36,7 +40,7 @@ $app->register(new PostService());
 
 
 // Вывод логов
-$logger = new Swift_Plugins_Loggers_EchoLogger();
+$logger = new Swift_Plugins_Loggers_ArrayLogger();
 $app['mailer']->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
 
 $app->get('/', function () use ($app) {
@@ -53,16 +57,13 @@ $app->get('/{slug}', function ($slug) use ($app) {
 
 $app->post('/post', function (Request $request) use ($app) {
 
-    $sent = $app['postService']->post($request->request->all());
+    $app['postService']->post($request->request->all());
 
-    return $app['twig']->render('page/contacts.html.twig', ['slug' => 'contacts']);
+    return $app['twig']->render('page/index.html.twig', ['slug' => '']);
 
 });
 
-try {
-    $app->run();
-} catch (Exception $e) {
-    echo $e->getTraceAsString();
-}
 
-print $logger->dump();
+$app->run();
+
+$app['logger']->addRecord(200, $logger->dump());
