@@ -24,7 +24,7 @@
                 <div class="item col-xs-12 col-sm-4">
                     <div class="meta-icon"><i class="material-icons">&#xE8A1;</i></div>
                     <div class="meta-title">Стоимость услуги</div>
-                    <div class="meta-info">от {{ price }} <i class="fa fa-rub" aria-hidden="true"></i></div>
+                    <div class="meta-info">{% if price is not empty %}от {{ price }} <i class="fa fa-rub" aria-hidden="true"></i>{% else %}Договорная{% endif %}</div>
                 </div><!--//item-->
                 <div class="item col-xs-12 col-sm-4">
                     <div class="meta-icon"><i class="material-icons">&#xE325;</i></div>
@@ -34,7 +34,7 @@
                 <div class="item col-xs-12 col-sm-4">
                     <div class="meta-icon"><i class="material-icons">&#xE913;</i></div>
                     <div class="meta-title">Заказать</div>
-                    <div class="meta-info"><a href="/contacts#contact-form">Заказать</a></div>
+                    <div class="meta-info"><a href="/contacts#contact-form">Форма заявки</a></div>
                 </div><!--//item-->
             </div><!--//row-->
         </div><!--//client-meta-->
