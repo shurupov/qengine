@@ -1,9 +1,5 @@
 <?php
 
-use Qe\EmailService;
-use Qe\PostService;
-use Symfony\Component\HttpFoundation\Request;
-
 require_once __DIR__.'/../vendor/autoload.php';
 
 require_once __DIR__.'/../includes/load.php';

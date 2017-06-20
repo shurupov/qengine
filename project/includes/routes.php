@@ -6,6 +6,8 @@
  * Time: 16:50
  */
 
+use Symfony\Component\HttpFoundation\Request;
+
 $app->get('/', function () use ($app) {
 
     return $app['twig']->render('page/index.html.twig', ['slug' => '']);
