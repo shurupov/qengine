@@ -2,7 +2,7 @@
 
 #Variables
 GITHUB_ACCESS_TOKEN=c6289bbe7d5a39dbfffcfd3c0ad3905b83252226 #Это надо для yii. Потом переметим куда надо
-PROJECT_NAME=quick-engine
+PROJECT_NAME=qe
 SOURCES_PATH=$(pwd)
 
 INSTALL_PHP=true
