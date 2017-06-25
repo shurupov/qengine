@@ -3,6 +3,8 @@
 {% import "/components/components.html.twig" as components %}
 {% import "/common/nav.html.twig" as nav %}
 
+{% set pageTitle %}Ошибка {{ code }}{% endset %}
+
 {% block body %}
 
     {{ top.simple({
