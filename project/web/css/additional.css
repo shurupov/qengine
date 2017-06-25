@@ -72,3 +72,7 @@ input.edit {
 .career-page .heading-section, .career-page.heading-section {
     padding-top: 180px;
 }
+
+.header {
+    background: rgba(53, 55, 60, 0.97);
+}
