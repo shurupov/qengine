@@ -21,10 +21,10 @@ $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false,
     'swiftmailer.options' => array(
         'transport' => 'smtp',
-        'host' => 'smtp.yandex.ru',
+        'host' => 'smtp.gmail.com',
         'port' => '587',
-        'username' => 'bakalibriki.online@ya.ru',
-        'password' => 'Y0RtyT3xLh',
+        'username' => 'xatipoff163@gmail.com',
+        'password' => 'novaya1980',
         'encryption' => 'tls',
         'auth_mode' => 'login'
     )

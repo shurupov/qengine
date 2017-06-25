@@ -28,7 +28,7 @@ class EmailService implements ServiceProviderInterface
         $embedImage = $message->embed(Swift_Image::fromPath('/project/web/i/logo.png'));
 
         $message->setSubject($contentParameters['subject'])
-            ->setFrom('bakalibriki.online@ya.ru')
+            ->setFrom('xatipoff163@gmail.com')
             ->setTo($email)
             ->setBody(
                 $this->twig->render('email/layout.html.twig', array_merge($contentParameters, ['logoSrc' => $embedImage])),
@@ -42,7 +42,7 @@ class EmailService implements ServiceProviderInterface
 
     public function sendEmailToAdmin($contentParameters)
     {
-        return $this->sendEmail($contentParameters, 'bolteg86@ya.ru');
+        return $this->sendEmail($contentParameters, 'xatipoff163@gmail.com');
     }
 
     /**
