@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>{% block title %}{{ pageTitle }}{% if pageTitle|length > 0 %} | {% endif %}Самарская водопроводная компания{% endblock %}</title>
+    <title>{% block title %}{{ pageTitle }}{% if pageTitle|length > 0 %} | {% endif %}Удобные веб-сервисы{% endblock %}</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -49,19 +49,10 @@
                     {% set pages = [
                         {
                             slug : '',
-                            title : 'Главная'
+                            title : 'Удобные сервисы'
                         } ,{
-                            slug : 'price',
-                            title : 'Цены'
-                        } ,{
-                            slug : 'faq',
-                            title : 'Вопрос-ответ'
-                        } ,{
-                            slug : 'gallery',
-                            title : 'Галерея'
-                        } ,{
-                            slug : 'contacts',
-                            title : 'Контакты'
+                            slug : 'buytogether',
+                            title : 'Купи вместе'
                         }
                     ] %}
                     {% for p in pages %}
@@ -105,42 +96,6 @@
 <script src="/plugins/fancybox-3.0/dist/jquery.fancybox.min.js"></script>
 
 {% block javascripts %}{% endblock %}
-
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
-    (function (d, w, c) {
-        (w[c] = w[c] || []).push(function() {
-            try {
-                w.yaCounter45462144 = new Ya.Metrika({
-                    id:45462144,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true,
-                    webvisor:true,
-                    trackHash:true
-                });
-            } catch(e) { }
-        });
-
-        var n = d.getElementsByTagName("script")[0],
-                s = d.createElement("script"),
-                f = function () { n.parentNode.insertBefore(s, n); };
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = "https://mc.yandex.ru/metrika/watch.js";
-
-        if (w.opera == "[object Opera]") {
-            d.addEventListener("DOMContentLoaded", f, false);
-        } else { f(); }
-    })(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/45462144" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
-
-<!-- RedConnect -->
-<script id="rhlpscrtg" type="text/javascript" charset="utf-8" async="async" src="https://web.redhelper.ru/service/main.js?c=xatipoff1632"></script>
-<div style="display: none"><a class="rc-copyright" href="http://redconnect.ru">Обратный звонок RedConnect</a></div>
-<!--/RedConnect -->
 
 </body>
 </html>

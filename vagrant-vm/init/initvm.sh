@@ -6,12 +6,12 @@ PROJECT_NAME=qe
 SOURCES_PATH=$(pwd)
 
 INSTALL_PHP=true
-INSTALL_NODEJS=false
+INSTALL_NODEJS=true
 INSTALL_MYSQL=false
-INSTALL_MONGO=false
+INSTALL_MONGO=true
 INSTALL_APACHE=true
 
-INSTALL_ADMINMONGO=false
+INSTALL_ADMINMONGO=true
 INSTALL_PHPMYADMIN=false
 INSTALL_ROCKMONGO=false
 INSTALL_PHPMONGODB=false
@@ -95,6 +95,7 @@ fi
 if $INSTALL_APACHE; then
     sudo apt install apache2 -y
     sudo rm /etc/apache2/sites-enabled/*
+    cd $SOURCES_PATH
     sudo cp vhosts/project.conf /etc/apache2/sites-available
     sudo ln -s /etc/apache2/sites-available/project.conf /etc/apache2/sites-enabled
 fi
@@ -111,10 +112,10 @@ if $INSTALL_PHP && $INSTALL_MYSQL; then
     sudo apt-get install php-mysql php-mbstring php-gd php-curl php-zip libapache2-mod-php php-xml php-intl php-mongodb wget curl -y
 fi
 
-if $INSTALL_PHP && $INSTALL_MONGO; then
-    sudo apt install php-dev pkg-config libssl-dev libsslcommon2-dev php-pear -y
-    sudo pecl install mongodb
-fi
+#if $INSTALL_PHP && $INSTALL_MONGO; then
+#    sudo apt install php-dev pkg-config libssl-dev libsslcommon2-dev php-pear -y
+#    sudo pecl install mongodb
+#fi
 
 if $INSTALL_PHPMYADMIN && $INSTALL_PHP && $INSTALL_APACHE && $INSTALL_MYSQL; then
     echo "Loading phpmyadmin from http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.3.0/phpMyAdmin-4.3.0-all-languages.tar.gz"

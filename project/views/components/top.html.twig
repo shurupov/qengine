@@ -164,8 +164,8 @@
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            <h2 class="headline">{{ section.header }}</h2>
-            <div class="intro">{{ section.descriptor }}</div>
+            <h2 class="headline">{{ section.header | raw }}</h2>
+            <div class="intro">{{ section.descriptor | raw }}</div>
             {% if section.slideButton.exists %}
             <div class="actions">
                 <a class="scrollto-no-offset" href="{{ section.slideButton.url }}">{{ section.slideButton.caption }}</a>

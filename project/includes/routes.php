@@ -15,6 +15,14 @@ $app->get('/', function () use ($app) {
 
 });
 
+$app->get('/change', function (Request $request) use ($app) {
+
+    $app['changeService']->change('aaii', []);
+
+    return json_encode(['status' => 'ok']);
+
+});
+
 $app->get('/{slug}', function ($slug) use ($app) {
 
     try {

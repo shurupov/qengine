@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "605c83d6d13cd77f7042ef9d01a17aba",
+    "content-hash": "a43df51393dd786c3f51ee2f5086f6b8",
     "packages": [
         {
             "name": "doctrine/lexer",
@@ -116,6 +116,109 @@
                 "validator"
             ],
             "time": "2017-01-30T22:07:36+00:00"
+        },
+        {
+            "name": "lalbert/silex-mongodb",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lalbert/silex-mongodb.git",
+                "reference": "6541e909dfa71147cc805e65fc0b2edf2cb836c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lalbert/silex-mongodb/zipball/6541e909dfa71147cc805e65fc0b2edf2cb836c7",
+                "reference": "6541e909dfa71147cc805e65fc0b2edf2cb836c7",
+                "shasum": ""
+            },
+            "require": {
+                "mongodb/mongodb": "~1.0",
+                "silex/api": "~2.0"
+            },
+            "require-dev": {
+                "codacy/coverage": "dev-master",
+                "phpunit/phpunit": "~4.8 || ~5.3",
+                "silex/silex": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lalbert\\Silex\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Luc ALBERT",
+                    "homepage": "https://github.com/lalbert"
+                }
+            ],
+            "description": "Simple mongodb service provider for Silex 2.x and official mongodb driver",
+            "homepage": "https://github.com/lalbert/silex-mongodb",
+            "keywords": [
+                "mongodb",
+                "provider",
+                "silex"
+            ],
+            "time": "2016-05-27T15:55:29+00:00"
+        },
+        {
+            "name": "mongodb/mongodb",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongodb/mongo-php-library.git",
+                "reference": "2f99156b29bc85582415d6a32bc31010d61a0a71"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/2f99156b29bc85582415d6a32bc31010d61a0a71",
+                "reference": "2f99156b29bc85582415d6a32bc31010d61a0a71",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mongodb": "^1.1.0",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MongoDB\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                },
+                {
+                    "name": "Hannes Magnusson",
+                    "email": "bjori@mongodb.com"
+                },
+                {
+                    "name": "Derick Rethans",
+                    "email": "github@derickrethans.nl"
+                }
+            ],
+            "description": "MongoDB driver library",
+            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
+            "keywords": [
+                "database",
+                "driver",
+                "mongodb",
+                "persistence"
+            ],
+            "time": "2017-02-16T18:35:09+00:00"
         },
         {
             "name": "monolog/monolog",

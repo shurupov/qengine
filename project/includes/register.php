@@ -30,10 +30,17 @@ $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     )
 ]);
 
+$app->register(new Lalbert\Silex\Provider\MongoDBServiceProvider(), [
+    'mongodb.config' => [
+        'server' => 'mongodb://localhost:27017',
+        'options' => [],
+        'driverOptions' => [],
+    ]
+]);
+
 $app->register(new Qe\EmailService());
 $app->register(new Qe\PostService());
-
-
+$app->register(new Qe\ChangeService());
 
 // Вывод логов
 $logger = new Swift_Plugins_Loggers_ArrayLogger();
