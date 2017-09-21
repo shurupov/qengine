@@ -13,20 +13,31 @@ class ChangeService implements ServiceProviderInterface
     /** @var Collection $pageCollection **/
     private $pageCollection;
 
-    public function change($slug, $data)
+    public function change($slug, $path, $value)
     {
-        $document = ['ee' => 'oo'];
 
-//        $this->pageCollection->insertOne($document);
+        $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
+            '$set' => $this->getArray($path, $value)
+        ]);
 
-//        $ee = $this->pageCollection->findOne(['slug' => $slug])->getArrayCopy();
+    }
 
-        $this->pageCollection->findOneAndUpdate(['slug' => $slug], [ '$set' => ['qq' => 'uu'] ]);
+    private function getArray($path, $value)
+    {
+        $branches = explode('.', $path, 1);
 
-//        var_dump($ee);
+        if (count($branches) == 1) {
+            return [ $path => $value ];
+        } else {
 
-//        die;
+            $key = $branches[0];
 
+            if (is_int($key)) {
+                $key = intval($key);
+            }
+
+            return [ $key => $this->getArray($branches[1], $value) ];
+        }
     }
 
     /**
