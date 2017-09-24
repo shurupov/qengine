@@ -1,0 +1,13 @@
+
+{%- macro value(page, path) -%}
+    {%- set value = page -%}
+    {%- for key in path|split('.') -%}
+        {%- set value = value[key] -%}
+    {%- endfor -%}
+    {{- value | raw -}}
+{%- endmacro -%}
+
+{% macro data(page, path) %}
+    {% import _self as data %}
+    <e data-type="text" data-url="/change" data-pk="{{ page.slug }}" data-name="{{ path }}">{{ data.value(page, path) }}</e>
+{% endmacro %}

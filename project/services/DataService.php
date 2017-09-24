@@ -7,11 +7,16 @@ use MongoDB\Collection;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-class ChangeService implements ServiceProviderInterface
+class DataService implements ServiceProviderInterface
 {
 
     /** @var Collection $pageCollection **/
     private $pageCollection;
+
+    public function getPage($slug)
+    {
+        return $this->pageCollection->findOne(['slug' => $slug]);
+    }
 
     public function change($slug, $path, $value)
     {
@@ -55,7 +60,7 @@ class ChangeService implements ServiceProviderInterface
         /** @var Collection $page */
         $this->pageCollection = $app['mongodb']->$db->page;
 
-        $app['changeService'] = function () use ($app) {
+        $app['dataService'] = function () use ($app) {
             return $this;
         };
     }

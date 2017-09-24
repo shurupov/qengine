@@ -10,6 +10,8 @@ require_once __DIR__.'/../includes/register.php';
 
 require_once __DIR__.'/../includes/routes.php';
 
+$app['debug'] = true;
+
 $app->run();
 
 $app['logger']->addRecord(200, $logger->dump());

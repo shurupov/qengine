@@ -1,6 +1,7 @@
 {% extends '/layout/base.html.twig' %}
 {% import "/components/top.html.twig" as top %}
 {% import "/components/components.html.twig" as components %}
+{% import "/components/data.html.twig" as data %}
 {% import "/common/nav.html.twig" as nav %}
 
 {% set pageTitle %}&laquo;Купи вместе&raquo; веб-сервис совместных покупок{% endset %}
@@ -23,7 +24,7 @@
             '</button>';
 
         $(document).ready(function() {
-            $('#overview-section .section-title e').editable();
+            $('e').editable();
         });
 
     });
@@ -51,8 +52,9 @@
 
     <section id="overview-section" class="overview-section section">
         <h2 class="section-title">
-            <e data-type="text" data-url="/change" data-pk="buytogether" data-name="ee.oo.aa">Лучший способ привлечь покупателей на сайт совместных закупок</e>
+            {{ data.data(page, 'ee.oo.aa') }}
         </h2>
+
         <div class="section-intro">
             Наш веб-сервис современный, адаптивный, т.е. очень удобен на всех типах устройств: ПК, планшетах и смартфонах.
             В нашем сервисе есть личные кабинеты для покупателя, организатора и администратора. В каждом кабинете есть необходимый каждому типу пользователя функционал.

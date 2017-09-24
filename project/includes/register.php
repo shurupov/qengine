@@ -14,7 +14,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',
     'twig.options' => array(
         'cache' => __DIR__.'/../cache/views/'
-    )
+    ),
+
 ));
 
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
@@ -40,7 +41,7 @@ $app->register(new Lalbert\Silex\Provider\MongoDBServiceProvider(), [
 
 $app->register(new Qe\EmailService());
 $app->register(new Qe\PostService());
-$app->register(new Qe\ChangeService());
+$app->register(new Qe\DataService());
 
 // Вывод логов
 $logger = new Swift_Plugins_Loggers_ArrayLogger();
