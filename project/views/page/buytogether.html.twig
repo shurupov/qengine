@@ -5,6 +5,31 @@
 
 {% set pageTitle %}&laquo;Купи вместе&raquo; веб-сервис совместных покупок{% endset %}
 
+{% block stylesheets %}
+<link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+<script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+<script>
+    $(document).ready(function () {
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.editableform.buttons =
+            '<button type="submit" class="form-control btn btn-primary editable-submit">'+
+                '<i class="glyphicon glyphicon-ok"></i>'+
+            '</button>'+
+            '<button type="button" class="form-control btn btn-default editable-cancel">'+
+                '<i class="glyphicon glyphicon-remove"></i>'+
+            '</button>';
+
+        $(document).ready(function() {
+            $('#overview-section .section-title e').editable();
+        });
+
+    });
+</script>
+{% endblock %}
+
 {% block body %}
 
     {{ top.simple({
@@ -26,7 +51,7 @@
 
     <section id="overview-section" class="overview-section section">
         <h2 class="section-title">
-            Лучший способ привлечь покупателей на сайт совместных закупок
+            <e data-type="text" data-url="/change" data-pk="buytogether" data-name="ee.oo.aa">Лучший способ привлечь покупателей на сайт совместных закупок</e>
         </h2>
         <div class="section-intro">
             Наш веб-сервис современный, адаптивный, т.е. очень удобен на всех типах устройств: ПК, планшетах и смартфонах.

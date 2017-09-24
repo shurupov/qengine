@@ -15,15 +15,34 @@ $app->get('/', function () use ($app) {
 
 });
 
-$app->get('/change', function (Request $request) use ($app) {
+$app->post('/change', function (Request $request) use ($app) {
 
-    $app['changeService']->change(
-        $request->query->get('slug'),
-        $request->query->get('path'),
-        $request->query->get('value')
-    );
+    try {
+        $app['changeService']->change(
+            $request->request->get('pk'),
+            $request->request->get('name'),
+            $request->request->get('value')
+        );
 
-    return json_encode(['status' => 'ok']);
+        return json_encode(['status' => 'ok']);
+    } catch (\Exception $e) {
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+
+
+
+});
+
+$app->post('/post', function (Request $request) use ($app) {
+
+    $app['postService']->post($request->request->all());
+
+    return $app['twig']->render('page/index.html.twig', ['slug' => '']);
 
 });
 
@@ -46,14 +65,6 @@ $app->get('/{slug}/{subslug}', function ($slug, $subslug) use ($app) {
         $app->abort(404);
         return null;
     }
-
-});
-
-$app->post('/post', function (Request $request) use ($app) {
-
-    $app['postService']->post($request->request->all());
-
-    return $app['twig']->render('page/index.html.twig', ['slug' => '']);
 
 });
 
