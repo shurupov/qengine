@@ -24,7 +24,9 @@
             '</button>';
 
         $(document).ready(function() {
-            $('e').editable();
+            $('e').editable({
+                'emptytext' : 'Пусто'
+            });
         });
 
     });
@@ -52,13 +54,11 @@
 
     <section id="overview-section" class="overview-section section">
         <h2 class="section-title">
-            {{ data.data(page, 'ee.oo.aa') }}
+            {{ data.text(page, 'devicesSection.title') }}
         </h2>
 
         <div class="section-intro">
-            Наш веб-сервис современный, адаптивный, т.е. очень удобен на всех типах устройств: ПК, планшетах и смартфонах.
-            В нашем сервисе есть личные кабинеты для покупателя, организатора и администратора. В каждом кабинете есть необходимый каждому типу пользователя функционал.
-            Сервис непрерывно развивается и становится удобнее. Также мы учитываем пожелания наших клиентов и развиваем или создаём функционал, необходимый им.
+            {{ data.textarea(page, 'devicesSection.description') }}
         </div><!--//section-intro-->
         <div class="figures-wrapper">
             <div class="container text-center">

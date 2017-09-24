@@ -7,7 +7,12 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro data(page, path) %}
+{% macro text(page, path) %}
     {% import _self as data %}
     <e data-type="text" data-url="/change" data-pk="{{ page.slug }}" data-name="{{ path }}">{{ data.value(page, path) }}</e>
+{% endmacro %}
+
+{% macro textarea(page, path) %}
+    {% import _self as data %}
+    <e data-type="textarea" data-url="/change" data-pk="{{ page.slug }}" data-name="{{ path }}">{{ data.value(page, path) }}</e>
 {% endmacro %}
