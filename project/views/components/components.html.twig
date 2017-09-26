@@ -1,195 +1,76 @@
 
-{% macro all(componentsData, editMode) %}
 
-    {% import _self as components %}
+{% macro overviewSection(sectionData, slug, path, editMode) %}
 
-    {% for componentData in componentsData %}
-        {{ components.component(componentData, editMode, loop.index0) }}
-    {% endfor %}
-{% endmacro %}
+    {% import "/components/data.html.twig" as data %}
 
-{% macro js(componentsData, editMode) %}
-    {% import _self as components %}
+    <section id="overview-section" class="overview-section section">
+        <h2 class="section-title">
+            {{ data.text(sectionData.title, slug, path ~ '.title', editMode) }}
+        </h2>
 
-    {% for componentData in componentsData %}
-
-        {% if componentData.type == "KeyFeaturesComponent" %}
-            {{ components.KeyFeaturesComponentJs(componentData, editMode) }}
-        {% endif %}
-
-    {% endfor %}
-{% endmacro %}
-
-{% macro tools(type, editMode, position = 'top') %}
-    {% if editMode %}
-        <div{% if position == 'top' %} style="margin-top: -60px; margin-bottom: 9px;"{% endif %}{% if position == 'bottom' %} style="margin-top: 10px;"{% endif %}>
-            <button type="submit" class="btn btn-cta btn-primary"><span class="glyphicon glyphicon-floppy-disk visible-xs-inline" aria-hidden="true"></span><span class="hidden-xs">Сохранить</span></button>
-            <button type="submit" class="btn btn-cta btn-primary" name="andWatch" value="true"><span class="glyphicon glyphicon-floppy-disk visible-xs-inline" aria-hidden="true"></span> <span class="glyphicon glyphicon-eye-open visible-xs-inline" aria-hidden="true"></span><span class="hidden-xs">Сохранить и посмотреть</span></button>
-            {#<select name="changeType" class="btn btn-cta btn-primary hidden-xs">
-                <option value="ActionHeadingComponent"{% if type == 'ActionHeadingComponent' %} selected{% endif %}><span class="hidden-xs hidden-sm">Шапка с призывом к действию</option>
-                <option value="ButtonsHeadingComponent"{% if type == 'ButtonsHeadingComponent' %} selected{% endif %}>Шапка с кнопками</option>
-                <option value="SimpleHeadingComponent"{% if type == 'SimpleHeadingComponent' %} selected{% endif %}>Шапка с заголовком</option>
-            </select>#}
-        </div>
-    {% endif %}
-{% endmacro %}
-
-{% macro component(settings, editMode, componentIndex) %}
-
-    {% import _self as components %}
-
-    {% if editMode %}
-        <form action="edit/component/{{ componentIndex }}" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="type" value="{{ settings.type }}">
-    {% endif %}
-
-    {% if settings.type == "KeyFeaturesComponent" %}
-        {{ components.KeyFeaturesComponent(settings, editMode) }}
-    {% endif %}
-
-    {% if editMode %}
-        </form>
-    {% endif %}
-
-{% endmacro %}
-
-{% macro ServicesComponent(services) %}
-    <section id="customers-section" class="customers-section section">
-        <h2 class="section-title">{{ services.title }}</h2>
-        <div class="section-intro">{{ services.intro }}</div>
-        <div class="container">
-            <div class="stories-wrapper row">
-
-                {% for item in services.list %}
-                    <div class="item item-3 col-xs-12 col-md-4{% if item.mobileHidden %} hidden-md hidden-lg{% endif %}">
-                        <div class="item-inner text-center" style="background-image: url({{ item.image | raw }});">
-                            <div class="item-mask"></div>
-                            <div class="item-content">
-                                <h3 class="content-title">{{ item.title | raw }}</h3>
-                                <div class="content-desc">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p>{{ item.description | raw }}</p>
-                                </div>
-                                <a class="item-link" href="/services/{{ item.id }}"></a>
-                            </div><!--//item-content-->
+        <div class="section-intro">
+            {{ data.textarea(sectionData.description, slug, path ~ '.description', editMode) }}
+        </div><!--//section-intro-->
+        <div class="figures-wrapper">
+            <div class="container text-center">
+                <figure class="macbook-screen"><img class="img-responsive" src="/startup-kit/images/macbook-screen.png" alt=""></figure>
+                <figure class="ipad-screen"><img class="img-responsive" src="/startup-kit/images/ipad-screen.png" alt=""></figure>
+                <figure class="iphone-screen"><img class="img-responsive" src="/startup-kit/images/iphone-screen.png" alt=""></figure>
+                <a href="#" type="button" class="play-icon" data-toggle="modal" data-target="#modal-video"><img src="/startup-kit/images/play-icon-md.svg" alt=""></a>
+            </div><!--//container-->
+        </div><!--//figures-wrapper-->
+        <div class="benefits-wrapper">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="item col-xs-12 col-sm-4">
+                        <div class="item-inner">
+                            <img class="item-icon" src="/startup-kit/images/icons/clock-white.svg" alt="">
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.0.title, slug, path ~ '.benefits.0.title', editMode) }}</h3>
+                            <div class="item-desc">
+                                {{ data.textarea(sectionData.benefits.0.description, slug, path ~ '.benefits.0.description', editMode) }}
+                            </div>
                         </div><!--//item-inner-->
                     </div><!--//item-->
-                {% endfor %}
-
-            </div><!--//row-->
-            {#<div class="action-wrapper text-center">
-                <a class="btn btn-secondary" href="stories.html">All Customer Stories</a>
-            </div>#}
-        </div><!--//container-->
-    </section><!--//customers-section-->
+                    <div class="item col-xs-12 col-sm-4">
+                        <div class="item-inner">
+                            <img class="item-icon" src="/startup-kit/images/icons/presenter-white.svg" alt="">
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.1.title, slug, path ~'.benefits.1.title', editMode) }}</h3>
+                            <div class="item-desc">
+                                {{ data.textarea(sectionData.benefits.1.description, slug, path ~ '.benefits.1.description', editMode) }}
+                            </div>
+                        </div><!--//item-inner-->
+                    </div><!--//item-->
+                    <div class="item col-xs-12 col-sm-4">
+                        <div class="item-inner">
+                            <img class="item-icon" src="/startup-kit/images/icons/chat-white.svg" alt="">
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.2.title, slug, path ~ '.benefits.2.title', editMode) }}</h3>
+                            <div class="item-desc">
+                                {{ data.textarea(sectionData.benefits.2.description, slug, path ~ '.benefits.2.description', editMode) }}
+                            </div>
+                        </div><!--//item-inner-->
+                    </div><!--//item-->
+                </div><!--//row-->
+            </div><!--//container-->
+        </div><!--//benefits-->
+        <div class="press-wrapper">
+            <div class="container">
+                <div class="logos row">
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-1.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-2.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-3.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-4.svg" alt=""></div>
+                </div>
+            </div><!--//container-->
+        </div><!--//press-wrapper-->
+    </section><!--//overview-section-->
 {% endmacro %}
 
-{% macro KeyFeaturesComponent(component) %}
+{% macro featuresSection(page, path, editMode) %}
 
-    <section id="features-section" class="features-section section">
+    {% import "/components/data.html.twig" as data %}
 
-        <h2 class="section-title">
-            {{ component.title }}
-        </h2>
-        <div class="container">
-
-            <div class="row">
-                <div class="features-content-wrapper col-xs-12 col-sm-7 com-md-7">
-                    <div class="intro">
-                        {{ component.description }}
-                    </div><!--//intro-->
-                    <ul class="feature-list list-unstyled">
-                        {% for feature in component.features %}
-                            <li><img class="tick-icon" src="/startup-kit/images/tick.svg" alt="">{{ feature }}</li>
-                        {% endfor %}
-                    </ul><!--//feature-list-->
-
-
-                    <div id="reviews-carousel" class="reviews-carousel carousel slide" data-ride="carousel">
-                        <!--//wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            {% for opinion in component.opinions %}
-                                <div class="item{% if loop.first %} active{% endif %}">
-                                    <blockquote class="review center-block">
-                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                        <p>{{ opinion.text | raw }}</p>
-                                    </blockquote><!--//review-->
-                                    <div class="source">
-                                        <div class="rating">
-                                            {% for i in 1..opinion.rating %}
-                                                <i class="fa fa-star"></i>
-                                            {% endfor %}
-                                        </div><!--//rating-->
-                                        <img class="profile" src="/source{{ opinion.photo }}" alt="" />
-                                        <div class="name">{{ opinion.signature }}</div>
-                                    </div><!--//source-->
-                                </div><!--//item-->
-
-                            {% endfor %}
-
-                        </div><!--//carousel-inner-->
-
-                        <!--//Indicators-->
-                        <ol class="carousel-indicators">
-                            {% for i in 1..component.opinions|length %}
-                                <li data-target="#reviews-carousel" data-slide-to="{{ i - 1 }}"{% if loop.first %} class="active"{% endif %}></li>
-                            {% endfor %}
-                        </ol>
-
-                    </div><!--//reviews-carousel-->
-
-                </div><!--//features-content-wrapper-->
-            </div><!--//row-->
-        </div><!--//container-->
-
-        <div class="features-figure-wrapper">
-            <img class="img-responsive" src="/source{{ component.image }}" alt="">
-        </div><!--//features-figure-wrapper-->
-
-        <div class="action-wrapper text-center">
-
-            {{ data.editTick(component.button.exists, 'button[exists]', 'Показать', editMode) }}
-            {% if editMode or component.button.exists %}
-                {{ data.button('a', {'class': 'btn btn-secondary'}, {'href': component.button.url}, component.button.caption, 'button[caption]', 'Кнопка с ссылкой', editMode) }}
-            {% endif %}
-            {% if editMode %}
-                {{ data.shortText(component.button.url, 'button[url]', 'URL ссылки', editMode) }}
-            {% endif %}
-
-        </div>
-
-    </section><!--//features-section-->
-{% endmacro %}
-
-{% macro KeyFeaturesComponentJs(component, editMode) %}
-    <script>
-        $(document).ready(function () {
-            var count = {{ component.opinions | length }};
-
-            $('.add-opinion').click(function () {
-                count++;
-                $('.opinions-table').append(
-                    '<tr>' +
-                        '<td><textarea name="opinions[' + count + '][text]" rows="2"></textarea></td>' +
-                        '<td>' +
-                            '<select name="opinions[' + count + '][rating]>' +
-                                '<option value="1">1</option>' +
-                                '<option value="2">2</option>' +
-                                '<option value="3">3</option>' +
-                                '<option value="4">4</option>' +
-                                '<option value="5">5</option>' +
-                            '</select>' +
-                        '</td>' +
-                        '<td><input name="opinions[' + count + '][signature]" type="text" value=""></td>' +
-                        '<td>' +
-                            '<a class="btn btn-cta btn-primary" data-fancybox="iframe" data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=opinion-photo-' + count + '" data-type="iframe" href="javascript:;">Аватар</a>' +
-                            '<input type="hidden" name="opinions[' + count + '][photo]" id="opinion-photo-' + count + '" value="">' +
-                        '</td>' +
-                        '<td><span style="cursor: pointer;" onclick="$(this).parent().parent().remove();"><i class="material-icons">&#xE92B;</i></span></td>' +
-                    '</tr>'
-                );
-            });
-
-        });
-    </script>
+    <div class="feature-blocks container">
+        {#{% for subSection in page %}#}
+    </div><!--//feature-blocks-->
 {% endmacro %}

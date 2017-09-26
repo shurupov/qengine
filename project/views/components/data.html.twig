@@ -7,12 +7,20 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro text(page, path) %}
+{% macro text(value, slug, path, editMode = false) %}
     {% import _self as data %}
-    <e data-type="text" data-url="/change" data-pk="{{ page.slug }}" data-name="{{ path }}">{{ data.value(page, path) }}</e>
+    {% if editMode %}
+        <e data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value }}</e>
+    {% else %}
+        {{- value -}}
+    {% endif %}
 {% endmacro %}
 
-{% macro textarea(page, path) %}
-    {% import _self as data %}
-    <e data-type="textarea" data-url="/change" data-pk="{{ page.slug }}" data-name="{{ path }}">{{ data.value(page, path) }}</e>
+{%- macro textarea(value, slug, path, editMode = false) -%}
+    {%- import _self as data -%}
+    {%- if editMode -%}
+        <e data-type="textarea" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value }}</e>
+    {%- else -%}
+        {{- value -}}
+    {%- endif -%}
 {% endmacro %}

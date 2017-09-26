@@ -48,27 +48,13 @@ $app->post('/post', function (Request $request) use ($app) {
 
 $app->get('/{slug}', function ($slug) use ($app) {
 
-    try {
-        return $app['twig']->render('page/' . $slug . '.html.twig', [
-            'page' => $app['dataService']->getPage($slug)
-        ]);
-    } catch (Twig_Error_Loader $e) {
-        $app->abort(404);
-        return null;
-    }
+    return $app['pageService']->render($slug);
 
 });
 
 $app->get('/{slug}/{subslug}', function ($slug, $subslug) use ($app) {
 
-    try {
-        return $app['twig']->render("page/$slug/$subslug.html.twig", [
-            'page' => $app['dataService']->getPage("$slug/$subslug")
-        ]);
-    } catch (Twig_Error_Loader $e) {
-        $app->abort(404);
-        return null;
-    }
+    return $app['pageService']->render($slug . '/' . $subslug);
 
 });
 
