@@ -52,78 +52,15 @@
     ]) }}
 
     {% for key, section in page.sections %}
-        {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% if section.type == "OverviewSection" %}
+            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeatureBlocksSection" %}
+            {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% endif %}
     {% endfor %}
 
 
 
-    <div class="feature-blocks container">
-        <div id="feature-block-1" class="feature-block feature-block-1">
-            <div class="row">
-                <div class="feature-content col-md-4 col-sm-6 col-xs-12">
-                    <h3 class="feature-title">Feature One Heading</h3>
-                    <div class="feature-desc">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, <a href="https://wrapbootstrap.com/theme/admin-appkit-admin-theme-angularjs-WB051SCJ1" target="_blank">Screenshot: Admin AppKit Theme</a> consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-                    </div><!--//feature-desc-->
-                </div><!--//feature-content-->
-                <div class="feature-figure col-md-8 col-sm-6 col-xs-12">
-                    <div class="figure-holder">
-                        <img class="img-responsive" src="/startup-kit/images/features/feature-1.png" alt="">
-                    </div><!--//figure-holder-->
-                </div>
-            </div><!--//row-->
-        </div><!--//feature-block-1-->
-        <div id="feature-block-2" class="feature-block feature-block-2">
-            <div class="row">
-                <div class="feature-content col-md-4 col-sm-6 col-xs-12 col-md-push-8 col-sm-push-6 col-xs-push-0">
-                    <h3 class="feature-title">Feature Two Heading</h3>
-                    <div class="feature-desc">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, <a href="https://wrapbootstrap.com/theme/admin-appkit-admin-theme-angularjs-WB051SCJ1" target="_blank">Screenshot: Admin AppKit Theme</a> consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-                    </div><!--//feature-desc-->
-                </div><!--//feature-content-->
-                <div class="feature-figure col-md-8 col-sm-6 col-xs-12 col-md-pull-4 col-sm-pull-6 col-xs-pull-0">
-                    <div class="figure-holder">
-                        <img class="img-responsive" src="/startup-kit/images/features/feature-2.png" alt="">
-                    </div><!--//figure-holder-->
-                </div>
-            </div><!--//row-->
-        </div><!--//feature-block-2-->
-        <div id="feature-block-3" class="feature-block feature-block-3">
-            <div class="row">
-                <div class="feature-content col-md-4 col-sm-6 col-xs-12">
-                    <h3 class="feature-title">Feature Three Heading</h3>
-                    <div class="feature-desc">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, <a href="https://wrapbootstrap.com/theme/admin-appkit-admin-theme-angularjs-WB051SCJ1" target="_blank">Screenshot: Admin AppKit Theme</a> consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-                    </div><!--//feature-desc-->
-                </div><!--//feature-content-->
-                <div class="feature-figure col-md-8 col-sm-6 col-xs-12">
-                    <div class="figure-holder">
-                        <img class="img-responsive" src="/startup-kit/images/features/feature-3.png" alt="">
-                    </div><!--//figure-holder-->
-                </div>
-            </div><!--//row-->
-        </div><!--//feature-block-3-->
-        <div id="feature-block-4" class="feature-block feature-block-4">
-            <div class="row">
-                <div class="feature-content col-md-4 col-sm-6 col-xs-12 col-md-push-8 col-sm-push-6 col-xs-push-0">
-                    <h3 class="feature-title">Feature Four Heading</h3>
-                    <div class="feature-desc">
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, <a href="https://wrapbootstrap.com/theme/admin-appkit-admin-theme-angularjs-WB051SCJ1" target="_blank">Screenshot: Admin AppKit Theme</a> consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</p>
-                    </div><!--//feature-desc-->
-                </div><!--//feature-content-->
-                <div class="feature-figure col-md-8 col-sm-6 col-xs-12 col-md-pull-4 col-sm-pull-6 col-xs-pull-0">
-                    <div class="figure-holder">
-                        <img class="img-responsive" src="/startup-kit/images/features/feature-4.png" alt="">
-                    </div><!--//figure-holder-->
-                </div>
-            </div><!--//row-->
-        </div><!--//feature-block-4-->
-
-    </div><!--//feature-blocks-->
 
 
 {% endblock %}

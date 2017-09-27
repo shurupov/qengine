@@ -53,7 +53,7 @@
                 </div><!--//row-->
             </div><!--//container-->
         </div><!--//benefits-->
-        <div class="press-wrapper">
+        {#<div class="press-wrapper">
             <div class="container">
                 <div class="logos row">
                     <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-1.svg" alt=""></div>
@@ -62,15 +62,36 @@
                     <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-4.svg" alt=""></div>
                 </div>
             </div><!--//container-->
-        </div><!--//press-wrapper-->
+        </div><!--//press-wrapper-->#}
     </section><!--//overview-section-->
 {% endmacro %}
 
-{% macro featuresSection(page, path, editMode) %}
+{% macro featureBlocksSection(sectionData, slug, path, editMode) %}
 
     {% import "/components/data.html.twig" as data %}
 
     <div class="feature-blocks container">
-        {#{% for subSection in page %}#}
+
+        {% for key, feature in sectionData.features %}
+            {% set featurePath = path ~'.features.' ~ key %}
+            <div id="feature-block-{{ key | raw }}" class="feature-block feature-block-{{ key | raw }}">
+                <div class="row">
+                    <div class="feature-content col-md-4 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-push-8 col-sm-push-6 col-xs-push-0{% endif %}">
+                        <h3 class="feature-title">{{ data.text(feature.title, slug, featurePath ~ '.title', editMode) }}</h3>
+                        <div class="feature-desc">
+                            {{ data.textarea(feature.description, slug, featurePath ~ '.description', editMode) }}
+                        </div><!--//feature-desc-->
+                    </div><!--//feature-content-->
+                    <div class="feature-figure col-md-8 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-pull-4 col-sm-pull-6 col-xs-pull-0{% endif %}">
+                        <div class="figure-holder">
+                            <img class="img-responsive" src="{{ feature.imagePath | raw }}" alt="">
+                        </div><!--//figure-holder-->
+                    </div>
+                </div><!--//row-->
+            </div><!--//feature-block-->
+
+        {% endfor %}
+
     </div><!--//feature-blocks-->
+
 {% endmacro %}
