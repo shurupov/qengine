@@ -8,10 +8,12 @@
 
 {% block stylesheets %}
 <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+<link href="/plugins/bootstrap3-editable/css/link-editable.css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
 <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+<script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
 <script>
     $(document).ready(function () {
         $.fn.editableform.buttons =
@@ -46,22 +48,16 @@
         "background" : "/buytogether/featured6.jpg"
     }) }}
 
-    {{ nav.pageNav([
-        {'id': 'overview-section', 'title': 'Преимущества'},
-        {'id': 'price-section', 'title': 'Цена'},
-    ]) }}
-
     {% for key, section in page.sections %}
         {% if section.type == "OverviewSection" %}
             {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
         {% elseif section.type == "FeatureBlocksSection" %}
             {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
+            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PageNavSection" %}
+            {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
         {% endif %}
     {% endfor %}
-
-
-
-
 
 {% endblock %}
 

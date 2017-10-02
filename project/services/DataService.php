@@ -21,10 +21,20 @@ class DataService implements ServiceProviderInterface
     public function change($slug, $path, $value)
     {
 
+        if (is_array($value)) {
+            foreach ($value as $k => $v) {
+                $this->update($slug, $path . '.' . $k, $v);
+            }
+        } else {
+            $this->update($slug, $path, $value);
+        }
+    }
+
+    private function update($slug, $path, $value)
+    {
         $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
             '$set' => $this->getArray($path, $value)
         ]);
-
     }
 
     private function getArray($path, $value)

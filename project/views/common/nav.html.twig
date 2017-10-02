@@ -11,3 +11,20 @@
         </div><!--//page-nav-wrapper-->
     </div><!--//page-nav-space-holder-->
 {% endmacro %}
+
+{% macro pageNavSection(sectionData, slug, path, editMode) %}
+
+    {% import "/components/data.html.twig" as data %}
+
+    <div class="page-nav-space-holder hidden-xs">
+        <div id="page-nav-wrapper" class="page-nav-wrapper text-center">
+            <div class="container">
+                <ul id="page-nav" class="nav page-nav list-inline">
+                    {% for i,link in sectionData.links %}
+                        <li>{{ data.a(link, slug, path ~ '.links.' ~ i, editMode, {'class': 'scrollto'}) }}</li>
+                    {% endfor %}
+                </ul><!--//page-nav-->
+            </div>
+        </div><!--//page-nav-wrapper-->
+    </div><!--//page-nav-space-holder-->
+{% endmacro %}

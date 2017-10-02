@@ -21,6 +21,7 @@ class PageService implements ServiceProviderInterface
     public function render($slug)
     {
         $editMode = true;
+//        $editMode = false;
 
         try {
             return $this->app['twig']->render('page/' . $slug . '.html.twig', [
