@@ -9,6 +9,7 @@
 {% block stylesheets %}
 <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
 <link href="/plugins/bootstrap3-editable/css/link-editable.css" rel="stylesheet">
+<link href="/plugins/bootstrap3-editable/css/image-editable.css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
@@ -53,7 +54,6 @@
             {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
         {% elseif section.type == "FeatureBlocksSection" %}
             {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
-            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
         {% elseif section.type == "PageNavSection" %}
             {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
         {% endif %}

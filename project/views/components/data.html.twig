@@ -10,7 +10,7 @@
 {% macro text(value, slug, path, editMode = false, title = "") %}
     {% import _self as data %}
     {% if editMode %}
-        <e data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-title="{{ title | raw }}">{{ value | raw }}</e>
+        <e data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e>
     {% else %}
         {{- value | raw -}}
     {% endif %}
@@ -32,4 +32,16 @@
     {%- else -%}
         <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value.text | raw }}</a>
     {%- endif -%}
+{% endmacro %}
+
+{% macro image(value, slug, path, editMode = false, attrs = {}, default = "") %}
+    {% import _self as data %}
+    {% if value is empty %}
+        {% set value = default %}
+    {% endif %}
+    {% if editMode %}
+        <e class="edit-image" data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-title="Изменить изображение"><img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></e>
+    {% else %}
+        <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
+    {% endif %}
 {% endmacro %}

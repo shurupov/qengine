@@ -1,0 +1,4 @@
+.edit-image img {
+    cursor: pointer;
+    border: 1px dashed;
+}

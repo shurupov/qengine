@@ -14,9 +14,9 @@
         </div><!--//section-intro-->
         <div class="figures-wrapper">
             <div class="container text-center">
-                <figure class="macbook-screen"><img class="img-responsive" src="/startup-kit/images/macbook-screen.png" alt=""></figure>
-                <figure class="ipad-screen"><img class="img-responsive" src="/startup-kit/images/ipad-screen.png" alt=""></figure>
-                <figure class="iphone-screen"><img class="img-responsive" src="/startup-kit/images/iphone-screen.png" alt=""></figure>
+                <figure class="macbook-screen">{{ data.image(sectionData.images.macbook, slug, path ~ '.images.macbook', editMode, {class: 'img-responsive'}, "/startup-kit/images/macbook-screen.png") }}</figure>
+                <figure class="ipad-screen">{{ data.image(sectionData.images.ipad, slug, path ~ '.images.ipad', editMode, {class: 'img-responsive'}, "/startup-kit/images/ipad-screen.png") }}</figure>
+                <figure class="iphone-screen">{{ data.image(sectionData.images.iphone, slug, path ~ '.images.iphone', editMode, {class: 'img-responsive'}, "/startup-kit/images/iphone-screen.png") }}</figure>
                 {#<a href="#" type="button" class="play-icon" data-toggle="modal" data-target="#modal-video"><img src="/startup-kit/images/play-icon-md.svg" alt=""></a>#}
             </div><!--//container-->
         </div><!--//figures-wrapper-->
@@ -84,7 +84,7 @@
                     </div><!--//feature-content-->
                     <div class="feature-figure col-md-8 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-pull-4 col-sm-pull-6 col-xs-pull-0{% endif %}">
                         <div class="figure-holder">
-                            <img class="img-responsive" src="{{ feature.imagePath | raw }}" alt="">
+                            {{ data.image(feature.image, slug, featurePath ~ '.image', editMode, {class: 'img-responsive'}, "/startup-kit/images/features/feature-2.png") }}
                         </div><!--//figure-holder-->
                     </div>
                 </div><!--//row-->
