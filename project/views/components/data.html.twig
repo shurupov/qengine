@@ -40,7 +40,7 @@
         {% set value = default %}
     {% endif %}
     {% if editMode %}
-        <e class="edit-image" data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-title="Изменить изображение"><img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></e>
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=test" data-type="iframe"><img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
     {% else %}
         <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
     {% endif %}
