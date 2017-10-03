@@ -40,7 +40,9 @@
         {% set value = default %}
     {% endif %}
     {% if editMode %}
-        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&field_id=test" data-type="iframe"><img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
+        {% set id = path | replace({'.': '-'}) %}
+        <input type="hidden" id="{{ id | raw }}" />
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><img id="{{ id | raw }}-image" src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
     {% else %}
         <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
     {% endif %}

@@ -33,8 +33,14 @@
                         'emptytext' : 'Пусто'
                     });
                 });
-
             });
+
+            function responsive_filemanager_callback(fieldId){
+                var uri = '/source/' + $('#' + fieldId).val();
+                $('#' + fieldId + '-image').attr('src', '/source/' + uri);
+                $.fancybox.close();
+            }
+
         </script>
     {% endif %}
 
