@@ -7,32 +7,37 @@
 {% set pageTitle %}&laquo;Купи вместе&raquo; веб-сервис совместных покупок{% endset %}
 
 {% block stylesheets %}
-<link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
-<link href="/plugins/bootstrap3-editable/css/link-editable.css" rel="stylesheet">
-<link href="/plugins/bootstrap3-editable/css/image-editable.css" rel="stylesheet">
+    {% if editMode %}
+        <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <link href="/plugins/bootstrap3-editable/css/link-editable.css" rel="stylesheet">
+        <link href="/plugins/bootstrap3-editable/css/image-editable.css" rel="stylesheet">
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
-<script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
-<script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
-<script>
-    $(document).ready(function () {
-        $.fn.editableform.buttons =
-            '<button type="submit" class="form-control btn btn-primary editable-submit">'+
-                '<i class="glyphicon glyphicon-ok"></i>'+
-            '</button>'+
-            '<button type="button" class="form-control btn btn-default editable-cancel">'+
-                '<i class="glyphicon glyphicon-remove"></i>'+
-            '</button>';
+    {% if editMode %}
+        <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.fn.editableform.buttons =
+                    '<button type="submit" class="form-control btn btn-primary editable-submit">'+
+                        '<i class="glyphicon glyphicon-ok"></i>'+
+                    '</button>'+
+                    '<button type="button" class="form-control btn btn-default editable-cancel">'+
+                        '<i class="glyphicon glyphicon-remove"></i>'+
+                    '</button>';
 
-        $(document).ready(function() {
-            $('e').editable({
-                'emptytext' : 'Пусто'
+                $(document).ready(function() {
+                    $('e').editable({
+                        'emptytext' : 'Пусто'
+                    });
+                });
+
             });
-        });
+        </script>
+    {% endif %}
 
-    });
-</script>
 {% endblock %}
 
 {% block body %}
