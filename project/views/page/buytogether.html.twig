@@ -37,8 +37,23 @@
 
             function responsive_filemanager_callback(fieldId){
                 var uri = '/source/' + $('#' + fieldId).val();
-                $('#' + fieldId + '-image').attr('src', '/source/' + uri);
+
                 $.fancybox.close();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/change',
+                    data: {
+                        pk : location.pathname.substr(1),
+                        name: fieldId.split('-').join('.'),
+                        value: uri
+                    },
+                    success: function () {
+                        $('#' + fieldId + '-image').attr('src', uri);
+                    },
+                    dataType: 'json'
+                });
+
             }
 
         </script>
