@@ -79,7 +79,7 @@
                     <div class="feature-content col-md-4 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-push-8 col-sm-push-6 col-xs-push-0{% endif %}">
                         <h3 class="feature-title">{{ data.text(feature.title, slug, featurePath ~ '.title', editMode) }}</h3>
                         <div class="feature-desc">
-                            {{ data.textarea(feature.description, slug, featurePath ~ '.description', editMode) }}
+                            <p>{{ data.textarea(feature.description, slug, featurePath ~ '.description', editMode) }}</p>
                         </div><!--//feature-desc-->
                     </div><!--//feature-content-->
                     <div class="feature-figure col-md-8 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-pull-4 col-sm-pull-6 col-xs-pull-0{% endif %}">
