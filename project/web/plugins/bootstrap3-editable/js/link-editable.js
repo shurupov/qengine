@@ -47,11 +47,16 @@
          @method value2html(value, element)
          **/
         value2html: function(value, element) {
-            if(!value) {
-                $(element).empty();
-                return;
+            var html;
+            if (!value || (!value.url && !value.text)) {
+                html = this.options.emptytext;
+            } else if (!value.url) {
+                html = 'URL пуст';
+            } else if (!value.text) {
+                html = 'Текст пуст';
+            } else {
+                html = value.text;
             }
-            var html = '<a href="' + value.url + '">' + value.text + '</a>';//  $('<div>').text(value.url).html() + ', ' + $('<div>').text(value.text).html() + ' st., bld. ' + $('<div>').text(value.building).html();
             $(element).html(html);
         },
 

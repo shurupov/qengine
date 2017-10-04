@@ -171,7 +171,7 @@
             {% if editMode or sectionData.slideButton.url  %}
             <div class="actions">
                 {{ data.a(sectionData.slideButton, slug, path ~ '.slideButton', editMode, {'class': 'scrollto-no-offset'}) }}
-                {% if not editMode %}<a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
+                {% if not editMode and sectionData.slideButton.url %}<a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
             </div><!--//actions-->
             {% endif %}
         </div><!--//container-->
