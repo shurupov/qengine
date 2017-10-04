@@ -36,6 +36,7 @@
             });
 
             function responsive_filemanager_callback(fieldId){
+
                 var uri = '/source/' + $('#' + fieldId).val();
 
                 $.fancybox.close();
@@ -49,7 +50,12 @@
                         value: uri
                     },
                     success: function () {
-                        $('#' + fieldId + '-image').attr('src', uri);
+                        var $image = $('#' + fieldId + '-image');
+                        if ($image.length > 0) {
+                            $image.attr('src', uri);
+                        } else {
+                            location.reload();
+                        }
                     },
                     dataType: 'json'
                 });
@@ -63,18 +69,6 @@
 
 {% block body %}
 
-    {{ top.simple({
-        "type" : "SimpleHeadingComponent",
-        "slideButton" : {
-            "exists" : false,
-            "caption" : "",
-            "url" : ""
-        },
-        "header" : "Веб-сервис совместных покупок &laquo;Купи&nbsp;вместе&raquo;",
-        "descriptor" : "Закажи удобный сервис по самой низкой цене и получи установку с обучением бесплатно",
-        "background" : "/buytogether/featured6.jpg"
-    }) }}
-
     {% for key, section in page.sections %}
         {% if section.type == "OverviewSection" %}
             {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
@@ -82,6 +76,8 @@
             {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
         {% elseif section.type == "PageNavSection" %}
             {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "SimpleHeadingSection" %}
+            {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
         {% endif %}
     {% endfor %}
 

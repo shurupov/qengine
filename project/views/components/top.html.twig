@@ -156,20 +156,22 @@
 
 {% endmacro %}
 
-{% macro simple(section) %}
+{% macro simple(sectionData, slug, path, editMode) %}
+
+    {% import "/components/data.html.twig" as data %}
 
     <section class="career-page heading-section section section-on-bg">
         <div class="hero-wrapper">
-            <div class="hero-holder" style="background-image: url(/source{{ section.background }});"></div>
+            <div class="hero-holder" style="background-image: url({{ sectionData.background | default("/startup-kit/images/hero/hero-about.jpg") }});"></div>
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            <h2 class="headline">{{ section.header | raw }}</h2>
-            <div class="intro">{{ section.descriptor | raw }}</div>
-            {% if section.slideButton.exists %}
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/startup-kit/images/hero/hero-about.jpg") }}</h2>
+            <div class="intro">{{ data.text(sectionData.descriptor, slug, path ~ '.descriptor', editMode) }}</div>
+            {% if editMode or sectionData.slideButton.url  %}
             <div class="actions">
-                <a class="scrollto-no-offset" href="{{ section.slideButton.url }}">{{ section.slideButton.caption }}</a>
-                <a class="scrollto-no-offset" href="{{ section.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>
+                {{ data.a(sectionData.slideButton, slug, path ~ '.slideButton', editMode, {'class': 'scrollto-no-offset'}) }}
+                {% if not editMode %}<a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
             </div><!--//actions-->
             {% endif %}
         </div><!--//container-->

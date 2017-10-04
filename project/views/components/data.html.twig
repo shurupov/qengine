@@ -47,3 +47,15 @@
         <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
     {% endif %}
 {% endmacro %}
+
+{% macro setImageButton(value, slug, path, editMode = false, default = "") %}
+    {% import _self as data %}
+    {% if value is empty %}
+        {% set value = default %}
+    {% endif %}
+    {% if editMode %}
+        {% set id = path | replace({'.': '-'}) %}
+        <input type="hidden" id="{{ id | raw }}" />
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></edim>
+    {% endif %}
+{% endmacro %}
