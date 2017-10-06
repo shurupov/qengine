@@ -36,73 +36,93 @@
     {% endif %}
 {% endmacro %}
 
-{% macro action(section) %}
+{% macro promo(sectionData, slug, path, editMode) %}
 
-    {% import _self as top %}
+    {#{% import _self as top %}#}
 
     <section class="promo-section section section-on-bg">
         <div class="hero-slider-wrapper">
             <div class="flexslider hero-slider">
                 <ul class="slides">
-                    {% for i,imgUri in section.carouselImages %}
-                        <li class="slide slide-1" style="background-image: url(/source{{ imgUri }})"></li>
-                    {% endfor %}
+                    <li class="slide slide-1" style="background-image: url(/templates/startup-kit/images/hero/hero-1.jpg);"></li>
+                    <li class="slide slide-2" style="background-image: url(/templates/startup-kit/images/hero/hero-2.jpg);"></li>
+                    <li class="slide slide-3" style="background-image: url(/templates/startup-kit/images/hero/hero-3.jpg);"></li>
                 </ul>
             </div>
             <div class="hero-slider-mask"></div>
         </div><!--//hero-slider-wrapper-->
         <div class="container promo-content">
-            <h2 class="headline">{{ section.header }}</h2>
-            <p class="tagline">{{ section.descriptor }}</p>
+            <h2 class="headline">The Perfect Design Framework <br>for Startup Businesses</h2>
+            <p class="tagline">Good design is good business, try our demo today!</p>
             <div class="actions">
-                <a class="btn btn-cta btn-primary" href="#" data-toggle="modal" data-target="#get-contacts-modal">Сделать заявку</a>
-                {#<br class="visible-xs-block">
-                <a class="play-trigger" href="#" data-toggle="modal" data-target="#modal-video">
-                    <img class="play-icon" src="/startup-kit/images/play-icon.svg" alt="">{{ section.videoLinkCaption }}
-                </a>#}
+                <a class="btn btn-cta btn-primary" href="#" data-toggle="modal" data-target="#signup-modal">Start Free Trial</a>
+                <br class="visible-xs-block">
+                <a href="#" class="play-trigger" data-toggle="modal" data-target="#modal-video" ><img class="play-icon" src="/templates/startup-kit/images/play-icon.svg" alt="">See how it works</a>
             </div>
-
         </div><!--//container-->
     </section><!--//promo-section-->
 
-    {{ top.videoModal(section.videoUrl) }}
-
-    <!-- Signup Modal -->
-    <div class="modal modal-auth modal-signup" id="get-contacts-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <!-- Video Modal -->
+    <div class="modal modal-video" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="signupModalLabel" class="modal-title text-center">
-                        {{ section.callToAction.header }}
-                    </h4>
+                    <h4 id="videoModalLabel" class="modal-title sr-only">Video Tour</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="video-container embed-responsive embed-responsive-16by9">
+                        <iframe id="vimeo-video" src="//player.vimeo.com/video/140875675?color=ffffff&amp;wmode=transparent" width="720" height="405" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    </div><!--//video-container-->
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+
+    <!-- Signup Modal -->
+    <div class="modal modal-auth modal-signup" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="signupModalLabel" class="modal-title text-center">Sign up to start your 30 day free trial!</h4>
+                </div>
+                <div class="modal-body">
+                    {#<div class="social-login text-center">
+                        <ul class="social-buttons list-unstyled">
+                            <li><a href="#" class="btn btn-social btn-google btn-block"><i class="fa fa-google" aria-hidden="true"></i><span class="btn-text">Sign up with Google</span></a></li>
+                            <li><a href="#" class="btn btn-social btn-facebook btn-block"><i class="fa fa-facebook" aria-hidden="true"></i><span class="btn-text">Sign up with Facebook</span></a></li>
+                        </ul>
+                    </div>
+                    <div class="divider">
+                        <span class="or-text">OR</span>
+                    </div>#}
                     <div class="login-form-container">
-                        <form class="login-form" action="/post" method="post">
-                            <input type="hidden" name="captions[enterNameCaption]" value="{{ section.callToAction.enterNameCaption }}">
-                            <input type="hidden" name="captions[enterEmailCaption]" value="{{ section.callToAction.enterEmailCaption }}">
-                            <input type="hidden" name="captions[enterPhoneCaption]" value="{{ section.callToAction.enterPhoneCaption }}">
+                        <form class="login-form">
                             <div class="form-group full-name">
                                 <i class="material-icons icon">&#xE7FD;</i>
-                                <label class="sr-only" for="signup-fullname">{{ section.callToAction.enterNameCaption }}</label>
-                                <input id="signup-fullname" name="enterNameCaption" type="text" class="form-control signup-email" placeholder="{{ section.callToAction.enterNameCaption }}">
+                                <label class="sr-only" for="signup-fullname">Ваше имя</label>
+                                <input id="signup-fullname" name="signup-fullname" type="text" class="form-control signup-email" placeholder="Ваше имя">
                             </div><!--//form-group-->
                             <div class="form-group email">
                                 <i class="material-icons icon">&#xE0BE;</i>
-                                <label class="sr-only" for="signup-email">{{ section.callToAction.enterEmailCaption }}</label>
-                                <input id="signup-email" name="enterEmailCaption" type="email" class="form-control signup-email" placeholder="{{ section.callToAction.enterEmailCaption }}">
+                                <label class="sr-only" for="signup-email">Ваш Email</label>
+                                <input id="signup-email" name="signup-email" type="email" class="form-control signup-email" placeholder="Ваш Email">
                             </div><!--//form-group-->
-                            <div class="form-group phone">
-                                <i class="material-icons icon">&#xE32C;</i>
-                                <label class="sr-only" for="signup-phone">{{ section.callToAction.enterPhoneCaption }}</label>
-                                <input id="signup-phone" name="enterPhoneCaption" type="phone" class="form-control signup-phone" placeholder="{{ section.callToAction.enterPhoneCaption }}">
+                            <div class="form-group password">
+                                <i class="material-icons icon">&#xE897;</i>
+                                <label class="sr-only" for="signup-password">Create a Password</label>
+                                <input id="signup-password" name="signup-password" type="password" class="form-control signup-password" placeholder="Create a Password">
                             </div><!--//form-group-->
-                            {#<div class="legal-note">By signing up, you agree to our terms of services and privacy policy.</div>#}
-                            <button class="btn btn-block btn-primary btn-cta" type="submit">Отправить</button>
+                            <div class="legal-note">By signing up, you agree to our terms of services and privacy policy.</div>
+                            <button type="submit" class="btn btn-block btn-primary btn-cta">Sign up</button>
 
                         </form>
                     </div><!--//login-form-container-->
+                    <div class="option-container">
+                        <div class="lead-text">Already have an account?</div>
+                        <a class="login-link btn btn-ghost-alt" id="login-link" href="#">Log in</a>
+                    </div><!--//option-container-->
                 </div><!--//modal-body-->
             </div><!--//modal-content-->
         </div><!--//modal-dialog-->
