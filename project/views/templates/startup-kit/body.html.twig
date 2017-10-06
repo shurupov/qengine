@@ -1,0 +1,21 @@
+{% extends '/templates/startup-kit/head.html.twig' %}
+{% import '/templates/startup-kit/top.html.twig' as top %}
+{% import '/templates/startup-kit/components.html.twig' as components %}
+{% import '/templates/startup-kit/nav.html.twig' as nav %}
+
+{% block body %}
+
+    {% for key, section in page.sections %}
+        {% if section.type == "OverviewSection" %}
+            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeatureBlocksSection" %}
+            {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PageNavSection" %}
+            {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "SimpleHeadingSection" %}
+            {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+

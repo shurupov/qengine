@@ -1,7 +1,4 @@
 {% extends '/templates/startup-kit/base.html.twig' %}
-{% import '/templates/startup-kit/top.html.twig' as top %}
-{% import '/templates/startup-kit/components.html.twig' as components %}
-{% import '/templates/startup-kit/nav.html.twig' as nav %}
 {% import "/data.html.twig" as data %}
 
 {% set pageTitle %}{{ page.title | raw }}{% endset %}
@@ -24,7 +21,7 @@
 
 {% endblock %}
 
-{% block settings %}
+{% block pageSettings %}
 
     {% if editMode %}
         <div id="config-panel" class="config-panel d-none d-md-block">
@@ -36,22 +33,6 @@
             </div><!--//panel-inner-->
         </div><!--//configure-panel-->
     {% endif %}
-
-{% endblock %}
-
-{% block body %}
-
-    {% for key, section in page.sections %}
-        {% if section.type == "OverviewSection" %}
-            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "FeatureBlocksSection" %}
-            {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "PageNavSection" %}
-            {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "SimpleHeadingSection" %}
-            {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% endif %}
-    {% endfor %}
 
 {% endblock %}
 

@@ -27,7 +27,7 @@ class PageService implements ServiceProviderInterface
 //        $editMode = false;
 
         try {
-            return $this->app['twig']->render("/templates/$template/page.html.twig", [
+            return $this->app['twig']->render("/templates/$template/body.html.twig", [
                 'page' => $this->app['dataService']->getPage($slug),
                 'template' => $template,
                 'editMode' => $editMode
