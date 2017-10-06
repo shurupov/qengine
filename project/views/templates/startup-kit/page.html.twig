@@ -1,0 +1,57 @@
+{% extends '/templates/startup-kit/base.html.twig' %}
+{% import '/templates/startup-kit/top.html.twig' as top %}
+{% import '/templates/startup-kit/components.html.twig' as components %}
+{% import '/templates/startup-kit/nav.html.twig' as nav %}
+{% import "/data.html.twig" as data %}
+
+{% set pageTitle %}{{ page.title | raw }}{% endset %}
+
+{% block stylesheets %}
+    {% if editMode %}
+        <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <link href="/plugins/bootstrap3-editable/css/link-editable.css" rel="stylesheet">
+        <link href="/plugins/bootstrap3-editable/css/image-editable.css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% if editMode %}
+        <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
+        <script src="/plugins/edit-tools/edit-tools.js"></script>
+        <script src="/startup-kit/js/demo/style-switcher.js"></script>
+    {% endif %}
+
+{% endblock %}
+
+{% block settings %}
+
+    {% if editMode %}
+        <div id="config-panel" class="config-panel d-none d-md-block">
+            <div class="panel-inner">
+                <a id="config-trigger" class="config-trigger config-panel-hide" href="#"><i class="fa fa-cog"></i></a>
+                <h5 class="panel-title">Изменить title страницы</h5>
+                {{ data.text(page.title, page.slug, 'title', editMode) }}
+                <a id="config-close" class="close" href="#"><i class="fa fa-times-circle"></i></a>
+            </div><!--//panel-inner-->
+        </div><!--//configure-panel-->
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+    {% for key, section in page.sections %}
+        {% if section.type == "OverviewSection" %}
+            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeatureBlocksSection" %}
+            {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PageNavSection" %}
+            {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "SimpleHeadingSection" %}
+            {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+
