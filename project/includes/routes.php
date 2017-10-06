@@ -60,11 +60,10 @@ $app->get('/{slug}/{subslug}', function ($slug, $subslug) use ($app) {
 $app->error(function (\Exception $e, $headers, $code) use ($app) {
     switch ($code) {
         case 404:
-            $message = 'Запрошенная страница не найдена.';
-            break;
+            return $app['pageService']->render("404");
+        case 500:
+            return $app['pageService']->render("500");
         default:
-            $message = 'Просим прощения, что-то пошло не так.';
+            return $app['pageService']->render("error");
     }
-
-    return $app['twig']->render('page/error.html.twig', ['code' => $code, 'message' => $message]);
 });

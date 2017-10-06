@@ -6,14 +6,10 @@
 {% block body %}
 
     {% for key, section in page.sections %}
-        {% if section.type == "OverviewSection" %}
-            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "FeatureBlocksSection" %}
-            {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "PageNavSection" %}
-            {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "SimpleHeadingSection" %}
-            {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% if     section.type == "OverviewSection" %}       {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "SimpleHeadingSection" %}  {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
         {% endif %}
     {% endfor %}
 

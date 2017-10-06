@@ -23,17 +23,24 @@ class PageService implements ServiceProviderInterface
 
         $template = 'startup-kit';
 
-        $editMode = true;
-//        $editMode = false;
+//        $editMode = true;
+        $editMode = false;
+
+        $page = $this->app['dataService']->getPage($slug);
+
+        if ($page == null) {
+            $this->app->abort(404);
+            return null;
+        }
 
         try {
             return $this->app['twig']->render("/templates/$template/body.html.twig", [
-                'page' => $this->app['dataService']->getPage($slug),
+                'page' => $page,
                 'template' => $template,
                 'editMode' => $editMode
             ]);
-        } catch (Twig_Error_Loader $e) {
-            $this->app->abort(404);
+        } catch (\Exception $e) {
+            $this->app->abort(500);
             return null;
         }
     }
