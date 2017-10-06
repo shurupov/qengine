@@ -1,8 +1,7 @@
-{% extends '/layout/base.html.twig' %}
-{% import "/components/top.html.twig" as top %}
-{% import "/components/components.html.twig" as components %}
-{% import "/components/data.html.twig" as data %}
-{% import "/common/nav.html.twig" as nav %}
+{% extends '/templates/' ~ template ~ '/base.html.twig' %}
+{% import '/templates/' ~ template ~ '/top.html.twig' as top %}
+{% import '/templates/' ~ template ~ '/components.html.twig' as components %}
+{% import '/templates/' ~ template ~ '/nav.html.twig' as nav %}
 
 {% set pageTitle %}&laquo;Купи вместе&raquo; веб-сервис совместных покупок{% endset %}
 

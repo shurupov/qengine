@@ -20,12 +20,16 @@ class PageService implements ServiceProviderInterface
 
     public function render($slug)
     {
-        $editMode = true;
-//        $editMode = false;
+
+        $template = 'startup-kit';
+
+//        $editMode = true;
+        $editMode = false;
 
         try {
             return $this->app['twig']->render('page.html.twig', [
                 'page' => $this->app['dataService']->getPage($slug),
+                'template' => $template,
                 'editMode' => $editMode
             ]);
         } catch (Twig_Error_Loader $e) {
