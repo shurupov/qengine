@@ -1,0 +1,85 @@
+{% extends '/layout/base.html.twig' %}
+{% import "/components/top.html.twig" as top %}
+{% import "/components/components.html.twig" as components %}
+{% import "/components/data.html.twig" as data %}
+{% import "/common/nav.html.twig" as nav %}
+
+{% set pageTitle %}&laquo;Купи вместе&raquo; веб-сервис совместных покупок{% endset %}
+
+{% block stylesheets %}
+    {% if editMode %}
+        <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <link href="/plugins/bootstrap3-editable/css/link-editable.css" rel="stylesheet">
+        <link href="/plugins/bootstrap3-editable/css/image-editable.css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% if editMode %}
+        <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.fn.editableform.buttons =
+                    '<button type="submit" class="form-control btn btn-primary editable-submit">'+
+                        '<i class="glyphicon glyphicon-ok"></i>'+
+                    '</button>'+
+                    '<button type="button" class="form-control btn btn-default editable-cancel">'+
+                        '<i class="glyphicon glyphicon-remove"></i>'+
+                    '</button>';
+
+                $(document).ready(function() {
+                    $('e').editable({
+                        'emptytext' : 'Пусто'
+                    });
+                });
+            });
+
+            function responsive_filemanager_callback(fieldId){
+
+                var uri = '/source/' + $('#' + fieldId).val();
+
+                $.fancybox.close();
+
+                $.ajax({
+                    type: "POST",
+                    url: '/change',
+                    data: {
+                        pk : location.pathname.substr(1),
+                        name: fieldId.split('-').join('.'),
+                        value: uri
+                    },
+                    success: function () {
+                        var $image = $('#' + fieldId + '-image');
+                        if ($image.length > 0) {
+                            $image.attr('src', uri);
+                        } else {
+                            location.reload();
+                        }
+                    },
+                    dataType: 'json'
+                });
+
+            }
+
+        </script>
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+    {% for key, section in page.sections %}
+        {% if section.type == "OverviewSection" %}
+            {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeatureBlocksSection" %}
+            {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PageNavSection" %}
+            {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "SimpleHeadingSection" %}
+            {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}
+

@@ -7,11 +7,10 @@
  */
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 $app->get('/', function () use ($app) {
 
-    return $app['twig']->render('page/index.html.twig', ['slug' => '']);
+    return $app['pageService']->render("");
 
 });
 
