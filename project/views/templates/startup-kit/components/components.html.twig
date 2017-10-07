@@ -14,10 +14,10 @@
         </div><!--//section-intro-->
         <div class="figures-wrapper">
             <div class="container text-center">
-                <figure class="macbook-screen">{{ data.image(sectionData.images.macbook, slug, path ~ '.images.macbook', editMode, {class: 'img-responsive'}, "/startup-kit/images/macbook-screen.png") }}</figure>
-                <figure class="ipad-screen">{{ data.image(sectionData.images.ipad, slug, path ~ '.images.ipad', editMode, {class: 'img-responsive'}, "/startup-kit/images/ipad-screen.png") }}</figure>
-                <figure class="iphone-screen">{{ data.image(sectionData.images.iphone, slug, path ~ '.images.iphone', editMode, {class: 'img-responsive'}, "/startup-kit/images/iphone-screen.png") }}</figure>
-                {#<a href="#" type="button" class="play-icon" data-toggle="modal" data-target="#modal-video"><img src="/startup-kit/images/play-icon-md.svg" alt=""></a>#}
+                <figure class="macbook-screen">{{ data.image(sectionData.images.macbook, slug, path ~ '.images.macbook', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/macbook-screen.png") }}</figure>
+                <figure class="ipad-screen">{{ data.image(sectionData.images.ipad, slug, path ~ '.images.ipad', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/ipad-screen.png") }}</figure>
+                <figure class="iphone-screen">{{ data.image(sectionData.images.iphone, slug, path ~ '.images.iphone', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/iphone-screen.png") }}</figure>
+                {#<a href="#" type="button" class="play-icon" data-toggle="modal" data-target="#modal-video"><img src="/templates/startup-kit/images/play-icon-md.svg" alt=""></a>#}
             </div><!--//container-->
         </div><!--//figures-wrapper-->
         <div class="benefits-wrapper">
@@ -25,7 +25,7 @@
                 <div class="row">
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
-                            <img class="item-icon" src="/startup-kit/images/icons/clock-white.svg" alt="">
+                            <img class="item-icon" src="/templates/startup-kit/images/icons/clock-white.svg" alt="">
                             <h3 class="item-title">{{ data.text(sectionData.benefits.0.title, slug, path ~ '.benefits.0.title', editMode, "Ввеодите заголовок преимущества") }}</h3>
                             <div class="item-desc">
                                 {{ data.textarea(sectionData.benefits.0.description, slug, path ~ '.benefits.0.description', editMode) }}
@@ -34,7 +34,7 @@
                     </div><!--//item-->
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
-                            <img class="item-icon" src="/startup-kit/images/icons/presenter-white.svg" alt="">
+                            <img class="item-icon" src="/templates/startup-kit/images/icons/presenter-white.svg" alt="">
                             <h3 class="item-title">{{ data.text(sectionData.benefits.1.title, slug, path ~'.benefits.1.title', editMode) }}</h3>
                             <div class="item-desc">
                                 {{ data.textarea(sectionData.benefits.1.description, slug, path ~ '.benefits.1.description', editMode) }}
@@ -43,7 +43,7 @@
                     </div><!--//item-->
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
-                            <img class="item-icon" src="/startup-kit/images/icons/chat-white.svg" alt="">
+                            <img class="item-icon" src="/templates/startup-kit/images/icons/chat-white.svg" alt="">
                             <h3 class="item-title">{{ data.text(sectionData.benefits.2.title, slug, path ~ '.benefits.2.title', editMode) }}</h3>
                             <div class="item-desc">
                                 {{ data.textarea(sectionData.benefits.2.description, slug, path ~ '.benefits.2.description', editMode) }}
@@ -56,10 +56,10 @@
         {#<div class="press-wrapper">
             <div class="container">
                 <div class="logos row">
-                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-1.svg" alt=""></div>
-                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-2.svg" alt=""></div>
-                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-3.svg" alt=""></div>
-                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/startup-kit/images/logos/logo-4.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/templates/startup-kit/images/logos/logo-1.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/templates/startup-kit/images/logos/logo-2.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/templates/startup-kit/images/logos/logo-3.svg" alt=""></div>
+                    <div class="logo col-xs-6 col-sm-3"><img class="img-responsive" src="/templates/startup-kit/images/logos/logo-4.svg" alt=""></div>
                 </div>
             </div><!--//container-->
         </div><!--//press-wrapper-->#}
@@ -84,7 +84,7 @@
                     </div><!--//feature-content-->
                     <div class="feature-figure col-md-8 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-pull-4 col-sm-pull-6 col-xs-pull-0{% endif %}">
                         <div class="figure-holder">
-                            {{ data.image(feature.image, slug, featurePath ~ '.image', editMode, {class: 'img-responsive'}, "/startup-kit/images/features/feature-2.png") }}
+                            {{ data.image(feature.image, slug, featurePath ~ '.image', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/features/feature-2.png") }}
                         </div><!--//figure-holder-->
                     </div>
                 </div><!--//row-->

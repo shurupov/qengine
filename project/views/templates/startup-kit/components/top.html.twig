@@ -38,7 +38,7 @@
 
 {% macro promo(sectionData, slug, path, editMode) %}
 
-    {#{% import _self as top %}#}
+    {% import "/data.html.twig" as data %}
 
     <section class="promo-section section section-on-bg">
         <div class="hero-slider-wrapper">
@@ -52,10 +52,10 @@
             <div class="hero-slider-mask"></div>
         </div><!--//hero-slider-wrapper-->
         <div class="container promo-content">
-            <h2 class="headline">The Perfect Design Framework <br>for Startup Businesses</h2>
-            <p class="tagline">Good design is good business, try our demo today!</p>
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}</h2>
+            <p class="tagline">{{ data.text(sectionData.description, slug, path ~ '.description', editMode) }}</p>
             <div class="actions">
-                <a class="btn btn-cta btn-primary" href="#" data-toggle="modal" data-target="#signup-modal">Start Free Trial</a>
+                <a class="btn btn-cta btn-primary" href="#"{% if not editMode %} data-toggle="modal" data-target="#signup-modal"{% endif %}>{{ data.text(sectionData.action, slug, path ~ '.action', editMode) }}</a>
                 <br class="visible-xs-block">
                 <a href="#" class="play-trigger" data-toggle="modal" data-target="#modal-video" ><img class="play-icon" src="/templates/startup-kit/images/play-icon.svg" alt="">See how it works</a>
             </div>

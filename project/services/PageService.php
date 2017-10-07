@@ -23,8 +23,8 @@ class PageService implements ServiceProviderInterface
 
         $template = 'startup-kit';
 
-//        $editMode = true;
-        $editMode = false;
+        $editMode = true;
+//        $editMode = false;
 
         $page = $this->app['dataService']->getPage($slug);
 
