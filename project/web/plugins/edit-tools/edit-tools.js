@@ -11,6 +11,10 @@ $(document).ready(function () {
         $('e').editable({
             'emptytext' : 'Пусто'
         });
+        $('es').editable({
+            'emptytext' : 'Пусто',
+            'mode' : 'inline'
+        });
     });
 });
 

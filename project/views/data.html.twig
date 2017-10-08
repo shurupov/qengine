@@ -7,10 +7,10 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro text(value, slug, path, editMode = false, title = "") %}
+{% macro text(value, slug, path, editMode = false, title = "", inSettings = false) %}
     {% import _self as data %}
     {% if editMode %}
-        <e data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e>
+        <e{% if inSettings %}s{% endif %} data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e{% if inSettings %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
@@ -58,4 +58,36 @@
         <input type="hidden" id="{{ id | raw }}" />
         <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></edim>
     {% endif %}
+{% endmacro %}
+
+{% macro settingsButton(path, editMode = false) %}
+    {% if editMode %}
+        <edse data-toggle="modal" data-target="#{{ path | replace({'.': '-'}) | raw }}-modal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></edse>
+    {% endif %}
+{% endmacro %}
+
+{% macro settingsModal(value, slug, path, editors, editMode = false) %}
+
+    {% import _self as data %}
+
+    <!-- Settings Modal -->
+    {% set id = path | replace({'.': '-'}) %}
+    <div class="modal modal-auth modal-signup" id="{{ id | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ id | raw }}-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="{{ id | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
+                </div>
+                <div class="modal-body">
+                    {% for key,editor in editors %}
+                        {% if editor.type == "text" %}
+                            {{ data.text(value[key], slug, path ~ '.' ~ key, editMode, "", true) }}
+                        {% endif %}
+                    {% endfor %}
+                </div><!--//modal-body-->
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+
 {% endmacro %}

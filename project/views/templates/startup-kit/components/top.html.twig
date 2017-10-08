@@ -56,13 +56,13 @@
             <p class="tagline">{{ data.text(sectionData.description, slug, path ~ '.description', editMode) }}</p>
             <div class="actions">
                 <a class="btn btn-cta btn-primary" href="#"{% if not editMode %} data-toggle="modal" data-target="#signup-modal"{% endif %}>{{ data.text(sectionData.action, slug, path ~ '.action', editMode) }}</a>
-                <br class="visible-xs-block">
-                <a href="#" class="play-trigger" data-toggle="modal" data-target="#modal-video" ><img class="play-icon" src="/templates/startup-kit/images/play-icon.svg" alt="">See how it works</a>
+                {#<br class="visible-xs-block">#}
+                {#<a href="#" class="play-trigger" data-toggle="modal" data-target="#modal-video" ><img class="play-icon" src="/templates/startup-kit/images/play-icon.svg" alt="">See how it works</a>#}
             </div>
         </div><!--//container-->
     </section><!--//promo-section-->
 
-    <!-- Video Modal -->
+    {#<!-- Video Modal -->
     <div class="modal modal-video" id="modal-video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -77,7 +77,7 @@
                 </div><!--//modal-body-->
             </div><!--//modal-content-->
         </div><!--//modal-dialog-->
-    </div><!--//modal-->
+    </div><!--//modal-->#}
 
     <!-- Signup Modal -->
     <div class="modal modal-auth modal-signup" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
@@ -182,20 +182,23 @@
 
     <section class="career-page heading-section section section-on-bg">
         <div class="hero-wrapper">
-            <div class="hero-holder" style="background-image: url({{ sectionData.background | default("/startup-kit/images/hero/hero-about.jpg") }});"></div>
+            <div class="hero-holder" style="background-image: url({{ sectionData.background | default("/templates/startup-kit/images/hero/hero-about.jpg") }});"></div>
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/startup-kit/images/hero/hero-about.jpg") }}</h2>
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}{{ data.settingsButton(path, editMode) }}</h2>
             <div class="intro">{{ data.text(sectionData.descriptor, slug, path ~ '.descriptor', editMode) }}</div>
             {% if editMode or sectionData.slideButton.url  %}
             <div class="actions">
                 {{ data.a(sectionData.slideButton, slug, path ~ '.slideButton', editMode, {'class': 'scrollto-no-offset'}) }}
-                {% if not editMode and sectionData.slideButton.url %}<a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
+                {% if not editMode and sectionData.slideButton.url %}<a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/templates/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
             </div><!--//actions-->
             {% endif %}
         </div><!--//container-->
     </section><!--//heading-section-->
+
+    {{ data.settingsModal(sectionData, slug, path, { 'aa': { 'type': 'text' } }, editMode) }}
+
 {% endmacro %}
 
 {% macro headingJs(section, editMode) %}
