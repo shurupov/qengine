@@ -186,16 +186,18 @@
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}</h2>
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}{{ data.settingsButton(path, editMode) }}</h2>
             <div class="intro">{{ data.text(sectionData.descriptor, slug, path ~ '.descriptor', editMode) }}</div>
-            {% if editMode or sectionData.slideButton.url  %}
+            {% if sectionData.showSlideButton and (editMode or sectionData.slideButton.url) %}
             <div class="actions">
                 {{ data.a(sectionData.slideButton, slug, path ~ '.slideButton', editMode, {'class': 'scrollto-no-offset'}) }}
-                {% if not editMode and sectionData.slideButton.url %}<a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/templates/startup-kit/images/arrow-icon.svg" alt=""></a>{% endif %}
+                <a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/templates/startup-kit/images/arrow-icon.svg" alt=""></a>
             </div><!--//actions-->
             {% endif %}
         </div><!--//container-->
     </section><!--//heading-section-->
+
+    {{ data.settingsModal(sectionData, slug, path, { 'showSlideButton': { 'type': 'select', 'title': 'Кнопка вниз', 'options': [{value: 0, text: 'Отсутствует'}, {value: 1, text: 'Есть'}] } }, editMode) }}
 
 {% endmacro %}
 
