@@ -52,13 +52,17 @@
             <div class="hero-slider-mask"></div>
         </div><!--//hero-slider-wrapper-->
         <div class="container promo-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}</h2>
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.settingsButton(path, editMode) }}</h2>
             <p class="tagline">{{ data.text(sectionData.description, slug, path ~ '.description', editMode) }}</p>
+            {% if sectionData.showActionButton or sectionData.showVideoButton %}
             <div class="actions">
+                {% if sectionData.showActionButton %}
                 <a class="btn btn-cta btn-primary" href="#"{% if not editMode %} data-toggle="modal" data-target="#signup-modal"{% endif %}>{{ data.text(sectionData.action, slug, path ~ '.action', editMode) }}</a>
+                {% endif %}
                 {#<br class="visible-xs-block">#}
                 {#<a href="#" class="play-trigger" data-toggle="modal" data-target="#modal-video" ><img class="play-icon" src="/templates/startup-kit/images/play-icon.svg" alt="">See how it works</a>#}
             </div>
+            {% endif %}
         </div><!--//container-->
     </section><!--//promo-section-->
 
@@ -79,6 +83,7 @@
         </div><!--//modal-dialog-->
     </div><!--//modal-->#}
 
+    {% if sectionData.showActionData %}
     <!-- Signup Modal -->
     <div class="modal modal-auth modal-signup" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -127,6 +132,20 @@
             </div><!--//modal-content-->
         </div><!--//modal-dialog-->
     </div><!--//modal-->
+    {% endif %}
+
+    {{ data.settingsModal(sectionData, slug, path,
+        {
+            'showActionButton': {
+                'type': 'select',
+                'title': 'Кнопка призыва к действию',
+                'options': [
+                    {value: 0, text: 'Отсутствует'},
+                    {value: 1, text: 'Есть'}
+                ]
+            }
+        },
+    editMode) }}
 
 {% endmacro %}
 
@@ -197,7 +216,18 @@
         </div><!--//container-->
     </section><!--//heading-section-->
 
-    {{ data.settingsModal(sectionData, slug, path, { 'showSlideButton': { 'type': 'select', 'title': 'Кнопка вниз', 'options': [{value: 0, text: 'Отсутствует'}, {value: 1, text: 'Есть'}] } }, editMode) }}
+    {{ data.settingsModal(sectionData, slug, path,
+        {
+            'showSlideButton': {
+                'type': 'select',
+                'title': 'Кнопка вниз',
+                'options': [
+                    {value: 0, text: 'Отсутствует'},
+                    {value: 1, text: 'Есть'}
+                ]
+            }
+        },
+    editMode) }}
 
 {% endmacro %}
 
