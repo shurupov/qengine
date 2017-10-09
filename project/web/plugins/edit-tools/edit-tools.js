@@ -15,7 +15,10 @@ $(document).ready(function () {
         $('es').editable({
             'emptytext' : 'Пусто',
             'mode' : 'inline',
-            'inputclass': ''
+            'inputclass': '',
+            'success': function () {
+                location.reload();
+            }
         });
     });
 });
