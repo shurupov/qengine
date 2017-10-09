@@ -2,3 +2,7 @@ edse span {
     cursor: pointer;
     border: 1px dashed!important;
 }
+
+.modal-settings input {
+    padding-left: 10px!important;
+}

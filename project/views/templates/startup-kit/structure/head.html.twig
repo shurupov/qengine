@@ -29,14 +29,14 @@
 {% block pageSettings %}
 
     {% if editMode %}
-        <div id="config-panel" class="config-panel d-none d-md-block">
+        {#<div id="config-panel" class="config-panel d-none d-md-block">
             <div class="panel-inner">
                 <a id="config-trigger" class="config-trigger config-panel-hide" href="#"><i class="fa fa-cog"></i></a>
                 <h5 class="panel-title">Изменить title страницы</h5>
                 {{ data.text(page.title, page.slug, 'title', editMode) }}
                 <a id="config-close" class="close" href="#"><i class="fa fa-times-circle"></i></a>
             </div><!--//panel-inner-->
-        </div><!--//configure-panel-->
+        </div><!--//configure-panel-->#}
     {% endif %}
 
 {% endblock %}

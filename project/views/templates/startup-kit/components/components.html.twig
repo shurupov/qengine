@@ -26,7 +26,7 @@
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
                             <img class="item-icon" src="/templates/startup-kit/images/icons/clock-white.svg" alt="">
-                            <h3 class="item-title">{{ data.text(sectionData.benefits.0.title, slug, path ~ '.benefits.0.title', editMode, "Ввеодите заголовок преимущества") }}</h3>
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.0.title, slug, path ~ '.benefits.0.title', editMode) }}</h3>
                             <div class="item-desc">
                                 {{ data.textarea(sectionData.benefits.0.description, slug, path ~ '.benefits.0.description', editMode) }}
                             </div>
@@ -77,7 +77,7 @@
             <div id="feature-block-{{ key | raw }}" class="feature-block feature-block-{{ key | raw }}">
                 <div class="row">
                     <div class="feature-content col-md-4 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-push-8 col-sm-push-6 col-xs-push-0{% endif %}">
-                        <h3 class="feature-title">{{ data.text(feature.title, slug, featurePath ~ '.title', editMode) }}</h3>
+                        <h3 class="feature-title">{{ data.text(feature.title, slug, featurePath ~ '.title', editMode) }}{{ data.settingsButton(featurePath, editMode) }}</h3>
                         <div class="feature-desc">
                             <p>{{ data.textarea(feature.description, slug, featurePath ~ '.description', editMode) }}</p>
                         </div><!--//feature-desc-->
@@ -89,7 +89,7 @@
                     </div>
                 </div><!--//row-->
             </div><!--//feature-block-->
-
+            {{ data.settingsModal(feature, slug, featurePath, { 'onTheLeft': { 'type': 'select', 'title': 'Расположение', 'options': [{value: 'image', text: 'Картинка слева'}, {value: 'text', text: 'Картинка справа'}] } }, editMode) }}
         {% endfor %}
 
     </div><!--//feature-blocks-->

@@ -7,10 +7,10 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro text(value, slug, path, editMode = false, title = "", inSettings = false) %}
+{% macro text(value, slug, path, editMode = false, inSettings = false) %}
     {% import _self as data %}
     {% if editMode %}
-        <e{% if inSettings %}s{% endif %} data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e{% if inSettings %}s{% endif %}>
+        <e{% if inSettings %}s{% endif %} data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inSettings %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
@@ -60,6 +60,21 @@
     {% endif %}
 {% endmacro %}
 
+{% macro select(value, slug, path, editMode = false, options = [], inSettings = false) %}
+    {% import _self as data %}
+    {% if editMode %}
+        {% set initCaption = "Пусто" %}
+        {% for option in options %}
+            {% if value == option.value %}
+                {% set initCaption = option.text %}
+            {% endif %}
+        {% endfor %}
+        <e{% if inSettings %}s{% endif %} data-type="select" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{{ value | raw }}" data-source="{{ options | json_encode }}">{{ initCaption | raw }}</e{% if inSettings %}s{% endif %}>
+    {% else %}
+        {{- value | raw -}}
+    {% endif %}
+{% endmacro %}
+
 {% macro settingsButton(path, editMode = false) %}
     {% if editMode %}
         <edse data-toggle="modal" data-target="#{{ path | replace({'.': '-'}) | raw }}-modal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></edse>
@@ -72,7 +87,7 @@
 
     <!-- Settings Modal -->
     {% set id = path | replace({'.': '-'}) %}
-    <div class="modal modal-auth modal-signup" id="{{ id | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ id | raw }}-modal-label" aria-hidden="true">
+    <div class="modal modal-settings" id="{{ id | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ id | raw }}-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -80,11 +95,24 @@
                     <h4 id="{{ id | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
                 </div>
                 <div class="modal-body">
-                    {% for key,editor in editors %}
-                        {% if editor.type == "text" %}
-                            {{ data.text(value[key], slug, path ~ '.' ~ key, editMode, "", true) }}
-                        {% endif %}
-                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            {% for key,editor in editors %}
+                                {% if editor.type == "text" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td>{{ data.text(value[key], slug, path ~ '.' ~ key, editMode, true) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "select" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td>{{ data.select(value[key], slug, path ~ '.' ~ key, editMode,  editor.options, true) }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+
                 </div><!--//modal-body-->
             </div><!--//modal-content-->
         </div><!--//modal-dialog-->

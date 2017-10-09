@@ -9,11 +9,13 @@ $(document).ready(function () {
 
     $(document).ready(function() {
         $('e').editable({
-            'emptytext' : 'Пусто'
+            'emptytext' : 'Пусто',
+            'inputclass': ''
         });
         $('es').editable({
             'emptytext' : 'Пусто',
-            'mode' : 'inline'
+            'mode' : 'inline',
+            'inputclass': ''
         });
     });
 });
