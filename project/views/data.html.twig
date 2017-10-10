@@ -132,11 +132,25 @@
                                         <td>{{ editor.title }}</td>
                                         <td>{{ data.select(value[key], slug, path ~ '.' ~ key, editMode,  editor.options, true) }}</td>
                                     </tr>
-
                                 {% elseif editor.type == "image" %}
                                     <tr>
                                         <td>{{ editor.title }}</td>
                                         <td>{{ data.setImagePreviewButton(value[key], slug, path ~ '.' ~ key, editMode) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "list" and editor.listType == "image" %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>{{ editor.title }}</h4>
+                                            {% for ki, image in value[key] %}
+                                                <div class="pull-left editor-image-list-element">
+                                                {% set imagePath = path ~ '.' ~ key ~ '.' ~ ki %}
+                                                {{ data.setImagePreviewButton(image, slug, imagePath, editMode) }}
+                                                {{ data.removeElementButton(imagePath, slug, editMode ) }}
+                                                </div>
+                                            {% endfor %}
+                                            <div class="clearfix"></div>
+                                            {{ data.addElementButton(path ~ '.' ~ key, slug, editMode, "Добавить картинку") }}
+                                        </td>
                                     </tr>
                                 {% endif %}
                             {% endfor %}

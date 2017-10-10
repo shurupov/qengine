@@ -20,3 +20,8 @@ reel span {
 .modal-settings input {
     padding-left: 10px!important;
 }
+
+.editor-image-list-element {
+    margin-right: 25px;
+    margin-bottom: 25px;
+}

@@ -44,9 +44,9 @@
         <div class="hero-slider-wrapper">
             <div class="flexslider hero-slider">
                 <ul class="slides">
-                    <li class="slide slide-1" style="background-image: url(/templates/startup-kit/images/hero/hero-1.jpg);"></li>
-                    <li class="slide slide-2" style="background-image: url(/templates/startup-kit/images/hero/hero-2.jpg);"></li>
-                    <li class="slide slide-3" style="background-image: url(/templates/startup-kit/images/hero/hero-3.jpg);"></li>
+                    {% for image in sectionData.backs %}
+                    <li class="slide slide-1" style="background-image: url({{ image | raw }});"></li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="hero-slider-mask"></div>
@@ -147,6 +147,11 @@
             'testImage': {
                 'type': 'image',
                 'title': 'Картинка тест',
+            },
+            'backs': {
+                'type': 'list',
+                'listType': 'image',
+                'title': 'Фоны',
             }
         },
     editMode) }}
