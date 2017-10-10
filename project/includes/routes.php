@@ -33,7 +33,25 @@ $app->post('/change', function (Request $request) use ($app) {
         ]);
     }
 
+});
 
+$app->post('/e/remove', function (Request $request) use ($app) {
+
+    try {
+        $app['dataService']->remove(
+            $request->request->get('pk'),
+            $request->request->get('name')
+        );
+
+        return json_encode(['status' => 'ok']);
+    } catch (\Exception $e) {
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
 
 });
 

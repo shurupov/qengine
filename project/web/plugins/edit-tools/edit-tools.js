@@ -20,8 +20,51 @@ $(document).ready(function () {
         $('.btn-apply-now').click(function () {
             location.reload();
         });
+        $('.btn-add-element').click(function () {
+            console.log($(this).data('path'));
+            console.log(str_rand());
+
+            $.ajax({
+                type: "POST",
+                url: '/change',
+                data: {
+                    name: $(this).data('path') + '.' + str_rand() + '.title',
+                    value: null,
+                    pk: $(this).data('pk')
+                },
+                success: function (e) {
+                    location.reload();
+                }//,
+                // dataType: dataType
+            });
+
+        });
+        $('reel').click(function () {
+            $.ajax({
+                type: "POST",
+                url: '/e/remove',
+                data: {
+                    name: $(this).data('path'),
+                    pk: $(this).data('pk')
+                },
+                success: function (e) {
+                    location.reload();
+                }
+            });
+        });
     });
 });
+
+function str_rand() {
+    var result       = '';
+    var words        = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    var max_position = words.length - 1;
+    for( i = 0; i < 5; ++i ) {
+        position = Math.floor ( Math.random() * max_position );
+        result = result + words.substring(position, position + 1);
+    }
+    return result;
+}
 
 function responsive_filemanager_callback(fieldId){
 

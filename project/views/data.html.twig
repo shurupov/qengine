@@ -93,6 +93,14 @@
     {% endif %}
 {% endmacro %}
 
+{% macro addElementButton(path, slug, editMode = false, caption = "Добавить элемент") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-element" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% endmacro %}
+
+{% macro removeElementButton(path, slug, editMode = false) %}
+    {% if editMode %}<reel data-path="{{ path | raw }}" data-pk="{{ slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
+{% endmacro %}
+
 {% macro settingsModal(value, slug, path, editors, editMode = false) %}
 
     {% import _self as data %}

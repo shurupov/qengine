@@ -1,0 +1,22 @@
+.edit-image img, .edit-image span {
+    cursor: pointer;
+    border: 1px dashed!important;
+}
+
+.editable-link div:first-child {
+    margin-bottom: 5px;
+}
+
+edse span {
+    cursor: pointer;
+    border: 1px dashed!important;
+}
+
+reel span {
+    cursor: pointer;
+    border: 1px dashed!important;
+}
+
+.modal-settings input {
+    padding-left: 10px!important;
+}

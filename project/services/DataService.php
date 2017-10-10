@@ -30,6 +30,13 @@ class DataService implements ServiceProviderInterface
         }
     }
 
+    public function remove($slug, $path)
+    {
+        $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
+            '$unset' => $this->getArray($path, "")
+        ]);
+    }
+
     private function update($slug, $path, $value)
     {
         $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
