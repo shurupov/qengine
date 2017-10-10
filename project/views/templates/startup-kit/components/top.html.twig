@@ -52,7 +52,7 @@
             <div class="hero-slider-mask"></div>
         </div><!--//hero-slider-wrapper-->
         <div class="container promo-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.settingsButton(path, editMode) }}</h2>
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, slug, editMode, "Удалить компонент") }}</h2>
             <p class="tagline">{{ data.text(sectionData.description, slug, path ~ '.description', editMode) }}</p>
             {% if sectionData.showActionButton or sectionData.showVideoButton %}
             <div class="actions">
@@ -209,7 +209,7 @@
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}{{ data.settingsButton(path, editMode) }}</h2>
+            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, slug, editMode, "Удалить компонент") }}</h2>
             <div class="intro">{{ data.text(sectionData.descriptor, slug, path ~ '.descriptor', editMode) }}</div>
             {% if sectionData.showSlideButton and (editMode or sectionData.slideButton.url) %}
             <div class="actions">

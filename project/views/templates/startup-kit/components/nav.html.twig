@@ -1,17 +1,3 @@
-{% macro pageNav(links) %}
-    <div class="page-nav-space-holder hidden-xs">
-        <div id="page-nav-wrapper" class="page-nav-wrapper text-center">
-            <div class="container">
-                <ul id="page-nav" class="nav page-nav list-inline">
-                    {% for link in links %}
-                        <li><a class="scrollto" href="#{{ link.id }}">{{ link.title }}</a></li>
-                    {% endfor %}
-                </ul><!--//page-nav-->
-            </div>
-        </div><!--//page-nav-wrapper-->
-    </div><!--//page-nav-space-holder-->
-{% endmacro %}
-
 {% macro pageNavSection(sectionData, slug, path, editMode) %}
 
     {% import "/data.html.twig" as data %}
@@ -21,9 +7,11 @@
             <div class="container">
                 <ul id="page-nav" class="nav page-nav list-inline">
                     {% for i,link in sectionData.links %}
-                        <li>{{ data.a(link, slug, path ~ '.links.' ~ i, editMode, {'class': 'scrollto'}) }}</li>
+                        <li>{{ data.a(link, slug, path ~ '.links.' ~ i, editMode, {'class': 'scrollto'}) }}{{ data.removeElementButton(path ~ '.links.' ~ i, slug, editMode) }}</li>
                     {% endfor %}
+                    {{ data.removeElementBigButton(path, slug, editMode, "Удалить компонент") }}
                 </ul><!--//page-nav-->
+
             </div>
         </div><!--//page-nav-wrapper-->
     </div><!--//page-nav-space-holder-->

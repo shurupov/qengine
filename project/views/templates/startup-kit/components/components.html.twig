@@ -6,7 +6,7 @@
 
     <section id="overview-section" class="overview-section section">
         <h2 class="section-title">
-            {{ data.text(sectionData.title, slug, path ~ '.title', editMode) }}
+            {{ data.text(sectionData.title, slug, path ~ '.title', editMode) }}{{ data.removeElementButton(path, slug, editMode) }}
         </h2>
 
         <div class="section-intro">
