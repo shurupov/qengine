@@ -98,7 +98,11 @@
 {% endmacro %}
 
 {% macro removeElementButton(path, slug, editMode = false) %}
-    {% if editMode %}<reel data-path="{{ path | raw }}" data-pk="{{ slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
+    {% if editMode %}<reel class="btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
+{% endmacro %}
+
+{% macro removeElementBigButton(path, slug, editMode = false, caption = "Удалить элемент") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
 {% macro settingsModal(value, slug, path, editors, editMode = false) %}

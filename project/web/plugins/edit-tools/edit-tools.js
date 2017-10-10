@@ -40,7 +40,7 @@ $(document).ready(function () {
 
         });
 
-        $('#item-delete-button').click(function () {
+        $('#confirm-delete-button').click(function () {
             $.ajax({
                 type: "POST",
                 url: '/e/remove',
@@ -54,10 +54,10 @@ $(document).ready(function () {
             });
         });
 
-        $('reel').click(function () {
+        $('.btn-remove-element').click(function () {
 
             $('#delete-item-modal').modal();
-            $('#item-delete-button').
+            $('#confirm-delete-button').
                 data('path', $(this).data('path')).
                 data('pk',   $(this).data('pk'));
 
