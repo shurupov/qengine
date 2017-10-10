@@ -15,10 +15,10 @@ $(document).ready(function () {
         $('es').editable({
             'emptytext' : 'Пусто',
             'mode' : 'inline',
-            'inputclass': '',
-            'success': function () {
-                location.reload();
-            }
+            'inputclass': ''
+        });
+        $('.btn-apply-now').click(function () {
+            location.reload();
         });
     });
 });
@@ -38,12 +38,8 @@ function responsive_filemanager_callback(fieldId){
             value: uri
         },
         success: function () {
-            var $image = $('#' + fieldId + '-image');
-            if ($image.length > 0) {
-                $image.attr('src', uri);
-            } else {
-                location.reload();
-            }
+            $('#' + fieldId + '-image').attr('src', uri);
+            $('#' + fieldId + '-preview').attr('src', uri.replace('/source/', '/thumbs/'));
         },
         dataType: 'json'
     });

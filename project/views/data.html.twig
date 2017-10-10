@@ -60,6 +60,18 @@
     {% endif %}
 {% endmacro %}
 
+{% macro setImagePreviewButton(value, slug, path, editMode = false, default = '/source/previewDefault.jpg') %}
+    {% import _self as data %}
+    {% if value is empty %}
+        {% set value = default %}
+    {% endif %}
+    {% if editMode %}
+        {% set id = path | replace({'.': '-'}) %}
+        <input type="hidden" id="{{ id | raw }}" />
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><img id="{{ id | raw }}-preview" src="{{ value | replace({'/source/': '/thumbs/'}) }}" /></edim>
+    {% endif %}
+{% endmacro %}
+
 {% macro select(value, slug, path, editMode = false, options = [], inSettings = false) %}
     {% import _self as data %}
     {% if editMode %}
@@ -108,12 +120,22 @@
                                         <td>{{ editor.title }}</td>
                                         <td>{{ data.select(value[key], slug, path ~ '.' ~ key, editMode,  editor.options, true) }}</td>
                                     </tr>
+
+                                {% elseif editor.type == "image" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td>{{ data.setImagePreviewButton(value[key], slug, path ~ '.' ~ key, editMode) }}</td>
+                                    </tr>
                                 {% endif %}
                             {% endfor %}
                         </table>
                     </div>
 
                 </div><!--//modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary btn-apply-now">Применить сейчас</button>
+                </div>
             </div><!--//modal-content-->
         </div><!--//modal-dialog-->
     </div><!--//modal-->
