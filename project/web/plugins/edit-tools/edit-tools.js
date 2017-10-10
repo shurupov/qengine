@@ -39,7 +39,8 @@ $(document).ready(function () {
             });
 
         });
-        $('reel').click(function () {
+
+        $('#item-delete-button').click(function () {
             $.ajax({
                 type: "POST",
                 url: '/e/remove',
@@ -52,6 +53,15 @@ $(document).ready(function () {
                 }
             });
         });
+
+        $('reel').click(function () {
+
+            $('#delete-item-modal').modal();
+            $('#item-delete-button').
+                data('path', $(this).data('path')).
+                data('pk',   $(this).data('pk'));
+
+        });
     });
 });
 
@@ -59,6 +69,7 @@ function str_rand() {
     var result       = '';
     var words        = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
     var max_position = words.length - 1;
+    var position;
     for( i = 0; i < 5; ++i ) {
         position = Math.floor ( Math.random() * max_position );
         result = result + words.substring(position, position + 1);

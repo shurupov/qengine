@@ -27,14 +27,25 @@
 {% block pageSettings %}
 
     {% if editMode %}
-        {#<div id="config-panel" class="config-panel d-none d-md-block">
-            <div class="panel-inner">
-                <a id="config-trigger" class="config-trigger config-panel-hide" href="#"><i class="fa fa-cog"></i></a>
-                <h5 class="panel-title">Изменить title страницы</h5>
-                {{ data.text(page.title, page.slug, 'title', editMode) }}
-                <a id="config-close" class="close" href="#"><i class="fa fa-times-circle"></i></a>
-            </div><!--//panel-inner-->
-        </div><!--//configure-panel-->#}
+
+        <div class="modal fade" id="delete-item-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Удаление элемента</h4>
+                    </div>
+                    <div class="modal-body">
+                        Уверены, что хотите удалить этот элемент?
+                    </div>
+                    <div class="modal-footer">
+                        <a href="" type="button" class="btn btn-theme btn-primary" id="item-delete-button">Да</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     {% endif %}
 
 {% endblock %}
