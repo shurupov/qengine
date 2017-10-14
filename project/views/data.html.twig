@@ -101,8 +101,8 @@
     {% if editMode %}<button type="button" class="btn btn-primary btn-add-element" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
-{% macro removeElementButton(path, slug, editMode = false) %}
-    {% if editMode %}<reel class="btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
+{% macro removeElementButton(path, slug, editMode = false, inModal = false) %}
+    {% if editMode %}<reel class="btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ slug }}"{% if inModal %} data-inmodal="true"{% endif %}><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
 {% endmacro %}
 
 {% macro removeElementBigButton(path, slug, editMode = false, caption = "Удалить элемент") %}
@@ -147,10 +147,10 @@
                                             <h4>{{ editor.title }}</h4>
                                             <div class="image-list">
                                             {% for ki, image in value[key] %}
-                                                <div class="pull-left editor-image-list-element">
+                                                <div class="pull-left editor-image-list-element" id="{{ (path ~ '.' ~ key ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
                                                 {% set imagePath = path ~ '.' ~ key ~ '.' ~ ki %}
                                                 {{ data.setImagePreviewButton(image, slug, imagePath, editMode) }}
-                                                {{ data.removeElementButton(imagePath, slug, editMode ) }}
+                                                {{ data.removeElementButton(imagePath, slug, editMode, true ) }}
                                                 </div>
                                             {% endfor %}
                                             </div>

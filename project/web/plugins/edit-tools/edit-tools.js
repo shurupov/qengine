@@ -21,8 +21,6 @@ $(document).ready(function () {
             location.reload();
         });
         $('.btn-add-element').click(function () {
-            console.log($(this).data('path'));
-            console.log(str_rand());
 
             $.ajax({
                 type: "POST",
@@ -41,6 +39,9 @@ $(document).ready(function () {
         });
 
         $('#confirm-delete-button').click(function () {
+
+            var that = this;
+
             $.ajax({
                 type: "POST",
                 url: '/e/remove',
@@ -48,18 +49,23 @@ $(document).ready(function () {
                     name: $(this).data('path'),
                     pk: $(this).data('pk')
                 },
-                success: function (e) {
-                    location.reload();
+                success: function () {
+                    if ($(that).data('reload') == 'true') {
+                        location.reload();
+                    } else {
+                        $('#' + $(that).data('path').split('.').join('-') + '-container').remove();
+                    }
                 }
             });
         });
 
-        $('.btn-remove-element').click(function () {
+        $( document ).on('click', '.btn-remove-element', function () {
 
             $('#delete-item-modal').modal();
             $('#confirm-delete-button').
-                data('path', $(this).data('path')).
-                data('pk',   $(this).data('pk'));
+                data('path',   $(this).data('path')).
+                data('pk',     $(this).data('pk')).
+                data('reload', $(this).data('inmodal') ? 'false' : 'true' );
 
         });
 
@@ -67,16 +73,16 @@ $(document).ready(function () {
 
             var id = $(this).data('path').split('.').join('-') + '-' + str_rand();
 
-            var html = '<div class="pull-left editor-image-list-element">' +
+            var html = '<div class="pull-left editor-image-list-element" id="' + id + '-container">' +
                 '<input type="hidden" id="' + id + '">' +
-                '<edim id="' + id + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&afield_id=' + id + '" data-type="iframe"><img id="' + id + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
-                '<reel class="btn-remove-element" data-path="' + id + '" data-pk=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
+                '<edim id="' + id + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + id + '" data-type="iframe"><img id="' + id + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
+                '<reel class="btn-remove-element" data-path="' + id + '" data-pk="" data-inModal="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
             '</div>';
 
             $(this).parent().find('.image-list').append(html);
 
             $.fancybox.open({
-                'src': '/filemanager/dialog.php?type=1&lang=ru&relative_url=1&afield_id=' + id,
+                'src': '/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + id,
                 'type': 'iframe'
             });
 
