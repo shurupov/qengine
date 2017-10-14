@@ -1,5 +1,10 @@
 {% extends '/templates/' ~ template ~ '/structure/head.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/plugins/admin/admin.css" rel="stylesheet">
+{% endblock %}
+
 {% block body %}
 
     <div class="container" style="margin-top: 180px;">
