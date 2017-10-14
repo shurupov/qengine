@@ -72,7 +72,7 @@ class DataService implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
-        $db = 'qe';
+        $db = $app['settings']['db']['name'];
 
         /** @var Collection $page */
         $this->pageCollection = $app['mongodb']->$db->page;

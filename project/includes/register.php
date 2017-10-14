@@ -20,15 +20,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false,
-    'swiftmailer.options' => array(
-        'transport' => 'smtp',
-        'host' => 'smtp.gmail.com',
-        'port' => '587',
-        'username' => 'xatipoff163@gmail.com',
-        'password' => 'novaya1980',
-        'encryption' => 'tls',
-        'auth_mode' => 'login'
-    )
+    'swiftmailer.options' => $app['settings']['mail']
 ]);
 
 $app->register(new Lalbert\Silex\Provider\MongoDBServiceProvider(), [

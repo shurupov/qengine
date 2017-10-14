@@ -11,7 +11,6 @@ namespace Qe;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
-use Twig_Error_Loader;
 
 class PageService implements ServiceProviderInterface
 {
@@ -21,19 +20,27 @@ class PageService implements ServiceProviderInterface
     public function render($slug)
     {
 
-        $template = 'startup-kit';
-
-        $editMode = true;
-//        $editMode = false;
-
-        $page = $this->app['dataService']->getPage($slug);
-
-        if ($page == null) {
-            $this->app->abort(404);
-            return null;
-        }
-
         try {
+
+            $template = $this->app['settings']['template']['name'];
+
+            $editMode = true;
+//            $editMode = false;
+
+            if ($slug == $this->app['settings']['admin']['slug']) {
+                return $this->app['twig']->render("admin.html.twig", [
+                    'template' => $template,
+                    'editMode' => $editMode
+                ]);
+            }
+
+            $page = $this->app['dataService']->getPage($slug);
+
+            if ($page == null) {
+                $this->app->abort(404);
+                return null;
+            }
+
             return $this->app['twig']->render("/templates/$template/body.html.twig", [
                 'page' => $page,
                 'template' => $template,

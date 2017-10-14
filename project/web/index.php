@@ -6,6 +6,8 @@ require_once __DIR__.'/../includes/load.php';
 
 $app = new Silex\Application();
 
+require_once __DIR__ . '/../settings/settings.php';
+
 require_once __DIR__.'/../includes/register.php';
 
 require_once __DIR__.'/../includes/routes.php';
