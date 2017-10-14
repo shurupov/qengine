@@ -62,6 +62,25 @@ $(document).ready(function () {
                 data('pk',   $(this).data('pk'));
 
         });
+
+        $('.btn-add-image-preview').click(function () {
+
+            var id = $(this).data('path').split('.').join('-') + '-' + str_rand();
+
+            var html = '<div class="pull-left editor-image-list-element">' +
+                '<input type="hidden" id="' + id + '">' +
+                '<edim id="' + id + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&afield_id=' + id + '" data-type="iframe"><img id="' + id + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
+                '<reel class="btn-remove-element" data-path="' + id + '" data-pk=""><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
+            '</div>';
+
+            $(this).parent().find('.image-list').append(html);
+
+            $.fancybox.open({
+                'src': '/filemanager/dialog.php?type=1&lang=ru&relative_url=1&afield_id=' + id,
+                'type': 'iframe'
+            });
+
+        });
     });
 });
 

@@ -72,6 +72,10 @@
     {% endif %}
 {% endmacro %}
 
+{% macro addImagePreviewButton(path, slug, editMode = false, caption = "Добавить элемент") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-image-preview" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% endmacro %}
+
 {% macro select(value, slug, path, editMode = false, options = [], inSettings = false) %}
     {% import _self as data %}
     {% if editMode %}
@@ -141,6 +145,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <h4>{{ editor.title }}</h4>
+                                            <div class="image-list">
                                             {% for ki, image in value[key] %}
                                                 <div class="pull-left editor-image-list-element">
                                                 {% set imagePath = path ~ '.' ~ key ~ '.' ~ ki %}
@@ -148,8 +153,9 @@
                                                 {{ data.removeElementButton(imagePath, slug, editMode ) }}
                                                 </div>
                                             {% endfor %}
+                                            </div>
                                             <div class="clearfix"></div>
-                                            {{ data.addElementButton(path ~ '.' ~ key, slug, editMode, "Добавить картинку") }}
+                                            {{ data.addImagePreviewButton(path ~ '.' ~ key, slug, editMode, "Добавить картинку") }}
                                         </td>
                                     </tr>
                                 {% endif %}
