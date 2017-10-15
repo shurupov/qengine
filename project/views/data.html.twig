@@ -7,19 +7,19 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro text(value, slug, path, editMode = false, inSettings = false) %}
+{% macro text(value, slug, path, editMode = false, inModal = false) %}
     {% import _self as data %}
     {% if editMode %}
-        <e{% if inSettings %}s{% endif %} data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inSettings %}s{% endif %}>
+        <e{% if inModal %}s{% endif %} data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
 {% endmacro %}
 
-{%- macro textarea(value, slug, path, editMode = false) -%}
+{%- macro textarea(value, slug, path, editMode = false, inModal = false) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e data-type="textarea" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e>
+        <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {%- else -%}
         {{- value | raw -}}
     {%- endif -%}
@@ -28,7 +28,7 @@
 {%- macro a(value, slug, path, editMode = false, attrs = {}) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e data-type="link" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
+        <e data-type="link"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
     {%- else -%}
         <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value.text | raw }}</a>
     {%- endif -%}
@@ -97,8 +97,12 @@
     {% endif %}
 {% endmacro %}
 
-{% macro addElementButton(path, slug, editMode = false, caption = "Добавить элемент") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-add-element" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% macro addElementButton(path, slug, editMode = false, caption = "Добавить объект") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-object" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% endmacro %}
+
+{% macro addItemButton(path, slug, editMode = false, caption = "Добавить пункт") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-item" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
 {% macro removeElementButton(path, slug, editMode = false, inModal = false) %}
@@ -130,6 +134,11 @@
                                     <tr>
                                         <td>{{ editor.title }}</td>
                                         <td>{{ data.text(value[key], slug, path ~ '.' ~ key, editMode, true) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "textarea" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td>{{ data.textarea(value[key], slug, path ~ '.' ~ key, editMode, true) }}</td>
                                     </tr>
                                 {% elseif editor.type == "select" %}
                                     <tr>

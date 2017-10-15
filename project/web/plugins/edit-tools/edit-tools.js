@@ -20,7 +20,7 @@ $(document).ready(function () {
         $('.btn-apply-now').click(function () {
             location.reload();
         });
-        $('.btn-add-element').click(function () {
+        $('.btn-add-object').click(function () {
 
             $.ajax({
                 type: "POST",
@@ -30,10 +30,26 @@ $(document).ready(function () {
                     value: null,
                     pk: $(this).data('pk')
                 },
-                success: function (e) {
+                success: function () {
                     location.reload();
-                }//,
-                // dataType: dataType
+                }
+            });
+
+        });
+
+        $('.btn-add-item').click(function () {
+
+            $.ajax({
+                type: "POST",
+                url: '/change',
+                data: {
+                    name: $(this).data('path') + '.' + str_rand(),
+                    value: null,
+                    pk: $(this).data('pk')
+                },
+                success: function () {
+                    location.reload();
+                }
             });
 
         });

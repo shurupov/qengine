@@ -115,7 +115,7 @@
     
     <section id="features-section" class="features-section section">
         <h2 class="section-title">
-            {{ data.text(section.title, slug, path ~ '.title', editMode) }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(featurePath, slug, editMode) }}
+            {{ data.text(section.title, slug, path ~ '.title', editMode) }}{{ data.removeElementButton(path, slug, editMode) }}
         </h2>
         <div class="container">
             <div class="row">
@@ -124,79 +124,68 @@
                         {{ data.textarea(section.description, slug, path ~ '.description', editMode) }}
                     </div><!--//intro-->
                     <ul class="feature-list list-unstyled">
-                        <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> Feature one lorem ipsum dolor sit amet.</li>
-                        <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> Feature two lorem ipsum dolor sit amet.</li>
-                        <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> Feature three lorem ipsum dolor sit amet.</li>
-                        <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> Feature four lorem ipsum dolor sit amet.</li>
-                        <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> Feature five lorem ipsum dolor sit amet.</li>
-                        <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> Feature six lorem ipsum dolor sit amet.</li>
+                        {% for key, item in section.features %}
+                            <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> {{ data.text(section.features[key], slug, path ~ '.features.' ~ key, editMode) }}{{ data.removeElementButton(path ~ '.features.' ~ key, slug, editMode) }}</li>
+                        {% endfor %}
+                        <li>{{ data.addItemButton(path ~ '.features', slug, editMode) }}</li>
                     </ul><!--//feature-list-->
 
                     <div id="reviews-carousel" class="reviews-carousel carousel slide" data-ride="carousel">
                         <!--//wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <blockquote class="review center-block">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p>A great way to Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                </blockquote><!--//review-->
-                                <div class="source">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div><!--//rating-->
-                                    <img class="profile" src="/templates/startup-kit/images/users/user-1.png" alt="" />
-                                    <div class="name">Theresa Wood, Product Hunt</div>
-                                </div><!--//source-->
-                            </div><!--//item-->
 
-                            <div class="item">
-                                <blockquote class="review center-block">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p>A great way to Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                </blockquote><!--//review-->
-                                <div class="source">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div><!--//rating-->
-                                    <img class="profile" src="/templates/startup-kit/images/users/user-2.png" alt="" />
-                                    <div class="name">Rob Kim, Mashable</div>
-                                </div><!--//source-->
-                            </div><!--//item-->
+                            {% for key, opinion in section.opinions %}
 
-                            <div class="item">
-                                <blockquote class="review center-block">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p>A great way to Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                </blockquote><!--//review-->
-                                <div class="source">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div><!--//rating-->
-                                    <img class="profile" src="/templates/startup-kit/images/users/user-3.png" alt="" />
-                                    <div class="name">Kevin Howell, Wired</div>
-                                </div><!--//source-->
-                            </div><!--//item-->
+                                {% set opinionPath = path ~ '.opinions.' ~ key %}
+
+                                <div class="item{% if loop.first %} active{% endif %}">
+                                    <blockquote class="review center-block">
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                        <p>{{ opinion.text }}{{ data.settingsButton(opinionPath, editMode) }}{{ data.removeElementButton(opinionPath, slug, editMode) }}</p>
+                                    </blockquote><!--//review-->
+                                    <div class="source">
+                                        <div class="rating">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div><!--//rating-->
+                                        {#<img class="profile" src="/templates/startup-kit/images/users/user-1.png" alt="" />#}
+                                        {{ data.image(opinion.avatar, slug, opinionPath ~ '.avatar', editMode, {class: 'profile'}, "/templates/startup-kit/images/users/user-1.png") }}
+                                        <div class="name">{{ opinion.signature }}</div>
+                                    </div><!--//source-->
+                                </div><!--//item-->
+
+                                {{ data.settingsModal(opinion, slug, opinionPath,
+                                    {
+                                        'text': {
+                                            'type': 'textarea',
+                                            'title': 'Сам отзыв'
+                                        },
+                                        'фмфефк': {
+                                            'type': 'image',
+                                            'title': 'Аватар оставившего отзыв',
+                                        },
+                                        'signature': {
+                                            'type': 'text',
+                                            'title': 'Подпись',
+                                        }
+                                    },
+                                editMode) }}
+
+                            {% endfor %}
 
                         </div><!--//carousel-inner-->
 
                         <!--//Indicators-->
                         <ol class="carousel-indicators">
-                            <li data-target="#reviews-carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#reviews-carousel" data-slide-to="1"></li>
-                            <li data-target="#reviews-carousel" data-slide-to="2"></li>
+                            {% for key, opinion in section.opinions %}
+                                <li data-target="#reviews-carousel" data-slide-to="{{ loop.index0 }}"{% if loop.first %} class="active"{% endif %}></li>
+                            {% endfor %}
                         </ol>
+
+                        {{ data.addElementButton(path ~ '.opinions', slug, editMode, "Добавить отзыв") }}
 
                     </div><!--//reviews-carousel-->
                 </div><!--//features-content-wrapper-->
@@ -208,12 +197,8 @@
         </div><!--//features-figure-wrapper-->
 
         <div class="action-wrapper text-center">
-            <a href="features.html" class="btn btn-secondary">View all features</a>
+            {{ data.a(section.button, slug, path ~ '.button', editMode, { 'class': 'btn btn-secondary' }) }}
         </div>
-
-        {{ data.settingsModal(sections, slug, path, {
-
-        }, editMode) }}
 
     </section><!--//features-section-->
 
