@@ -182,3 +182,35 @@
     </div><!--//modal-->
 
 {% endmacro %}
+
+{% macro addComponentModal(slug, editMode, list = {}) %}
+    {% if editMode %}
+        <button class="btn btn-primary btn-add-component" data-toggle="modal" data-target="#add-component-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить компонент</button>
+
+        {% import _self as data %}
+
+        <!-- Settings Modal -->
+        <div class="modal modal-settings" id="add-component-modal" tabindex="-1" role="dialog" aria-labelledby="add-component-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 id="add-component-modal-label" class="modal-title text-center">Добавить компонент</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <select class="form-control" id="add-component-select">
+                            </select>
+                        </div>
+
+                    </div><!--//modal-body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary" id="add-component-button" data-slug="{{ slug }}">Добавить</button>
+                    </div>
+                </div><!--//modal-content-->
+            </div><!--//modal-dialog-->
+        </div><!--//modal-->
+
+    {% endif %}
+{% endmacro %}

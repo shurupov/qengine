@@ -55,6 +55,25 @@ $app->post('/e/remove', function (Request $request) use ($app) {
 
 });
 
+$app->post('/e/add-block', function (Request $request) use ($app) {
+
+    try {
+        $app['dataService']->addBlock(
+            $request->request->get('slug'),
+            $request->request->get('type')
+        );
+        return json_encode(['status' => 'ok']);
+    } catch (\Exception $e) {
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+
+});
+
 $app->post('/post', function (Request $request) use ($app) {
 
     $app['postService']->post($request->request->all());

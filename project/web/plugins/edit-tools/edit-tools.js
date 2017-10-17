@@ -103,6 +103,28 @@ $(document).ready(function () {
             });
 
         });
+
+
+        if (componentsList != undefined) {
+            $.each(componentsList, function (key, value) {
+                $('#add-component-select').append('<option value="' + key + '">' + value + '</option>');
+            });
+        }
+
+        $('#add-component-button').click(function () {
+            $.ajax({
+                type: "POST",
+                url: '/e/add-block',
+                data: {
+                    slug: $(this).data('slug'),
+                    type: $('#add-component-select').val()
+                },
+                success: function () {
+                    location.reload();
+                }
+            });
+        });
+
     });
 });
 

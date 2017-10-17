@@ -37,11 +37,28 @@ class DataService implements ServiceProviderInterface
         ]);
     }
 
+    public function addBlock($slug, $type)
+    {
+        $path = 'sections.' . $this->randomString() . '.type';
+
+        $this->update($slug, $path, $type);
+    }
+
     private function update($slug, $path, $value)
     {
         $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
             '$set' => $this->getArray($path, $value)
         ]);
+    }
+
+    private function randomString()
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < 10; $i++) {
+            $randstring .= $characters[rand(0, strlen($characters))];
+        }
+        return $randstring;
     }
 
     private function getArray($path, $value)
