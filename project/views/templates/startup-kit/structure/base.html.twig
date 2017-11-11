@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% import "/data.html.twig" as data %}<!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
@@ -29,6 +29,14 @@
 </head>
 
 <body data-spy="scroll" data-target="#page-nav">
+
+<input type="checkbox" name="toggle" id="toggle" />
+
+<div class="message">
+    <label id="settings-label" class="btn" for="toggle">Параметры страницы</label>
+    <h1>Параметры страницы</h1>
+    <h2>Title {{ data.text(page.title, slug, 'page.title', editMode) }}</h2>
+</div>
 
 <!-- ******HEADER****** -->
 <header id="header" class="header">
