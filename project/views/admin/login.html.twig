@@ -1,7 +1,5 @@
 {% extends '/templates/' ~ template ~ '/structure/head.html.twig' %}
 
-{% import '/templates/startup-kit/components/admin.html.twig' as admin %}
-
 {% block stylesheets %}
     {{ parent() }}
     <link href="/plugins/admin/admin.css" rel="stylesheet">
@@ -9,10 +7,12 @@
 
 {% block body %}
 
-    {% if editMode %}
-        {{ admin.adminPanel() }}
-    {% else %}
-        {{ admin.loginForm() }}
-    {% endif %}
+    <div class="container" style="margin-top: 180px;">
+        <div class="row">
+            <div class="col-sm-12">
+                Панель авторизации
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

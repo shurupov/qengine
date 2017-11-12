@@ -30,15 +30,6 @@
 
 <body data-spy="scroll" data-target="#page-nav">
 
-{% if editMode %}
-<input type="checkbox" name="toggle" id="toggle" />
-<div class="message">
-    <label id="settings-label" class="btn" for="toggle">Параметры страницы</label>
-    <h1>Параметры страницы</h1>
-    <h2>Title {{ data.text(page.title, slug, 'title', editMode) }}</h2>
-</div>
-{% endif %}
-
 <!-- ******HEADER****** -->
 <header id="header" class="header">
     <div class="container">
