@@ -4,7 +4,8 @@ $app['settings'] = [
     'admin' => [
         'slug' => '_admin',
         'login' => 'admin',
-        'password' => 'great'
+        'password' => 'great',
+        'logout' => '_logout'
     ],
     'db' => [
         'name' => 'qe'

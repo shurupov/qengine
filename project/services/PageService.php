@@ -11,27 +11,50 @@ namespace Qe;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class PageService implements ServiceProviderInterface
 {
     /** @var Container $app **/
     private $app;
 
-    public function render($slug)
+    public function render($slug, Request $request)
     {
 
         try {
 
+            if (!$request->getSession()) {
+                $request->setSession( new Session() );
+            }
+
+            $request->getSession()->get('editMode', false);
+
             $template = $this->app['settings']['template']['name'];
 
-            $editMode = true;
-//            $editMode = false;
+            $editMode = $request->getSession()->get('editMode');
 
             if ($slug == $this->app['settings']['admin']['slug']) {
+
+                if (!$editMode) {
+                    if ($request->request->get('username') == $this->app['settings']['admin']['login'] &&
+                        $request->request->get('password') == $this->app['settings']['admin']['password']) {
+
+                        $request->getSession()->set('editMode', true);
+                        $editMode = true;
+                    }
+                }
+
                 return $this->app['twig']->render("admin.html.twig", [
                     'template' => $template,
                     'editMode' => $editMode
                 ]);
+            }
+
+            if ($slug == $this->app['settings']['admin']['logout']) {
+                $request->getSession()->set('editMode', false);
+                return new RedirectResponse('/');
             }
 
             $page = $this->app['dataService']->getPage($slug);

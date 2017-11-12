@@ -8,9 +8,9 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-$app->get('/', function () use ($app) {
+$app->get('/', function (Request $request) use ($app) {
 
-    return $app['pageService']->render("");
+    return $app['pageService']->render("", $request);
 
 });
 
@@ -82,25 +82,31 @@ $app->post('/post', function (Request $request) use ($app) {
 
 });
 
-$app->get('/{slug}', function ($slug) use ($app) {
+$app->get('/{slug}', function ($slug, Request $request) use ($app) {
 
-    return $app['pageService']->render($slug);
-
-});
-
-$app->get('/{slug}/{subslug}', function ($slug, $subslug) use ($app) {
-
-    return $app['pageService']->render($slug . '/' . $subslug);
+    return $app['pageService']->render($slug, $request);
 
 });
 
-$app->error(function (\Exception $e, $headers, $code) use ($app) {
+$app->post('/{slug}', function ($slug, Request $request) use ($app) {
+
+    return $app['pageService']->render($slug, $request);
+
+});
+
+$app->get('/{slug}/{subslug}', function ($slug, $subslug, Request $request) use ($app) {
+
+    return $app['pageService']->render($slug . '/' . $subslug, $request);
+
+});
+
+$app->error(function (\Exception $e, $headers, $code, Request $request) use ($app) {
     switch ($code) {
         case 404:
-            return $app['pageService']->render("404");
+            return $app['pageService']->render("404", $request);
         case 500:
-            return $app['pageService']->render("500");
+            return $app['pageService']->render("500", $request);
         default:
-            return $app['pageService']->render("error");
+            return $app['pageService']->render("error", $request);
     }
 });
