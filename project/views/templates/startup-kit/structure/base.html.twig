@@ -58,6 +58,10 @@
                     {% for p in pages %}
                         <li class="{% if p.slug == page.slug %}active {% endif %}nav-item"><a href="/{{ p.slug }}">{{ p.title }}</a></li>
                     {% endfor %}
+                    {% if editMode %}
+                        <li class="nav-item"><a href="/_admin">Настройки</a></li>
+                        <li class="nav-item"><a href="/_logout">Выход</a></li>
+                    {% endif %}
                 </ul><!--//nav-->
             </div><!--//navabr-collapse-->
         </nav><!--//main-nav-->
