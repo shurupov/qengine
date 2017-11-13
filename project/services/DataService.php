@@ -20,7 +20,7 @@ class DataService implements ServiceProviderInterface
 
     public function getAllPages()
     {
-        return $this->pageCollection->find();
+        return $this->pageCollection->find()->toArray();
     }
 
     public function change($slug, $path, $value)

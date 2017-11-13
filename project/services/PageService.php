@@ -20,8 +20,10 @@ class PageService implements ServiceProviderInterface
     /** @var Container $app **/
     private $app;
 
-    public function render($slug, Request $request)
+    public function render($slug)
     {
+
+        $request = Request::createFromGlobals();
 
         try {
 
@@ -41,18 +43,13 @@ class PageService implements ServiceProviderInterface
 
                         $request->getSession()->set('editMode', true);
                         $editMode = true;
-
-                        return $this->app['twig']->render("/templates/$template/admin.html.twig", [
-                            'template' => $template,
-                            'editMode' => $editMode,
-                            'pages' => $this->app['dataService']->getAllPages()
-                        ]);
                     }
                 }
 
                 return $this->app['twig']->render("/templates/$template/admin.html.twig", [
                     'template' => $template,
-                    'editMode' => $editMode
+                    'editMode' => $editMode,
+                    'allPages' => $this->app['dataService']->getAllPages()
                 ]);
             }
 

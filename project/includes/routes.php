@@ -100,13 +100,13 @@ $app->get('/{slug}/{subslug}', function ($slug, $subslug, Request $request) use 
 
 });
 
-$app->error(function (\Exception $e, $headers, $code, Request $request) use ($app) {
+$app->error(function (\Exception $e, $headers, $code) use ($app) {
     switch ($code) {
         case 404:
-            return $app['pageService']->render("404", $request);
+            return $app['pageService']->render("404");
         case 500:
-            return $app['pageService']->render("500", $request);
+            return $app['pageService']->render("500");
         default:
-            return $app['pageService']->render("error", $request);
+            return $app['pageService']->render("error");
     }
 });
