@@ -18,6 +18,11 @@ class DataService implements ServiceProviderInterface
         return $this->pageCollection->findOne(['slug' => $slug]);
     }
 
+    public function getAllPages()
+    {
+        return $this->pageCollection->find();
+    }
+
     public function change($slug, $path, $value)
     {
 

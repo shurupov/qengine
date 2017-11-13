@@ -29,11 +29,9 @@ class PageService implements ServiceProviderInterface
                 $request->setSession( new Session() );
             }
 
-            $request->getSession()->get('editMode', false);
-
             $template = $this->app['settings']['template']['name'];
 
-            $editMode = $request->getSession()->get('editMode');
+            $editMode = $request->getSession()->get('editMode', false);
 
             if ($slug == $this->app['settings']['admin']['slug']) {
 
@@ -43,6 +41,12 @@ class PageService implements ServiceProviderInterface
 
                         $request->getSession()->set('editMode', true);
                         $editMode = true;
+
+                        return $this->app['twig']->render("/templates/$template/admin.html.twig", [
+                            'template' => $template,
+                            'editMode' => $editMode,
+                            'pages' => $this->app['dataService']->getAllPages()
+                        ]);
                     }
                 }
 
