@@ -46,7 +46,7 @@ class PageService implements ServiceProviderInterface
                     }
                 }
 
-                return $this->app['twig']->render("admin.html.twig", [
+                return $this->app['twig']->render("/templates/$template/admin.html.twig", [
                     'template' => $template,
                     'editMode' => $editMode
                 ]);

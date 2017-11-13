@@ -1,11 +1,6 @@
 {% extends '/templates/' ~ template ~ '/structure/head.html.twig' %}
 
-{% import '/templates/startup-kit/components/admin.html.twig' as admin %}
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link href="/plugins/admin/admin.css" rel="stylesheet">
-{% endblock %}
+{% import '/common/components/admin.html.twig' as admin %}
 
 {% block body %}
 
