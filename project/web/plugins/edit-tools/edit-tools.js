@@ -85,6 +85,16 @@ $(document).ready(function () {
 
         });
 
+        $( document ).on('click', '.remove-page-button', function () {
+
+            $('#remove-page-confirm-modal').modal();
+            $('#remove-page-confirm-button').
+                attr('href', $(this).attr('href'));
+
+            return false;
+
+        });
+
         $('.btn-add-image-preview').click(function () {
 
             var id = $(this).data('path').split('.').join('-') + '-' + str_rand();

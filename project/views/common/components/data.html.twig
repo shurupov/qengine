@@ -28,7 +28,7 @@
 {%- macro a(value, slug, path, editMode = false, attrs = {}) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e data-type="link"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
+        <e data-type="link"{% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
     {%- else -%}
         <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value.text | raw }}</a>
     {%- endif -%}

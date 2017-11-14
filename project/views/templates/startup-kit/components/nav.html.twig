@@ -9,6 +9,7 @@
                     {% for i,link in sectionData.links %}
                         <li>{{ data.a(link, slug, path ~ '.links.' ~ i, editMode, {'class': 'scrollto'}) }}{{ data.removeElementButton(path ~ '.links.' ~ i, slug, editMode) }}</li>
                     {% endfor %}
+                    {{ data.addElementButton(path ~ '.links', slug, editMode, "Добавить ссылку") }}
                     {{ data.removeElementBigButton(path, slug, editMode, "Удалить компонент") }}
                 </ul><!--//page-nav-->
 
