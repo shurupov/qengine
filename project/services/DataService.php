@@ -23,6 +23,21 @@ class DataService implements ServiceProviderInterface
         return $this->pageCollection->find()->toArray();
     }
 
+    public function addPage($slug, $title)
+    {
+        $this->pageCollection->insertOne([
+            'slug'  => $slug,
+            'title' => $title
+        ]);
+    }
+
+    public function removePage($slug)
+    {
+        $this->pageCollection->findOneAndDelete([
+            'slug' => $slug
+        ]);
+    }
+
     public function change($slug, $path, $value)
     {
 

@@ -6,6 +6,7 @@
  * Time: 16:50
  */
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 $app->get('/', function (Request $request) use ($app) {
@@ -63,6 +64,43 @@ $app->post('/e/add-block', function (Request $request) use ($app) {
             $request->request->get('type')
         );
         return json_encode(['status' => 'ok']);
+    } catch (\Exception $e) {
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+
+});
+
+$app->post('/e/add-page', function (Request $request) use ($app) {
+
+    try {
+        $app['dataService']->addPage(
+            $request->request->get('slug'),
+            $request->request->get('title')
+        );
+        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
+
+    } catch (\Exception $e) {
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+
+});
+
+$app->get('/e/remove-page', function (Request $request) use ($app) {
+
+    try {
+        $app['dataService']->removePage( $request->query->get('slug') );
+        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
+
     } catch (\Exception $e) {
         return json_encode([
             'status' => 'error',

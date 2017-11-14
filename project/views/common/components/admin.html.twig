@@ -13,6 +13,43 @@
 
 {% endmacro %}
 
+{% macro addPageButton() %}
+
+    <button class="btn btn-primary btn-add-page" data-toggle="modal" data-target="#add-page-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить страницу</button>
+
+    <!-- Settings Modal -->
+    <div class="modal modal-settings" id="add-page-modal" tabindex="-1" role="dialog" aria-labelledby="add-page-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/e/add-page" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="add-page-modal-label" class="modal-title text-center">Добавить страницу</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="new-page-uri-input">URI</label>
+                        <input type="text" name="slug" class="form-control" id="new-page-uri-input" placeholder="newpage">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-page-title-input">Заголовок</label>
+                        <input type="text" name="title" class="form-control" id="new-page-title-input" placeholder="Заголовок новой страницы">
+                    </div>
+
+                </div><!--//modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary" id="add-page-button">Добавить</button>
+                </div>
+                </form>
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+
+{% endmacro %}
+
 {% macro loginForm() %}
 
     <div class="container">
@@ -55,6 +92,7 @@
     {% set editMode = true %}
 
     {% import "/common/components/data.html.twig" as data %}
+    {% import _self as admin %}
 
     <div class="container" style="margin-top: 180px;">
         <div class="row">
@@ -66,8 +104,8 @@
                         <tr>
                             <th>
                                 <div class="row">
-                                    <div class="col-md-6">URI</div>
-                                    <div class="col-md-6">Заголовок</div>
+                                    <div class="col-md-3">URI</div>
+                                    <div class="col-md-9">Заголовок</div>
                                 </div>
                             </th>
                         </tr>
@@ -77,14 +115,17 @@
                         <tr>
                             <td>
                                 <div class="row">
-                                    <div class="col-md-6">{{ data.text(page.slug, page.slug, 'slug', editMode) }} <a href="/{{ page.slug }}">ссылка</a></div>
-                                    <div class="col-md-6">{{ data.text(page.title, page.slug, 'title', editMode) }}</div>
+                                    <div class="col-md-3">{{ data.text(page.slug, page.slug, 'slug', editMode) }} <a href="/{{ page.slug }}">ссылка</a></div>
+                                    <div class="col-md-8">{{ data.text(page.title, page.slug, 'title', editMode) }}</div>
+                                    <div class="col-md-1"><a href="/e/remove-page?slug={{ page.slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
                                 </div>
                             </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+                
+                {{ admin.addPageButton() }}
 
             </div>
         </div>
