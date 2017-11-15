@@ -121,32 +121,34 @@
 
 {% endmacro %}
 
-{% macro pagesTable(pages) %}
+{% macro table(items, type, caption, addCaption, fields) %}
 
     {% set editMode = true %}
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
 
     <table class="table table-hover">
-        <caption>Страницы сайта</caption>
+        <caption>{{ caption }}</caption>
         <thead class="hidden-sm hidden-xs">
         <tr>
             <th>
                 <div class="row">
-                    <div class="col-md-3">URI</div>
-                    <div class="col-md-9">Заголовок</div>
+                    {% for field in fields %}
+                        <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption }}</div>
+                    {% endfor %}
                 </div>
             </th>
         </tr>
         </thead>
         <tbody>
-        {% for page in pages %}
+        {% for item in items %}
             <tr>
                 <td>
                     <div class="row">
-                        <div class="col-md-3">{{ data.text(page.slug, page.slug, 'slug', editMode) }} <a href="/{{ page.slug }}">ссылка</a></div>
-                        <div class="col-md-8">{{ data.text(page.title, page.slug, 'title', editMode) }}</div>
-                        <div class="col-md-1"><a class="remove-page-button" href="/e/page/remove?slug={{ page.slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
+                        {% for field in fields %}
+                            <div class="col-md-{{ field.columns }}">{{ data.text(item[field.name], item.slug, field.name, editMode) }}{% if field.link %} <a href="/{{ item.slug }}">ссылка</a>{% endif %}</div>{# Надо параметризировать по какому полю будет искаться зама запись, то что в page slug #}
+                        {% endfor %}
+                        <div class="col-md-1"><a class="remove-page-button" href="/e/{{ type }}/remove?{{ fields[0].name }}={{ item[fields[0].name] }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
                     </div>
                 </td>
             </tr>
@@ -154,17 +156,7 @@
         </tbody>
     </table>
 
-    {{ admin.addItemButton('page', 'Добавить страницу', [
-        {
-            'name': 'slug',
-            'caption': 'URI',
-            'placeholder': 'newpage'
-        }, {
-            'name': 'title',
-            'caption': 'Заголовок',
-            'placeholder': 'Заголовок новой страницы'
-        }
-    ]) }}
+    {{ admin.addItemButton(type, addCaption, fields) }}
 
 {% endmacro %}
 
@@ -214,7 +206,20 @@
         <div class="row">
             <div class="col-sm-12">
 
-                {{ admin.pagesTable(pages) }}
+                {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
+                    {
+                        'name': 'slug',
+                        'caption': 'URI',
+                        'placeholder': 'newpage',
+                        'columns': 3,
+                        'link': true
+                    }, {
+                        'name': 'title',
+                        'caption': 'Заголовок',
+                        'placeholder': 'Заголовок новой страницы',
+                        'columns': 8
+                    }
+                ]) }}
 
                 <br/><br/><br/>
 
