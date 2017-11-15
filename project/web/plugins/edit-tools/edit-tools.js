@@ -60,7 +60,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: '/e/remove',
+                url: '/e/page/field/remove',
                 data: {
                     name: $(this).data('path'),
                     pk: $(this).data('pk')

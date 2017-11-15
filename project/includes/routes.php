@@ -36,7 +36,7 @@ $app->post('/e/page/edit', function (Request $request) use ($app) {
 
 });
 
-$app->post('/e/remove', function (Request $request) use ($app) {
+$app->post('/e/page/field/remove', function (Request $request) use ($app) {
 
     try {
         $app['dataService']->remove(
