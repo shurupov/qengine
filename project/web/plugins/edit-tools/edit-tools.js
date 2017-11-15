@@ -124,7 +124,7 @@ $(document).ready(function () {
         $('#add-component-button').click(function () {
             $.ajax({
                 type: "POST",
-                url: '/e/add-block',
+                url: '/e/page/block/add',
                 data: {
                     slug: $(this).data('slug'),
                     type: $('#add-component-select').val()

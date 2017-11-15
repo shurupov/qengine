@@ -56,7 +56,7 @@ $app->post('/e/page/field/remove', function (Request $request) use ($app) {
 
 });
 
-$app->post('/e/add-block', function (Request $request) use ($app) {
+$app->post('/e/page/block/add', function (Request $request) use ($app) {
 
     try {
         $app['dataService']->addBlock(
