@@ -13,35 +13,32 @@
 
 {% endmacro %}
 
-{% macro addPageButton() %}
+{% macro addItemButton(type, caption, fields = []) %}
 
-    <button class="btn btn-primary btn-add-page" data-toggle="modal" data-target="#add-page-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить страницу</button>
+    <button class="btn btn-primary btn-add-{{ type }}" data-toggle="modal" data-target="#add-{{ type }}-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ caption }}</button>
 
     <!-- Settings Modal -->
-    <div class="modal modal-settings" id="add-page-modal" tabindex="-1" role="dialog" aria-labelledby="add-page-modal-label" aria-hidden="true">
+    <div class="modal modal-settings" id="add-{{ type }}-modal" tabindex="-1" role="dialog" aria-labelledby="add-{{ type }}-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="/e/page/add" method="post">
+                <form action="/e/{{ type }}/add" method="post">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="add-page-modal-label" class="modal-title text-center">Добавить страницу</h4>
+                    <h4 id="add-{{ type }}-modal-label" class="modal-title text-center">{{ caption }}</h4>
                 </div>
                 <div class="modal-body">
 
-                    <div class="form-group">
-                        <label for="new-page-uri-input">URI</label>
-                        <input type="text" name="slug" class="form-control" id="new-page-uri-input" placeholder="newpage">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="new-page-title-input">Заголовок</label>
-                        <input type="text" name="title" class="form-control" id="new-page-title-input" placeholder="Заголовок новой страницы">
-                    </div>
+                    {% for field in fields %}
+                        <div class="form-group">
+                            <label for="new-{{ type }}-{{ field.name }}-input">{{ field.caption }}</label>
+                            <input type="text" name="{{ field.name }}" class="form-control" id="new-{{ type }}-{{ field.name }}-input" placeholder="{{ field.placeholder }}">
+                        </div>
+                    {% endfor %}
 
                 </div><!--//modal-body-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary" id="add-page-button">Добавить</button>
+                    <button type="submit" class="btn btn-primary" id="add-{{ type }}-button">Добавить</button>
                 </div>
                 </form>
             </div><!--//modal-content-->
@@ -157,7 +154,17 @@
         </tbody>
     </table>
 
-    {{ admin.addPageButton() }}
+    {{ admin.addItemButton('page', 'Добавить страницу', [
+        {
+            'name': 'slug',
+            'caption': 'URI',
+            'placeholder': 'newpage'
+        }, {
+            'name': 'title',
+            'caption': 'Заголовок',
+            'placeholder': 'Заголовок новой страницы'
+        }
+    ]) }}
 
 {% endmacro %}
 
