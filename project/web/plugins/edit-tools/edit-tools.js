@@ -24,7 +24,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: '/change',
+                url: '/e/page/edit',
                 data: {
                     name: $(this).data('path') + '.' + str_rand() + '.title',
                     value: null,
@@ -41,7 +41,7 @@ $(document).ready(function () {
 
             $.ajax({
                 type: "POST",
-                url: '/change',
+                url: '/e/page/edit',
                 data: {
                     name: $(this).data('path') + '.' + str_rand(),
                     value: null,
@@ -158,7 +158,7 @@ function responsive_filemanager_callback(fieldId){
 
     $.ajax({
         type: "POST",
-        url: '/change',
+        url: '/e/page/edit',
         data: {
             pk : location.pathname.substr(1),
             name: fieldId.split('-').join('.'),

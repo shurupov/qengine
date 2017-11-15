@@ -15,7 +15,7 @@ $app->get('/', function (Request $request) use ($app) {
 
 });
 
-$app->post('/change', function (Request $request) use ($app) {
+$app->post('/e/page/edit', function (Request $request) use ($app) {
 
     try {
         $app['dataService']->change(

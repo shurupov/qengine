@@ -10,7 +10,7 @@
 {% macro text(value, slug, path, editMode = false, inModal = false) %}
     {% import _self as data %}
     {% if editMode %}
-        <e{% if inModal %}s{% endif %} data-type="text" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
+        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
@@ -19,7 +19,7 @@
 {%- macro textarea(value, slug, path, editMode = false, inModal = false) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
+        <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {%- else -%}
         {{- value | raw -}}
     {%- endif -%}
@@ -28,9 +28,9 @@
 {%- macro a(value, slug, path, editMode = false, attrs = {}) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e data-type="link"{% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
+        <e data-type="link"{% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
     {%- else -%}
-        <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}">{{ value.text | raw }}</a>
+        <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}">{{ value.text | raw }}</a>
     {%- endif -%}
 {% endmacro %}
 
@@ -85,7 +85,7 @@
                 {% set initCaption = option.text %}
             {% endif %}
         {% endfor %}
-        <e{% if inSettings %}s{% endif %} data-type="select" data-url="/change" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{{ value | raw }}" data-source="{{ options | json_encode }}">{{ initCaption | raw }}</e{% if inSettings %}s{% endif %}>
+        <e{% if inSettings %}s{% endif %} data-type="select" data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{{ value | raw }}" data-source="{{ options | json_encode }}">{{ initCaption | raw }}</e{% if inSettings %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
