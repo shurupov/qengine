@@ -21,7 +21,7 @@
     <div class="modal modal-settings" id="add-page-modal" tabindex="-1" role="dialog" aria-labelledby="add-page-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="/e/add-page" method="post">
+                <form action="/e/page/add" method="post">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 id="add-page-modal-label" class="modal-title text-center">Добавить страницу</h4>
@@ -149,7 +149,7 @@
                     <div class="row">
                         <div class="col-md-3">{{ data.text(page.slug, page.slug, 'slug', editMode) }} <a href="/{{ page.slug }}">ссылка</a></div>
                         <div class="col-md-8">{{ data.text(page.title, page.slug, 'title', editMode) }}</div>
-                        <div class="col-md-1"><a class="remove-page-button" href="/e/remove-page?slug={{ page.slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
+                        <div class="col-md-1"><a class="remove-page-button" href="/e/page/remove?slug={{ page.slug }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
                     </div>
                 </td>
             </tr>

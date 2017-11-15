@@ -75,7 +75,7 @@ $app->post('/e/add-block', function (Request $request) use ($app) {
 
 });
 
-$app->post('/e/add-page', function (Request $request) use ($app) {
+$app->post('/e/page/add', function (Request $request) use ($app) {
 
     try {
         $app['dataService']->addPage(
@@ -95,7 +95,7 @@ $app->post('/e/add-page', function (Request $request) use ($app) {
 
 });
 
-$app->get('/e/remove-page', function (Request $request) use ($app) {
+$app->get('/e/page/remove', function (Request $request) use ($app) {
 
     try {
         $app['dataService']->removePage( $request->query->get('slug') );
