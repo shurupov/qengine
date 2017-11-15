@@ -49,7 +49,8 @@ class PageService implements ServiceProviderInterface
                 return $this->app['twig']->render("/templates/$template/admin.html.twig", [
                     'template' => $template,
                     'editMode' => $editMode,
-                    'allPages' => $this->app['dataService']->getAllPages()
+                    'allPages' => $this->app['dataService']->getAllPages(),
+                    'menu' => $this->app['dataService']->getMenu()
                 ]);
             }
 
@@ -68,7 +69,8 @@ class PageService implements ServiceProviderInterface
             return $this->app['twig']->render("/templates/$template/body.html.twig", [
                 'page' => $page,
                 'template' => $template,
-                'editMode' => $editMode
+                'editMode' => $editMode,
+                'menu' => $this->app['dataService']->getMenu()
             ]);
         } catch (\Exception $e) {
             $this->app->abort(500);

@@ -12,6 +12,9 @@ class DataService implements ServiceProviderInterface
 
     /** @var Collection $pageCollection **/
     private $pageCollection;
+    /** @var Collection $menuCollection **/
+    private $menuCollection;
+
 
     public function getPage($slug)
     {
@@ -21,6 +24,11 @@ class DataService implements ServiceProviderInterface
     public function getAllPages()
     {
         return $this->pageCollection->find()->toArray();
+    }
+
+    public function getMenu()
+    {
+        return $this->menuCollection->find()->toArray();
     }
 
     public function addPage($slug, $title)
@@ -113,6 +121,7 @@ class DataService implements ServiceProviderInterface
 
         /** @var Collection $page */
         $this->pageCollection = $app['mongodb']->$db->page;
+        $this->menuCollection = $app['mongodb']->$db->menu;
 
         $app['dataService'] = function () use ($app) {
             return $this;

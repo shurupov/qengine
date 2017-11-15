@@ -50,6 +50,43 @@
 
 {% endmacro %}
 
+{% macro addMenuLinkButton() %}
+
+    <button class="btn btn-primary btn-add-menu-link" data-toggle="modal" data-target="#add-menu-link-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить ссылку в меню</button>
+
+    <!-- Settings Modal -->
+    <div class="modal modal-settings" id="add-menu-link-modal" tabindex="-1" role="dialog" aria-labelledby="add-menu-link-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/e/add-menu-link" method="post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 id="add-menu-link-modal-label" class="modal-title text-center">Добавить ссылку в меню</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="new-page-uri-input">URI</label>
+                            <input type="text" name="slug" class="form-control" id="new-page-uri-input" placeholder="newpage">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new-page-title-input">Текст</label>
+                            <input type="text" name="title" class="form-control" id="new-page-title-input" placeholder="Заголовок новой страницы">
+                        </div>
+
+                    </div><!--//modal-body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn btn-primary" id="add-menu-link-button">Добавить</button>
+                    </div>
+                </form>
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+
+{% endmacro %}
+
 {% macro loginForm() %}
 
     <div class="container">
@@ -124,7 +161,44 @@
 
 {% endmacro %}
 
-{% macro adminPanel(pages) %}
+{% macro menuTable(menu) %}
+
+    {% set editMode = true %}
+    {% import "/common/components/data.html.twig" as data %}
+    {% import _self as admin %}
+
+    <table class="table table-hover">
+        <caption>Ссылки меню сайта</caption>
+        <thead class="hidden-sm hidden-xs">
+        <tr>
+            <th>
+                <div class="row">
+                    <div class="col-md-3">URI</div>
+                    <div class="col-md-9">Текст</div>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for link in menu %}
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-3">{#{{ data.text(page.slug, page.slug, 'slug', editMode) }}#} <a href="{{ link.uri }}">ссылка</a></div>
+                        <div class="col-md-8"> {{ link.text }} {#{{ data.text(page.title, page.slug, 'title', editMode) }}#}</div>
+                        <div class="col-md-1"><a class="remove-page-button" href="/e/remove-menu-link?id={{ link._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ admin.addMenuLinkButton() }}
+
+{% endmacro %}
+
+{% macro adminPanel(pages, menu) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -135,18 +209,22 @@
 
                 {{ admin.pagesTable(pages) }}
 
+                <br/><br/><br/>
+
+                {{ admin.menuTable(menu) }}
+
             </div>
         </div>
     </div>
 
 {% endmacro %}
 
-{% macro admin(editMode, pages = []) %}
+{% macro admin(editMode, pages = [], menu = []) %}
 
     {% import _self as admin %}
 
     {% if editMode %}
-        {{ admin.adminPanel(pages) }}
+        {{ admin.adminPanel(pages, menu) }}
     {% else %}
         {{ admin.loginForm() }}
     {% endif %}
