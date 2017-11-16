@@ -97,18 +97,19 @@ $(document).ready(function () {
 
         $('.btn-add-image-preview').click(function () {
 
-            var id = $(this).data('path').split('.').join('-') + '-' + str_rand();
+            var inputId = $(this).data('path').split('.').join('-') + '-' + str_rand();
+            var id = $(this).data('pk');
 
-            var html = '<div class="pull-left editor-image-list-element" id="' + id + '-container">' +
-                '<input type="hidden" id="' + id + '">' +
-                '<edim id="' + id + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + id + '" data-type="iframe"><img id="' + id + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
-                '<reel class="btn-remove-element" data-path="' + id + '" data-pk="" data-inModal="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
+            var html = '<div class="pull-left editor-image-list-element" id="' + inputId + '-container">' +
+                '<input type="hidden" id="' + inputId + '" data-pk="' + id + '">' +
+                '<edim id="' + inputId + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + inputId + '" data-type="iframe"><img id="' + inputId + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
+                '<reel class="btn-remove-element" data-path="' + inputId + '" data-pk="" data-inModal="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
             '</div>';
 
             $(this).parent().find('.image-list').append(html);
 
             $.fancybox.open({
-                'src': '/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + id,
+                'src': '/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + inputId,
                 'type': 'iframe'
             });
 
@@ -126,7 +127,7 @@ $(document).ready(function () {
                 type: "POST",
                 url: '/e/page/block/add',
                 data: {
-                    slug: $(this).data('slug'),
+                    id: $(this).data('pk'),
                     type: $('#add-component-select').val()
                 },
                 success: function () {
@@ -152,7 +153,9 @@ function str_rand() {
 
 function responsive_filemanager_callback(fieldId){
 
-    var uri = '/source/' + $('#' + fieldId).val();
+    var $input = $('#' + fieldId);
+
+    var uri = '/source/' + $input.val();
 
     $.fancybox.close();
 
@@ -160,7 +163,7 @@ function responsive_filemanager_callback(fieldId){
         type: "POST",
         url: '/e/page/edit',
         data: {
-            pk : location.pathname.substr(1),
+            pk : $input.data('pk'),
             name: fieldId.split('-').join('.'),
             value: uri
         },

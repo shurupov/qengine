@@ -1,22 +1,22 @@
 
 
-{% macro overviewSection(sectionData, slug, path, editMode) %}
+{% macro overviewSection(sectionData, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
 
     <section id="overview-section" class="overview-section section">
         <h2 class="section-title">
-            {{ data.text(sectionData.title, slug, path ~ '.title', editMode) }}{{ data.removeElementButton(path, slug, editMode) }}
+            {{ data.text(sectionData.title, pageId, path ~ '.title', editMode) }}{{ data.removeElementButton(path, pageId, editMode) }}
         </h2>
 
         <div class="section-intro">
-            {{ data.textarea(sectionData.description, slug, path ~ '.description', editMode) }}
+            {{ data.textarea(sectionData.description, pageId, path ~ '.description', editMode) }}
         </div><!--//section-intro-->
         <div class="figures-wrapper">
             <div class="container text-center">
-                <figure class="macbook-screen">{{ data.image(sectionData.images.macbook, slug, path ~ '.images.macbook', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/macbook-screen.png") }}</figure>
-                <figure class="ipad-screen">{{ data.image(sectionData.images.ipad, slug, path ~ '.images.ipad', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/ipad-screen.png") }}</figure>
-                <figure class="iphone-screen">{{ data.image(sectionData.images.iphone, slug, path ~ '.images.iphone', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/iphone-screen.png") }}</figure>
+                <figure class="macbook-screen">{{ data.image(sectionData.images.macbook, pageId, path ~ '.images.macbook', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/macbook-screen.png") }}</figure>
+                <figure class="ipad-screen">{{ data.image(sectionData.images.ipad, pageId, path ~ '.images.ipad', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/ipad-screen.png") }}</figure>
+                <figure class="iphone-screen">{{ data.image(sectionData.images.iphone, pageId, path ~ '.images.iphone', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/iphone-screen.png") }}</figure>
                 {#<a href="#" type="button" class="play-icon" data-toggle="modal" data-target="#modal-video"><img src="/templates/startup-kit/images/play-icon-md.svg" alt=""></a>#}
             </div><!--//container-->
         </div><!--//figures-wrapper-->
@@ -26,27 +26,27 @@
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
                             <img class="item-icon" src="/templates/startup-kit/images/icons/clock-white.svg" alt="">
-                            <h3 class="item-title">{{ data.text(sectionData.benefits.0.title, slug, path ~ '.benefits.0.title', editMode) }}</h3>
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.0.title, pageId, path ~ '.benefits.0.title', editMode) }}</h3>
                             <div class="item-desc">
-                                {{ data.textarea(sectionData.benefits.0.description, slug, path ~ '.benefits.0.description', editMode) }}
+                                {{ data.textarea(sectionData.benefits.0.description, pageId, path ~ '.benefits.0.description', editMode) }}
                             </div>
                         </div><!--//item-inner-->
                     </div><!--//item-->
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
                             <img class="item-icon" src="/templates/startup-kit/images/icons/presenter-white.svg" alt="">
-                            <h3 class="item-title">{{ data.text(sectionData.benefits.1.title, slug, path ~'.benefits.1.title', editMode) }}</h3>
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.1.title, pageId, path ~'.benefits.1.title', editMode) }}</h3>
                             <div class="item-desc">
-                                {{ data.textarea(sectionData.benefits.1.description, slug, path ~ '.benefits.1.description', editMode) }}
+                                {{ data.textarea(sectionData.benefits.1.description, pageId, path ~ '.benefits.1.description', editMode) }}
                             </div>
                         </div><!--//item-inner-->
                     </div><!--//item-->
                     <div class="item col-xs-12 col-sm-4">
                         <div class="item-inner">
                             <img class="item-icon" src="/templates/startup-kit/images/icons/chat-white.svg" alt="">
-                            <h3 class="item-title">{{ data.text(sectionData.benefits.2.title, slug, path ~ '.benefits.2.title', editMode) }}</h3>
+                            <h3 class="item-title">{{ data.text(sectionData.benefits.2.title, pageId, path ~ '.benefits.2.title', editMode) }}</h3>
                             <div class="item-desc">
-                                {{ data.textarea(sectionData.benefits.2.description, slug, path ~ '.benefits.2.description', editMode) }}
+                                {{ data.textarea(sectionData.benefits.2.description, pageId, path ~ '.benefits.2.description', editMode) }}
                             </div>
                         </div><!--//item-inner-->
                     </div><!--//item-->
@@ -66,7 +66,7 @@
     </section><!--//overview-section-->
 {% endmacro %}
 
-{% macro featureBlocksSection(sectionData, slug, path, editMode) %}
+{% macro featureBlocksSection(sectionData, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
 
@@ -77,19 +77,19 @@
             <div id="feature-block-{{ key | raw }}" class="feature-block feature-block-{{ key | raw }}">
                 <div class="row">
                     <div class="feature-content col-md-4 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-push-8 col-sm-push-6 col-xs-push-0{% endif %}">
-                        <h3 class="feature-title">{{ data.text(feature.title, slug, featurePath ~ '.title', editMode) }}{{ data.settingsButton(featurePath, editMode) }}{{ data.removeElementButton(featurePath, slug, editMode) }}</h3>
+                        <h3 class="feature-title">{{ data.text(feature.title, pageId, featurePath ~ '.title', editMode) }}{{ data.settingsButton(featurePath, editMode) }}{{ data.removeElementButton(featurePath, pageId, editMode) }}</h3>
                         <div class="feature-desc">
-                            <p>{{ data.textarea(feature.description, slug, featurePath ~ '.description', editMode) }}</p>
+                            <p>{{ data.textarea(feature.description, pageId, featurePath ~ '.description', editMode) }}</p>
                         </div><!--//feature-desc-->
                     </div><!--//feature-content-->
                     <div class="feature-figure col-md-8 col-sm-6 col-xs-12{% if feature.onTheLeft == "image" %} col-md-pull-4 col-sm-pull-6 col-xs-pull-0{% endif %}">
                         <div class="figure-holder">
-                            {{ data.image(feature.image, slug, featurePath ~ '.image', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/features/feature-2.png") }}
+                            {{ data.image(feature.image, pageId, featurePath ~ '.image', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/features/feature-2.png") }}
                         </div><!--//figure-holder-->
                     </div>
                 </div><!--//row-->
             </div><!--//feature-block-->
-            {{ data.settingsModal(feature, slug, featurePath, {
+            {{ data.settingsModal(feature, pageId, featurePath, {
                 'onTheLeft': {
                     'type': 'select',
                     'title': 'Расположение',
@@ -101,33 +101,33 @@
             }, editMode) }}
         {% endfor %}
 
-        {{ data.addElementButton(path ~ '.features', slug, editMode, "Добавить блок с текстом и картинкой") }}
+        {{ data.addElementButton(path ~ '.features', pageId, editMode, "Добавить блок с текстом и картинкой") }}
 
-        {{ data.removeElementBigButton(path, slug, editMode, "Удалить все блоки") }}
+        {{ data.removeElementBigButton(path, pageId, editMode, "Удалить все блоки") }}
 
     </div><!--//feature-blocks-->
 
 {% endmacro %}
 
-{% macro featuresPreviewSection(section, slug, path, editMode) %}
+{% macro featuresPreviewSection(section, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
     
     <section id="features-section" class="features-section section">
         <h2 class="section-title">
-            {{ data.text(section.title, slug, path ~ '.title', editMode) }}{{ data.removeElementButton(path, slug, editMode) }}
+            {{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.removeElementButton(path, pageId, editMode) }}
         </h2>
         <div class="container">
             <div class="row">
                 <div class="features-content-wrapper col-xs-12 col-sm-7 com-md-7">
                     <div class="intro">
-                        {{ data.textarea(section.description, slug, path ~ '.description', editMode) }}
+                        {{ data.textarea(section.description, pageId, path ~ '.description', editMode) }}
                     </div><!--//intro-->
                     <ul class="feature-list list-unstyled">
                         {% for key, item in section.features %}
-                            <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> {{ data.text(section.features[key], slug, path ~ '.features.' ~ key, editMode) }}{{ data.removeElementButton(path ~ '.features.' ~ key, slug, editMode) }}</li>
+                            <li><img class="tick-icon" src="/templates/startup-kit/images/tick.svg" alt=""> {{ data.text(section.features[key], pageId, path ~ '.features.' ~ key, editMode) }}{{ data.removeElementButton(path ~ '.features.' ~ key, pageId, editMode) }}</li>
                         {% endfor %}
-                        <li>{{ data.addItemButton(path ~ '.features', slug, editMode) }}</li>
+                        <li>{{ data.addItemButton(path ~ '.features', pageId, editMode) }}</li>
                     </ul><!--//feature-list-->
 
                     <div id="reviews-carousel" class="reviews-carousel carousel slide" data-ride="carousel">
@@ -141,7 +141,7 @@
                                 <div class="item{% if loop.first %} active{% endif %}">
                                     <blockquote class="review center-block">
                                         <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                        <p>{{ opinion.text }}{{ data.settingsButton(opinionPath, editMode) }}{{ data.removeElementButton(opinionPath, slug, editMode) }}</p>
+                                        <p>{{ opinion.text }}{{ data.settingsButton(opinionPath, editMode) }}{{ data.removeElementButton(opinionPath, pageId, editMode) }}</p>
                                     </blockquote><!--//review-->
                                     <div class="source">
                                         <div class="rating">
@@ -152,12 +152,12 @@
                                             <i class="fa fa-star"></i>
                                         </div><!--//rating-->
                                         {#<img class="profile" src="/templates/startup-kit/images/users/user-1.png" alt="" />#}
-                                        {{ data.image(opinion.avatar, slug, opinionPath ~ '.avatar', editMode, {class: 'profile'}, "/templates/startup-kit/images/users/user-1.png") }}
+                                        {{ data.image(opinion.avatar, pageId, opinionPath ~ '.avatar', editMode, {class: 'profile'}, "/templates/startup-kit/images/users/user-1.png") }}
                                         <div class="name">{{ opinion.signature }}</div>
                                     </div><!--//source-->
                                 </div><!--//item-->
 
-                                {{ data.settingsModal(opinion, slug, opinionPath,
+                                {{ data.settingsModal(opinion, pageId, opinionPath,
                                     {
                                         'text': {
                                             'type': 'textarea',
@@ -185,7 +185,7 @@
                             {% endfor %}
                         </ol>
 
-                        {{ data.addElementButton(path ~ '.opinions', slug, editMode, "Добавить отзыв") }}
+                        {{ data.addElementButton(path ~ '.opinions', pageId, editMode, "Добавить отзыв") }}
 
                     </div><!--//reviews-carousel-->
                 </div><!--//features-content-wrapper-->
@@ -193,11 +193,11 @@
         </div><!--//container-->
 
         <div class="features-figure-wrapper">
-            {{ data.image(section.image, slug, path ~ '.image', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/imac-screen.png") }}
+            {{ data.image(section.image, pageId, path ~ '.image', editMode, {class: 'img-responsive'}, "/templates/startup-kit/images/imac-screen.png") }}
         </div><!--//features-figure-wrapper-->
 
         <div class="action-wrapper text-center">
-            {{ data.a(section.button, slug, path ~ '.button', editMode, { 'class': 'btn btn-secondary' }) }}
+            {{ data.a(section.button, pageId, path ~ '.button', editMode, { 'class': 'btn btn-secondary' }) }}
         </div>
 
     </section><!--//features-section-->

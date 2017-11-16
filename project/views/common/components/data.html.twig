@@ -7,76 +7,85 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro text(value, slug, path, editMode = false, inModal = false) %}
+{% macro text(value, id, path, editMode = false, inModal = false) %}
     {% import _self as data %}
     {% if editMode %}
-        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
+        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/page/edit" data-pk="{{ id }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
 {% endmacro %}
 
-{%- macro textarea(value, slug, path, editMode = false, inModal = false) -%}
+{% macro universalText(type, value, id, path, editMode = false, inModal = false) %}
+    {% import _self as data %}
+    {% if editMode %}
+        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/{{ type }}/edit" data-pk="{{ id }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
+    {% else %}
+        {{- value | raw -}}
+    {% endif %}
+{% endmacro %}
+
+{%- macro textarea(value, id, path, editMode = false, inModal = false) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
+        <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/e/page/edit" data-pk="{{ id }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {%- else -%}
         {{- value | raw -}}
     {%- endif -%}
 {% endmacro %}
 
-{%- macro a(value, slug, path, editMode = false, attrs = {}) -%}
+{%- macro a(value, id, path, editMode = false, attrs = {}) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
-        <e data-type="link"{% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
+        <e data-type="link"{% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-url="/e/page/edit" data-pk="{{ id }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
     {%- else -%}
-        <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}">{{ value.text | raw }}</a>
+        <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-name="{{ path }}">{{ value.text | raw }}</a>
     {%- endif -%}
 {% endmacro %}
 
-{% macro image(value, slug, path, editMode = false, attrs = {}, default = "") %}
+{% macro image(value, id, path, editMode = false, attrs = {}, default = "") %}
     {% import _self as data %}
     {% if value is empty %}
         {% set value = default %}
     {% endif %}
     {% if editMode %}
-        {% set id = path | replace({'.': '-'}) %}
-        <input type="hidden" id="{{ id | raw }}" />
-        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><img id="{{ id | raw }}-image" src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
+        {% set inputId = path | replace({'.': '-'}) %}
+        <input type="hidden" id="{{ inputId | raw }}" data-pk="{{ id }}" />
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><img id="{{ inputId | raw }}-image" src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
     {% else %}
         <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
     {% endif %}
 {% endmacro %}
 
-{% macro setImageButton(value, slug, path, editMode = false, default = "") %}
+{% macro setImageButton(value, id, path, editMode = false, default = "") %}
     {% import _self as data %}
     {% if value is empty %}
         {% set value = default %}
     {% endif %}
     {% if editMode %}
-        {% set id = path | replace({'.': '-'}) %}
-        <input type="hidden" id="{{ id | raw }}" />
-        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></edim>
+        {% set inputId = path | replace({'.': '-'}) %}
+        <input type="hidden" id="{{ inputId | raw }}" data-pk="{{ id }}" />
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></edim>
     {% endif %}
 {% endmacro %}
 
-{% macro setImagePreviewButton(value, slug, path, editMode = false, default = '/source/previewDefault.jpg') %}
+{% macro setImagePreviewButton(value, id, path, editMode = false, default = '/source/previewDefault.jpg') %}
     {% import _self as data %}
     {% if value is empty %}
         {% set value = default %}
     {% endif %}
     {% if editMode %}
-        {% set id = path | replace({'.': '-'}) %}
-        <input type="hidden" id="{{ id | raw }}" />
-        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ id | raw }}" data-type="iframe"><img id="{{ id | raw }}-preview" src="{{ value | replace({'/source/': '/thumbs/'}) }}" /></edim>
+        {% set inputId = path | replace({'.': '-'}) %}
+        <input type="hidden" id="{{ inputId | raw }}" data-pk="{{ id }}" />
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><img id="{{ inputId | raw }}-preview" src="{{ value | replace({'/source/': '/thumbs/'}) }}" /></edim>
     {% endif %}
 {% endmacro %}
 
-{% macro addImagePreviewButton(path, slug, editMode = false, caption = "Добавить элемент") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-add-image-preview" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% macro addImagePreviewButton(path, id, editMode = false, caption = "Добавить элемент") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-image-preview" data-path="{{ path | raw }}" data-pk="{{ id }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
-{% macro select(value, slug, path, editMode = false, options = [], inSettings = false) %}
+{% macro select(value, id, path, editMode = false, options = [], inSettings = false) %}
     {% import _self as data %}
     {% if editMode %}
         {% set initCaption = "Пусто" %}
@@ -85,7 +94,7 @@
                 {% set initCaption = option.text %}
             {% endif %}
         {% endfor %}
-        <e{% if inSettings %}s{% endif %} data-type="select" data-url="/e/page/edit" data-pk="{{ slug }}" data-name="{{ path }}" data-value="{{ value | raw }}" data-source="{{ options | json_encode }}">{{ initCaption | raw }}</e{% if inSettings %}s{% endif %}>
+        <e{% if inSettings %}s{% endif %} data-type="select" data-url="/e/page/edit" data-pk="{{ id }}" data-name="{{ path }}" data-value="{{ value | raw }}" data-source="{{ options | json_encode }}">{{ initCaption | raw }}</e{% if inSettings %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
@@ -97,34 +106,34 @@
     {% endif %}
 {% endmacro %}
 
-{% macro addElementButton(path, slug, editMode = false, caption = "Добавить объект") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-add-object" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% macro addElementButton(path, id, editMode = false, caption = "Добавить объект") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-object" data-path="{{ path | raw }}" data-pk="{{ id }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
-{% macro addItemButton(path, slug, editMode = false, caption = "Добавить пункт") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-add-item" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% macro addItemButton(path, id, editMode = false, caption = "Добавить пункт") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-item" data-path="{{ path | raw }}" data-pk="{{ id }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
-{% macro removeElementButton(path, slug, editMode = false, inModal = false) %}
-    {% if editMode %}<reel class="btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ slug }}"{% if inModal %} data-inmodal="true"{% endif %}><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
+{% macro removeElementButton(path, id, editMode = false, inModal = false) %}
+    {% if editMode %}<reel class="btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ id }}"{% if inModal %} data-inmodal="true"{% endif %}><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>{% endif %}
 {% endmacro %}
 
-{% macro removeElementBigButton(path, slug, editMode = false, caption = "Удалить элемент") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ slug }}">{{ caption }}</button>{% endif %}
+{% macro removeElementBigButton(path, id, editMode = false, caption = "Удалить элемент") %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-remove-element" data-path="{{ path | raw }}" data-pk="{{ id }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
-{% macro settingsModal(value, slug, path, editors, editMode = false) %}
+{% macro settingsModal(value, id, path, editors, editMode = false) %}
 
     {% import _self as data %}
 
     <!-- Settings Modal -->
-    {% set id = path | replace({'.': '-'}) %}
-    <div class="modal modal-settings" id="{{ id | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ id | raw }}-modal-label" aria-hidden="true">
+    {% set blockId = path | replace({'.': '-'}) %}
+    <div class="modal modal-settings" id="{{ blockId | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ blockId | raw }}-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="{{ id | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
+                    <h4 id="{{ blockId | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
@@ -133,22 +142,22 @@
                                 {% if editor.type == "text" %}
                                     <tr>
                                         <td>{{ editor.title }}</td>
-                                        <td>{{ data.text(value[key], slug, path ~ '.' ~ key, editMode, true) }}</td>
+                                        <td>{{ data.text(value[key], id, path ~ '.' ~ key, editMode, true) }}</td>
                                     </tr>
                                 {% elseif editor.type == "textarea" %}
                                     <tr>
                                         <td>{{ editor.title }}</td>
-                                        <td>{{ data.textarea(value[key], slug, path ~ '.' ~ key, editMode, true) }}</td>
+                                        <td>{{ data.textarea(value[key], id, path ~ '.' ~ key, editMode, true) }}</td>
                                     </tr>
                                 {% elseif editor.type == "select" %}
                                     <tr>
                                         <td>{{ editor.title }}</td>
-                                        <td>{{ data.select(value[key], slug, path ~ '.' ~ key, editMode,  editor.options, true) }}</td>
+                                        <td>{{ data.select(value[key], id, path ~ '.' ~ key, editMode,  editor.options, true) }}</td>
                                     </tr>
                                 {% elseif editor.type == "image" %}
                                     <tr>
                                         <td>{{ editor.title }}</td>
-                                        <td>{{ data.setImagePreviewButton(value[key], slug, path ~ '.' ~ key, editMode) }}</td>
+                                        <td>{{ data.setImagePreviewButton(value[key], id, path ~ '.' ~ key, editMode) }}</td>
                                     </tr>
                                 {% elseif editor.type == "list" and editor.listType == "image" %}
                                     <tr>
@@ -158,13 +167,13 @@
                                             {% for ki, image in value[key] %}
                                                 <div class="pull-left editor-image-list-element" id="{{ (path ~ '.' ~ key ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
                                                 {% set imagePath = path ~ '.' ~ key ~ '.' ~ ki %}
-                                                {{ data.setImagePreviewButton(image, slug, imagePath, editMode) }}
-                                                {{ data.removeElementButton(imagePath, slug, editMode, true ) }}
+                                                {{ data.setImagePreviewButton(image, id, imagePath, editMode) }}
+                                                {{ data.removeElementButton(imagePath, id, editMode, true ) }}
                                                 </div>
                                             {% endfor %}
                                             </div>
                                             <div class="clearfix"></div>
-                                            {{ data.addImagePreviewButton(path ~ '.' ~ key, slug, editMode, "Добавить картинку") }}
+                                            {{ data.addImagePreviewButton(path ~ '.' ~ key, id, editMode, "Добавить картинку") }}
                                         </td>
                                     </tr>
                                 {% endif %}
@@ -183,7 +192,7 @@
 
 {% endmacro %}
 
-{% macro addComponentModal(slug, editMode, list = {}) %}
+{% macro addComponentModal(id, editMode, list = {}) %}
     {% if editMode %}
         <button class="btn btn-primary btn-add-component" data-toggle="modal" data-target="#add-component-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить компонент</button>
 
@@ -206,7 +215,7 @@
                     </div><!--//modal-body-->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                        <button type="button" class="btn btn-primary" id="add-component-button" data-slug="{{ slug }}">Добавить</button>
+                        <button type="button" class="btn btn-primary" id="add-component-button" data-pk="{{ id }}">Добавить</button>
                     </div>
                 </div><!--//modal-content-->
             </div><!--//modal-dialog-->

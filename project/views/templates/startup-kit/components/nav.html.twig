@@ -1,4 +1,4 @@
-{% macro pageNavSection(sectionData, slug, path, editMode) %}
+{% macro pageNavSection(sectionData, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
 
@@ -7,10 +7,10 @@
             <div class="container">
                 <ul id="page-nav" class="nav page-nav list-inline">
                     {% for i,link in sectionData.links %}
-                        <li>{{ data.a(link, slug, path ~ '.links.' ~ i, editMode, {'class': 'scrollto'}) }}{{ data.removeElementButton(path ~ '.links.' ~ i, slug, editMode) }}</li>
+                        <li>{{ data.a(link, pageId, path ~ '.links.' ~ i, editMode, {'class': 'scrollto'}) }}{{ data.removeElementButton(path ~ '.links.' ~ i, pageId, editMode) }}</li>
                     {% endfor %}
-                    {{ data.addElementButton(path ~ '.links', slug, editMode, "Добавить ссылку") }}
-                    {{ data.removeElementBigButton(path, slug, editMode, "Удалить компонент") }}
+                    {{ data.addElementButton(path ~ '.links', pageId, editMode, "Добавить ссылку") }}
+                    {{ data.removeElementBigButton(path, pageId, editMode, "Удалить компонент") }}
                 </ul><!--//page-nav-->
 
             </div>

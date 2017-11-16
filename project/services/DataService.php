@@ -3,6 +3,7 @@
 namespace Qe;
 
 
+use MongoDB\BSON\ObjectID;
 use MongoDB\Collection;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -39,42 +40,42 @@ class DataService implements ServiceProviderInterface
         ]);
     }
 
-    public function removePage($slug)
+    public function removePage($id)
     {
         $this->pageCollection->findOneAndDelete([
-            'slug' => $slug
+            '_id' => new ObjectId($id)
         ]);
     }
 
-    public function change($slug, $path, $value)
+    public function change($id, $path, $value)
     {
 
         if (is_array($value)) {
             foreach ($value as $k => $v) {
-                $this->update($slug, $path . '.' . $k, $v);
+                $this->update($id, $path . '.' . $k, $v);
             }
         } else {
-            $this->update($slug, $path, $value);
+            $this->update($id, $path, $value);
         }
     }
 
-    public function remove($slug, $path)
+    public function remove($id, $path)
     {
-        $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
+        $this->pageCollection->findOneAndUpdate(['_id' => new ObjectId($id)], [
             '$unset' => $this->getArray($path, "")
         ]);
     }
 
-    public function addBlock($slug, $type)
+    public function addBlock($id, $type)
     {
         $path = 'sections.' . $this->randomString() . '.type';
 
-        $this->update($slug, $path, $type);
+        $this->update($id, $path, $type);
     }
 
-    private function update($slug, $path, $value)
+    private function update($id, $path, $value)
     {
-        $this->pageCollection->findOneAndUpdate(['slug' => $slug], [
+        $this->pageCollection->findOneAndUpdate(['_id' => new ObjectId($id)], [
             '$set' => $this->getArray($path, $value)
         ]);
     }

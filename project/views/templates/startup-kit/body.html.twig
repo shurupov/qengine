@@ -10,13 +10,13 @@
     {{ admin.pageProperties(page, slug, editMode) }}
 
     {% for key, section in page.sections %}
-        {% if     section.type == "SimpleHeadingSection" %}  {{ top.simple(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "PromoHeadingSection" %}   {{ top.promo(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% if     section.type == "SimpleHeadingSection" %}  {{ top.simple(section, page._id, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PromoHeadingSection" %}   {{ top.promo(section, page._id, 'sections.' ~ key, editMode) }}
 
-        {% elseif section.type == "OverviewSection" %}       {{ components.overviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "FeaturePreviewSection" %} {{ components.featuresPreviewSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, page.slug, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page.slug, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "OverviewSection" %}       {{ components.overviewSection(section, page._id, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeaturePreviewSection" %} {{ components.featuresPreviewSection(section, page._id, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, page._id, 'sections.' ~ key, editMode) }}
+        {% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page._id, 'sections.' ~ key, editMode) }}
 
         {% endif %}
     {% endfor %}
@@ -24,7 +24,7 @@
     {% if editMode %}
 
         <section class="section text-center">
-            {{ data.addComponentModal(page.slug, editMode) }}
+            {{ data.addComponentModal(page._id, editMode) }}
         </section>
 
     {% endif %}

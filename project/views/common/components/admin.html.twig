@@ -7,7 +7,7 @@
         <div class="message">
             <label id="settings-label" class="btn" for="toggle">Параметры страницы</label>
             <h1>Параметры страницы</h1>
-            <h2>Title {{ data.text(page.title, slug, 'title', editMode) }}</h2>
+            <h2>Title {{ data.text(page.title, page._id, 'title', editMode) }}</h2>
         </div>
     {% endif %}
 
@@ -128,7 +128,7 @@
     {% import _self as admin %}
 
     <table class="table table-hover">
-        <caption>{{ caption }}</caption>
+        <caption><h2>{{ caption }}</h2></caption>
         <thead class="hidden-sm hidden-xs">
         <tr>
             <th>
@@ -146,7 +146,7 @@
                 <td>
                     <div class="row">
                         {% for field in fields %}
-                            <div class="col-md-{{ field.columns }}">{{ data.text(item[field.name], item.slug, field.name, editMode) }}{% if field.link %} <a href="/{{ item.slug }}">ссылка</a>{% endif %}</div>{# Надо параметризировать по какому полю будет искаться зама запись, то что в page slug #}
+                            <div class="col-md-{{ field.columns }}">{{ data.text(item[field.name], item._id, field.name, editMode) }}{% if field.link %} <a href="/{{ item.slug }}">ссылка</a>{% endif %}</div>{# Надо параметризировать по какому полю будет искаться зама запись, то что в page slug #}
                         {% endfor %}
                         <div class="col-md-1"><a class="remove-page-button" href="/e/{{ type }}/remove?{{ fields[0].name }}={{ item[fields[0].name] }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
                     </div>

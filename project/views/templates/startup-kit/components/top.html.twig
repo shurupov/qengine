@@ -36,7 +36,7 @@
     {% endif %}
 {% endmacro %}
 
-{% macro promo(sectionData, slug, path, editMode) %}
+{% macro promo(sectionData, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
 
@@ -52,12 +52,12 @@
             <div class="hero-slider-mask"></div>
         </div><!--//hero-slider-wrapper-->
         <div class="container promo-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, slug, editMode, "Удалить компонент") }}</h2>
-            <p class="tagline">{{ data.text(sectionData.description, slug, path ~ '.description', editMode) }}</p>
+            <h2 class="headline">{{ data.text(sectionData.header, pageId, path ~ '.header', editMode) }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, pageId, editMode, "Удалить компонент") }}</h2>
+            <p class="tagline">{{ data.text(sectionData.description, pageId, path ~ '.description', editMode) }}</p>
             {% if sectionData.showActionButton or sectionData.showVideoButton %}
             <div class="actions">
                 {% if sectionData.showActionButton %}
-                <a class="btn btn-cta btn-primary" href="#"{% if not editMode %} data-toggle="modal" data-target="#signup-modal"{% endif %}>{{ data.text(sectionData.action, slug, path ~ '.action', editMode) }}</a>
+                <a class="btn btn-cta btn-primary" href="#"{% if not editMode %} data-toggle="modal" data-target="#signup-modal"{% endif %}>{{ data.text(sectionData.action, pageId, path ~ '.action', editMode) }}</a>
                 {% endif %}
                 {#<br class="visible-xs-block">#}
                 {#<a href="#" class="play-trigger" data-toggle="modal" data-target="#modal-video" ><img class="play-icon" src="/templates/startup-kit/images/play-icon.svg" alt="">See how it works</a>#}
@@ -134,7 +134,7 @@
     </div><!--//modal-->
     {% endif %}
 
-    {{ data.settingsModal(sectionData, slug, path,
+    {{ data.settingsModal(sectionData, pageId, path,
         {
             'showActionButton': {
                 'type': 'select',
@@ -204,7 +204,7 @@
 
 {% endmacro %}
 
-{% macro simple(sectionData, slug, path, editMode) %}
+{% macro simple(sectionData, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
 
@@ -214,18 +214,18 @@
             <div class="hero-mask-gradient"></div>
         </div><!--//hero-wrapper-->
         <div class="container heading-content">
-            <h2 class="headline">{{ data.text(sectionData.header, slug, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, slug, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, slug, editMode) }}</h2>
-            <div class="intro">{{ data.text(sectionData.descriptor, slug, path ~ '.descriptor', editMode) }}</div>
+            <h2 class="headline">{{ data.text(sectionData.header, pageId, path ~ '.header', editMode) }}{{ data.setImageButton(sectionData.background, pageId, path ~ '.background', editMode, "/templates/startup-kit/images/hero/hero-about.jpg") }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, pageId, editMode) }}</h2>
+            <div class="intro">{{ data.text(sectionData.descriptor, pageId, path ~ '.descriptor', editMode) }}</div>
             {% if sectionData.showSlideButton and (editMode or sectionData.slideButton.url) %}
             <div class="actions">
-                {{ data.a(sectionData.slideButton, slug, path ~ '.slideButton', editMode, {'class': 'scrollto-no-offset'}) }}
+                {{ data.a(sectionData.slideButton, pageId, path ~ '.slideButton', editMode, {'class': 'scrollto-no-offset'}) }}
                 <a class="scrollto-no-offset" href="{{ sectionData.slideButton.url }}"><img src="/templates/startup-kit/images/arrow-icon.svg" alt=""></a>
             </div><!--//actions-->
             {% endif %}
         </div><!--//container-->
     </section><!--//heading-section-->
 
-    {{ data.settingsModal(sectionData, slug, path,
+    {{ data.settingsModal(sectionData, pageId, path,
         {
             'showSlideButton': {
                 'type': 'select',

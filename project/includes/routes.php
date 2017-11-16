@@ -60,7 +60,7 @@ $app->post('/e/page/block/add', function (Request $request) use ($app) {
 
     try {
         $app['dataService']->addBlock(
-            $request->request->get('slug'),
+            $request->request->get('id'),
             $request->request->get('type')
         );
         return json_encode(['status' => 'ok']);
@@ -98,7 +98,7 @@ $app->post('/e/page/add', function (Request $request) use ($app) {
 $app->get('/e/page/remove', function (Request $request) use ($app) {
 
     try {
-        $app['dataService']->removePage( $request->query->get('slug') );
+        $app['dataService']->removePage( $request->query->get('id') );
         return new RedirectResponse('/' . $app['settings']['admin']['slug']);
 
     } catch (\Exception $e) {
