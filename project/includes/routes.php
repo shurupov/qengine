@@ -95,13 +95,14 @@ $app->post('/e/page/add', function (Request $request) use ($app) {
 
 });
 
-$app->get('/e/page/remove', function (Request $request) use ($app) {
+$app->get('/e/page/remove/{id}', function ($id) use ($app) {
 
     try {
-        $app['dataService']->removePage( $request->query->get('id') );
-        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
 
+        $app['dataService']->removePage( $id );
+        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
     } catch (\Exception $e) {
+
         return json_encode([
             'status' => 'error',
             'message' => $e->getMessage(),
