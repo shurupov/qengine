@@ -15,13 +15,14 @@ $app->get('/', function (Request $request) use ($app) {
 
 });
 
-$app->post('/e/page/edit', function (Request $request) use ($app) {
+$app->post('/e/{collection}/edit', function (Request $request, $collection) use ($app) {
 
     try {
-        $app['dataService']->change(
+        $app['dataService']->edit(
             $request->request->get('pk'),
             $request->request->get('name'),
-            $request->request->get('value')
+            $request->request->get('value'),
+            $collection
         );
 
         return json_encode(['status' => 'ok']);
@@ -36,12 +37,51 @@ $app->post('/e/page/edit', function (Request $request) use ($app) {
 
 });
 
-$app->post('/e/page/field/remove', function (Request $request) use ($app) {
+$app->post('/e/{collection}/add', function (Request $request, $collection) use ($app) {
 
     try {
-        $app['dataService']->remove(
+        $app['dataService']->addDocument(
+            $request->request->all(),
+            $collection
+        );
+        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
+
+    } catch (\Exception $e) {
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+
+});
+
+$app->get('/e/{collection}/remove/{id}', function ($collection, $id) use ($app) {
+
+    try {
+
+        $app['dataService']->removeDocument( $id, $collection );
+        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
+    } catch (\Exception $e) {
+
+        return json_encode([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+
+});
+
+$app->post('/e/{collection}/field/remove', function (Request $request, $collection) use ($app) {
+
+    try {
+        $app['dataService']->removeField(
             $request->request->get('pk'),
-            $request->request->get('name')
+            $request->request->get('name'),
+            $collection
         );
 
         return json_encode(['status' => 'ok']);
@@ -65,44 +105,6 @@ $app->post('/e/page/block/add', function (Request $request) use ($app) {
         );
         return json_encode(['status' => 'ok']);
     } catch (\Exception $e) {
-        return json_encode([
-            'status' => 'error',
-            'message' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine()
-        ]);
-    }
-
-});
-
-$app->post('/e/page/add', function (Request $request) use ($app) {
-
-    try {
-        $app['dataService']->addPage(
-            $request->request->get('slug'),
-            $request->request->get('title')
-        );
-        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
-
-    } catch (\Exception $e) {
-        return json_encode([
-            'status' => 'error',
-            'message' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine()
-        ]);
-    }
-
-});
-
-$app->get('/e/page/remove/{id}', function ($id) use ($app) {
-
-    try {
-
-        $app['dataService']->removePage( $id );
-        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
-    } catch (\Exception $e) {
-
         return json_encode([
             'status' => 'error',
             'message' => $e->getMessage(),

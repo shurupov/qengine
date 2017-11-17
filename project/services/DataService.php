@@ -5,26 +5,27 @@ namespace Qe;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\Collection;
+use MongoDB\Database;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
 class DataService implements ServiceProviderInterface
 {
 
-    /** @var Collection $pageCollection **/
-    private $pageCollection;
     /** @var Collection $menuCollection **/
     private $menuCollection;
+    /** @var Database $db **/
+    private $db;
 
 
     public function getPage($slug)
     {
-        return $this->pageCollection->findOne(['slug' => $slug]);
+        return $this->db->page->findOne(['slug' => $slug]);
     }
 
     public function getAllPages()
     {
-        return $this->pageCollection->find()->toArray();
+        return $this->db->page->find()->toArray();
     }
 
     public function getMenu()
@@ -32,36 +33,33 @@ class DataService implements ServiceProviderInterface
         return $this->menuCollection->find()->toArray();
     }
 
-    public function addPage($slug, $title)
+    public function addDocument($fields, $collection)
     {
-        $this->pageCollection->insertOne([
-            'slug'  => $slug,
-            'title' => $title
-        ]);
+        $this->db->$collection->insertOne($fields);
     }
 
-    public function removePage($id)
+    public function removeDocument($id, $collection)
     {
-        $this->pageCollection->findOneAndDelete([
+        $this->db->$collection->findOneAndDelete([
             '_id' => new ObjectId($id)
         ]);
     }
 
-    public function change($id, $path, $value)
+    public function edit($id, $path, $value, $collection = 'page')
     {
 
         if (is_array($value)) {
             foreach ($value as $k => $v) {
-                $this->update($id, $path . '.' . $k, $v);
+                $this->update($id, $path . '.' . $k, $v, $collection);
             }
         } else {
-            $this->update($id, $path, $value);
+            $this->update($id, $path, $value, $collection);
         }
     }
 
-    public function remove($id, $path)
+    public function removeField($id, $path, $collection)
     {
-        $this->pageCollection->findOneAndUpdate(['_id' => new ObjectId($id)], [
+        $this->db->$collection->findOneAndUpdate(['_id' => new ObjectId($id)], [
             '$unset' => $this->getArray($path, "")
         ]);
     }
@@ -73,9 +71,9 @@ class DataService implements ServiceProviderInterface
         $this->update($id, $path, $type);
     }
 
-    private function update($id, $path, $value)
+    private function update($id, $path, $value, $collection = 'page')
     {
-        $this->pageCollection->findOneAndUpdate(['_id' => new ObjectId($id)], [
+        $this->db->$collection->findOneAndUpdate(['_id' => new ObjectId($id)], [
             '$set' => $this->getArray($path, $value)
         ]);
     }
@@ -120,8 +118,8 @@ class DataService implements ServiceProviderInterface
     {
         $db = $app['settings']['db']['name'];
 
-        /** @var Collection $page */
-        $this->pageCollection = $app['mongodb']->$db->page;
+        $this->db = $app['mongodb']->$db;
+
         $this->menuCollection = $app['mongodb']->$db->menu;
 
         $app['dataService'] = function () use ($app) {
