@@ -34,7 +34,114 @@ class PageService implements ServiceProviderInterface
     /** @var string $uri **/
     private $uri;
 
-    public function init()
+    public function isEditMode()
+    {
+        return $this->editMode;
+    }
+
+    public function renderAdminPanel()
+    {
+        try {
+
+            if (!$this->editMode) {
+                if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
+                    $this->request->request->get('password') == $this->app['settings']['admin']['credentials']['password']) {
+
+                    $this->setEditMode(true);
+                }
+            }
+
+            return $this->app['twig']->render("/templates/$this->template/admin.html.twig", [
+                'editMode' => $this->editMode,
+                'requestUri' => $this->uri,
+                'allPages' => $this->app['dataService']->getAllDocuments('page'),
+                'menu' => $this->app['dataService']->getAllDocuments('menu'),
+                'settings' => $this->getSettings(),
+                'topMenu' => $this->getTopMenu()
+            ]);
+
+        } catch (\Exception $e) {
+            throw new HttpException(500, $e->getMessage());
+        }
+    }
+
+    public function logout()
+    {
+        try {
+            $this->setEditMode(false);
+            $url = $this->request->headers->get('Referer');
+            if (!$url) {
+                $url = '/';
+            }
+            return new RedirectResponse($url);
+        } catch (\Exception $e) {
+            throw new HttpException(500, $e->getMessage());
+        }
+    }
+
+    public function render()
+    {
+
+        try {
+
+            $page = $this->app['dataService']->getPage($this->uri);
+
+            if ($page == null) {
+                throw new NotFoundHttpException();
+            }
+
+            return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
+                'page' => $page,
+                'editMode' => $this->editMode,
+                'requestUri' => $this->uri,
+                'settings' => $this->getSettings(),
+                'topMenu' => $this->getTopMenu()
+            ]);
+
+        } catch (NotFoundHttpException $e) {
+            throw new NotFoundHttpException();
+        } catch (\Exception $e) {
+            throw new HttpException(500, $e->getMessage());
+        }
+
+    }
+
+    public function renderErrorPage($code)
+    {
+        $page = $this->app['dataService']->getPage("/$code");
+
+        if ($page == null) {
+            $page = $this->app['dataService']->getPage("/500");
+        }
+
+        return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
+            'page' => $page,
+            'editMode' => $this->editMode,
+            'requestUri' => $this->uri,
+            'settings' => $this->getSettings(),
+            'topMenu' => $this->getTopMenu()
+        ]);
+    }
+
+    /**
+     * Registers services on the given container.
+     *
+     * This method should only be used to configure services and parameters.
+     * It should not get services.
+     *
+     * @param Container $app A container instance
+     */
+    public function register(Container $app)
+    {
+        $this->app = $app;
+        $this->init();
+
+        $app['pageService'] = function () use ($app) {
+            return $this;
+        };
+    }
+
+    private function init()
     {
         $this->request = Request::createFromGlobals();
 
@@ -91,96 +198,5 @@ class PageService implements ServiceProviderInterface
             $settings[$setting->key] = $setting;
         }
         return $settings;
-    }
-
-    public function isEditMode()
-    {
-        return $this->editMode;
-    }
-
-    public function render()
-    {
-
-        try {
-
-            if ($this->uri == $this->app['settings']['admin']['page']['uri']) {
-
-                if (!$this->editMode) {
-                    if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
-                        $this->request->request->get('password') == $this->app['settings']['admin']['credentials']['password']) {
-
-                        $this->setEditMode(true);
-                    }
-                }
-
-                return $this->app['twig']->render("/templates/$this->template/admin.html.twig", [
-                    'editMode' => $this->editMode,
-                    'requestUri' => $this->uri,
-                    'allPages' => $this->app['dataService']->getAllDocuments('page'),
-                    'menu' => $this->app['dataService']->getAllDocuments('menu'),
-                    'settings' => $this->getSettings(),
-                    'topMenu' => $this->getTopMenu()
-                ]);
-            }
-
-            if ($this->request->getRequestUri() == $this->app['settings']['admin']['logout']['uri']) {
-                $this->setEditMode(false);
-                return new RedirectResponse('/');
-            }
-
-            $page = $this->app['dataService']->getPage($this->uri);
-
-            if ($page == null) {
-                throw new NotFoundHttpException();
-            }
-
-            return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
-                'page' => $page,
-                'editMode' => $this->editMode,
-                'requestUri' => $this->uri,
-                'settings' => $this->getSettings(),
-                'topMenu' => $this->getTopMenu()
-            ]);
-
-        } catch (NotFoundHttpException $e) {
-            throw new NotFoundHttpException();
-        } catch (\Exception $e) {
-            throw new HttpException(500, $e->getMessage());
-        }
-
-    }
-
-    public function renderErrorPage($code)
-    {
-        $page = $this->app['dataService']->getPage("/$code");
-
-        if ($page == null) {
-            $page = $this->app['dataService']->getPage("/500");
-        }
-
-        return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
-            'page' => $page,
-            'editMode' => $this->editMode,
-            'requestUri' => $this->uri,
-            'topMenu' => $this->getTopMenu()
-        ]);
-    }
-
-    /**
-     * Registers services on the given container.
-     *
-     * This method should only be used to configure services and parameters.
-     * It should not get services.
-     *
-     * @param Container $app A container instance
-     */
-    public function register(Container $app)
-    {
-        $this->app = $app;
-        $this->init();
-
-        $app['pageService'] = function () use ($app) {
-            return $this;
-        };
     }
 }

@@ -10,7 +10,7 @@ require_once __DIR__ . '/../settings/settings.php';
 
 require_once __DIR__.'/../includes/register.php';
 
-$app['debug'] = true;
+$app['debug'] = $app['settings']['debug'];
 
 require_once __DIR__.'/../includes/routes.php';
 

@@ -29,5 +29,6 @@ $app['settings'] = [
         'password' => '',
         'encryption' => 'tls',
         'auth_mode' => 'login'
-    ]
+    ],
+    'debug' => true
 ];
