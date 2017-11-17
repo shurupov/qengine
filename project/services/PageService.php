@@ -51,11 +51,11 @@ class PageService implements ServiceProviderInterface
                 if ($editMode) {
                     $topMenu = array_merge_recursive( $topMenu, [
                         [
-                            'uri' => $this->app['settings']['admin']['slug'],
+                            'uri' => '/' . $this->app['settings']['admin']['slug'],
                             'text' => 'Настройки'
                         ],
                         [
-                            'uri' => $this->app['settings']['admin']['logout'],
+                            'uri' => '/' . $this->app['settings']['admin']['logout'],
                             'text' => 'Выход'
                         ],
                     ]);
