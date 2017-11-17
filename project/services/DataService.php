@@ -4,7 +4,6 @@ namespace Qe;
 
 
 use MongoDB\BSON\ObjectID;
-use MongoDB\Collection;
 use MongoDB\Database;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -12,8 +11,6 @@ use Pimple\ServiceProviderInterface;
 class DataService implements ServiceProviderInterface
 {
 
-    /** @var Collection $menuCollection **/
-    private $menuCollection;
     /** @var Database $db **/
     private $db;
 
@@ -23,14 +20,9 @@ class DataService implements ServiceProviderInterface
         return $this->db->page->findOne(['slug' => $slug]);
     }
 
-    public function getAllPages()
+    public function getAllDocuments($collection)
     {
-        return $this->db->page->find()->toArray();
-    }
-
-    public function getMenu()
-    {
-        return $this->menuCollection->find()->toArray();
+        return $this->db->$collection->find()->toArray();
     }
 
     public function addDocument($fields, $collection)
@@ -119,8 +111,6 @@ class DataService implements ServiceProviderInterface
         $db = $app['settings']['db']['name'];
 
         $this->db = $app['mongodb']->$db;
-
-        $this->menuCollection = $app['mongodb']->$db->menu;
 
         $app['dataService'] = function () use ($app) {
             return $this;

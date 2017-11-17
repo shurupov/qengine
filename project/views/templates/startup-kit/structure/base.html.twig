@@ -46,22 +46,9 @@
             </div><!--//navbar-header-->
             <div id="navbar-collapse" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    {% set pages = [
-                        {
-                            slug : '',
-                            title : 'Точный клик'
-                        } ,{
-                            slug : 'buytogether',
-                            title : 'Купим вместе'
-                        }
-                    ] %}
-                    {% for p in pages %}
-                        <li class="{% if p.slug == page.slug %}active {% endif %}nav-item"><a href="/{{ p.slug }}">{{ p.title }}</a></li>
+                    {% for link in topMenu %}
+                        <li class="{% if link.uri == '/' ~ slug %}active {% endif %}nav-item"><a href="{{ link.uri }}">{{ link.text }}</a></li>
                     {% endfor %}
-                    {% if editMode %}
-                        <li class="nav-item"><a href="/_admin">Настройки</a></li>
-                        <li class="nav-item"><a href="/_logout">Выход</a></li>
-                    {% endif %}
                 </ul><!--//nav-->
             </div><!--//navabr-collapse-->
         </nav><!--//main-nav-->

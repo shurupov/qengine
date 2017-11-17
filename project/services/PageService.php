@@ -35,6 +35,8 @@ class PageService implements ServiceProviderInterface
 
             $editMode = $request->getSession()->get('editMode', false);
 
+            $topMenu = $this->app['dataService']->getAllDocuments('menu');
+
             if ($slug == $this->app['settings']['admin']['slug']) {
 
                 if (!$editMode) {
@@ -46,11 +48,26 @@ class PageService implements ServiceProviderInterface
                     }
                 }
 
+                if ($editMode) {
+                    $topMenu = array_merge_recursive( $topMenu, [
+                        [
+                            'uri' => $this->app['settings']['admin']['slug'],
+                            'text' => 'Настройки'
+                        ],
+                        [
+                            'uri' => $this->app['settings']['admin']['logout'],
+                            'text' => 'Выход'
+                        ],
+                    ]);
+                }
+
                 return $this->app['twig']->render("/templates/$template/admin.html.twig", [
                     'template' => $template,
                     'editMode' => $editMode,
-                    'allPages' => $this->app['dataService']->getAllPages(),
-                    'menu' => $this->app['dataService']->getMenu()
+                    'slug' => $slug,
+                    'allPages' => $this->app['dataService']->getAllDocuments('page'),
+                    'menu' => $this->app['dataService']->getAllDocuments('menu'),
+                    'topMenu' => $topMenu
                 ]);
             }
 
@@ -61,6 +78,19 @@ class PageService implements ServiceProviderInterface
 
             $page = $this->app['dataService']->getPage($slug);
 
+            if ($editMode) {
+                $topMenu = array_merge_recursive( $topMenu, [
+                    [
+                        'uri' => $this->app['settings']['admin']['slug'],
+                        'text' => 'Настройки'
+                    ],
+                    [
+                        'uri' => $this->app['settings']['admin']['logout'],
+                        'text' => 'Выход'
+                    ],
+                ]);
+            }
+
             if ($page == null) {
                 $this->app->abort(404);
                 return null;
@@ -70,7 +100,8 @@ class PageService implements ServiceProviderInterface
                 'page' => $page,
                 'template' => $template,
                 'editMode' => $editMode,
-                'menu' => $this->app['dataService']->getMenu()
+                'slug' => $slug,
+                'topMenu' => $topMenu
             ]);
         } catch (\Exception $e) {
             $this->app->abort(500);
