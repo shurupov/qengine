@@ -2,10 +2,18 @@
 
 $app['settings'] = [
     'admin' => [
-        'slug' => '_admin',
-        'login' => 'admin',
-        'password' => 'great',
-        'logout' => '_logout'
+        'page' => [
+            'uri' => '/admin',
+            'caption' => 'Настройки'
+        ],
+        'logout' => [
+            'uri' => '/logout',
+            'caption' => 'Выход'
+        ],
+        'credentials' => [
+            'login' => 'admin',
+            'password' => 'great'
+        ]
     ],
     'db' => [
         'name' => 'qe'

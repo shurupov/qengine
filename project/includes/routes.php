@@ -6,6 +6,7 @@
  * Time: 16:50
  */
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -18,10 +19,9 @@ $app->post('/e/{collection}/edit', function (Request $request, $collection) use 
             $request->request->get('value'),
             $collection
         );
-
-        return json_encode(['status' => 'ok']);
+        return new JsonResponse(['status' => 'ok']);
     } catch (\Exception $e) {
-        return json_encode([
+        return new JsonResponse([
             'status' => 'error',
             'message' => $e->getMessage(),
             'file' => $e->getFile(),
@@ -38,10 +38,10 @@ $app->post('/e/{collection}/add', function (Request $request, $collection) use (
             $request->request->all(),
             $collection
         );
-        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
+        return new RedirectResponse($app['settings']['admin']['page']['uri']);
 
     } catch (\Exception $e) {
-        return json_encode([
+        return new JsonResponse([
             'status' => 'error',
             'message' => $e->getMessage(),
             'file' => $e->getFile(),
@@ -56,10 +56,10 @@ $app->get('/e/{collection}/remove/{id}', function ($collection, $id) use ($app) 
     try {
 
         $app['dataService']->removeDocument( $id, $collection );
-        return new RedirectResponse('/' . $app['settings']['admin']['slug']);
+        return new RedirectResponse($app['settings']['admin']['page']['uri']);
     } catch (\Exception $e) {
 
-        return json_encode([
+        return new JsonResponse([
             'status' => 'error',
             'message' => $e->getMessage(),
             'file' => $e->getFile(),
@@ -78,7 +78,7 @@ $app->post('/e/{collection}/field/remove', function (Request $request, $collecti
             $collection
         );
 
-        return json_encode(['status' => 'ok']);
+        return new JsonResponse(['status' => 'ok']);
     } catch (\Exception $e) {
         return json_encode([
             'status' => 'error',
@@ -97,7 +97,7 @@ $app->post('/e/page/block/add', function (Request $request) use ($app) {
             $request->request->get('id'),
             $request->request->get('type')
         );
-        return json_encode(['status' => 'ok']);
+        return new JsonResponse(['status' => 'ok']);
     } catch (\Exception $e) {
         return json_encode([
             'status' => 'error',
