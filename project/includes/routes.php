@@ -15,6 +15,12 @@ $app->get('/', function (Request $request) use ($app) {
 
 });
 
+$app->get('/', function (Request $request) use ($app) {
+
+    return $app['pageService']->render("", $request);
+
+});
+
 $app->post('/e/{collection}/edit', function (Request $request, $collection) use ($app) {
 
     try {

@@ -14,6 +14,10 @@ require_once __DIR__.'/../includes/routes.php';
 
 $app['debug'] = true;
 
+$app->before(function () use ($app) {
+    $app['pageService']->init();
+});
+
 $app->run();
 
 $app['logger']->addRecord(200, $logger->dump());

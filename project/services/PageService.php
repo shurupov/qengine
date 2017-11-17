@@ -14,98 +14,109 @@ use Pimple\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PageService implements ServiceProviderInterface
 {
     /** @var Container $app **/
     private $app;
 
+    /** @var Request $request **/
+    private $request;
+
+    /** @var boolean $editMode **/
+    private $editMode;
+
+    /** @var string $template **/
+    private $template;
+
+    public function init()
+    {
+        $this->request = Request::createFromGlobals();
+
+        if (!$this->request->getSession()) {
+            $this->request->setSession( new Session() );
+        }
+
+        $this->editMode = $this->request->getSession()->get('editMode', false);
+
+        $this->template = $this->app['settings']['template']['name'];
+    }
+
+    private function getTopMenu()
+    {
+        $topMenu = $this->app['dataService']->getAllDocuments('menu');
+
+        if ($this->editMode) {
+            $topMenu = array_merge( $topMenu, [
+                [
+                    'uri' => $this->app['settings']['admin']['page']['uri'],
+                    'text' => 'Настройки'
+                ],
+                [
+                    'uri' => $this->app['settings']['admin']['logout']['uri'],
+                    'text' => 'Выход'
+                ],
+            ]);
+        }
+
+        return $topMenu;
+
+    }
+
+    private function setEditMode($editMode)
+    {
+        $this->editMode = $editMode;
+        $this->editMode = $this->request->getSession()->set('editMode', $editMode);
+    }
+
     public function render($slug)
     {
 
-        $request = Request::createFromGlobals();
-
         try {
 
-            if (!$request->getSession()) {
-                $request->setSession( new Session() );
-            }
+            if ($this->request->getRequestUri() == $this->app['settings']['admin']['page']['uri']) {
 
-            $template = $this->app['settings']['template']['name'];
+                if (!$this->editMode) {
+                    if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
+                        $this->request->request->get('password') == $this->app['settings']['admin']['credentials']['password']) {
 
-            $editMode = $request->getSession()->get('editMode', false);
-
-            $topMenu = $this->app['dataService']->getAllDocuments('menu');
-
-            if ($slug == $this->app['settings']['admin']['slug']) {
-
-                if (!$editMode) {
-                    if ($request->request->get('username') == $this->app['settings']['admin']['login'] &&
-                        $request->request->get('password') == $this->app['settings']['admin']['password']) {
-
-                        $request->getSession()->set('editMode', true);
-                        $editMode = true;
+                        $this->setEditMode(true);
                     }
                 }
 
-                if ($editMode) {
-                    $topMenu = array_merge( $topMenu, [
-                        [
-                            'uri' => '/' . $this->app['settings']['admin']['slug'],
-                            'text' => 'Настройки'
-                        ],
-                        [
-                            'uri' => '/' . $this->app['settings']['admin']['logout'],
-                            'text' => 'Выход'
-                        ],
-                    ]);
-                }
-
-                return $this->app['twig']->render("/templates/$template/admin.html.twig", [
-                    'template' => $template,
-                    'editMode' => $editMode,
+                return $this->app['twig']->render("/templates/$this->template/admin.html.twig", [
+                    'editMode' => $this->editMode,
                     'slug' => $slug,
                     'allPages' => $this->app['dataService']->getAllDocuments('page'),
                     'menu' => $this->app['dataService']->getAllDocuments('menu'),
-                    'topMenu' => $topMenu
+                    'topMenu' => $this->getTopMenu()
                 ]);
             }
 
-            if ($slug == $this->app['settings']['admin']['logout']) {
-                $request->getSession()->set('editMode', false);
+            if ($this->request->getRequestUri() == $this->app['settings']['admin']['logout']['uri']) {
+                $this->setEditMode(false);
                 return new RedirectResponse('/');
             }
 
             $page = $this->app['dataService']->getPage($slug);
 
-            if ($editMode) {
-                $topMenu = array_merge_recursive( $topMenu, [
-                    [
-                        'uri' => $this->app['settings']['admin']['slug'],
-                        'text' => 'Настройки'
-                    ],
-                    [
-                        'uri' => $this->app['settings']['admin']['logout'],
-                        'text' => 'Выход'
-                    ],
-                ]);
-            }
-
             if ($page == null) {
-                $this->app->abort(404);
-                return null;
+//                $this->app->abort(404);
+//                return null;
+                throw new NotFoundHttpException();
             }
 
-            return $this->app['twig']->render("/templates/$template/body.html.twig", [
+            return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
                 'page' => $page,
-                'template' => $template,
-                'editMode' => $editMode,
+                'editMode' => $this->editMode,
                 'slug' => $slug,
-                'topMenu' => $topMenu
+                'topMenu' => $this->getTopMenu()
             ]);
         } catch (\Exception $e) {
-            $this->app->abort(500);
-            return null;
+//            $this->app->abort(500);
+//            return null;
+            throw new \HttpRuntimeException();
         }
     }
 
