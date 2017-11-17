@@ -7,22 +7,23 @@
     {{- value | raw -}}
 {%- endmacro -%}
 
-{% macro text(value, id, path, editMode = false, inModal = false) %}
+{% macro universalText(type, value, id, path, editMode = false, inModal = false, placement = 'top') %}
     {% import _self as data %}
     {% if editMode %}
-        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/page/edit" data-pk="{{ id }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
+        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/{{ type }}/edit" data-pk="{{ id }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %} data-placement="{{ placement }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {% else %}
         {{- value | raw -}}
     {% endif %}
 {% endmacro %}
 
-{% macro universalText(type, value, id, path, editMode = false, inModal = false) %}
+{% macro text(value, id, path, editMode = false, inModal = false) %}
     {% import _self as data %}
-    {% if editMode %}
-        <e{% if inModal %}s{% endif %} data-type="text" data-url="/e/{{ type }}/edit" data-pk="{{ id }}" data-name="{{ path }}"{% if title is not empty %} data-title="{{ title }}"{% endif %}>{{ value | raw }}</e{% if inModal %}s{% endif %}>
-    {% else %}
-        {{- value | raw -}}
-    {% endif %}
+    {{ data.universalText('page', value, id, path, editMode, inModal) }}
+{% endmacro %}
+
+{% macro textSetting(setting, editMode = false, placement = 'top') %}
+    {% import _self as data %}
+    {{ data.universalText('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
 {% endmacro %}
 
 {%- macro textarea(value, id, path, editMode = false, inModal = false) -%}

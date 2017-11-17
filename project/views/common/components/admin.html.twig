@@ -109,7 +109,7 @@
                 <td>
                     <div class="row">
                         {% for field in fields %}
-                            <div class="col-md-{{ field.columns }}">{{ data.text(item[field.name], item._id, field.name, editMode) }}
+                            <div class="col-md-{{ field.columns }}">{{ data.universalText(type, item[field.name], item._id, field.name, not field.readonly) }}
                                 {% if field.link %} <a href="{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
@@ -125,7 +125,7 @@
 
 {% endmacro %}
 
-{% macro adminPanel(pages, menu) %}
+{% macro adminPanel(pages, menu, settings) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -166,18 +166,41 @@
                     }
                 ]) }}
 
+                <br/><br/><br/>
+
+                {{ admin.table(settings, 'setting', 'Настройки', 'Добавить настройку', [
+                    {
+                        'name': 'key',
+                        'caption': 'Ключ',
+                        'placeholder': 'title',
+                        'columns': 3,
+                        'readonly': true
+                    }, {
+                        'name': 'title',
+                        'caption': 'Название',
+                        'placeholder': 'Заголовок сайта',
+                        'columns': 4,
+                        'readonly': true
+                    }, {
+                        'name': 'value',
+                        'caption': 'Значение',
+                        'placeholder': 'Наш сайт',
+                        'columns': 4
+                    }
+                ]) }}
+
             </div>
         </div>
     </div>
 
 {% endmacro %}
 
-{% macro admin(editMode, pages = [], menu = []) %}
+{% macro admin(editMode, pages = [], menu = [], settings = []) %}
 
     {% import _self as admin %}
 
     {% if editMode %}
-        {{ admin.adminPanel(pages, menu) }}
+        {{ admin.adminPanel(pages, menu, settings) }}
     {% else %}
         {{ admin.loginForm() }}
     {% endif %}

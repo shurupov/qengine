@@ -84,6 +84,15 @@ class PageService implements ServiceProviderInterface
         $this->request->getSession()->set('editMode', $editMode);
     }
 
+    private function getSettings()
+    {
+        $settings = [];
+        foreach ($this->app['dataService']->getAllDocuments('setting') as $setting) {
+            $settings[$setting->key] = $setting;
+        }
+        return $settings;
+    }
+
     public function isEditMode()
     {
         return $this->editMode;
@@ -109,6 +118,7 @@ class PageService implements ServiceProviderInterface
                     'requestUri' => $this->uri,
                     'allPages' => $this->app['dataService']->getAllDocuments('page'),
                     'menu' => $this->app['dataService']->getAllDocuments('menu'),
+                    'settings' => $this->getSettings(),
                     'topMenu' => $this->getTopMenu()
                 ]);
             }
@@ -128,6 +138,7 @@ class PageService implements ServiceProviderInterface
                 'page' => $page,
                 'editMode' => $this->editMode,
                 'requestUri' => $this->uri,
+                'settings' => $this->getSettings(),
                 'topMenu' => $this->getTopMenu()
             ]);
 

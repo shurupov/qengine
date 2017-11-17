@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title>{% block title %}{{ pageTitle }}{% if pageTitle|length > 0 %} | {% endif %}Точный клик{% endblock %}</title>
+    <title>{% block title %}{{ pageTitle }}{% if pageTitle|length > 0 %} | {% endif %}{{ settings.title.value }} - разработка сайтов{% endblock %}</title>
     <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,7 +34,7 @@
 <header id="header" class="header">
     <div class="container">
         <h1 class="logo">
-            <a href="/"><img src="/i/app2.png" style="height: 35px;">&nbsp;<span class="text">Точный клик</span></a>
+            {% if not editMode %}<a href="/">{% endif %}<img src="/i/app2.png" style="height: 35px;">&nbsp;<span class="text">{{ data.textSetting(settings.title, editMode, 'bottom') }}</span>{% if not editMode %}</a>{% endif %}
         </h1><!--//logo-->
         <nav class="main-nav navbar-right" role="navigation">
             <div class="navbar-header">
@@ -63,7 +63,7 @@
         <div class="divider"></div>
         <div class="footer-bottom text-center">
             <ul class="social-media list-inline">
-                <li><a href="http://vk.com/shurupov" target="_blank"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                <li><a href="{{ settings.vklink.value }}" target="_blank"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
             </ul>
 
             <small class="copyright"><a href="/">Точный клик</a></small>
