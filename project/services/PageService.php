@@ -67,7 +67,7 @@ class PageService implements ServiceProviderInterface
     private function setEditMode($editMode)
     {
         $this->editMode = $editMode;
-        $this->editMode = $this->request->getSession()->set('editMode', $editMode);
+        $this->request->getSession()->set('editMode', $editMode);
     }
 
     public function render($slug)
