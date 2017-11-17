@@ -134,6 +134,22 @@ class PageService implements ServiceProviderInterface
 
     }
 
+    public function renderErrorPage($code)
+    {
+        $page = $this->app['dataService']->getPage("/$code");
+
+        if ($page == null) {
+            $page = $this->app['dataService']->getPage("/500");
+        }
+
+        return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
+            'page' => $page,
+            'editMode' => $this->editMode,
+            'requestUri' => $this->uri,
+            'topMenu' => $this->getTopMenu()
+        ]);
+    }
+
     /**
      * Registers services on the given container.
      *

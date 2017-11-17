@@ -123,13 +123,8 @@ $app->match('{uri}', function () use ($app) {
 
 })->assert('uri', '.*')->method('GET|POST');
 
-/*$app->error(function (\Exception $e, $headers, $code) use ($app) {
-    switch ($code) {
-        case 404:
-            return $app['pageService']->render("404");
-        case 500:
-            return $app['pageService']->render("500");
-        default:
-            return $app['pageService']->render("error");
-    }
-});*/
+$app->error(function ($code) use ($app) {
+
+    return $app['pageService']->renderErrorPage($code);
+
+});
