@@ -47,7 +47,7 @@
             <div id="navbar-collapse" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     {% for link in topMenu %}
-                        <li class="{% if link.uri == '/' ~ slug %}active {% endif %}nav-item"><a href="{{ link.uri }}">{{ link.text }}</a></li>
+                        <li class="{% if link.uri == requestUri %}active {% endif %}nav-item"><a href="{{ link.uri }}">{{ link.text }}</a></li>
                     {% endfor %}
                 </ul><!--//nav-->
             </div><!--//navabr-collapse-->

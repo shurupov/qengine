@@ -9,18 +9,6 @@
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-$app->get('/', function (Request $request) use ($app) {
-
-    return $app['pageService']->render("", $request);
-
-});
-
-$app->get('/', function (Request $request) use ($app) {
-
-    return $app['pageService']->render("", $request);
-
-});
-
 $app->post('/e/{collection}/edit', function (Request $request, $collection) use ($app) {
 
     try {
@@ -129,25 +117,13 @@ $app->post('/post', function (Request $request) use ($app) {
 
 });
 
-$app->get('/{slug}', function ($slug, Request $request) use ($app) {
+$app->match('{uri}', function () use ($app) {
 
-    return $app['pageService']->render($slug, $request);
+    return $app['pageService']->render();
 
-});
+})->assert('uri', '.*')->method('GET|POST');
 
-$app->post('/{slug}', function ($slug, Request $request) use ($app) {
-
-    return $app['pageService']->render($slug, $request);
-
-});
-
-$app->get('/{slug}/{subslug}', function ($slug, $subslug, Request $request) use ($app) {
-
-    return $app['pageService']->render($slug . '/' . $subslug, $request);
-
-});
-
-$app->error(function (\Exception $e, $headers, $code) use ($app) {
+/*$app->error(function (\Exception $e, $headers, $code) use ($app) {
     switch ($code) {
         case 404:
             return $app['pageService']->render("404");
@@ -156,4 +132,4 @@ $app->error(function (\Exception $e, $headers, $code) use ($app) {
         default:
             return $app['pageService']->render("error");
     }
-});
+});*/

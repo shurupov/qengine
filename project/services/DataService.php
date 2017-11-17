@@ -15,9 +15,9 @@ class DataService implements ServiceProviderInterface
     private $db;
 
 
-    public function getPage($slug)
+    public function getPage($uri)
     {
-        return $this->db->page->findOne(['slug' => $slug]);
+        return $this->db->page->findOne(['uri' => $uri]);
     }
 
     public function getAllDocuments($collection)

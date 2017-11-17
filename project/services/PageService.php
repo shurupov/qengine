@@ -14,6 +14,7 @@ use Pimple\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PageService implements ServiceProviderInterface
@@ -30,6 +31,9 @@ class PageService implements ServiceProviderInterface
     /** @var string $template **/
     private $template;
 
+    /** @var string $uri **/
+    private $uri;
+
     public function init()
     {
         $this->request = Request::createFromGlobals();
@@ -41,6 +45,16 @@ class PageService implements ServiceProviderInterface
         $this->editMode = $this->request->getSession()->get('editMode', false);
 
         $this->template = $this->app['settings']['template']['name'];
+
+        $this->uri = $this->request->getRequestUri();
+
+        if (substr($this->uri, -1) == '/') {
+            $this->uri = substr($this->uri, 0, strlen($this->uri) - 1);
+        }
+
+        if ($this->uri == '') {
+            $this->uri = '/';
+        }
     }
 
     private function getTopMenu()
@@ -70,12 +84,12 @@ class PageService implements ServiceProviderInterface
         $this->request->getSession()->set('editMode', $editMode);
     }
 
-    public function render($slug)
+    public function render()
     {
 
         try {
 
-            if ($this->request->getRequestUri() == $this->app['settings']['admin']['page']['uri']) {
+            if ($this->uri == $this->app['settings']['admin']['page']['uri']) {
 
                 if (!$this->editMode) {
                     if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
@@ -87,7 +101,7 @@ class PageService implements ServiceProviderInterface
 
                 return $this->app['twig']->render("/templates/$this->template/admin.html.twig", [
                     'editMode' => $this->editMode,
-                    'slug' => $slug,
+                    'requestUri' => $this->uri,
                     'allPages' => $this->app['dataService']->getAllDocuments('page'),
                     'menu' => $this->app['dataService']->getAllDocuments('menu'),
                     'topMenu' => $this->getTopMenu()
@@ -99,25 +113,25 @@ class PageService implements ServiceProviderInterface
                 return new RedirectResponse('/');
             }
 
-            $page = $this->app['dataService']->getPage($slug);
+            $page = $this->app['dataService']->getPage($this->uri);
 
             if ($page == null) {
-//                $this->app->abort(404);
-//                return null;
                 throw new NotFoundHttpException();
             }
 
             return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
                 'page' => $page,
                 'editMode' => $this->editMode,
-                'slug' => $slug,
+                'requestUri' => $this->uri,
                 'topMenu' => $this->getTopMenu()
             ]);
+
+        } catch (NotFoundHttpException $e) {
+            throw new NotFoundHttpException();
         } catch (\Exception $e) {
-//            $this->app->abort(500);
-//            return null;
-            throw new \HttpRuntimeException();
+            throw new HttpException(500, $e->getMessage());
         }
+
     }
 
     /**

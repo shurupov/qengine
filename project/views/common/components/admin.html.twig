@@ -110,7 +110,7 @@
                     <div class="row">
                         {% for field in fields %}
                             <div class="col-md-{{ field.columns }}">{{ data.text(item[field.name], item._id, field.name, editMode) }}
-                                {% if field.link %} <a href="{% if field.link.addSlashBefore %}/{% endif %}{{ item[field.name] }}">{{ field.link.caption | default('Перейти') }}</a>{% endif %}
+                                {% if field.link %} <a href="{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
                         <div class="col-md-1"><a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
@@ -136,13 +136,11 @@
 
                 {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
                     {
-                        'name': 'slug',
+                        'name': 'uri',
                         'caption': 'URI',
-                        'placeholder': 'newpage',
+                        'placeholder': '/newpage',
                         'columns': 3,
-                        'link': {
-                            'addSlashBefore' : true
-                        }
+                        'link': true
                     }, {
                         'name': 'title',
                         'caption': 'Заголовок',
@@ -159,9 +157,7 @@
                         'caption': 'URI',
                         'placeholder': '/page',
                         'columns': 3,
-                        'link': {
-                            'addSlashBefore' : false
-                        }
+                        'link': true
                     }, {
                         'name': 'text',
                         'caption': 'Текст',
