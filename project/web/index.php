@@ -10,13 +10,9 @@ require_once __DIR__ . '/../settings/settings.php';
 
 require_once __DIR__.'/../includes/register.php';
 
-require_once __DIR__.'/../includes/routes.php';
-
 $app['debug'] = true;
 
-$app->before(function () use ($app) {
-    $app['pageService']->init();
-});
+require_once __DIR__.'/../includes/routes.php';
 
 $app->run();
 

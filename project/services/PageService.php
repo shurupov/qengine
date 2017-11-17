@@ -84,6 +84,11 @@ class PageService implements ServiceProviderInterface
         $this->request->getSession()->set('editMode', $editMode);
     }
 
+    public function isEditMode()
+    {
+        return $this->editMode;
+    }
+
     public function render()
     {
 
@@ -161,6 +166,7 @@ class PageService implements ServiceProviderInterface
     public function register(Container $app)
     {
         $this->app = $app;
+        $this->init();
 
         $app['pageService'] = function () use ($app) {
             return $this;
