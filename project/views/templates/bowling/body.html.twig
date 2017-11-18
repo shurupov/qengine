@@ -1,13 +1,13 @@
 {% extends '/templates/bowling/structure/head.html.twig' %}
-{% import '/templates/bowling/components/top.html.twig' as top %}
-{% import '/templates/bowling/components/components.html.twig' as components %}
-{% import '/templates/bowling/components/nav.html.twig' as nav %}
+{#{% import '/templates/bowling/components/top.html.twig' as top %}#}
+{#{% import '/templates/bowling/components/components.html.twig' as components %}#}
+{#{% import '/templates/bowling/components/nav.html.twig' as nav %}#}
 {% import '/common/components/admin.html.twig' as admin %}
 {% import '/common/components/data.html.twig' as data %}
 
 {% block body %}
 
-    {{ admin.pageProperties(page, slug, editMode) }}
+    {{ admin.pageProperties(page, editMode) }}
 
     {#{% for key, section in page.sections %}
         {% if     section.type == "SimpleHeadingSection" %}  {{ top.simple(section, page._id, 'sections.' ~ key, editMode) }}
@@ -23,9 +23,9 @@
 
     {% if editMode %}
 
-        <section class="section text-center">
+        {#<section class="section text-center">
             {{ data.addComponentModal(page._id, editMode) }}
-        </section>
+        </section>#}
 
     {% endif %}
 
