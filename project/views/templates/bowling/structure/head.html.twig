@@ -13,9 +13,6 @@
 
 {% block javascripts %}
     {% if editMode %}
-        <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
-        <script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
-        <script src="/plugins/edit-tools/edit-tools.js"></script>
 
         <script>
             var componentsList = {
@@ -31,20 +28,18 @@
             };
         </script>
 
-    {% endif %}
+        <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
+        <script src="/plugins/edit-tools/edit-tools.js"></script>
 
-    {#<!-- Vimeo video API -->
-    <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
-    <script type="text/javascript" src="/templates/startup-kit/js/vimeo.js"></script>#}
+    {% endif %}
 
 {% endblock %}
 
 {% block pageSettings %}
 
     {% if editMode %}
-
         {{ data.removeElementModal() }}
-
     {% endif %}
 
 {% endblock %}

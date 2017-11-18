@@ -1,4 +1,7 @@
-$(document).ready(function () {
+// $(document).ready(function () {
+
+    console.log('edit tools started to load');
+
     $.fn.editableform.buttons =
         '<button type="submit" class="form-control btn btn-primary editable-submit">'+
             '<i class="glyphicon glyphicon-ok"></i>'+
@@ -7,7 +10,7 @@ $(document).ready(function () {
             '<i class="glyphicon glyphicon-remove"></i>'+
         '</button>';
 
-    $(document).ready(function() {
+    // $(document).ready(function() {
         $('e').editable({
             'emptytext' : 'Пусто',
             'inputclass': ''
@@ -136,8 +139,11 @@ $(document).ready(function () {
             });
         });
 
-    });
-});
+    // });
+
+    console.log('edit tools are loaded');
+
+// });
 
 function str_rand() {
     var result       = '';

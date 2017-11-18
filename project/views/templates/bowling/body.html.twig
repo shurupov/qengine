@@ -9,23 +9,23 @@
 
     {{ admin.pageProperties(page, editMode) }}
 
-    {#{% for key, section in page.sections %}
-        {% if     section.type == "SimpleHeadingSection" %}  {{ top.simple(section, page._id, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "PromoHeadingSection" %}   {{ top.promo(section, page._id, 'sections.' ~ key, editMode) }}
+    {% for key, section in page.sections %}
+        {#{% if     section.type == "SimpleHeadingSection" %}   {{ top.simple(section, page._id, 'sections.' ~ key, editMode) }}#}
+        {#{% elseif section.type == "SliderHeadingSection" %}   {{ top.promo(section, page._id, 'sections.' ~ key, editMode) }}#}
 
-        {% elseif section.type == "OverviewSection" %}       {{ components.overviewSection(section, page._id, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "FeaturePreviewSection" %} {{ components.featuresPreviewSection(section, page._id, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, page._id, 'sections.' ~ key, editMode) }}
-        {% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page._id, 'sections.' ~ key, editMode) }}
+        {#{% elseif section.type == "OverviewSection" %}       {{ components.overviewSection(section, page._id, 'sections.' ~ key, editMode) }}#}
+        {#{% elseif section.type == "FeaturePreviewSection" %} {{ components.featuresPreviewSection(section, page._id, 'sections.' ~ key, editMode) }}#}
+        {#{% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, page._id, 'sections.' ~ key, editMode) }}#}
+        {#{% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page._id, 'sections.' ~ key, editMode) }}#}
 
         {% endif %}
-    {% endfor %}#}
+    {% endfor %}
 
     {% if editMode %}
 
-        {#<section class="section text-center">
+        <section class="section text-center" style="padding-top: 100px;">
             {{ data.addComponentModal(page._id, editMode) }}
-        </section>#}
+        </section>
 
     {% endif %}
 
