@@ -1,0 +1,458 @@
+
+@media (max-width: 1600px) {
+/* Home */
+.our-menu .object-top-bottom .object-right {
+	width: 7%;
+}
+.our-menu .object-top-bottom .object-right img {
+	width: 100%;
+}
+.columns-4 .blog-entry .social ul li {
+	padding: 0px 1px;
+}
+}
+
+@media (max-width: 1400px) {
+.bb-custom-side {
+	padding-right: 20px;
+}
+.about-2 .about-content {
+	padding-right: 60px;
+}
+}
+
+@media (max-width: 1350px) {
+.object-bottom-top, .object-top-bottom, .object-top, .object-bottom {
+	display: none;
+}
+}
+
+@media (max-width: 1272px) {
+.masonry.columns-4 .masonry-item {
+	width: 33.333%;
+}
+.about-2 .object-top .object-right {
+	display: none;
+}
+.our-menu.dark .object-top-bottom .object-right {
+	display: none;
+}
+.about-2 .about-content {
+	padding-right: 0px;
+}
+}
+
+@media (max-width: 1199px) {
+/* Home 1 */
+.open.overlay_search .form_search-wrap {
+	min-width: 80%;
+}
+.pricing-grid .pricing-table {
+	margin-left: 0;
+	margin-right: 0;
+}
+.counter .object-bottom .object-left {
+	display: none;
+}
+.our-menu .menu-body {
+	margin-bottom: 50px;
+}
+.menu-body.menu-white {
+	padding: 0;
+}
+.menu-body.menu-left .menu-thumbnail, .menu-body.menu-right .menu-thumbnail {
+	width: 120px;
+}
+.menu-body .menu-thumbnail img {
+	width: 120px;
+}
+}
+
+@media (max-width: 1024px) {
+.open.overlay_search .form_search-wrap {
+	min-width: 95%;
+}
+.full-screen .grid-item {
+	width: 33.3%;
+}
+.custom-content h2 {
+	font-size: 40px;
+	line-height: 40px;
+}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 999px) {
+.container {
+	width: 96%;
+}
+}
+
+@media( max-width:992px) {
+header {
+	position: relative;
+	background: #1e2327;
+}
+.mega-menu .head-info-content {
+	display: none;
+}
+.mega-menu .menu-links {
+	left: 0;
+	position: absolute;
+	top: 64px;
+	width: 100%;
+}
+.mega-menu .menu-logo > li > a {
+	padding: 0;
+}
+.mega-menu > section.menu-list-items {
+	padding: 10px 0;
+}
+.mega-menu img {
+	height: 40px;
+	margin: 5px 0;
+}
+.mega-menu img.drop-bg {
+	display: none;
+}
+.mega-menu .mobileTriggerButton {
+	z-index: 1;
+}
+.our-menu .middle-image {
+	display: none;
+}
+}
+
+@media( max-width:991px) {
+.mega-menu .menu-logo li img {
+	height: 40px;
+}
+.book-menu, .bb-custom-wrapper {
+	display: none;
+}
+.section-title {
+	margin-bottom: 60px;
+}
+/* Home 1 */
+.pricing-grid .pricing-table .pricing-title h2 {
+	font-size: 40px;
+	line-height: 40px;
+	margin-bottom: 15px;
+}
+.pricing-grid .pricing-table {
+	padding: 20px 0;
+}
+.pricing-grid .pricing-table.active .pricing-title h2 {
+	padding: 24px 0;
+}
+.pricing-grid .pricing-table .pricing-icon i {
+	font-size: 100px;
+}
+.menu-body.menu-left .menu-thumbnail, .menu-body.menu-right .menu-thumbnail {
+	width: 100px;
+}
+.menu-body .menu-thumbnail img {
+	width: 100px;
+}
+.reservation-form .form-image {
+	display: none;
+}
+.reservation-form .row-eq-height {
+	display: block;
+}
+.tabs ul.tabs-link li {
+	padding-right: 20px;
+}
+.footer-logo {
+	margin-top: 40px;
+}
+.footer .footer-bottom {
+	margin-top: 20px;
+}
+.footer .tweet {
+	margin-bottom: 30px;
+}
+.head-info-content {
+	z-index: 99;
+}
+/* Menu */
+.menu-list-bg {
+	height: 180px;
+}
+}
+
+@media( max-width:768px) {
+/* Home 1 */
+.book-menu .content h2 {
+	font-size: 48px;
+}
+.object-2 .object-right {
+	text-align: right;
+}
+.object-2 .object-right img {
+	width: 60%;
+	display: inline-block;
+}
+}
+
+@media( max-width:767px) {
+.button-orange-medium {
+	padding: 12px 20px;
+}
+.button-black-medium {
+	padding: 12px 20px;
+}
+/* Home 1 */
+.header {
+	padding: 0;
+	position: inherit;
+	background: #1e2327;
+}
+.slider {
+	overflow: inherit;
+}
+.header .mega-menu > section.menu-list-items {
+	float: none;
+	padding: 6px 0;
+}
+.header .mega-menu .menu-mobile-collapse-trigger {
+	top: 3px;
+}
+.header .mega-menu .menu-links {
+	top: 57px;
+}
+.topbar {
+	display: none;
+}
+.page-section-ptb {
+	padding: 50px 0;
+}
+.page-section-pt {
+	padding-top: 50px;
+}
+.page-section-pb {
+	padding-bottom: 50px;
+}
+.section-title {
+	margin-bottom: 40px;
+	padding: 0;
+}
+.section-title h2 {
+	font-size: 40px;
+	line-height: 40px;
+}
+.section-title .glyph-icon:before {
+	font-size: 30px;
+}
+.object-top-bottom {
+	display: none;
+}
+.pricing-grid .pricing-table {
+	margin-bottom: 20px;
+}
+.pricing-grid .pricing-table.active {
+	margin-top: 0;
+}
+.tabs ul.tabs-link {
+	margin-bottom: 50px;
+}
+.tabs ul.tabs-link li i:before {
+	padding-right: 5px;
+}
+.tabs ul.tabs-link li {
+	padding-right: 20px;
+	font-size: 30px;
+}
+.our-menu .menu-body, .our-menu .menu-body:last-child {
+	margin-bottom: 30px;
+}
+.counter.light .page-section-ptb {
+	padding: 40px 0;
+	padding-bottom: 0;
+}
+.counter.left-icon.last {
+	margin-bottom: 0;
+}
+.testimonials .object-bottom-top .object-right {
+	display: none;
+}
+.newsletter-section .newsletter-image {
+	display: none;
+}
+.footer-wel {
+	margin-bottom: 30px;
+}
+.footer .newsletter, .footer .tweet, .footer .opening-time {
+	margin-bottom: 30px;
+}
+.footer .footer-bottom {
+	margin-top: 0;
+}
+.footer h4 {
+	margin-bottom: 20px !important;
+}
+.footer .object-bottom .object-right {
+	display: none;
+}
+.reservation-form.contact-form.dark.page-section-ptb.parallax .submit-button span {
+	padding-bottom: 0;
+}
+/* Revolution slider font setting */
+.mo-details-text {
+	font-size: 13px !important;
+	line-height: 19px !important;
+}
+.mo-sub-title-text {
+	font-size: 16px !important;
+}
+.mo-text-uppercase {
+	font-size: 12px !important;
+	line-height: 16px !important;
+}
+.mo-btn {
+	font-size: 9px !important;
+	padding: 2px 12px !important;
+	line-height: 14px !important;
+	position: relative !important;
+	top: 12px !important;
+}
+.tparrows, .tp-bullet {
+	display: none !important;
+}
+}
+
+@media( max-width:600px) {
+}
+
+@media( max-width:479px) {
+/* Home 1 */
+.page-section-ptb {
+	padding: 40px 0;
+}
+h2, h3 {
+	font-size: 30px;
+}
+.pricing-grid .pricing-table .pricing-title h2 {
+	font-size: 30px;
+	line-height: 30px;
+}
+.tabs ul.tabs-link li {
+	font-size: 0;
+}
+.tabs ul.tabs-link.without-icon li {
+	font-size: 22px;
+}
+.tabs ul.tabs-link li i:before {
+	font-size: 28px;
+}
+.menu-body.menu-left .menu-thumbnail {
+	float: none;
+	width: 100%;
+	margin-bottom: 15px;
+}
+.menu-body.menu-right .menu-thumbnail {
+	float: none;
+	width: 100%;
+	margin-bottom: 15px;
+}
+.menu-body .menu-title h4 {
+	font-size: 25px;
+}
+.menu-body .menu-details .price {
+	font-size: 25px;
+}
+.menu-body.menu-left .menu-title {
+	margin-bottom: 12px;
+	padding-bottom: 0;
+}
+.testimonial-block.left .testimonial-avatar {
+	float: none;
+	margin-bottom: 10px;
+}
+.testimonial-block.right .testimonial-avatar {
+	float: none;
+	margin-bottom: 10px;
+}
+.testimonial-info {
+	padding: 10px;
+}
+.testimonial-block.left .testimonial-info {
+	padding-left: 10px;
+	display: block;
+	text-align: center;
+}
+.testimonial-block.right .testimonial-info {
+	padding-left: 10px;
+	display: block;
+	text-align: center;
+}
+.footer-social .list-inline>li {
+	padding-left: 2px;
+}
+.footer .footer-social ul li a {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+}
+.footer .footer-bottom {
+	padding: 30px 0px;
+}
+#back-to-top .top {
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+}
+/* Home 2 */
+.about-2 h2 {
+	font-size: 30px;
+	line-height: 30px;
+}
+.footer-2 .footer-bottom {
+	line-height: 20px;
+}
+.belief {
+	padding-bottom: 0px;
+}
+/* Home 3 */
+.footer-3 .footer-bottom {
+	margin-top: 30px;
+}
+/* Home 4 */
+.full-screen .grid-item {
+	width: 100%;
+}
+.isotope-filters {
+	margin: 0 auto 20px;
+	text-align: center;
+}
+.isotope-filters button {
+	margin: 5px;
+	text-align: center;
+}
+.visit-content h2 {
+	line-height: 30px;
+}
+.visit-content .flaticon-restaurant-7:before {
+	font-size: 30px;
+	line-height: 30px;
+}
+/* Masonry */
+.social.list-style-none.pull-right {
+	float: none !important;
+	margin-top: 10px;
+}
+/* Revolution slider font setting */
+.mo-details-text {
+	font-size: 11px !important;
+	line-height: 14px !important;
+}
+.mo-sub-title-text {
+	font-size: 14px !important;
+}
+.mo-text-uppercase {
+	font-size: 9px !important;
+	line-height: 9px !important;
+}
+}
+
+@media( max-width:320px) {
+}
