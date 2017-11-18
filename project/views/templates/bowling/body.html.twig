@@ -1,15 +1,15 @@
-{% extends '/templates/startup-kit/structure/head.html.twig' %}
-{% import '/templates/startup-kit/components/top.html.twig' as top %}
-{% import '/templates/startup-kit/components/components.html.twig' as components %}
-{% import '/templates/startup-kit/components/nav.html.twig' as nav %}
+{% extends '/templates/bowling/structure/head.html.twig' %}
+{% import '/templates/bowling/components/top.html.twig' as top %}
+{% import '/templates/bowling/components/components.html.twig' as components %}
+{% import '/templates/bowling/components/nav.html.twig' as nav %}
 {% import '/common/components/admin.html.twig' as admin %}
 {% import '/common/components/data.html.twig' as data %}
 
 {% block body %}
 
-    {{ admin.pageProperties(page, editMode) }}
+    {{ admin.pageProperties(page, slug, editMode) }}
 
-    {% for key, section in page.sections %}
+    {#{% for key, section in page.sections %}
         {% if     section.type == "SimpleHeadingSection" %}  {{ top.simple(section, page._id, 'sections.' ~ key, editMode) }}
         {% elseif section.type == "PromoHeadingSection" %}   {{ top.promo(section, page._id, 'sections.' ~ key, editMode) }}
 
@@ -19,7 +19,7 @@
         {% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page._id, 'sections.' ~ key, editMode) }}
 
         {% endif %}
-    {% endfor %}
+    {% endfor %}#}
 
     {% if editMode %}
 
