@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>{% block title %}{{ page.title | raw }}{% if page.title | length > 0 %} | {% endif %}{{ settings.title.value }} Батутный {% endblock %}</title>
+    <title>{% block title %}{{ page.title | raw }}{% if page.title | length > 0 %} | {% endif %}{{ settings.title.value }}{% endblock %}</title>
     <!--favicon-->
     <link rel="shortcut icon" type="image/x-icon" href="/templates/bowling/images/favicon.jpg">
     <!--Bootstrap-->
     <link href="/templates/bowling/css/style.css" rel="stylesheet" type="text/css">
     <link href="/templates/bowling/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="/templates/bowling/css/additional.css" rel="stylesheet" type="text/css">
     <link href="/templates/bowling/font/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link href="/templates/bowling/additional-fonts/lato/lato.css" rel="stylesheet">
@@ -194,6 +195,7 @@
         slideWidth: 279,
         slideMargin: 0,
         ticker: true,
+        {% if editMode %}auto: false,{% endif %}
         speed: 90000
     });
 </script>

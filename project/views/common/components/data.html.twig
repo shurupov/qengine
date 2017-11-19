@@ -129,7 +129,7 @@
 
     <!-- Settings Modal -->
     {% set blockId = path | replace({'.': '-'}) %}
-    <div class="modal modal-settings" id="{{ blockId | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ blockId | raw }}-modal-label" aria-hidden="true">
+    <div class="modal modal-settings modal-custom-qe" id="{{ blockId | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ blockId | raw }}-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -200,7 +200,7 @@
         {% import _self as data %}
 
         <!-- Settings Modal -->
-        <div class="modal modal-settings" id="add-component-modal" tabindex="-1" role="dialog" aria-labelledby="add-component-modal-label" aria-hidden="true">
+        <div class="modal modal-settings modal-custom-qe" id="add-component-modal" tabindex="-1" role="dialog" aria-labelledby="add-component-modal-label" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -226,7 +226,7 @@
 {% endmacro %}
 
 {% macro removeElementModal() %}
-    <div class="modal fade" id="delete-item-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal fade modal-custom-qe" id="delete-item-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

@@ -1,0 +1,11 @@
+.modal.modal-custom-qe .modal-content {
+    background: url(../images/body-bg.jpg);
+}
+
+.modal.modal-custom-qe .modal-header, .modal.modal-custom-qe .close {
+    color: #333;
+}
+
+.modal.modal-custom-qe .modal-body {
+    padding: 15px;
+}

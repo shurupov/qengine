@@ -18,7 +18,7 @@
     <button class="btn btn-primary btn-add-{{ type }}" data-toggle="modal" data-target="#add-{{ type }}-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ caption }}</button>
 
     <!-- Settings Modal -->
-    <div class="modal modal-settings" id="add-{{ type }}-modal" tabindex="-1" role="dialog" aria-labelledby="add-{{ type }}-modal-label" aria-hidden="true">
+    <div class="modal modal-settings modal-custom-qe" id="add-{{ type }}-modal" tabindex="-1" role="dialog" aria-labelledby="add-{{ type }}-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="/e/{{ type }}/add" method="post">
@@ -208,7 +208,7 @@
 {% endmacro %}
 
 {% macro removeAdminElementModal() %}
-    <div class="modal fade" id="remove-page-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="remove-page-confirm-modal-label" aria-hidden="true">
+    <div class="modal fade modal-custom-qe" id="remove-page-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="remove-page-confirm-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -17,161 +17,61 @@
 
                         {% for i,slide in sectionData.sliders %}
 
-                            {% set slidePath = path ~ '.' ~ i %}
+                            {% set slidePath = path ~ '.sliders.' ~ i %}
 
-                        <li data-index="rs-{{ i }}" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="{{ slide.image | default('/templates/bowling/photos/photo001.jpg') | raw }}"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                            <!-- MAIN IMAGE -->
-                            <img src="{{ slide.image | default('/templates/bowling/photos/photo001.jpg') | raw }}"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                            <!-- LAYER NR. 5 -->
-                            <div class="tp-caption  text-orange tp-resizeme  text-center"
-                                 id="slide-5-layer-1"
-                                 data-x="center" data-hoffset=""
-                                 data-y="330"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="1000"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="font-family:VoxRound; text-transform: uppercase; z-index: 13; white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 900;color:#fff;">{{ data.text(slide.header, pageId, slidePath ~ '.header', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/bowling/photos/photo001.jpg') }}</div>{#Lasco WienLight#}
-                            <!-- LAYER NR. 9 -->
-                            <div class="tp-caption tp-resizeme mo-details-text"
-                                 id="slide-5-layer-2"
-                                 data-x="center" data-hoffset=""
-                                 data-y="410"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="1500"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="z-index: 8; white-space: nowrap; font-size: 24px; letter-spacing:2px; line-height: 24px; font-weight: bold; color: rgba(255, 255, 255, 1.00);text-align:center; text-transform:uppercase">русский текст on today</div>
-                            <!-- LAYER NR. 11 -->
-                            <div class="tp-caption tp-resizeme mo-sub-title-text"
-                                 id="slide-5-layer-3"
-                                 data-x="center" data-hoffset=""
-                                 data-y="440"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="2000"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="line-height:20px; font-weight:bold;">
-                            <a style="padding:19px 35px;margin: 18px 0px 18px 5px;" href="#bottom" class="slider-def-btn" data-text="BOOK NOW"><span style="padding-left:0;">BOOK NOW</span></a>
-                            <a style="padding:15px 35px; margin:18px 0 18px 5px;" href="about-us.html" class="button button--isi button--round-l" data-text="ABOUT US"><span style="padding-left:0;">ABOUT US</span></a></div>
-                        </li>
+                            <li data-index="rs-{{ i }}" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="{{ slide.image | default('/templates/bowling/photos/photo001.jpg') | raw }}"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+                                <!-- MAIN IMAGE -->
+                                <img src="{{ slide.image | default('/templates/bowling/photos/photo001.jpg') | raw }}"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+                                <!-- LAYER NR. 5 -->
+                                <div class="tp-caption  text-orange tp-resizeme  text-center"
+                                     id="slide-5-layer-1"
+                                     data-x="center" data-hoffset=""
+                                     data-y="330"
+                                     data-width="['auto']"
+                                     data-height="['auto']"
+                                     data-transform_idle="o:1;"
+                                     data-transform_in="y:50px;opacity:0;s:2000;e:Power2.easeInOut;"
+                                     data-transform_out="opacity:0;s:300;"
+                                     data-start="1000"
+                                     data-splitin="none"
+                                     data-splitout="none"
+                                     data-responsive_offset="on"
+                                     style="font-family:VoxRound; text-transform: uppercase;  white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 900;color:#fff;">{{ data.text(slide.header, pageId, slidePath ~ '.header', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/bowling/photos/photo001.jpg') }}{{ data.settingsButton(slidePath, editMode) }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</div>{#Lasco WienLight#}
+                                <!-- LAYER NR. 9 -->
+                                <div class="tp-caption tp-resizeme mo-details-text"
+                                     id="slide-5-layer-2"
+                                     data-x="center" data-hoffset=""
+                                     data-y="410"
+                                     data-width="['auto']"
+                                     data-height="['auto']"
+                                     data-transform_idle="o:1;"
+                                     data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
+                                     data-transform_out="opacity:0;s:300;"
+                                     data-start="1500"
+                                     data-splitin="none"
+                                     data-splitout="none"
+                                     data-responsive_offset="on"
+                                     style="z-index: 8; white-space: nowrap; font-size: 24px; letter-spacing:2px; line-height: 24px; font-weight: bold; color: rgba(255, 255, 255, 1.00);text-align:center; text-transform:uppercase">{{ data.text(slide.description, pageId, slidePath ~ '.description', editMode) }}</div>
+                                <!-- LAYER NR. 11 -->
+                                <div class="tp-caption tp-resizeme mo-sub-title-text"
+                                     id="slide-5-layer-3"
+                                     data-x="center" data-hoffset=""
+                                     data-y="440"
+                                     data-width="['auto']"
+                                     data-height="['auto']"
+                                     data-transform_idle="o:1;"
+                                     data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
+                                     data-transform_out="opacity:0;s:300;"
+                                     data-start="2000"
+                                     data-splitin="none"
+                                     data-splitout="none"
+                                     data-responsive_offset="on"
+                                     style="line-height:20px; font-weight:bold;">
+                                    <a style="padding:19px 35px; margin: 18px 0 18px 5px;" href="#bottom" class="slider-def-btn" data-text="BOOK NOW"><span style="padding-left:0;">BOOK NOW</span></a>
+                                    <a style="padding:15px 35px; margin: 18px 0 18px 5px;" href="about-us.html" class="button button--isi button--round-l" data-text="ABOUT US"><span style="padding-left:0;">ABOUT US</span></a>
+                                </div>
+                            </li>
                         {% endfor %}
-                        {#<li data-index="rs-19" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="templates/bowling/images/slider-1.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                            <!-- MAIN IMAGE -->
-                            <img src="/templates/bowling/images/slider-1.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                            <!-- LAYERS -->
-                            <!-- LAYER NR. 4 -->
-                            <div class="tp-caption text-orange tp-resizeme  text-center"
-                                 id="slide-19-layer-14"
-                                 data-x="center" data-hoffset=""
-                                 data-y="330"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="1000"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="font-family:track; z-index: 13; white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 900;color:#fff;">Bowlers do it in alleys.</div>
-                            <!-- LAYER NR. 9 -->
-                            <div class="tp-caption tp-resizeme mo-details-text"
-                                 id="slide-19-layer-13"
-                                 data-x="center" data-hoffset=""
-                                 data-y="410"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="1500"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="z-index: 8; white-space: nowrap; font-size: 24px; letter-spacing:2px; line-height: 24px; font-weight: bold; color: rgba(255, 255, 255, 1.00);text-align:center; text-transform:uppercase">We don’t remember days…we remember moments.</div>
-                            <!-- LAYER NR. 11 -->
-                            <div class="tp-caption tp-resizeme mo-sub-title-text"
-                                 id="slide-19-layer-12"
-                                 data-x="center" data-hoffset=""
-                                 data-y="440"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="2000"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="line-height:20px; font-weight:bold;"> <a style="padding:19px 35px;margin: 18px 0px 18px 5px;" href="contact.html" class="slider-def-btn" data-text="BOOK NOW"><span style="padding-left:0;">BOOK NOW</span></a> <a style="padding:15px 35px; margin:18px 0 18px 5px;" href="about-us.html" class="button button--isi button--round-l" data-text="ABOUT US"><span style="padding-left:0;">ABOUT US</span></a></div>
-                        </li>
-                        <li data-index="rs-5" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="300"  data-thumb="templates/bowling/images/slider-3.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
-                            <!-- MAIN IMAGE -->
-                            <img src="/templates/bowling/images/slider-3.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
-                            <!-- LAYER NR. 5 -->
-                            <div id="trigger" class="spacer s0"></div>
-                            <div class="tp-caption  text-orange tp-resizeme  text-center"
-                                 id="slide-5-layer-1"
-                                 data-x="center" data-hoffset=""
-                                 data-y="330"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="1000"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="font-family:track; z-index: 13; white-space: nowrap; font-size: 50px; line-height: 65px; font-weight: 900;color:#fff;">Bowling is fun in your SPARE time.</div>
-                            <!-- LAYER NR. 9 -->
-                            <div class="tp-caption tp-resizeme mo-details-text"
-                                 id="slide-5-layer-2"
-                                 data-x="center" data-hoffset=""
-                                 data-y="410"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="1500"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="z-index: 8; white-space: nowrap; font-size: 24px; letter-spacing:2px; line-height: 24px; font-weight: bold; color: rgba(255, 255, 255, 1.00);text-align:center; text-transform:uppercase">Bowling is a sport for people who have talent to spare.</div>
-                            <!-- LAYER NR. 11 -->
-                            <div class="tp-caption tp-resizeme mo-sub-title-text"
-                                 id="slide-5-layer-3"
-                                 data-x="center" data-hoffset=""
-                                 data-y="440"
-                                 data-width="['auto']"
-                                 data-height="['auto']"
-                                 data-transform_idle="o:1;"
-                                 data-transform_in="y:-50px;opacity:0;s:2000;e:Power2.easeInOut;"
-                                 data-transform_out="opacity:0;s:300;"
-                                 data-start="2000"
-                                 data-splitin="none"
-                                 data-splitout="none"
-                                 data-responsive_offset="on"
-                                 style="line-height:20px; font-weight:bold;"> <a style="padding:19px 35px;margin: 18px 0px 18px 5px;" href="contact.html" class="slider-def-btn" data-text="BOOK NOW"><span style="padding-left:0;">BOOK NOW</span></a> <a style="padding:15px 35px; margin:18px 0 18px 5px;" href="about-us.html" class="button button--isi button--round-l" data-text="ABOUT US"><span style="padding-left:0;">ABOUT US</span></a></div>
-                        </li>
-                        #}
                     </ul>
                     <div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>
                 </div>
@@ -179,9 +79,39 @@
             </div>
             <div class="text-center" style="padding-top: 15px;">
                 {{ data.addElementButton(path ~ '.sliders', pageId, editMode, "Добавить слайд") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить шапку-слайдер') }}
             </div>
         {% endif %}
 
+    {% for i,slide in sectionData.sliders %}
+
+        {% set slidePath = path ~ '.sliders.' ~ i %}
+
+        {{ data.settingsModal(slide, pageId, slidePath,
+            {
+                'button1': {
+                    'type': 'select',
+                    'title': 'Первая кнопка',
+                    'options': [
+                        {value: 0, text: 'Отсутствует'},
+                        {value: 'red', text: 'Красная'},
+                        {value: 'transparent', text: 'Прозрачная'}
+                    ]
+                },
+                'button2': {
+                    'type': 'select',
+                    'title': 'Вторая кнопка',
+                    'options': [
+                        {value: 0, text: 'Отсутствует'},
+                        {value: 'red', text: 'Красная'},
+                        {value: 'transparent', text: 'Прозрачная'}
+                    ]
+                }
+            },
+        editMode) }}
+
+    {% endfor %}
 
     </section>
+
 {% endmacro %}
