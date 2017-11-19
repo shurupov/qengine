@@ -195,10 +195,11 @@
         slideWidth: 279,
         slideMargin: 0,
         ticker: true,
-        {% if editMode %}auto: false,{% endif %}
         speed: 90000
     });
 </script>
+
+<script>var editMode = {{ editMode ? 'true' : 'false' }};</script>
 
 <!--SLIDER-->
 <!--mega menu-->
@@ -213,7 +214,7 @@ The following part can be removed on Server for On Demand Loading) -->
 <script type="text/javascript" src="/templates/bowling/js/revolution.extension.navigation.min.js"></script>
 <script type="text/javascript" src="/templates/bowling/js/revolution.extension.slideanims.min.js"></script>
 <!--SLIDER REVOLUTION CUSTOM-->
-<script type="text/javascript" src="/templates/bowling/js/revolution-custom.js"></script>
+<script type="text/javascript" src="/templates/bowling/js/revolution-custom-qe.js"></script>
 <!--custom-->
 <script type="text/javascript" src="/templates/bowling/js/custom-slider.js"></script>
 <script src="/templates/bowling/js/main.js"></script>

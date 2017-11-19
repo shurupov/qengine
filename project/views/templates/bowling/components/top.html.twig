@@ -36,7 +36,7 @@
                                      data-splitin="none"
                                      data-splitout="none"
                                      data-responsive_offset="on"
-                                     style="font-family:VoxRound; text-transform: uppercase;  white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 900;color:#fff;">{{ data.text(slide.header, pageId, slidePath ~ '.header', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/bowling/photos/photo001.jpg') }}{{ data.settingsButton(slidePath, editMode) }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</div>{#Lasco WienLight#}
+                                     style="font-family:VoxRound; text-transform: uppercase;  white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 900;color:#fff;">{{ data.text(slide.header, pageId, slidePath ~ '.header', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/bowling/photos/photo001.jpg') }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</div>{#Lasco WienLight#}
                                 <!-- LAYER NR. 9 -->
                                 <div class="tp-caption tp-resizeme mo-details-text"
                                      id="slide-5-layer-2"
@@ -51,7 +51,7 @@
                                      data-splitin="none"
                                      data-splitout="none"
                                      data-responsive_offset="on"
-                                     style="z-index: 8; white-space: nowrap; font-size: 24px; letter-spacing:2px; line-height: 24px; font-weight: bold; color: rgba(255, 255, 255, 1.00);text-align:center; text-transform:uppercase">{{ data.text(slide.description, pageId, slidePath ~ '.description', editMode) }}</div>
+                                     style="white-space: nowrap; font-size: 24px; letter-spacing:2px; line-height: 24px; font-weight: bold; color: rgba(255, 255, 255, 1.00);text-align:center; text-transform:uppercase">{{ data.text(slide.description, pageId, slidePath ~ '.description', editMode) }}</div>
                                 <!-- LAYER NR. 11 -->
                                 <div class="tp-caption tp-resizeme mo-sub-title-text"
                                      id="slide-5-layer-3"
@@ -67,8 +67,21 @@
                                      data-splitout="none"
                                      data-responsive_offset="on"
                                      style="line-height:20px; font-weight:bold;">
-                                    <a style="padding:19px 35px; margin: 18px 0 18px 5px;" href="#bottom" class="slider-def-btn" data-text="BOOK NOW"><span style="padding-left:0;">BOOK NOW</span></a>
-                                    <a style="padding:15px 35px; margin: 18px 0 18px 5px;" href="about-us.html" class="button button--isi button--round-l" data-text="ABOUT US"><span style="padding-left:0;">ABOUT US</span></a>
+                                    {% for bi,button in slide.buttons %}
+
+                                        {% set btnStyle = 'padding:19px 35px; margin: 18px 0 18px 5px;' %}
+
+                                        {% if loop.first %}
+                                            {% set btnClass = 'slider-def-btn' %}
+                                        {% else %}
+                                            {% set btnClass = 'button button--isi button--round-l' %}
+                                        {% endif %}
+                                        {{ data.a(button, pageId, slidePath ~ '.buttons.' ~ bi, editMode, { 'style': btnStyle, 'class': btnClass, 'data-text': button.test | upper }) }}
+                                        {{ data.removeElementButton(slidePath ~ '.buttons.' ~ bi, pageId, editMode) }}
+                                    {% endfor %}
+                                    {% if editMode %}
+                                        <span style="display: inline-block; padding:12px; margin: 18px 0 18px 5px;">{{ data.addElementButton(slidePath ~ '.buttons', pageId, editMode, "Добавить кнопку") }}</span>
+                                    {% endif %}
                                 </div>
                             </li>
                         {% endfor %}
@@ -82,35 +95,6 @@
                 {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить шапку-слайдер') }}
             </div>
         {% endif %}
-
-    {% for i,slide in sectionData.sliders %}
-
-        {% set slidePath = path ~ '.sliders.' ~ i %}
-
-        {{ data.settingsModal(slide, pageId, slidePath,
-            {
-                'button1': {
-                    'type': 'select',
-                    'title': 'Первая кнопка',
-                    'options': [
-                        {value: 0, text: 'Отсутствует'},
-                        {value: 'red', text: 'Красная'},
-                        {value: 'transparent', text: 'Прозрачная'}
-                    ]
-                },
-                'button2': {
-                    'type': 'select',
-                    'title': 'Вторая кнопка',
-                    'options': [
-                        {value: 0, text: 'Отсутствует'},
-                        {value: 'red', text: 'Красная'},
-                        {value: 'transparent', text: 'Прозрачная'}
-                    ]
-                }
-            },
-        editMode) }}
-
-    {% endfor %}
 
     </section>
 
