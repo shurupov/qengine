@@ -13,7 +13,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',
     'twig.options' => array(
-        'cache' => __DIR__.'/../cache/views/'
+        'cache' => ( $app['settings']['debug'] ? false : __DIR__.'/../cache/views/' )
     ),
 
 ));
