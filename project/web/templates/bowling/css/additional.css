@@ -19,6 +19,13 @@
     line-height: 20px;
     color: #ffffff;
 }
+@media screen and (min-width: 993px) {
+
+    .mega-menu.desktopTopFixed .menu-list-items .menu-logo>li>a .top-address {
+        margin: 10px;
+    }
+}
+
 @media (max-width: 991px) {
     .top-address {
         height: 40px;
