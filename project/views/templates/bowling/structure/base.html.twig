@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>{% block title %}{{ page.title | raw }}{% if page.title | length > 0 %} | {% endif %}{{ settings.title.value }}{% endblock %}</title>
     <!--favicon-->
-    <link rel="shortcut icon" type="image/x-icon" href="/templates/bowling/images/favicon.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="/templates/bowling/atmosfera/favicon.png">
     <!--Bootstrap-->
     <link href="/templates/bowling/css/style.css" rel="stylesheet" type="text/css">
     <link href="/templates/bowling/css/bootstrap.css" rel="stylesheet" type="text/css">
@@ -15,6 +15,7 @@
 
     <link href="/templates/bowling/additional-fonts/lato/lato.css" rel="stylesheet">
     <link href="/templates/bowling/additional-fonts/VoxRound/stylesheet.css" rel="stylesheet">
+    <link href="/templates/bowling/additional-fonts/clearsans/clearsans.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
     <!--SLIDER-->
     <!--mega menu-->
@@ -70,17 +71,22 @@
                         <div class="col-lg-12 col-md-12">
                             <!-- menu logo -->
                             <ul class="menu-logo">
-                                <li class="head-info"> <a href="index.html"> <img id="logo_img" src="/templates/bowling/images/logo.png" alt="logo"> </a>
+                                <li class="head-info">
+                                    <a href="/"><img id="logo_img" src="/templates/bowling/atmosfera/logo2.png" alt="logo">
+                                        <div class="top-address">
+                                            <span class="hidden-sm hidden-xs">г. Самара, </span>{{ settings.address.value }}<br/>
+                                            {{ settings.phone.value }}<br/>
+                                            <strong>10.00-22.00</strong> без перерывов<span class="hidden-sm hidden-xs"> и выходных</span>
+                                        </div>
+                                    </a>
+
                                 </li>
                             </ul>
                             <!-- menu links -->
                             <ul class="menu-links">
-
                                 {% for link in topMenu %}
                                     <li><a class="menu-style menu-li-a{% if link.uri == requestUri %} active{% endif %}" href="{{ link.uri }}">{{ link.text | upper }}</a></li>
                                 {% endfor %}
-
-
                             </ul>
                         </div>
                     </div>
@@ -97,14 +103,14 @@
 <div class="container-fluid padd-50" id="bottom">
     <div class="container">
 
-        <div class="col-md-12 text-center"><img src="/templates/bowling/images/footer-logo.png" /></div>
+        <div class="col-md-12 text-center"><img src="/templates/bowling/atmosfera/footer-logo.png" /></div>
         <div class="clearfix"></div>
 
         <!--connect-->
         <div class="col-sm-4 col-md-4 line-top"><img src="/templates/bowling/images/footer-line.png" class="img-responsive" /></div>
 
         <div class="col-sm-4 col-md-4 text-center" style="margin-top:30px;">
-            <h2 class="welc-h3">LET'S CONNECT</h2>
+            <h2 class="welc-h3">Присоединяйтесь</h2>
         </div>
 
         <div class="col-sm-4 col-md-4 line-btm"><img src="/templates/bowling/images/footer-line.png" class="img-responsive" /></div>
@@ -113,10 +119,8 @@
         <!--social-->
         <div class="col-md-offset-4 col-md-4 social text-center">
             <ul>
-                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="http://vk.com/batytsamara" target="_blank"><i class="fa fa-vk" aria-hidden="true"></i></a></li>
+                <li><a href="http://instagram.com/atmosfera_jump" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
             </ul>
         </div>
         <div class="clearfix"></div>
@@ -124,21 +128,17 @@
         <!--menu-->
         <div class="col-md-12 foot-menu text-center">
             <ul>
-                <li><a href="about-us.html">ABOUT US</a></li>
-                <li><a href="bowling.html">BOWLING</a></li>
-                <li><a href="fun&games.html">FUN & GAMES</a></li>
-                <li><a href="gallery-3-colum.html">GALLERY</a></li>
-                <li><a href="blog.html">BLOG</a></li>
-                <li><a href="event.html">EVENT</a></li>
-                <li><a href="contact.html">CONTACT US</a></li>
+                {% for link in topMenu %}
+                    <li><a class="text-uppercase" href="{{ link.uri }}">{{ link.text }}</a></li>
+                {% endfor %}
             </ul>
         </div>
 
         <div class="clearfix"></div>
 
         <div class="col-md-12 text-center footer-theme-color">
-            <p class="footer-p text-uppercase">Copyright © 2016 all Seasons Bowling Center. All rights reserved</p>
-            <p class="footer-p text-uppercase">Design by <a href="#">Innovatory Themes</a></p>
+            <p class="footer-p text-uppercase">{{ settings.footerCaption.value | raw }}</p>
+            <p class="footer-p text-uppercase">Разработано в <a href="http://perfectclick.ru">Точный клик</a></p>
         </div>
 
         <div class="clearfix"></div>

@@ -9,3 +9,13 @@
 .modal.modal-custom-qe .modal-body {
     padding: 15px;
 }
+
+.top-address {
+    display: inline-block;
+    margin-left: 10px;
+    height: 60px;
+    font-family: 'Clear Sans';
+    font-size: 16px;
+    line-height: 20px;
+    color: #ffffff;
+}
