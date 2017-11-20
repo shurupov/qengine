@@ -1,6 +1,6 @@
 {% extends '/templates/bowling/structure/head.html.twig' %}
 {% import '/templates/bowling/components/top.html.twig' as top %}
-{#{% import '/templates/bowling/components/components.html.twig' as components %}#}
+{% import '/templates/bowling/components/components.html.twig' as components %}
 {#{% import '/templates/bowling/components/nav.html.twig' as nav %}#}
 {% import '/common/components/admin.html.twig' as admin %}
 {% import '/common/components/data.html.twig' as data %}
@@ -11,9 +11,9 @@
 
     {% for key, section in page.sections %}
         {#{% if     section.type == "SimpleHeadingSection" %}   {{ top.simple(section, page._id, 'sections.' ~ key, editMode) }}#}
-        {% if section.type == "SliderHeadingSection" %}   {{ top.SliderHeadingSection(section, page._id, 'sections.' ~ key, editMode) }}
+        {% if section.type == "SliderHeadingSection" %}          {{ top.SliderHeadingSection(section, page._id, 'sections.' ~ key, editMode) }}
 
-        {#{% elseif section.type == "OverviewSection" %}       {{ components.overviewSection(section, page._id, 'sections.' ~ key, editMode) }}#}
+        {% elseif section.type == "AboutAndServicesSection" %}   {{ components.AboutAndServicesSection(section, page._id, 'sections.' ~ key, editMode) }}
         {#{% elseif section.type == "FeaturePreviewSection" %} {{ components.featuresPreviewSection(section, page._id, 'sections.' ~ key, editMode) }}#}
         {#{% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, page._id, 'sections.' ~ key, editMode) }}#}
         {#{% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, page._id, 'sections.' ~ key, editMode) }}#}

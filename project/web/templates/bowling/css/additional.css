@@ -19,3 +19,11 @@
     line-height: 20px;
     color: #ffffff;
 }
+@media (max-width: 991px) {
+    .top-address {
+        height: 40px;
+        margin: 5px 0 5px 5px;
+        font-size: 13px;
+        line-height: 13px;
+    }
+}

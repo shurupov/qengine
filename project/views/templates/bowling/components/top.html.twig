@@ -36,7 +36,7 @@
                                      data-splitin="none"
                                      data-splitout="none"
                                      data-responsive_offset="on"
-                                     style="font-family:VoxRound; text-transform: uppercase;  white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 900;color:#fff;">{{ data.text(slide.header, pageId, slidePath ~ '.header', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/bowling/photos/photo001.jpg') }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</div>{#Lasco WienLight#}
+                                     style="font-family:'Neo Sans Cyr'; text-transform: uppercase;  white-space: nowrap; font-size: 60px; line-height: 65px; font-weight: 500;color:#fff;">{{ data.text(slide.header, pageId, slidePath ~ '.header', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/bowling/photos/photo001.jpg') }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</div>{#Lasco WienLight#}
                                 <!-- LAYER NR. 9 -->
                                 <div class="tp-caption tp-resizeme mo-details-text"
                                      id="slide-5-layer-2"
@@ -90,10 +90,12 @@
                 </div>
                 <!-- END REVOLUTION SLIDER -->
             </div>
-            <div class="text-center" style="padding-top: 15px;">
+            {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
                 {{ data.addElementButton(path ~ '.sliders', pageId, editMode, "Добавить слайд") }}
                 {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить шапку-слайдер') }}
             </div>
+            {% endif %}
         {% endif %}
 
     </section>

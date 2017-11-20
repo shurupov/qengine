@@ -1,0 +1,66 @@
+{% macro AboutAndServicesSection(sectionData, pageId, path, editMode) %}
+
+    <!--Top-->
+    <div class="container-fluid" style="background-image:url(/templates/bowling/images/welcome-bg.jpg); background-repeat:no-repeat;">
+        <div class="container about-sec">
+            <div class="col-md-1"></div>
+            <div class="col-md-5 padd-50">
+                <h2 class="welc-h2">WELCOME TO</h2>
+                <div class="h2-underline"></div>
+                <h3 class="welc-h3">The All Seasons<br>
+                    Bowling Alley.</h3>
+            </div>
+
+            <div class="col-md-5 padd-50" style="padding-right:50px;">
+                <h2 class="story-h2">Наша история</h2>
+                <p class="story-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a ligula in velit aliquam efficitur. Quisque facilisis lectus et justo tempor, quis posuere mi posuere. Aliquam eget est sed  male suada elementum. Ut ultrices ligula vitae egestas.Ut ultrices ligula vitae egestas varius.</p>
+                <div class="read-more text-center"><a href="about-us.html"><img src="/templates/bowling/images/read-ball.png"  style="margin-top:15px;"><br /><span>Далее</span></a></div>
+            </div>
+            <div class="col-md-1"></div>
+
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="container">
+
+            <div class="col-xs-12 col-md-1"></div>
+
+            <div class="col-xs-12 col-md-10 top-sec">
+
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4 box-1 text-center">
+                        <h2 class="welc-h2" style="color:#FFF;">Bowling</h2>
+                        <p>Lorem ipsum dolor sit amet dipiscing elit.</p>
+                        <span class="perspective"><a href="bowling.html" class="btn-2 btn-8 btn-8a">ДАЛЕЕ</a></span>
+                        <img src="/templates/bowling/images/box-1-ball.png" />
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-4" style="padding:0;"><img src="/templates/bowling/images/box-2.jpg" class="img-responsive" /></div>
+                </div>
+
+                <div class="row">
+                    <!--2nd row-->
+                    <div class="col-xs-12 col-sm-12  col-md-8 box-2 text-center">
+                        <h2 class="welc-h2" style="color:#FFF; margin-bottom:15px;">Parties & Events</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit. Sed a ligula in velit..</p><br />
+                        <span class="perspective"><a href="contact.html" class="btn-2 btn-8 btn-8a">BOOK NOW</a></span>
+                        <img src="/templates/bowling/images/box-2-glas.png" />
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-4" style="padding:0;"><img src="/templates/bowling/images/box-3.jpg" class="img-responsive" /></div>
+                </div>
+
+
+            </div>
+
+            <div class="col-xs-12 col-md-1"></div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+    </div>
+
+{% endmacro %}

@@ -287,7 +287,7 @@
 
 .cd-horizontal-timeline .events-content h2 {
     font-size: 34px;
-    font-family: VoxRound;
+    font-family: 'Neo Sans Cyr';
     line-height: 1.2;
     color: #fff;
     margin-top: 0
@@ -304,7 +304,7 @@
     font-size: 40px;
     color: #e6b903;
     font-style: normal;
-    font-family: "Nexa Rust Script L0"
+    font-family: 'StudioScriptCTT';
 }
 
 @media only screen and (min-width: 768px) {
@@ -316,7 +316,7 @@
         font-size: 40px;
         color: #e6b903;
         font-style: normal;
-        font-family: "Nexa Rust Script L0"
+        font-family: 'StudioScriptCTT';
     }
 
     .cd-horizontal-timeline .events-content p {

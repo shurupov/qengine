@@ -28,7 +28,7 @@ figure {
 }
 
 @font-face {
-    font-family: nexa-rust-script-l-0;
+    font-family: 'StudioScriptCTT';
     src: url(../font/nexa-rust-script-l-0.otf)
 }
 
@@ -76,7 +76,7 @@ body {
 
 .welc-h2,
 .welc-h3 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #b5121b
 }
 
@@ -134,7 +134,7 @@ body {
 }
 
 .story-h2 {
-    font-family: nexa-rust-script-l-0;
+    font-family: 'StudioScriptCTT';
     font-size: 44px
 }
 
@@ -160,7 +160,7 @@ body {
 }
 
 .read-more span {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 14px;
     color: #FFF;
     line-height: 18px;
@@ -485,7 +485,7 @@ body {
 .testimonial .testimonial-title {
     display: inline-block;
     font-size: 14px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #489a6e;
     margin: 5px 0 30px
 }
@@ -652,7 +652,7 @@ body {
     font-size: 56px;
     line-height: 66px;
     margin-top: 0;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #fff
 }
 
@@ -824,7 +824,7 @@ body {
     font-weight: 700;
     margin-top: 15%;
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .blog-head-bg span {
@@ -1034,7 +1034,7 @@ body {
 
 .categories h3 {
     margin-top: 0;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 34px;
     color: #b5121b
 }
@@ -1098,7 +1098,7 @@ body {
 }
 
 .calender span {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 30px;
     color: #FFF;
     display: block
@@ -1141,7 +1141,7 @@ body {
 .sign-up h3,
 .special h3 {
     margin-top: 0;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .special .col-md-12 {
@@ -1168,7 +1168,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 28px;
     color: #FFF;
     line-height: 40px;
@@ -1386,7 +1386,7 @@ body {
     font-weight: 700;
     margin-top: 15%;
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .Bowling-head-bg span {
@@ -1439,7 +1439,7 @@ body {
 }
 
 .bowling-left h2 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #FFF;
     font-size: 34px
 }
@@ -1465,7 +1465,7 @@ body {
 }
 
 .bowling-left-h3 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 26px;
     color: #FFF;
     margin-top: 0
@@ -1756,7 +1756,7 @@ body {
     background-color: #fff;
     padding: 13px 35px;
     border-radius: 40px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 15px;
     border: 1px solid #971019;
     color: #971019
@@ -1799,7 +1799,7 @@ body {
     color: #fff;
     margin-top: 15%;
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .contact-head-bg span {
@@ -1894,7 +1894,7 @@ body {
 .about-head-bg h2,
 .gallery-head-bg h2 {
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .contact-page-submit:hover {
@@ -2346,7 +2346,7 @@ figcaption i.fa-search:hover {
 }
 
 .team-memb-body h2 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 20px;
     color: #971019;
     margin-bottom: 5px
@@ -2364,7 +2364,7 @@ figcaption i.fa-search:hover {
 
 .event-head-bg h2,
 .fun-games-head-bg h2 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     text-transform: uppercase
 }
 
@@ -2482,7 +2482,7 @@ figcaption i.fa-search:hover {
 .event-detail-right h2 {
     margin-top: 15px;
     margin-bottom: 15px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #971019
 }
 
@@ -2498,7 +2498,7 @@ figcaption i.fa-search:hover {
     background-color: #971019;
     border-color: #971019;
     line-height: 46px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .element-head-bg {
@@ -2518,7 +2518,7 @@ figcaption i.fa-search:hover {
     font-weight: 700;
     margin-top: 15%;
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .element-head-bg span {
@@ -2534,7 +2534,7 @@ figcaption i.fa-search:hover {
 .main-title,
 .sub-title {
     color: #971019;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .main-title {
@@ -2660,7 +2660,7 @@ figcaption i.fa-search:hover {
 .typography-head-bg h2 {
     margin-top: 15%;
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .typography-head-bg {
@@ -2734,7 +2734,7 @@ figcaption i.fa-search:hover {
 .message-box-head-bg h2,
 .pricing-table-head-bg h2 {
     margin-top: 15%;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     text-transform: uppercase
 }
 
@@ -2839,7 +2839,7 @@ figcaption i.fa-search:hover {
     font-weight: 700;
     margin-top: 15%;
     text-transform: uppercase;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
 }
 
 .book-party-head-bg span {
@@ -2859,7 +2859,7 @@ figcaption i.fa-search:hover {
 
 .party-page-call-action-bg h2 {
     color: #fff;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 50px;
     margin-bottom: 15px;
     margin-top: 0;
@@ -2879,7 +2879,7 @@ figcaption i.fa-search:hover {
 
 .book-party-btm-sec h2 {
     font-size: 30px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #971019
 }
 
@@ -2906,7 +2906,7 @@ figcaption i.fa-search:hover {
 }
 
 .menu-sty-2 h2 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #191919;
     font-size: 36px
 }
@@ -3115,7 +3115,7 @@ figcaption i.fa-search:hover {
 
 .resturant-paralex-bg span {
     display: inline-block;
-    font-family: nexa-rust-script-l-0;
+    font-family: 'StudioScriptCTT';
     background-color: #b5121b;
     padding: 8px 15px;
     font-size: 30px
@@ -3123,7 +3123,7 @@ figcaption i.fa-search:hover {
 
 .resturant-paralex-bg h2 {
     font-size: 50px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     margin-bottom: 0
 }
 
@@ -3166,7 +3166,7 @@ figcaption i.fa-search:hover {
 
 .error-page h4 {
     font-size: 62px;
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #b5121b
 }
 
@@ -3198,7 +3198,7 @@ figcaption i.fa-search:hover {
 }
 
 .come-soon-bg h2 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 50px;
     color: #fff;
     margin: 40px 0;
@@ -3240,7 +3240,7 @@ figcaption i.fa-search:hover {
 }
 
 #clockdiv div>span {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     font-size: 70px;
     line-height: 80px;
     margin-bottom: 10px
@@ -3362,7 +3362,7 @@ figcaption i.fa-search:hover {
 }
 
 .input-notify h4 {
-    font-family: VoxRound; text-transform: uppercase;
+    font-family: 'Neo Sans Cyr'; text-transform: uppercase;
     color: #fff;
     margin-bottom: 10px;
     margin-top: 30px;
