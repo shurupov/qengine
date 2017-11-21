@@ -18,7 +18,7 @@ $app['settings'] = [
     'db' => [
         'name' => 'qe'
     ],
-    'template' => [ // startup-kit | others will be soon
+    'template' => [ // startup-kit | bowling | others will be soon
         'name' => 'startup-kit'
     ],
     'mail' => [
