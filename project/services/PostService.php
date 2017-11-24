@@ -4,6 +4,7 @@ namespace Qe;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
+use Swift_Image;
 
 /**
  * Created by PhpStorm.
@@ -14,30 +15,63 @@ use Pimple\ServiceProviderInterface;
 class PostService implements ServiceProviderInterface
 {
 
-    /** @var EmailService $emailService **/
-    private $emailService;
-
-    public function test($arr)
-    {
-        var_dump($arr);
-    }
+    /** @var Container $app **/
+    private $app;
 
     public function post($enteredData)
     {
-        $data = [];
 
-        foreach ($enteredData as $key=>$value) {
-            if ($key == 'captions') continue;
+        $fields = [];
 
-            $data[$enteredData['captions'][$key]] = $value;
+        foreach ($this->app['dataService']->getAllDocuments('formfields') as $document) {
+            $key = $document['key'];
+            if (array_key_exists($key, $enteredData)) {
+                $fields[$document['key']] = [
+                    'title' => $document['title'],
+                    'value' => $enteredData[$key]
+                ];
+            }
+
         }
 
-        return $this->emailService->sendEmailToAdmin([
+        $this->sendEmailToAdmin([
             'subject' => "Отправлена форма с сайта",
             'preheader' => "Отправлена форма с сайта",
-            'data' => $data
+            'data' => $fields
         ]);
 
+        return $this->app['pageService']->render($this->app['settings']['form']['successfulSentPage']);
+
+    }
+
+    public function sendEmail($contentParameters, $email)
+    {
+
+        $message = new \Swift_Message();
+
+        $embedImage = $message->embed(Swift_Image::fromPath($this->app['settings']['form']['logo']));
+
+        $message->setSubject($contentParameters['subject'])
+            ->setFrom('bakalibriki.online@ya.ru')
+            ->setTo($email)
+            ->setBody(
+                $this->app['twig']->render('/common/layouts/email.html.twig', array_merge(
+                    $contentParameters, [
+                        'logoSrc' => $embedImage,
+                        'siteUrl' => $this->app['settings']['form']['siteUrl']
+                    ])
+                ),
+                'text/html'
+            )
+        ;
+
+        return $this->app['mailer']->send($message);
+
+    }
+
+    public function sendEmailToAdmin($contentParameters)
+    {
+        return $this->sendEmail($contentParameters, 'bolteg86@ya.ru');
     }
 
     /**
@@ -50,7 +84,7 @@ class PostService implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
-        $this->emailService = $app['emailService'];
+        $this->app = $app;
 
         $app['postService'] = function () use ($app) {
             return $this;

@@ -1,0 +1,38 @@
+{% macro defineJsComponentList() %}
+    <script>
+        var componentsList = {
+            'SliderHeadingSection' :     'Шапка со слайдером',
+            'SimpleHeadingSection' :     'Простая шапка',
+            'FeaturesSection'      :     'Список элементов на сером фоне',
+            'Features2Section'     :    'Список элементов на тёмном фоне',
+            'Features3Section'     :    'Список элементов побольше',
+            'PortfolioSection'     :    'Портфлоио (список элементов)',
+            'OpinionSection'       :    'Отзывы (список элементов)',
+            'PhotosSection'        :    'Фотки (список элементов)',
+            'SendMessageSection'   :    'Отправка сообщений',
+            'MessageSentSection'   :    'Сообщение отправлено',
+            'GoogleMapsSection'    :    'Гуглокарта'
+
+        };
+    </script>
+{% endmacro %}
+
+{% macro component(key, section, pageId, path, editMode, settings) %}
+
+    {% import '/templates/diagram/components/top.html.twig' as top %}
+    {% import '/templates/diagram/components/components.html.twig' as components %}
+
+    {% if section.type == "SliderHeadingSection" %}          {{ top.SliderHeadingSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "SimpleHeadingSection" %}      {{ top.SimpleHeadingSection(section, pageId, 'sections.' ~ key, editMode, settings) }}
+    {% elseif section.type == "FeaturesSection" %}           {{ components.FeaturesSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "Features2Section" %}          {{ components.Features2Section(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "Features3Section" %}          {{ components.Features3Section(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "PortfolioSection" %}          {{ components.PortfolioSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "OpinionSection" %}            {{ components.OpinionSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "PhotosSection" %}             {{ components.PhotosSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "SendMessageSection" %}        {{ components.SendMessageSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "MessageSentSection" %}        {{ components.MessageSentSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "GoogleMapsSection" %}         {{ components.GoogleMapsSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% endif %}
+
+{% endmacro %}

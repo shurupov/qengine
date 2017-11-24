@@ -1,0 +1,34 @@
+{% macro defineJsComponentList() %}
+
+    <script>
+        var componentsList = {
+            'SimpleHeadingSection':  'Простая шапка сайта',
+            'PromoHeadingSection':   'Шапка (меняющийся фон, кнопка призыва)',
+
+            'PageNavSection':        'Панель навигации по странице',
+
+            'OverviewSection':       'Описание (три устройства и текст)',
+            'FeaturePreviewSection': 'Описание (одна картинка, текст и фичи)',
+            'FeatureBlocksSection':  'Список фич (картинка и текст)'
+        };
+    </script>
+
+{% endmacro %}
+
+{% macro component(key, section, pageId, path, editMode) %}
+
+    {% import '/templates/startup-kit/components/top.html.twig' as top %}
+    {% import '/templates/startup-kit/components/components.html.twig' as components %}
+    {% import '/templates/startup-kit/components/nav.html.twig' as nav %}
+
+    {% if     section.type == "SimpleHeadingSection" %}  {{ top.simple(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "PromoHeadingSection" %}   {{ top.promo(section, pageId, 'sections.' ~ key, editMode) }}
+
+    {% elseif section.type == "OverviewSection" %}       {{ components.overviewSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "FeaturePreviewSection" %} {{ components.featuresPreviewSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "FeatureBlocksSection" %}  {{ components.featureBlocksSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "PageNavSection" %}        {{ nav.pageNavSection(section, pageId, 'sections.' ~ key, editMode) }}
+
+    {% endif %}
+
+{% endmacro %}

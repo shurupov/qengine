@@ -1,0 +1,21 @@
+{% macro defineJsComponentList() %}
+
+    <script>
+        var componentsList = {
+            'SliderHeadingSection':     'Шапка со слайдером',
+            'AboutAndServicesSection':  'О нас и о главных услугах'
+        };
+    </script>
+
+{% endmacro %}
+
+{% macro component(key, section, pageId, path, editMode) %}
+
+    {% import '/templates/bowling/components/top.html.twig' as top %}
+    {% import '/templates/bowling/components/components.html.twig' as components %}
+
+    {% if section.type == "SliderHeadingSection" %}          {{ top.SliderHeadingSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "AboutAndServicesSection" %}   {{ components.AboutAndServicesSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% endif %}
+
+{% endmacro %}

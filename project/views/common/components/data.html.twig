@@ -16,9 +16,9 @@
     {% endif %}
 {% endmacro %}
 
-{% macro text(value, id, path, editMode = false, inModal = false) %}
+{% macro text(value, id, path, editMode = false, inModal = false, placement = 'top') %}
     {% import _self as data %}
-    {{ data.universalText('page', value, id, path, editMode, inModal) }}
+    {{ data.universalText('page', value, id, path, editMode, inModal, placement) }}
 {% endmacro %}
 
 {% macro textSetting(setting, editMode = false, placement = 'top') %}

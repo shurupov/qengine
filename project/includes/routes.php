@@ -6,6 +6,8 @@
  * Time: 16:50
  */
 
+use Symfony\Component\HttpFoundation\Request;
+
 if ($app['pageService']->isEditMode()) {
     require_once __DIR__.'/../includes/routesApi.php';
 }
@@ -18,14 +20,13 @@ $app->get($app['settings']['admin']['logout']['uri'], function () use ($app) {
     return $app['pageService']->logout();
 });
 
-/*$app->post('/post', function (Request $request) use ($app) {
-    $app['postService']->post($request->request->all());
-    return $app['twig']->render('page/index.html.twig', ['slug' => '']);
-});*/
+$app->post($app['settings']['form']['postControllerUri'], function (Request $request) use ($app) {
+    return $app['postService']->post($request->request->all());
+});
 
-$app->match('{uri}', function () use ($app) {
+$app->get('{uri}', function () use ($app) {
     return $app['pageService']->render();
-})->assert('uri', '.*')->method('GET|POST');
+})->assert('uri', '.*');
 
 if (!$app['debug']) {
 

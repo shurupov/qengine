@@ -1,0 +1,23 @@
+{% extends '/common/layouts/head.html.twig' %}
+{% import '/common/components/admin.html.twig' as admin %}
+{% import '/common/components/data.html.twig' as data %}
+{% import '/templates/' ~ template ~ '/content.html.twig' as content %}
+
+{% block title %}{{ page.title | raw }}{% if page.title | length > 0 and settings.title.value | length > 0 %} | {% endif %}{{ settings.title.value }}{% endblock %}
+
+{% block body %}
+
+    {{ admin.pageProperties(page, editMode) }}
+
+    {% for key, section in page.sections %}
+        {{ content.component(key, section, page._id, 'sections.' ~ key, editMode, settings) }}
+    {% endfor %}
+
+    {% if editMode %}
+        <section class="section text-center add-component-button-wrapper">
+            {{ data.addComponentModal(page._id, editMode) }}
+        </section>
+    {% endif %}
+
+{% endblock %}
+
