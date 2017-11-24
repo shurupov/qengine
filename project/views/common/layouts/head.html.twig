@@ -1,0 +1,34 @@
+{% extends '/templates/' ~ template ~ '/base.html.twig' %}
+{% import '/templates/' ~ template ~ '/content.html.twig' as content %}
+{% import "/common/components/data.html.twig" as data %}
+
+
+{% block stylesheets %}
+    {% if editMode %}
+        <link href="/plugins/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <link href="/plugins/edit-tools/edit-tools.css" rel="stylesheet">
+        <link href="/plugins/slide-panel/style.css" rel="stylesheet">
+        <link href="/plugins/fancybox-3.0/dist/jquery.fancybox.min.css" rel="stylesheet">
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {% if editMode %}
+
+        {{ content.defineJsComponentList() }}
+
+        <script src="/plugins/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="/plugins/bootstrap3-editable/js/link-editable.js"></script>
+        <script src="/plugins/edit-tools/edit-tools.js"></script>
+        <script src="/plugins/fancybox-3.0/dist/jquery.fancybox.min.js"></script>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block pageSettings %}
+    {% if editMode %}
+        {{ data.removeElementModal() }}
+    {% endif %}
+{% endblock %}
+

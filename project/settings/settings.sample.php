@@ -18,7 +18,13 @@ $app['settings'] = [
     'db' => [
         'name' => 'qe'
     ],
-    'template' => [ // startup-kit | bowling | others will be soon
+    'form' => [
+        'siteUrl' => 'http://qe.dev',
+        'logo' => INDEX_PATH . '/templates/diagram/images/logo.png',
+        'postControllerUri' => '/post',
+        'successfulSentPage' => '/sent'
+    ],
+    'template' => [ // startup-kit | bowling | diagram | others will be soon
         'name' => 'startup-kit'
     ],
     'mail' => [

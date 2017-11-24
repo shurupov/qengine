@@ -51,14 +51,11 @@ class PageService implements ServiceProviderInterface
                 }
             }
 
-            return $this->app['twig']->render("/templates/$this->template/admin.html.twig", [
-                'editMode' => $this->editMode,
-                'requestUri' => $this->uri,
+            return $this->renderBody([
                 'allPages' => $this->app['dataService']->getAllDocuments('page'),
                 'menu' => $this->app['dataService']->getAllDocuments('menu'),
-                'settings' => $this->getSettings(),
-                'topMenu' => $this->getTopMenu()
-            ]);
+                'formfields' => $this->app['dataService']->getAllDocuments('formfields')
+            ], 'admin');
 
         } catch (\Exception $e) {
             throw new HttpException(500, $e->getMessage());
@@ -79,24 +76,22 @@ class PageService implements ServiceProviderInterface
         }
     }
 
-    public function render()
+    public function render($uri = null)
     {
+
+        if ($uri == null) {
+            $uri = $this->uri;
+        }
 
         try {
 
-            $page = $this->app['dataService']->getPage($this->uri);
+            $page = $this->app['dataService']->getPage($uri);
 
             if ($page == null) {
                 throw new NotFoundHttpException();
             }
 
-            return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
-                'page' => $page,
-                'editMode' => $this->editMode,
-                'requestUri' => $this->uri,
-                'settings' => $this->getSettings(),
-                'topMenu' => $this->getTopMenu()
-            ]);
+            return $this->renderBody(['page' => $page]);
 
         } catch (NotFoundHttpException $e) {
             throw new NotFoundHttpException();
@@ -114,13 +109,7 @@ class PageService implements ServiceProviderInterface
             $page = $this->app['dataService']->getPage("/500");
         }
 
-        return $this->app['twig']->render("/templates/$this->template/body.html.twig", [
-            'page' => $page,
-            'editMode' => $this->editMode,
-            'requestUri' => $this->uri,
-            'settings' => $this->getSettings(),
-            'topMenu' => $this->getTopMenu()
-        ]);
+        return $this->renderBody(['page' => $page]);
     }
 
     /**
@@ -139,6 +128,19 @@ class PageService implements ServiceProviderInterface
         $app['pageService'] = function () use ($app) {
             return $this;
         };
+    }
+
+    private function renderBody($parameters, $type = 'body')
+    {
+        $parameters = array_merge([
+            'editMode' => $this->editMode,
+            'requestUri' => $this->uri,
+            'settings' => $this->getSettings(),
+            'topMenu' => $this->getTopMenu(),
+            'template' => $this->template
+        ], $parameters);
+
+        return $this->app['twig']->render("/common/layouts/$type.html.twig", $parameters);
     }
 
     private function init()

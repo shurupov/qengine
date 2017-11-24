@@ -76,3 +76,13 @@ input.edit {
 .header {
     background: rgba(53, 55, 60, 0.97);
 }
+
+.admin-panel-wrapper {
+    padding-top: 150px;
+    padding-bottom: 50px;
+}
+
+.add-component-button-wrapper {
+    padding-top: 150px;
+    padding-bottom: 15px;
+}

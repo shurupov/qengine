@@ -1,0 +1,54 @@
+.fancybox-slide--iframe .fancybox-content {
+    /*width  : 800px;*/
+    min-height : 60%!important;
+    /*max-width  : 80%;*/
+    /*max-height : 80%;*/
+    /*margin: 0;*/
+}
+
+.btn {
+    border-radius: 0;
+    padding: 15px 45px;
+}
+
+.admin-panel-wrapper {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.add-component-button-wrapper {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.btn.btn-primary {
+    border: 1px #efbb20 solid;
+}
+
+.editable-buttons .btn.btn-primary i, .editable-buttons .btn.btn-primary i:hover {
+    background: none;
+    color: inherit;
+}
+
+.form-group .editable-buttons .btn i {
+    position: inherit;
+    top: inherit;
+    right: inherit;
+    width: inherit;
+    left: inherit;
+    line-height: inherit;
+    margin: inherit;
+}
+
+.editableform .editable-input .editable-clear-x {
+    top: 28px;
+    right: 10px;
+}
+
+.editableform .form-control {
+    margin-bottom: inherit;
+}
+
+.glyphicon {
+    font-family: 'Glyphicons Halflings' !important;
+}

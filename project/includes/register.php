@@ -13,7 +13,8 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',
     'twig.options' => array(
-        'cache' => ( $app['settings']['debug'] ? false : __DIR__.'/../cache/views/' )
+        'cache' => ( $app['settings']['debug'] ? false : __DIR__.'/../cache/views/' ),
+        'strict_variables' => false
     ),
 
 ));
@@ -31,7 +32,6 @@ $app->register(new Lalbert\Silex\Provider\MongoDBServiceProvider(), [
     ]
 ]);
 
-$app->register(new Qe\EmailService());
 $app->register(new Qe\PostService());
 $app->register(new Qe\DataService());
 $app->register(new Qe\PageService());

@@ -1,0 +1,369 @@
+{% macro FeaturesSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="features-section section-padding">
+        <div class="container">
+            <div class="section-title text-center">
+                <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}</h1>
+                <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+            </div>
+            <div class="row">
+                {% for k,feature in section.features %}
+                    {% set featurePath = path ~ '.features.' ~ k %}
+                    <div class="col-sm-6 col-md-4">
+                        <div class="features">
+                            <div class="feature-icon">
+                                <i class="fa {{ feature.icon | default('fa-road') }}" aria-hidden="true"></i>
+                                {% if editMode %}{{ data.text(feature.icon, pageId, featurePath ~ '.icon', editMode) }}{% endif %}
+                            </div>
+
+                            <div class="feature-text">
+                                <h4>{{ data.text(feature.title, pageId, featurePath ~ '.title', editMode) }}</h4>
+                                <p>{{ data.text(feature.description, pageId, featurePath ~ '.description', editMode) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div><!-- row -->
+        </div><!-- container -->
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.features', pageId, editMode, "Добавить элемент") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div><!-- features section -->
+
+{% endmacro %}
+
+{% macro Features2Section(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="work-process image-bg section-padding" style="background-image: url({{ section.bg | default('/templates/diagram/images/bg/1.jpg') }});">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="section-title text-center">
+                <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.setImageButton(section.bg, pageId, path ~ '.bg', editMode, '/templates/diagram/images/bg/1.jpg') }}</h1>
+                <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+            </div>
+            <div class="process-section">
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        {% for k,feature in section.features %}
+                            {% if loop.index0 < (section.features | length / 2) | round(0, 'ceil') %}
+                                {% set featurePath = path ~ '.features.' ~ k %}
+                                <div class="work-proces left-content text-right">
+                                    <div class="process-icon">
+                                        {{ data.image(feature.icon, pageId, featurePath ~ '.icon', editMode, {class: 'img-responsive'}, '/templates/diagram/images/process/proces3.png') }}
+                                    </div>
+                                    <div class="process-info">
+                                        <h4>{{ data.text(feature.title, pageId, featurePath ~ '.title', editMode) }}{{ data.removeElementButton(featurePath, pageId, editMode) }}</h4>
+                                        <p>{{ data.text(feature.description, pageId, featurePath ~ '.description', editMode) }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        {% for k,feature in section.features %}
+                            {% if loop.index0 >= (section.features | length) / 2 | round(0, 'ceil') %}
+                                {% set featurePath = path ~ '.features.' ~ k %}
+                                <div class="work-proces">
+                                    <div class="process-icon">
+                                        {{ data.image(feature.icon, pageId, featurePath ~ '.icon', editMode, {class: 'img-responsive'}, '/templates/diagram/images/process/proces3.png') }}
+                                    </div>
+                                    <div class="process-info">
+                                        <h4>{{ data.text(feature.title, pageId, featurePath ~ '.title', editMode) }}{{ data.removeElementButton(featurePath, pageId, editMode) }}</h4>
+                                        <p>{{ data.text(feature.description, pageId, featurePath ~ '.description', editMode) }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div><!-- row -->
+        </div><!-- container -->
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.features', pageId, editMode, "Добавить элемент") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div><!-- process -->
+
+{% endmacro %}
+
+{% macro Features3Section(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="service-section section-padding">
+        <div class="container">
+            <div class="section-title text-center">
+                <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}</h1>
+                <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+            </div>
+            <div class="service-content">
+                <div class="services">
+                    <div class="row">
+                        {% for k,feature in section.features %}
+                            {% set featurePath = path ~ '.features.' ~ k %}
+                            <div class="col-sm-6 col-md-4">
+                                <div class="service crane-lifting image-bg">
+                                    <div class="overlay"></div>
+                                    <div class="image-box">
+                                        {{ data.image(feature.icon, pageId, featurePath ~ '.icon', editMode, {class: 'img-responsive'}, '/templates/diagram/images/service/1.png') }}
+                                    </div>
+                                    <div class="box-title"{% if editMode %} style="overflow: inherit;"{% endif %}>
+                                        <h3>{{ data.text(feature.title, pageId, featurePath ~ '.title', editMode) }}</h3>
+                                        <p>{{ data.text(feature.description, pageId, featurePath ~ '.description', editMode) }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div><!-- services -->
+            </div>
+        </div><!-- container -->
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.features', pageId, editMode, "Добавить элемент") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div><!-- service section -->
+
+{% endmacro %}
+
+{% macro PortfolioSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="portfolio-section">
+        <div class="portfolio-title image-bg">
+            <div class="overlay"></div>
+            <div class="section-title">
+                <div class="container">
+                    <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}</h1>
+                    <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="recent-projects">
+            <div id="recent-projects">
+                {% for k,project in section.projects %}
+                    {% set projectPath = path ~ '.projects.' ~ k %}
+                    <div class="project-content">
+                        <div class="project-title">
+                            <h3>{{ data.text(project.title, pageId, projectPath ~ '.title', editMode, false, 'bottom') }}</h3>
+                            <span>Клиент: {{ data.text(project.client, pageId, projectPath ~ '.client', editMode, false, 'bottom') }}</span>
+                        </div>
+                        <div class="project-item">
+                            {% if editMode %}
+                                {{ data.image(project.image, pageId, projectPath ~ '.image', editMode, {class: 'img-responsive'}, '/templates/diagram/images/project/1.jpg') }}
+                            {% else %}
+                                <a href="{{ project.image | default('/templates/diagram/images/project/1.jpg') }}" class="image-link"><img class="img-responsive" src="{{ project.image | default('/templates/diagram/images/project/1.jpg') }}" alt="" /></a>
+                            {% endif %}
+                        </div>
+                        <div class="project-info">
+                            <p>{{ data.text(project.info, pageId, projectPath ~ '.info', editMode) }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.projects', pageId, editMode, "Добавить элемент") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div><!-- portfolio section -->
+
+{% endmacro %}
+
+{% macro OpinionSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="testimonial-section image-bg section-padding">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="testimonial-slider">
+                {% for k,opinion in section.opinions %}
+                    {% set opinionPath = path ~ '.opinions.' ~ k %}
+                    <div class="row testimonial text-center">
+                        <div class="col-sm-8 col-sm-offset-2">
+                            <div class="testimonial-image">
+                                {{ data.image(opinion.avatar, pageId, opinionPath ~ '.avatar', editMode, {class: 'img-responsive'}, '/templates/diagram/images/testimonial/1.jpg') }}
+                            </div>
+                            <div class="testimonial-info ">
+                                <p>{{ data.text(opinion.text, pageId, opinionPath ~ '.text', editMode) }}</p>
+                                <h5>{{ data.text(opinion.signature, pageId, opinionPath ~ '.signature', editMode) }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if editMode %}
+                <div class="text-center" style="padding: 45px 0 15px;">
+                    {{ data.addElementButton(path ~ '.opinions', pageId, editMode, "Добавить отзыв") }}
+                    {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+                </div>
+            {% endif %}
+
+        </div><!-- container -->
+    </div><!-- testimonial section -->
+
+{% endmacro %}
+
+{% macro PhotosSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="recent-projects section-padding">
+        <div class="container">
+            <div class="section-title text-center">
+                <div class="container">
+                    <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}</h1>
+                    <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+                </div>
+            </div>
+            <div class="row" >
+
+                {% for k, photo in section.photos %}
+                    {% set photoPath = path ~ '.photos.' ~ k %}
+
+                    <div class="col-sm-6 col-md-4">
+                    <div class="project-content">
+                        <div class="project-item">
+                            {% if editMode %}
+                                {{ data.image(photo.url, pageId, photoPath ~ '.url', editMode, {class: 'img-responsive'}, '/templates/diagram/images/project/1.jpg') }}
+                            {% else %}
+                                <a href="{{ photo.url | default('/templates/diagram/images/project/1.jpg') }}" class="image-link"><img class="img-responsive" src="{{ photo.url | default('/templates/diagram/images/project/1.jpg') }}" alt="" /></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.photos', pageId, editMode, "Добавить фотку") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div><!-- recent projects -->
+
+{% endmacro %}
+
+{% macro SendMessageSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="contact-form-section section-padding">
+        <div class="container">
+            <div class="section-title text-center">
+                <div class="container">
+                    <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}</h1>
+                    <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+                </div>
+            </div>
+            <div class="contact-info">
+                <form id="contact-form" class="contact-form" name="contact-form" method="post" action="/post">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <i class="fa fa-user" aria-hidden="true"></i>
+                                <input type="text" name="name" class="form-control control-1" required="required" placeholder="Имя">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <i class="fa fa-th-list" aria-hidden="true"></i>
+                                <input type="text" name="subject" class="form-control" required="required" placeholder="Тема">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                <input type="email" name="email" class="form-control" required="required" placeholder="E-mail">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                <textarea name="message" id="message" required="required" class="form-control" rows="7" placeholder="Сообщение"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="submit-button">
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </div>
+                </form><!-- contact form -->
+            </div>
+        </div><!-- container -->
+    </div><!-- contact form section -->
+
+{% endmacro %}
+
+{% macro MessageSentSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="contact-form-section section-padding">
+        <div class="container">
+            <div class="section-title text-center">
+                <div class="container">
+                    <h1>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}</h1>
+                    <h2>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</h2>
+                </div>
+            </div>
+        </div><!-- container -->
+    </div><!-- contact form section -->
+
+{% endmacro %}
+
+{% macro GoogleMapsSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div id="gmap"></div>
+
+    <script>
+        var latlng = {
+            lat: {{ section.lat | default('53.215221') }},
+            lng: {{ section.lng | default('50.26938300000006') }}
+        };
+    </script>
+
+    {% if editMode %}
+        <div class="container">
+            <div class="col-md-3 col-md-offset-3">
+                Широта: {{ data.text(section.lat, pageId, path ~ '.lat', editMode) }}
+            </div>
+            <div class="col-md-3">
+                Долгота: {{ data.text(section.lng, pageId, path ~ '.lng', editMode) }}
+            </div>
+        </div>
+    {% endif %}
+
+{% endmacro %}

@@ -1,0 +1,10 @@
+{% extends '/common/layouts/head.html.twig' %}
+{% import '/common/components/admin.html.twig' as admin %}
+
+{% block title %}Админка {% if setting.title is defined and settings.title.value | length > 0 %} | {{ settings.title.value }}{% endif %}{% endblock %}
+
+{% block body %}
+    <div class="admin-panel-wrapper">
+        {{ admin.admin(editMode, allPages, menu, settings, formfields) }}
+    </div>
+{% endblock %}

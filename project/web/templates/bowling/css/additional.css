@@ -34,3 +34,13 @@
         line-height: 13px;
     }
 }
+
+.admin-panel-wrapper {
+    padding-top: 150px;
+    padding-bottom: 50px;
+}
+
+.add-component-button-wrapper {
+    padding-top: 150px;
+    padding-bottom: 15px;
+}

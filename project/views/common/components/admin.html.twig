@@ -70,7 +70,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-long-arrow-right"></i>
+                        <span class="fa fa-long-arrow-right"></span>
                         Войти
                     </button>
 
@@ -125,7 +125,7 @@
 
 {% endmacro %}
 
-{% macro adminPanel(pages, menu, settings) %}
+{% macro adminPanel(pages, menu, settings, formfields) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -168,7 +168,7 @@
 
                 <br/><br/><br/>
 
-                {{ admin.table(settings, 'setting', 'Настройки', 'Добавить настройку', [
+                {{ admin.table(settings, 'setting', 'Общие свойства сайта', 'Добавить свойство', [
                     {
                         'name': 'key',
                         'caption': 'Ключ',
@@ -189,18 +189,36 @@
                     }
                 ]) }}
 
+                {{ admin.table(formfields, 'formfields', 'Поля формы', 'Добавить поле', [
+                    {
+                        'name': 'key',
+                        'caption': 'Ключ',
+                        'placeholder': 'phone',
+                        'columns': 3,
+                        'readonly': true
+                    }, {
+                        'name': 'title',
+                        'caption': 'Заголовок',
+                        'placeholder': 'Телефон',
+                        'columns': 4,
+                        'readonly': true
+                    }
+                ]) }}
+
+                {{ admin.removeAdminElementModal() }}
+
             </div>
         </div>
     </div>
 
 {% endmacro %}
 
-{% macro admin(editMode, pages = [], menu = [], settings = []) %}
+{% macro admin(editMode, pages = [], menu = [], settings = [], formfields = []) %}
 
     {% import _self as admin %}
 
     {% if editMode %}
-        {{ admin.adminPanel(pages, menu, settings) }}
+        {{ admin.adminPanel(pages, menu, settings, formfields) }}
     {% else %}
         {{ admin.loginForm() }}
     {% endif %}
