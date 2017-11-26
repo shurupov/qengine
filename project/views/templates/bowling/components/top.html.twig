@@ -101,3 +101,20 @@
     </section>
 
 {% endmacro %}
+
+{% macro SimpleHeadingSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="container-fluid about-head-bg" style="background-image: url({{ section.bg | default('/templates/bowling/images/welcome-bg.jpg') }});">
+        <div class="about-head-bg-black">
+            <div class="container text-center">
+
+                <h2>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.setImageButton(section.bg, pageId, path ~ '.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}{{ data.removeElementButton(path, pageId, editMode) }}</h2>
+                <span><a href="/">{{ data.text(section.homeTitle, pageId, path ~ '.homeTitle', editMode) }} &nbsp; ></a> &nbsp; {{ data.text(section.subTitle, pageId, path ~ '.subTitle', editMode) }}</span>
+
+            </div>
+        </div>
+    </div>
+
+{% endmacro %}

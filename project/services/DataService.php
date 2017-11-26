@@ -37,8 +37,12 @@ class DataService implements ServiceProviderInterface
         ]);
     }
 
-    public function edit($id, $path, $value, $collection = 'page')
+    public function edit($id, $path, $value, $collection = 'page', $action = 'edit')
     {
+
+        if ($action == 'edit/list') {
+            $this->update($id, $path, [], $collection);
+        }
 
         if (is_array($value)) {
             foreach ($value as $k => $v) {

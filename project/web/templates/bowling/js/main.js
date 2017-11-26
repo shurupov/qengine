@@ -11,16 +11,16 @@ setTimeout(function(){
         slideSpeed:1000,
         singleItem:true,
         transitionStyle:"fade",
-        autoPlay:true
+        autoPlay: !editMode
     }); 
 	}, 300);
 
 
 $(document).ready(function () {
                 
-                $('#example1').datepicker({
-                    format: "dd/mm/yyyy"
-                });  
+    $('#example1').datepicker({
+        format: "dd/mm/yyyy"
+    });
             
 });	
 			
