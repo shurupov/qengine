@@ -36,6 +36,28 @@ if $INSTALL_MONGO; then
 
     sudo service mongod start
     sudo systemctl enable mongod
+
+    echo "Start installing mongodb data"
+    cd $SOURCES_PATH
+    cd db/mongo
+    dbs=( $(ls) )
+    for db in ${dbs[@]}; do
+        echo $db
+        cd $db
+        collections=( $(ls) )
+        for collection in ${collections[@]}; do
+            echo $collection
+            cd $collection
+            files=( $(ls) )
+            for file in ${files[@]}; do
+                sudo mongoexport --db $db -c $collection --out $file
+                echo Dump db/mongo/$db/$collection/$file applied
+            done
+            cd ..
+        done
+        cd ..
+    done
+    cd ..
 fi
 
 if $INSTALL_NODEJS; then
@@ -77,15 +99,15 @@ if $INSTALL_MYSQL; then
     sudo apt install -y mysql-server
     echo "Start installing db data"
     cd $SOURCES_PATH
-    cd db
-    dirs=( $(ls) )
-    for dir in ${dirs[@]}; do
-        echo $dir
-        cd $dir
+    cd db/mysql
+    dbs=( $(ls) )
+    for db in ${dbs[@]}; do
+        echo $db
+        cd $db
         files=( $(ls) )
         for file in ${files[@]}; do
             sudo mysql --password=$DBPASSWD < $file
-            echo Dump db/$dir/$file applied
+            echo Dump db/mysql/$db/$file applied
         done
         cd ..
     done

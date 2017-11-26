@@ -1,58 +1,93 @@
-{% macro AboutAndServicesSection(sectionData, pageId, path, editMode) %}
+{% macro AboutAndServicesSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
 
     <!--Top-->
-    <div class="container-fluid" style="background-image:url(/templates/bowling/images/welcome-bg.jpg); background-repeat:no-repeat;">
+    <div class="container-fluid" style="background-image:url({{ section.bg | default('/templates/bowling/images/welcome-bg.jpg') }}); background-repeat:no-repeat;">
 
-        <div class="container about-sec">
-            <div class="col-md-1"></div>
-            <div class="col-md-5 padd-50">
-                <h2 class="welc-h2">WELCOME TO</h2>
-                <div class="h2-underline"></div>
-                <h3 class="welc-h3">The All Seasons<br>
-                    Bowling Alley.</h3>
+        {% if section.showAbout %}
+
+            <div class="container about-sec">
+                <div class="col-md-1"></div>
+                <div class="col-md-5 padd-50">
+                    <h2 class="welc-h2">{{ data.text(section.about.title, pageId, path ~ '.about.title', editMode) }}</h2>
+                    <div class="h2-underline"></div>
+                    <h3 class="welc-h3">{{ data.text(section.about.subtitle, pageId, path ~ '.about.subtitle', editMode) }}</h3>
+                </div>
+
+                <div class="col-md-5 padd-50" style="padding-right:50px;">
+                    <h2 class="story-h2">{{ data.text(section.about.story.title, pageId, path ~ '.about.story.title', editMode) }}</h2>
+                    <p class="story-p">{{ data.text(section.about.story.description, pageId, path ~ '.about.story.description', editMode) }}</p>
+                    {#<div class="read-more text-center"><a href="about-us.html"><img src="/templates/bowling/images/read-ball.png"  style="margin-top:15px;"><br /><span>Далее</span></a></div>#}
+                </div>
+                <div class="col-md-1"></div>
+
+                <div class="clearfix"></div>
             </div>
 
-            <div class="col-md-5 padd-50" style="padding-right:50px;">
-                <h2 class="story-h2">Наша история</h2>
-                <p class="story-p">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a ligula in velit aliquam efficitur. Quisque facilisis lectus et justo tempor, quis posuere mi posuere. Aliquam eget est sed  male suada elementum. Ut ultrices ligula vitae egestas.Ut ultrices ligula vitae egestas varius.</p>
-                <div class="read-more text-center"><a href="about-us.html"><img src="/templates/bowling/images/read-ball.png"  style="margin-top:15px;"><br /><span>Далее</span></a></div>
+        {% endif %}
+
+        {% if editMode %}
+            <div class="text-center" style="font-size: 30px;">
+                {{ data.setImageButton(section.bg, pageId, path ~ '.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}
+                {{ data.settingsButton(path, editMode) }}
+                {{ data.removeElementButton(path, pageId, editMode) }}
             </div>
-            <div class="col-md-1"></div>
-
-            <div class="clearfix"></div>
-        </div>
-
+        {% endif %}
 
         <div class="container">
 
             <div class="col-xs-12 col-md-1"></div>
 
-            <div class="col-xs-12 col-md-10 top-sec">
+            <div class="col-xs-12 col-md-10 top-sec padd-50">
 
+                {% for k, block in section.blocks %}
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-4 box-1 text-center">
-                        <h2 class="welc-h2" style="color:#FFF;">Bowling</h2>
-                        <p>Lorem ipsum dolor sit amet dipiscing elit.</p>
-                        <span class="perspective"><a href="bowling.html" class="btn-2 btn-8 btn-8a">ДАЛЕЕ</a></span>
-                        <img src="/templates/bowling/images/box-1-ball.png" />
-                    </div>
+                    {% set blockPath = path ~ '.blocks.' ~ k %}
 
-                    <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-4" style="padding:0;"><img src="/templates/bowling/images/box-2.jpg" class="img-responsive" /></div>
-                </div>
+                    {% if block.pictureInRight %}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4 box-1 text-center"{% if editMode %} style="overflow: inherit;"{% endif %}>
+                                <h2 class="welc-h2" style="color:#FFF;">{{ data.text(block.title, pageId, blockPath ~ '.title', editMode) }}
+                                    {{ data.setImageButton(block.image, pageId, blockPath ~ '.image', editMode, '/templates/bowling/images/box-3.jpg') }}
+                                    {{ data.settingsButton(blockPath, editMode) }}
+                                    {{ data.removeElementButton(blockPath, pageId, editMode) }}
+                                </h2>
+                                <p>{{ data.text(block.description, pageId, blockPath ~ '.description', editMode) }}</p>
+                                <span class="perspective">{{ data.a(block.button, pageId, blockPath ~ '.button', editMode, {class: 'btn-2 btn-8 btn-8a'}) }}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-4" style="padding:0;"><img src="{{ block.image | default('/templates/bowling/images/box-2.jpg') }}" class="img-responsive" /></div>
+                        </div>
+                    {% else %}
+                        <div class="row">
+                            <!--2nd row-->
+                            <div class="col-xs-12 col-sm-12 col-md-8 box-2 text-center"{% if editMode %} style="overflow: inherit;"{% endif %}>
+                                <h2 class="welc-h2" style="color:#FFF; margin-bottom:15px;">{{ data.text(block.title, pageId, blockPath ~ '.title', editMode) }}
+                                    {{ data.setImageButton(block.image, pageId, blockPath ~ '.image', editMode, '/templates/bowling/images/box-3.jpg') }}
+                                    {{ data.settingsButton(blockPath, editMode) }}
+                                    {{ data.removeElementButton(blockPath, pageId, editMode) }}
+                                </h2>
+                                <p>{{ data.text(block.description, pageId, blockPath ~ '.description', editMode) }}</p><br />
+                                <span class="perspective">{{ data.a(block.button, pageId, blockPath ~ '.button', editMode, {class: 'btn-2 btn-8 btn-8a'}) }}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4" style="padding:0;"><img src="{{ block.image | default('/templates/bowling/images/box-3.jpg') }}" class="img-responsive" /></div>
+                        </div>
+                    {% endif %}
 
-                <div class="row">
-                    <!--2nd row-->
-                    <div class="col-xs-12 col-sm-12  col-md-8 box-2 text-center">
-                        <h2 class="welc-h2" style="color:#FFF; margin-bottom:15px;">Parties & Events</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipi scing elit. Sed a ligula in velit..</p><br />
-                        <span class="perspective"><a href="contact.html" class="btn-2 btn-8 btn-8a">BOOK NOW</a></span>
-                        <img src="/templates/bowling/images/box-2-glas.png" />
-                    </div>
+                    {{ data.settingsModal(block, pageId, blockPath,
+                        {
+                            'pictureInRight': {
+                                'type': 'select',
+                                'title': 'Картинка',
+                                'options': [
+                                    {value: 0, text: 'Слева'},
+                                    {value: 1,  text: 'Справа'}
+                                ]
+                            }
+                        },
+                    editMode) }}
 
-                    <div class="col-xs-12 col-sm-12 col-md-4" style="padding:0;"><img src="/templates/bowling/images/box-3.jpg" class="img-responsive" /></div>
-                </div>
-
+                {% endfor %}
 
             </div>
 
@@ -62,6 +97,742 @@
 
         </div>
 
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.blocks', pageId, editMode, "Добавить блок") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+        {{ data.settingsModal(section, pageId, path,
+            {
+                'showAbout': {
+                    'type': 'select',
+                    'title': 'Секция "О нас"',
+                    'options': [
+                        {value: 0, text: 'Отсутствует'},
+                        {value: 1, text: 'Есть'}
+                    ]
+                }
+            },
+        editMode) }}
+
     </div>
+
+{% endmacro %}
+
+{% macro DescribedPictureListSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="container padd-70">
+
+        {% for k, picture in section.pictures %}
+
+            {% set picturePath = path ~ '.pictures.' ~ k %}
+
+            <div class="col-xs-12 col-sm-6 col-md-6 wow animated book-party-btm-sec">
+                <div class="about-us-img">{{ data.image(picture.url, pageId, picturePath ~ '.url', editMode, {class: 'img-responsive'}, '/templates/bowling/images/party-page-btm-sec.jpg') }}</div>
+                <h2>{{ data.text(picture.title, pageId, picturePath ~ '.title', editMode) }}
+                    {{ data.removeElementButton(picturePath, pageId, editMode) }}</h2>
+                <p>{{ data.textarea(picture.description, pageId, picturePath ~ '.description', editMode) }}</p>
+            </div>
+
+        {% endfor %}
+
+        {% if editMode %}
+            <div class="clearfix"></div>
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.pictures', pageId, editMode, "Добавить картинку") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endmacro %}
+
+{% macro TestimonialsSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <!--testimonial-->
+    <div class="container-fluid padd-50" style="background-image:url({{ section.bg | default('/templates/bowling/images/welcome-bg.jpg') }}); background-repeat:no-repeat;">
+
+        <div class="container">
+
+            <div class="col-md-12 text-center">
+                <h2 class="welc-h3">{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.setImageButton(section.bg, pageId, path ~ '.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}</h2>
+                <span class="testimonial-under"></span>
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div id="testimonial-slider" class="owl-carousel">
+
+                        {% for k, review in section.reviews %}
+
+                            {% set reviewPath = path ~ '.reviews.' ~ k %}
+
+                            <div class="testimonial">
+                                <div class="pic">
+                                    {{ data.image(review.avatar, pageId, reviewPath ~ '.avatar', editMode, {}, '/templates/bowling/images/testimonial-1.jpg') }}
+                                </div>
+
+                                <p class="description">
+                                    {{ data.text(review.text, pageId, reviewPath ~ '.text', editMode) }}{{ data.removeElementButton(reviewPath, pageId, editMode) }}
+                                </p>
+                                <h3 class="testimonial-title">{{  data.text(review.signature, pageId, reviewPath ~ '.signature', editMode) }}</h3>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="clearfix"></div>
+
+            </div>
+
+            {% if editMode %}
+                <div class="text-center" style="padding: 15px 0;">
+                    {{ data.addElementButton(path ~ '.reviews', pageId, editMode, "Добавить отзыв") }}
+                    {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+{% endmacro %}
+
+{% macro PhotoSliderSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <!--Gallery-slider-->
+    <div class="container-fluid" style="padding:0;">
+        <ul class="bxslider">
+            {% for k, image in section.images %}
+                {% set imagePath = path ~ '.images.' ~ k %}
+                <li>{{ data.image(image.url, pageId, imagePath ~ '.url', editMode, {}, '/templates/bowling/images/gallery-1.jpg') }}{{ data.removeElementButton(imagePath, pageId, editMode) }}</li>
+            {% endfor %}
+        </ul>
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.images', pageId, editMode, "Добавить фотку") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+    </div>
+
+{% endmacro %}
+
+{% macro MapSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <!--Contact-->
+    <div class="container-fluid contact-bg" style="background-image:url({{ section.bg | default('/templates/bowling/images/welcome-bg.jpg') }}); background-repeat:no-repeat;">
+        <div class="container padd-50 contact-container">
+
+            <div class="col-sm-4 col-md-4">
+
+                <h3 class="welc-h3">{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.setImageButton(section.bg, pageId, path ~ '.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}{{ data.removeElementButton(path, pageId, editMode) }}</h3>
+                <span class="testimonial-under" style="width:130px; margin-bottom:10px;"></span>
+
+                <div class="location">
+                    <i class="flaticon-placeholder" aria-hidden="true"></i>
+                    <span>{{ data.text(section.address, pageId, path ~ '.address', editMode) }}</span>
+                </div>
+                <div class="line"></div>
+                <div class="cal">
+                    <i class="flaticon-phone-call" aria-hidden="true"></i>
+                    <span>{{ data.text(section.phone, pageId, path ~ '.phone', editMode) }}</span>
+                </div>
+                <div class="line"></div>
+                <div class="location">
+                    <i class="flaticon-envelope" aria-hidden="true"></i>
+                    <span>{{ data.text(section.email, pageId, path ~ '.email', editMode) }}</span>
+                </div>
+                <div class="line"></div>
+                <div class="location">
+                    <i class="flaticon-clock" aria-hidden="true"></i>
+                    <span>{{ data.textarea(section.workTime, pageId, path ~ '.workTime', editMode) }}</span>
+                </div>
+
+                {% if editMode %}
+                    <div class="line"></div>
+                    <div class="location">
+                        <span>Ссылка карты для iframe {{ data.text(section.mapUrl, pageId, path ~ '.mapUrl', editMode) }}</span>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <div class="col-sm-8 col-md-8">
+
+                <iframe src="{{ section.mapUrl | default('https://yandex.ru/map-widget/v1/-/CBajJXSi2A') }}" width="100%" height="450" frameborder="0" style="border:5px solid #FFF; margin-top:20px;" allowfullscreen></iframe>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+    </div>
+
+{% endmacro %}
+
+{% macro PriceSectionLeftPriceBlock(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="col-md-12 text-center padd-50">
+        <H2>{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.settingsButton(path, editMode) }}</H2>
+        <span class="bowling-left-span"></span>
+        <p>{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</p>
+
+        {% set serviceCount = section.services | length %}
+
+        {% for k, service in section.services %}
+            {% set servicePath = path ~ '.services.' ~ k %}
+            <div class="col-sm-{{ (12 // serviceCount) }} col-md-{{ (12 // serviceCount) }}{% if not loop.last %} bowling-left-border{% endif %}">
+                <div class="block"><i class="flaticon-people hovicon effect-3 sub-b"></i></div>
+                <h3 class="bowling-left-h3">{{ data.text(service.title, pageId, servicePath ~ '.title', editMode) }}{{ data.removeElementButton(servicePath, pageId, editMode) }}</h3>
+                <h4 class="bowling-left-h3 bowling-left-h4">{{ data.text(service.price, pageId, servicePath ~ '.price', editMode) }}<span class="glyphicon glyphicon-ruble" aria-hidden="true" style="font-size: smaller;"></span></h4>
+                <h5 class="bowling-left-price-p text-uppercase">{{ data.text(service.perTime, pageId, servicePath ~ '.perTime', editMode) }}</h5>
+            </div>
+        {% endfor %}
+
+    </div>
+
+    {% if editMode %}
+        <div class="text-center" style="padding: 15px 0;">
+            {{ data.addElementButton(path ~ '.services', pageId, editMode, "Добавить подуслугу") }}
+            {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+        </div>
+    {% endif %}
+
+    {{ data.settingsModal(section, pageId, path,
+        {
+            'images': {
+                'type': 'list',
+                'listType': 'image',
+                'title': 'Фотки'
+            },
+            'placement': {
+                'type': 'select',
+                'title': 'Расположение"',
+                'options': [
+                    {value: 0, text: 'Слева цены, справа фотки'},
+                    {value: 1, text: 'Слева фотки, справа цены'}
+                ]
+            }
+        },
+    editMode) }}
+
+{% endmacro %}
+
+{% macro PriceSectionRightPhotoBlock(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    {% set carouselId = 'carousel-' ~ path | split('.') | join('-') %}
+
+    <div id="{{ carouselId }}" class="carousel slide" data-ride="carousel" style="position:relative;">
+        <!-- Indicators -->
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {% for k, image in section.images %}
+                <div class="item{% if loop.first %} active{% endif %}">
+                    <img src="{{ image }}" class="img-responsive bowling-right-img">
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#{{ carouselId }}" role="button" data-slide="prev">
+            <span class="glyphicon-chevron-left" aria-hidden="true"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+            <span class="sr-only">Предыдущее</span>
+        </a>
+        <a class="right carousel-control" href="#{{ carouselId }}" role="button" data-slide="next">
+            <span class="glyphicon-chevron-right" aria-hidden="true"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+            <span class="sr-only">Следующее</span>
+        </a>
+    </div>
+
+{% endmacro %}
+
+{% macro PriceSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+    {% import _self as components %}
+
+    <!-----------------Center-------------------->
+    <div class="container-fluid" style="padding:0;">
+
+        <div class="bowling-left"{% if section.placement %} style="float: right; left: inherit; right: 0;"{% endif %}>
+            {{ components.PriceSectionLeftPriceBlock(section, pageId, path, editMode) }}
+        </div>
+        <div class="bowling-right"{% if section.placement %} style="margin-left: inherit;"{% endif %}>
+            {{ components.PriceSectionRightPhotoBlock(section, pageId, path, editMode) }}
+        </div>
+
+        <div class="clearfix"></div>
+
+    </div>
+
+{% endmacro %}
+
+{% macro AboutSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <!--Top-->
+    <div class="container-fluid" style="background-image:url({{ section.bg | default('/templates/bowling/images/welcome-bg.jpg') }}); background-repeat:no-repeat;">
+
+        <div class="container about-sec">
+            <div class="col-md-1"></div>
+            <div class="col-md-5 padd-50">
+                <h2 class="welc-h2">{{ data.text(section.about.title, pageId, path ~ '.about.title', editMode) }}
+                    {{ data.setImageButton(section.bg, pageId, path ~ '.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}
+                    {{ data.removeElementButton(path, pageId, editMode) }}
+                </h2>
+                <div class="h2-underline"></div>
+                <h3 class="welc-h3">{{ data.text(section.about.subtitle, pageId, path ~ '.about.subtitle', editMode) }}</h3>
+            </div>
+
+            <div class="col-md-5 padd-50" style="padding-right:50px;">
+                <h2 class="story-h2">{{ data.text(section.about.story.title, pageId, path ~ '.about.story.title', editMode) }}</h2>
+                <p class="story-p">{{ data.text(section.about.story.description, pageId, path ~ '.about.story.description', editMode) }}</p>
+                {#<div class="read-more text-center"><a href="about-us.html"><img src="/templates/bowling/images/read-ball.png"  style="margin-top:15px;"><br /><span>Далее</span></a></div>#}
+            </div>
+            <div class="col-md-1"></div>9
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+
+{% endmacro %}
+
+{% macro MembershipSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <!--Membership-->
+    <div class="container padd-70">
+
+        <div class="col-md-12 text-center">
+            <h2 class="welc-h3" style="margin-bottom:10px;">{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.settingsButton(path, editMode) }}</h2>
+            <span class="testimonial-under" style="margin-bottom:5px;"></span>
+            <p class="head-p">{{ data.text(section.description, pageId, path ~ '.description', editMode) }}</p>
+        </div>
+        <div class="clearfix"></div>
+
+            {{ data.settingsModal(section, pageId, path,
+                {
+                    'columnWidth': {
+                        'type': 'select',
+                        'title': 'Максимальное количество колонок',
+                        'options': [
+                            {value: 3, text: '4'},
+                            {value: 4, text: '3'},
+                            {value: 2, text: '6'}
+                        ]
+                    }
+                },
+            editMode) }}
+
+        <div class="row">
+
+            {% set rateCount = section.rates | length %}
+
+            {% set width = section.columnWidth ? section.columnWidth : 3 %}
+
+            {% set offset = (12 - width * rateCount) // 2 %}
+
+            {% for k, rate in section.rates %}
+
+                {% set ratePath = path ~ '.rates.' ~ k %}
+
+                <div class="col-sm-6 col-md-{{ width }} text-center{% if loop.first %} col-md-offset-{{ offset }}{% endif %}">
+
+                    <div class="plan-body"{% if editMode %} style="overflow: inherit;" {% endif %}>
+                        {% if rate.showDiscount %}<div class="offer-label">{{ rate.discount }}</div>{% endif %}
+                        <h2>{{ data.text(rate.title, pageId, ratePath ~ '.title', editMode) }}{{ data.settingsButton(ratePath, editMode) }}{{ data.removeElementButton(ratePath, pageId, editMode) }}</h2>
+                        <p>{{ data.text(rate.description, pageId, ratePath ~ '.description', editMode) }}</p>
+                        <div class="price-body"><span>{{ data.text(rate.description, pageId, ratePath ~ '.description', editMode) }}<span class="glyphicon glyphicon-ruble" aria-hidden="true" style="font-size: smaller;"></span></span><h5>{{ data.text(rate.perWho, pageId, ratePath ~ '.perWho', editMode) }}</h5></div>
+                        <ul>
+                            {% for sk, service in rate.services %}
+                                {% set servicePath = ratePath ~ '.services.' ~ sk %}
+                                <li>{{ data.text(service.title, pageId, servicePath ~ '.title', editMode) }}</li>
+                            {% endfor %}
+                            {{ data.addElementButton(ratePath ~ '.services', pageId, editMode, "Добавить услугу") }}
+                        </ul>
+                        {% if rate.showButton %}
+                            {{ data.a(rate.button, pageId, ratePath ~ '.button', editMode) }}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                {{ data.settingsModal(rate, pageId, ratePath,
+                    {
+                        'showButton': {
+                            'type': 'select',
+                            'title': 'Кнопка внизу',
+                            'options': [
+                                {value: 0, text: 'Отсутствует'},
+                                {value: 1, text: 'Есть'}
+                            ]
+                        },
+                        'showDiscount': {
+                            'type': 'select',
+                            'title': 'Скидка есть',
+                            'options': [
+                                {value: 0, text: 'Отсутствует'},
+                                {value: 1, text: 'Есть'}
+                            ]
+                        },
+                        'discount': {
+                            'type': 'text',
+                            'title': 'Скидка'
+                        },
+                    },
+                editMode) }}
+
+            {% endfor %}
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.rates', pageId, editMode, "Добавить тариф") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endmacro %}
+
+{% macro TableSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    {{ data.settingsModal(section, pageId, path,
+        {
+            'showTopLine': {
+                'type': 'select',
+                'title': 'Полоска сверху',
+                'options': [
+                    {value: 0, text: 'Отсутствует'},
+                    {value: 1, text: 'Есть'}
+                ]
+            },
+            'showBottomLine': {
+                'type': 'select',
+                'title': 'Полоска внизу',
+                'options': [
+                    {value: 0, text: 'Отсутствует'},
+                    {value: 1, text: 'Есть'}
+                ]
+            },
+            'showHeader': {
+                'type': 'select',
+                'title': 'Заголовки колонок',
+                'options': [
+                    {value: 0, text: 'Отсутствуют'},
+                    {value: 1, text: 'Есть'}
+                ]
+            },
+            'columns': {
+                'type': 'text',
+                'title': 'Колонок'
+            },
+            'lines': {
+                'type': 'text',
+                'title': 'Строк'
+            },
+        },
+    editMode) }}
+
+    <div class="container padd-50">
+
+        <div class="row">
+
+            <div class="col-md-offset-1 col-md-10 text-center">
+
+                {% if section.showTopLine %}<div class="line" style="margin:30px 0;"></div>{% endif %}
+
+                <h2 class="main-title">{{ data.text(section.title, pageId, path ~ '.title', editMode) }}{{ data.settingsButton(path, editMode) }}{{ data.removeElementButton(path, pageId, editMode) }}</h2>
+
+                <div class="row">
+
+                    <div class="col-md-12 element-table text-left"{% if editMode %} style="overflow: visible;" {% endif %}>
+                        <div class="table-responsive">
+                            <table class="table-striped table-hover">
+                                {% if section.showHeader %}
+                                    <tr>
+                                        {% for ci in 0..(section.columns - 1) %}
+                                            {% set headerPath = path ~ '.table.headers.' ~ ci %}
+                                            <th>{{ data.text(section.table.headers[ci], pageId, headerPath, editMode) }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                {% endif %}
+                                {% for li in 0..(section.lines - 1) %}
+                                    <tr>
+                                        {% for ci in 0..(section.columns - 1) %}
+                                            {% set cellPath = path ~ '.table.cells.' ~ li ~ '.' ~ ci %}
+                                            <td>{{ data.text(section.table.cells[li][ci], pageId, cellPath, editMode) }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                {% if section.showBottomLine %}<div class="line" style="margin:30px 0;"></div>{% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endmacro %}
+
+{% macro PhotoGallerySection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    {{ data.settingsModal(section, pageId, path,
+        {
+            'showTags': {
+                'type': 'select',
+                'title': 'Панель тегов',
+                'options': [
+                    {value: 0, text: 'Отсутствует'},
+                    {value: 1, text: 'Есть'}
+                ]
+            },
+            'columnWidth': {
+                'type': 'select',
+                'title': 'Количество колонок',
+                'options': [
+                    {value: 6, text: '2'},
+                    {value: 4, text: '3'},
+                    {value: 3, text: '4'}
+                ]
+            }
+        },
+    editMode) }}
+
+    <!--gallery-->
+
+    <section class="portfolio on-portfolio padd-50">
+
+        <div class="container">
+            {% if editMode %}
+                <div class="row text-center" style="padding: 15px 0; font-size: larger;">
+                    {{ data.settingsButton(path, editMode) }}
+                </div>
+            {% endif %}
+
+            {% if section.showTags %}
+
+                {% if editMode %}
+                    <div class="row text-center" style="padding: 15px 0;">
+                        {{ data.addItemButton(path ~ '.tags', pageId, editMode, "Добавить тэг") }}
+                    </div>
+                {% endif %}
+
+                <div class="col-sm-12 text-center">
+                    <div id="projects-filter">
+                        <div class="gallery-head" style="max-width: 800px;">
+                            <a href="#" data-filter="*" class="active">Все</a>
+                            {% for k, tag in section.tags %}
+                                {% set tagPath = path ~ '.tags.' ~ k %}
+                                {% if not editMode %}<a href="#" data-filter=".t{{ k }}">{% endif %}{{ data.text(tag, pageId, tagPath, editMode) }}{% if not editMode %}</a>{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="row" id="portfolio-grid">
+
+                {% for k, photo in section.photos %}
+                    {% set photoPath = path ~ '.photos.' ~ k %}
+                    <a href="javascript:void(0)" type="button"{% if not editMode %} data-toggle="modal" data-target="#m{{ k }}"{% endif %}>
+                        <div class="item col-md-{{ section.columnWidth | default('3') }} col-sm-6 col-xs-12{% for tag in photo.tags %} t{{ tag }}{% endfor %}">
+                            {% if editMode %}
+                                {{ data.settingsButton(photoPath, editMode) }}
+                                {{ data.removeElementButton(photoPath, pageId, editMode) }}
+                                {{ data.image(photo.url, pageId, photoPath ~ '.url', editMode, {class: 'img-responsive'}, '/templates/bowling/images/gallery-tab-1.jpg') }}
+                            {% else %}
+                                <figure>
+                                    <img src="{{ photo.url | default('/templates/bowling/images/gallery-tab-1.jpg') }}" class="img-responsive">
+                                    <figcaption>
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </figcaption>
+                                </figure>
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% if not editMode %}
+                    <!-- Modal -->
+                    <div class="modal fade" id="m{{ k }}" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h2 class="modal-title" id="myModalLabel">{{ photo.title }}</h2>
+                                </div>
+                                <div class="modal-body">
+                                    <img alt="1-image" src="{{ photo.url | default('/templates/bowling/images/gallery-tab-1.jpg') }}" class="img-responsive">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {{ data.settingsModal(photo, pageId, photoPath,
+                        {
+                            'title' : {
+                                'type': 'text',
+                                'title': 'Подпись',
+                            },
+                            'tags' : {
+                                'type': 'checklist',
+                                'title': 'Тэги',
+                                'variants': section.tags
+                            }
+                        },
+                    editMode) }}
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        {% if editMode %}
+            <div class="text-center" style="padding: 15px 0;">
+                {{ data.addElementButton(path ~ '.photos', pageId, editMode, "Добавить фотку") }}
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
+            </div>
+        {% endif %}
+
+    </section>
+
+{% endmacro %}
+
+{% macro FeedbackFormSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <!-------------contact-head---------->
+    <div class="container-fluid" style="padding:0;">
+        <div class="contact-page-left">
+
+            <div class="col-md-offset-2 col-md-10 contact-page-left-padd">
+
+                <h3 class="welc-h3">{{ data.text(section.feedback.title, pageId, path ~ '.feedback.title', editMode) }}{{ data.removeElementButton(path, pageId, editMode) }}</h3>
+                <span class="testimonial-under" style="width:130px; margin-bottom:10px;"></span>
+
+                <form class="col-md-12" style="margin-top:20px;padding:0;" method="post" action="/post">
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 input-top">
+                            <input type="text" name="name" placeholder="Имя" class="contact-page-box">
+                        </div>
+                        <div class="col-sm-6 col-md-6 input-top">
+                            <input type="text" name="lastName" placeholder="Фамилия" class="contact-page-box">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 input-top">
+                            <input type="email" name="email" placeholder="Email" class="contact-page-box">
+                        </div>
+                        <div class="col-sm-6 col-md-6 input-top">
+                            <input type="tel" name="phone" placeholder="Телефон" class="contact-page-box">
+                        </div>
+                        <div class="col-sm-6 col-md-6 input-top">
+                            <input id="example1" name="date" class="date-pick input-box contact-page-box" placeholder="Дата" type="text">
+                        </div>
+                        <div class="col-sm-6 col-md-6 input-top">
+                            <input name="peopleCount" placeholder="Количество людей" class="input-box contact-page-box" type="number">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 input-top">
+                            <textarea placeholder="Сообщение" name="message" class="contact-page-message"></textarea>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="contact-page-submit text-uppercase">Отправить</button>
+                    <div class="clearfix"></div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="contact-page-right">
+
+            <div class="col-md-offset-1 col-md-11 contact-page-left-padd" style="background-image: url({{ section.contact.bg | default('/templates/bowling/images/welcome-bg.jpg') }})">
+
+                <h3 class="welc-h3">{{ data.text(section.contact.title, pageId, path ~ '.contact.title', editMode) }}{{ data.setImageButton(section.contact.bg, pageId, path ~ '.contact.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}</h3>
+                <span class="testimonial-under" style="width:130px; margin-bottom:30px;"></span>
+
+                <div class="location contact-page-right-loc-padd">
+                    <div class="contact-loc"><i class="flaticon-placeholder" aria-hidden="true"></i></div>
+                    <span>{{ data.text(section.contact.address, pageId, path ~ '.contact.address', editMode) }}</span>
+                </div>
+                <div class="line contact-page-line"></div>
+
+                <div class="cal contact-page-right-loc-padd">
+                    <div class="contact-cal"><i class="flaticon-phone-call" aria-hidden="true"></i></div>
+                    <span>{{ data.text(section.contact.phone, pageId, path ~ '.contact.phone', editMode) }}</span>
+                </div>
+                <div class="line contact-page-line"></div>
+
+                <div class="location contact-page-right-loc-padd">
+                    <div class="contact-mail"><i class="flaticon-envelope" aria-hidden="true"></i></div>
+                    <span style="line-height:47px;">{{ data.text(section.contact.email, pageId, path ~ '.contact.email', editMode) }}</span>
+                </div>
+                <div class="line contact-page-line"></div>
+
+                <div class="location contact-page-right-loc-padd">
+                    <div class="contact-time"><i class="flaticon-clock" aria-hidden="true"></i></div>
+                    <span>{{ data.textarea(section.contact.workTime, pageId, path ~ '.contact.workTime', editMode) }}</span>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endmacro %}
+
+{% macro JustTextSection(section, pageId, path, editMode) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+
+    <div class="container text-center padd-50"><h2 class="main-title">{{ data.text(section.text, pageId, path ~ '.text', editMode) }}</h2></div>
 
 {% endmacro %}

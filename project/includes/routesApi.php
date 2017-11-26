@@ -10,13 +10,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-$app->post('/e/{collection}/edit', function (Request $request, $collection) use ($app) {
+$app->post('/e/{collection}/{action}', function (Request $request, $collection, $action) use ($app) {
     try {
         $app['dataService']->edit(
             $request->request->get('pk'),
             $request->request->get('name'),
             $request->request->get('value'),
-            $collection
+            $collection,
+            $action
         );
         return new JsonResponse(['status' => 'ok']);
     } catch (\Exception $e) {
@@ -27,7 +28,7 @@ $app->post('/e/{collection}/edit', function (Request $request, $collection) use 
             'line' => $e->getLine()
         ]);
     }
-});
+})->assert('action','edit|edit/list');
 
 $app->post('/e/{collection}/add', function (Request $request, $collection) use ($app) {
     try {

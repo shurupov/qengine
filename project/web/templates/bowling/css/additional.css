@@ -1,4 +1,8 @@
-.modal.modal-custom-qe .modal-content {
+.fancybox-slide--iframe .fancybox-content {
+    min-height : 60%!important;
+}
+
+.modal.modal-custom-qe .modal-content, .contact-container {
     background: url(../images/body-bg.jpg);
 }
 
@@ -41,6 +45,10 @@
 }
 
 .add-component-button-wrapper {
-    padding-top: 150px;
+    padding-top: 200px;
     padding-bottom: 15px;
+}
+
+.box-1, .box-2 {
+    background-image: none;
 }

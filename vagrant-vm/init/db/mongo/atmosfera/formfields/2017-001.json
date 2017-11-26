@@ -1,0 +1,7 @@
+{"_id":{"$oid":"5a1ac7ba962d740abf0ed531"},"key":"name","title":"Имя"}
+{"_id":{"$oid":"5a1ac7c8962d740ac030f7d1"},"key":"lastName","title":"Фамилия"}
+{"_id":{"$oid":"5a1ac7d9962d740a34574071"},"key":"email","title":"Email"}
+{"_id":{"$oid":"5a1ac7e4962d7408eb719971"},"key":"phone","title":"Телефон"}
+{"_id":{"$oid":"5a1ac7f3962d740abd113b31"},"key":"date","title":"Дата"}
+{"_id":{"$oid":"5a1ac808962d7408e34ead63"},"key":"peopleCount","title":"Количество людей"}
+{"_id":{"$oid":"5a1ac813962d7406f1554101"},"key":"message","title":"Сообщение"}
