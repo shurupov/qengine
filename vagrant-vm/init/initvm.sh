@@ -50,7 +50,7 @@ if $INSTALL_MONGO; then
             cd $collection
             files=( $(ls) )
             for file in ${files[@]}; do
-                sudo mongoexport --db $db -c $collection --out $file
+                sudo mongoimport --db $db -c $collection $file
                 echo Dump db/mongo/$db/$collection/$file applied
             done
             cd ..
