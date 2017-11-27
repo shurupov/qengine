@@ -662,7 +662,7 @@
                             <a href="#" data-filter="*" class="active">Все</a>
                             {% for k, tag in section.tags %}
                                 {% set tagPath = path ~ '.tags.' ~ k %}
-                                {% if not editMode %}<a href="#" data-filter=".t{{ k }}">{% endif %}{{ data.text(tag, pageId, tagPath, editMode) }}{% if not editMode %}</a>{% endif %}
+                                {% if not editMode %}<a href="#" data-filter=".t{{ k }}">{% endif %}{{ data.text(tag, pageId, tagPath, editMode) }}{{ data.removeElementButton(tagPath, pageId, editMode) }}{% if not editMode %}</a>{% endif %}
                             {% endfor %}
                         </div>
                     </div>
