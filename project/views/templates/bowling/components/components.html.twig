@@ -470,7 +470,7 @@
                         <ul>
                             {% for sk, service in rate.services %}
                                 {% set servicePath = ratePath ~ '.services.' ~ sk %}
-                                <li>{{ data.text(service.title, pageId, servicePath ~ '.title', editMode) }}</li>
+                                <li>{{ data.text(service.title, pageId, servicePath ~ '.title', editMode) }}{{ data.removeElementButton(servicePath, pageId, editMode) }}</li>
                             {% endfor %}
                             {{ data.addElementButton(ratePath ~ '.services', pageId, editMode, "Добавить услугу") }}
                         </ul>
