@@ -325,7 +325,7 @@
             },
             'placement': {
                 'type': 'select',
-                'title': 'Расположение"',
+                'title': 'Расположение',
                 'options': [
                     {value: 0, text: 'Слева цены, справа фотки'},
                     {value: 1, text: 'Слева фотки, справа цены'}
@@ -349,7 +349,7 @@
         <div class="carousel-inner" role="listbox">
             {% for k, image in section.images %}
                 <div class="item{% if loop.first %} active{% endif %}">
-                    <img src="{{ image }}" class="img-responsive bowling-right-img">
+                    <img src="{{ image | default('/templates/bowling/images/bowling-slider.jpg') }}" class="img-responsive bowling-right-img">
                 </div>
             {% endfor %}
         </div>
