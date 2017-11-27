@@ -466,7 +466,7 @@
                         {% if rate.showDiscount %}<div class="offer-label">{{ rate.discount }}</div>{% endif %}
                         <h2>{{ data.text(rate.title, pageId, ratePath ~ '.title', editMode) }}{{ data.settingsButton(ratePath, editMode) }}{{ data.removeElementButton(ratePath, pageId, editMode) }}</h2>
                         <p>{{ data.text(rate.description, pageId, ratePath ~ '.description', editMode) }}</p>
-                        <div class="price-body"><span>{{ data.text(rate.description, pageId, ratePath ~ '.description', editMode) }}<span class="glyphicon glyphicon-ruble" aria-hidden="true" style="font-size: smaller;"></span></span><h5>{{ data.text(rate.perWho, pageId, ratePath ~ '.perWho', editMode) }}</h5></div>
+                        <div class="price-body"><span>{{ data.text(rate.price, pageId, ratePath ~ '.price', editMode) }}<span class="glyphicon glyphicon-ruble" aria-hidden="true" style="font-size: smaller;"></span></span><h5>{{ data.text(rate.perWho, pageId, ratePath ~ '.perWho', editMode) }}</h5></div>
                         <ul>
                             {% for sk, service in rate.services %}
                                 {% set servicePath = ratePath ~ '.services.' ~ sk %}
