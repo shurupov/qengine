@@ -52,3 +52,7 @@
 .box-1, .box-2 {
     background-image: none;
 }
+
+.plan-body h2 {
+    margin: 0 5px;
+}
