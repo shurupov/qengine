@@ -792,9 +792,9 @@
 
         </div>
 
-        <div class="contact-page-right">
+        <div class="contact-page-right" style="background-image: url({{ section.contact.bg | default('/templates/bowling/images/welcome-bg.jpg') }})">
 
-            <div class="col-md-offset-1 col-md-11 contact-page-left-padd" style="background-image: url({{ section.contact.bg | default('/templates/bowling/images/welcome-bg.jpg') }})">
+            <div class="col-md-offset-1 col-md-11 contact-page-left-padd">
 
                 <h3 class="welc-h3">{{ data.text(section.contact.title, pageId, path ~ '.contact.title', editMode) }}{{ data.setImageButton(section.contact.bg, pageId, path ~ '.contact.bg', editMode, '/templates/bowling/images/welcome-bg.jpg') }}</h3>
                 <span class="testimonial-under" style="width:130px; margin-bottom:30px;"></span>
