@@ -48,3 +48,7 @@
 .glyphicon {
     font-family: 'Glyphicons Halflings' !important;
 }
+
+.features {
+    height: 76px;
+}
