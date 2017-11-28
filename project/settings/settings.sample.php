@@ -32,6 +32,7 @@ $app['settings'] = [
         'host' => 'smtp.gmail.com',
         'port' => '587',
         'username' => '',
+        'emailFrom' => '',
         'password' => '',
         'encryption' => 'tls',
         'auth_mode' => 'login'

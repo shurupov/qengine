@@ -52,7 +52,7 @@ class PostService implements ServiceProviderInterface
         $embedImage = $message->embed(Swift_Image::fromPath($this->app['settings']['form']['logo']));
 
         $message->setSubject($contentParameters['subject'])
-            ->setFrom('bakalibriki.online@ya.ru')
+            ->setFrom($this->app['settings']['mail']['emailFrom'] ? $this->app['settings']['mail']['emailFrom'] : $this->app['settings']['mail']['username'])
             ->setTo($email)
             ->setBody(
                 $this->app['twig']->render('/common/layouts/email.html.twig', array_merge(
@@ -71,7 +71,7 @@ class PostService implements ServiceProviderInterface
 
     public function sendEmailToAdmin($contentParameters)
     {
-        return $this->sendEmail($contentParameters, 'bolteg86@ya.ru');
+        return $this->sendEmail($contentParameters, $this->app['settings']['form']['emailSendTo']);
     }
 
     /**
