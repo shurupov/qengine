@@ -43,7 +43,8 @@
         materialdesign: $.iconset_materialdesign || Iconpicker.ICONSET_EMPTY,
         octicon: $.iconset_octicon || Iconpicker.ICONSET_EMPTY,
         typicon: $.iconset_typicon || Iconpicker.ICONSET_EMPTY,
-        weathericon: $.iconset_weathericon || Iconpicker.ICONSET_EMPTY
+        weathericon: $.iconset_weathericon || Iconpicker.ICONSET_EMPTY,
+        flaticon: $.iconset_flaticon || Iconpicker.ICONSET_EMPTY
     };
 
     // ICONPICKER DEFAULTS
