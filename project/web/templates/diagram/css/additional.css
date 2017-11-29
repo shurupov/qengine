@@ -55,14 +55,17 @@
 
 .home-content h2.smaller {
     font-size: 38px;
+    line-height: 53px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
     .home-content h2.smaller {
         font-size:30px;
+        line-height: 40px ;
     }
 }
 @media (max-width: 767px) {
     .home-content h2.smaller {
-        font-size: 26px
+        font-size: 26px;
+        line-height: 40px;
     }
 }
