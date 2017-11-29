@@ -211,7 +211,7 @@
                                 {{ data.image(opinion.avatar, pageId, opinionPath ~ '.avatar', editMode, {class: 'img-responsive'}, '/templates/diagram/images/testimonial/1.jpg') }}
                             </div>
                             <div class="testimonial-info ">
-                                <p>{{ data.text(opinion.text, pageId, opinionPath ~ '.text', editMode) }}</p>
+                                <p>{{ data.text(opinion.text, pageId, opinionPath ~ '.text', editMode) }}{{ data.removeElementButton(opinionPath, pageId, editMode) }}</p>
                                 <h5>{{ data.text(opinion.signature, pageId, opinionPath ~ '.signature', editMode) }}</h5>
                             </div>
                         </div>

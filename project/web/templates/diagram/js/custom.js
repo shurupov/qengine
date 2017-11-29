@@ -1,3 +1,7 @@
+if (editMode == undefined) {
+    editMode = false;
+}
+
 jQuery(function ($) {
 
     'use strict';
@@ -10,9 +14,6 @@ jQuery(function ($) {
 
 		    if (sliderImages == undefined) {
 		        sliderImages = [ "/templates/diagram/images/bg/1.jpg","/templates/diagram/images/bg/2.jpg","/templates/diagram/images/bg/3.jpg"];
-            }
-            if (editMode == undefined) {
-                editMode = false;
             }
 
 	       //backstretch slide for main body
