@@ -19,7 +19,7 @@
                         {% for k,slide in section.slides %}
                             {% set slidePath = path ~ '.slides.' ~ k %}
                             <div class="item{% if loop.first %} active{% endif %}">
-                                <h2 style="{{ slide.textStyle | raw }}">{{ data.text(slide.title, pageId, slidePath ~ '.title', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/diagram/images/bg/1.jpg') }}{{ data.settingsButton(slidePath, editMode) }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</h2>
+                                <h2 class="{{ slide.h2class }}">{{ data.text(slide.title, pageId, slidePath ~ '.title', editMode) }}{{ data.setImageButton(slide.image, pageId, slidePath ~ '.image', editMode, '/templates/diagram/images/bg/1.jpg') }}{{ data.settingsButton(slidePath, editMode) }}{{ data.removeElementButton(slidePath, pageId, editMode) }}</h2>
                                 {% if slide.showButton %}
                                     {{ data.a(slide.button, pageId, slidePath ~ '.button', editMode, {'class': 'btn btn-primary'}) }}
                                 {% endif %}
@@ -72,9 +72,9 @@
                         {value: 1, text: 'Есть'}
                     ]
                 },
-                'textStyle': {
+                'h2class': {
                     'type': 'text',
-                    'title': 'Дополнительный стиль'
+                    'title': 'Дополнительный класс'
                 }
             },
         editMode) }}

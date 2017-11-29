@@ -57,12 +57,12 @@
     font-size: 38px;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-    .home-content h2 {
+    .home-content h2.smaller {
         font-size:30px;
     }
 }
 @media (max-width: 767px) {
-    .home-content h2 {
+    .home-content h2.smaller {
         font-size: 26px
     }
 }
