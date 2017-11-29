@@ -70,7 +70,7 @@
                             {% if editMode %}
                                 <span>{{ data.textSetting(settings.workHoursTop, editMode, 'bottom') }}</span>
                             {% else %}
-                                <a href="/contacts">{{ settings.workHoursTop }}</a>
+                                <a href="/contacts">{{ data.textSetting(settings.workHoursTop, editMode, 'bottom') }}</a>
                             {% endif %}
 
                         </div>
