@@ -2,6 +2,10 @@ if (typeof editMode === "undefined") {
     editMode = false;
 }
 
+if (typeof sliderImages === "undefined") {
+    sliderImages = [ "/templates/diagram/images/bg/1.jpg","/templates/diagram/images/bg/2.jpg","/templates/diagram/images/bg/3.jpg"];
+}
+
 jQuery(function ($) {
 
     'use strict';
@@ -11,10 +15,6 @@ jQuery(function ($) {
 		// -------------------------------------------------------------
 
 		(function () {
-
-		    if (typeof sliderImages === "undefined") {
-		        sliderImages = [ "/templates/diagram/images/bg/1.jpg","/templates/diagram/images/bg/2.jpg","/templates/diagram/images/bg/3.jpg"];
-            }
 
 	       //backstretch slide for main body
 	        $(".home-section").backstretch(sliderImages, {fade: 750,duration: 3000});
