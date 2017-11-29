@@ -21,6 +21,15 @@
     {{ data.universalText('page', value, id, path, editMode, inModal, placement) }}
 {% endmacro %}
 
+{% macro iconpicker(value, id, path, editMode = false, iconset = 'fontawesome', attrs ={}, tag = 'i') %}
+    {% import _self as data %}
+    {% if editMode %}
+        <button class="btn" data-pk={{ id }} data-icon="{{ value }}" data-path="{{ path }}" {% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-iconset="{{ iconset }}" role="iconpicker"></button>
+    {% else %}
+        <{{ tag }} class="{{ value | default('fa fa-road') }}" aria-hidden="true"></{{ tag }}>
+    {% endif %}
+{% endmacro %}
+
 {% macro textSetting(setting, editMode = false, placement = 'top') %}
     {% import _self as data %}
     {{ data.universalText('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
