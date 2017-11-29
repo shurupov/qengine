@@ -67,22 +67,16 @@
                         <i class="fa fa-clock-o"></i>
                         <div class="info-text">
                             <h5>Мы открыты:</h5>
-                            <a href="/contacts">{{ data.textSetting(settings.workHoursTop, editMode, 'bottom') }}</a>
+                            {% if editMode %}
+                                <span>{{ data.textSetting(settings.workHoursTop, editMode, 'bottom') }}</span>
+                            {% else %}
+                                <a href="/contacts">{{ settings.workHoursTop }}</a>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
 
-                {#<div class="col-sm-4">
-                    <div class="top-social pull-right">
-                        <ul class="list-inline">
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-                            <li><a href="#"><i class="fa fa-skype"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest-square"></i></a></li>
-                        </ul>
-                    </div>
-                </div>#}
             </div>
         </div><!-- container -->
     </div><!-- top-bar -->
