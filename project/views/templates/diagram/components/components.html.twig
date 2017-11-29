@@ -344,26 +344,22 @@
 
 {% endmacro %}
 
-{% macro GoogleMapsSection(section, pageId, path, editMode) %}
+{% macro MapsSection(section, pageId, path, editMode) %}
 
     {% import "/common/components/data.html.twig" as data %}
 
-    <div id="gmap"></div>
-
-    <script>
-        var latlng = {
-            lat: {{ section.lat | default('53.215221') }},
-            lng: {{ section.lng | default('50.26938300000006') }}
-        };
-    </script>
+    <iframe src="{{ section.mapLink | default('https://yandex.ru/map-widget/v1/?um=constructor%3A6ab80f6ce742541a07544f6ee734e64b4d96a6daea7defea2af254078fbe5f6d&amp;source=constructor') }}" width="100%" height="400" frameborder="0"></iframe>
 
     {% if editMode %}
         <div class="container">
             <div class="col-md-3 col-md-offset-3">
-                Широта: {{ data.text(section.lat, pageId, path ~ '.lat', editMode) }}
+                Ссылка на карту: {{ data.text(section.mapLink, pageId, path ~ '.mapLink', editMode) }}
             </div>
-            <div class="col-md-3">
-                Долгота: {{ data.text(section.lng, pageId, path ~ '.lng', editMode) }}
+            <div class="col-md-6">
+                Сделать карту и получить ссылку можно <a href="https://yandex.ru/map-constructor/" target="_blank">Тут</a>
+            </div>
+            <div class="col-md-12 text-center" style="padding-top: 20px;">
+                {{ data.removeElementBigButton(path, pageId, editMode, 'Удалить компонент') }}
             </div>
         </div>
     {% endif %}

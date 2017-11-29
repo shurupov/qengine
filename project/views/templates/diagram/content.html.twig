@@ -11,7 +11,7 @@
             'PhotosSection'        :    'Фотки (список элементов)',
             'SendMessageSection'   :    'Отправка сообщений',
             'MessageSentSection'   :    'Сообщение отправлено',
-            'GoogleMapsSection'    :    'Гуглокарта'
+            'MapsSection'          :    'Карта (яндекса или гугла)'
 
         };
     </script>
@@ -32,7 +32,7 @@
     {% elseif section.type == "PhotosSection" %}             {{ components.PhotosSection(section, pageId, 'sections.' ~ key, editMode) }}
     {% elseif section.type == "SendMessageSection" %}        {{ components.SendMessageSection(section, pageId, 'sections.' ~ key, editMode) }}
     {% elseif section.type == "MessageSentSection" %}        {{ components.MessageSentSection(section, pageId, 'sections.' ~ key, editMode) }}
-    {% elseif section.type == "GoogleMapsSection" %}         {{ components.GoogleMapsSection(section, pageId, 'sections.' ~ key, editMode) }}
+    {% elseif section.type == "MapsSection" %}               {{ components.MapsSection(section, pageId, 'sections.' ~ key, editMode) }}
     {% endif %}
 
 {% endmacro %}
