@@ -139,7 +139,7 @@
                         <h3>Ссылки</h3>
                         <ul>
                             {% for link in topMenu %}
-                                {% if loop.index0 == loop.length % 2 %}</ul><ul>{% endif %}
+                                {% if loop.index0 == loop.length // 2 %}</ul><ul>{% endif %}
                                 <li><a{% if link.uri == requestUri %} class="active"{% endif %} href="{{ link.uri }}">{{ link.text }}</a></li>
                             {% endfor %}
                         </ul>
