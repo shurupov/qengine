@@ -11,14 +11,14 @@ jQuery(function ($) {
 		    if (sliderImages == undefined) {
 		        sliderImages = [ "/templates/diagram/images/bg/1.jpg","/templates/diagram/images/bg/2.jpg","/templates/diagram/images/bg/3.jpg"];
             }
-            if (stopSlider == undefined) {
-                stopSlider = false;
+            if (editMode == undefined) {
+                editMode = false;
             }
 
 	       //backstretch slide for main body
 	        $(".home-section").backstretch(sliderImages, {fade: 750,duration: 3000});
 
-            if (stopSlider) {
+            if (editMode) {
                 $(".home-section").backstretch("pause");
             }
 
@@ -47,9 +47,8 @@ jQuery(function ($) {
 				}
 			},
             nav:true,
-            autoplay:true,
+            autoplay: !editMode,
             dots:false,
-            nav:true,
             navText: [
               "<i class='fa fa-angle-left'></i>",
               "<i class='fa fa-angle-right'></i>"
@@ -64,7 +63,7 @@ jQuery(function ($) {
         $(".testimonial-slider, #product-carousel").owlCarousel({
             items:1,
             nav:false,
-            autoplay: !stopSlider,
+            autoplay: !editMode,
 			dots:true,
         });
 
