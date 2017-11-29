@@ -166,7 +166,7 @@
                     {% set projectPath = path ~ '.projects.' ~ k %}
                     <div class="project-content">
                         <div class="project-title">
-                            <h3>{{ data.text(project.title, pageId, projectPath ~ '.title', editMode, false, 'bottom') }}</h3>
+                            <h3>{{ data.text(project.title, pageId, projectPath ~ '.title', editMode, false, 'bottom') }}{{ data.removeElementButton(projectPath, pageId, editMode) }}</h3>
                             <span>Клиент: {{ data.text(project.client, pageId, projectPath ~ '.client', editMode, false, 'bottom') }}</span>
                         </div>
                         <div class="project-item">
