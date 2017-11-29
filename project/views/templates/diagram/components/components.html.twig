@@ -13,10 +13,12 @@
                     {% set featurePath = path ~ '.features.' ~ k %}
                     <div class="col-sm-6 col-md-4">
                         <div class="features">
-                            <div class="feature-icon">
-                                <i class="fa {{ feature.icon | default('fa-road') }}" aria-hidden="true"></i>
-                                {% if editMode %}{{ data.text(feature.icon, pageId, featurePath ~ '.icon', editMode) }}{% endif %}
+                            <div class="feature-icon fs45">
+                                {{ data.iconpicker(feature.icon, pageId, featurePath ~ '.icon', editMode, 'flaticon', {
+                                    'style': 'padding: 0; margin: 0; background: none; font-size: inherit;'
+                                }) }}
                             </div>
+
 
                             <div class="feature-text">
                                 <h4>{{ data.text(feature.title, pageId, featurePath ~ '.title', editMode) }}</h4>
