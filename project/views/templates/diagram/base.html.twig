@@ -67,7 +67,7 @@
                         <i class="fa fa-clock-o"></i>
                         <div class="info-text">
                             <h5>Мы открыты:</h5>
-                            <a href="#">Пн-Пт: 9:00 - 17:30</a>
+                            <a href="/contacts">{{ data.textSetting(settings.workHoursTop, editMode, 'bottom') }}</a>
                         </div>
                     </div>
                 </div>
@@ -122,16 +122,16 @@
 
                         <img class="img-responsive" src="/templates/diagram/images/logo2.png" alt="">
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <p>Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+                        <p>{{ data.textSetting(settings.leftBottomText1, editMode) }}</p>
+                        <p>{{ data.textSetting(settings.leftBottomText2, editMode) }}</p>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="contact-widget">
                         <h3>Часы работы</h3>
-                        <p>Готовы выполнить любые работы с понедельника по пятницу.</p>
-                        <p>Понедельник - Пятница @ 08.00 - 17.00</p>
-                        <p>Суббота - Воскресенье - <span> Выходной </span></p>
+                        <p>{{ data.textSetting(settings.workhoursBottom1, editMode) }}</p>
+                        <p>{{ data.textSetting(settings.workhoursBottom2, editMode) }}</p>
+                        <p>{{ data.textSetting(settings.workhoursBottom3, editMode) }}</p>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -155,7 +155,7 @@
                                 <li>
                                     <span>Email: </span>
                                     {% if editMode %}
-                                        {{ data.textSetting(settings.email, editMode, 'bottom') }}
+                                        {{ data.textSetting(settings.email, editMode) }}
                                     {% else %}
                                         <a href="mailto:{{ settings.email.value }}">{{ settings.email.value }}</a>
                                     {% endif %}
