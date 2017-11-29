@@ -1,4 +1,4 @@
-if (editMode == undefined) {
+if (typeof editMode === "undefined") {
     editMode = false;
 }
 
@@ -12,7 +12,7 @@ jQuery(function ($) {
 
 		(function () {
 
-		    if (sliderImages == undefined) {
+		    if (typeof sliderImages === "undefined") {
 		        sliderImages = [ "/templates/diagram/images/bg/1.jpg","/templates/diagram/images/bg/2.jpg","/templates/diagram/images/bg/3.jpg"];
             }
 
