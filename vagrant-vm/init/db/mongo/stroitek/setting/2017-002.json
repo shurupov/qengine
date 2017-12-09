@@ -1,0 +1,12 @@
+{"_id":{"$oid":"5a1dd2b6242c737379774881"},"key":"email","title":"Email","value":"efdsfse@mail.ru"}
+{"_id":{"$oid":"5a1dd303242c73026d12fc01"},"key":"phone","title":"Телефон","value":"+7-917-15-444-25"}
+{"_id":{"$oid":"5a1dd355242c7379f46ef031"},"key":"address","title":"Адрес","value":"г. Самара, ул. Кабельная"}
+{"_id":{"$oid":"5a1df096242c7379bd6d61e2"},"key":"title","title":"Заголовок сайта","value":"СтройТЭК"}
+{"_id":{"$oid":"5a1f264c242c7315070251d1"},"key":"workhoursBottom1","title":"Часы работы (внизу) 1","value":"Готовы выполнить любые работы с понедельника по пятницу."}
+{"_id":{"$oid":"5a1f265a242c7315bf1215c1"},"key":"workhoursBottom2","title":"Часы работы (внизу) 2","value":"Понедельник - Пятница @ 08.00 - 17.00"}
+{"_id":{"$oid":"5a1f2675242c7314f51d32e1"},"key":"workHoursTop","title":"Мы открыты (вверху)","value":"Пн-Пт: 9:00 - 17:30"}
+{"_id":{"$oid":"5a1f27bf242c731545076a91"},"key":"leftBottomText1","title":"Текст слева внизу 1","value":""}
+{"_id":{"$oid":"5a1f27cc242c7314ea6bc911"},"key":"leftBottomText2","title":"Текст слева внизу 2","value":""}
+{"_id":{"$oid":"5a1f2817242c731475522061"},"key":"workhoursBottom2","title":"Часы работы (внизу) 3","value":""}
+{"_id":{"$oid":"5a1f283e242c7314f51d32e2"},"key":"workhoursBottom2","title":"Часы работы (внизу) 2","value":"Понедельник - Пятница @ 08.00 - 17.00"}
+{"_id":{"$oid":"5a1f284f242c7314ec50e012"},"key":"workhoursBottom3","title":"Часы работы (внизу) 3","value":"Суббота - Воскресенье - \u003cspan\u003e Выходной \u003c/span\u003e"}
