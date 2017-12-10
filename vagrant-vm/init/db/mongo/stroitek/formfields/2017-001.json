@@ -1,0 +1,4 @@
+{"_id":{"$oid":"5a1dd405242c737e1f36e1c1"},"key":"name","title":"Имя"}
+{"_id":{"$oid":"5a1dd455242c737ae756c7c1"},"key":"subject","title":"Тема сообщения"}
+{"_id":{"$oid":"5a1dd461242c73026d12fc02"},"key":"email","title":"Email"}
+{"_id":{"$oid":"5a1dd470242c7379f46ef032"},"key":"message","title":"Сообщение"}
