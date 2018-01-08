@@ -1,0 +1,31 @@
+{
+  "install" : {
+    "osbased" : [
+      "preinstall",
+      "php7.1",
+      "mongo",
+      "apache",
+      "apache.host.install.simple",
+      "mongo.dump.execute",
+      "xdebug"
+    ],
+    "independent" : [
+      "composer",
+      "composer.install",
+      "nodejs.adminmongo"
+    ]
+  },
+  "properties" : {
+    "vm_folder" : "vm",
+    "projectPath" : "/var/www/html/project",
+    "apache" : {
+      "host_file_folder" : "vhosts",
+      "host_file" : "project.conf"
+    },
+    "mongo" : {
+      "dumps_folder" : "mongo",
+      "db" : "kakieprava",
+      "password": "12345"
+    }
+  }
+}
