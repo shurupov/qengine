@@ -86,7 +86,7 @@
 
 <script src="/templates/startup-kit/js/vimeo.js"></script>
 
-<script src="/plugins/fancybox-3.0/dist/jquery.fancybox.min.js"></script>
+{% if not editMode %}<script src="/plugins/fancybox-3.0/dist/jquery.fancybox.min.js"></script>{% endif %}
 
 {% block javascripts %}{% endblock %}
 
