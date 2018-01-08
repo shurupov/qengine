@@ -24,9 +24,7 @@
       "host_file" : "project.conf"
     },
     "mongo" : {
-      "dumps_folder" : "mongo",
-      "db" : "kakieprava",
-      "password": "12345"
+      "dumps_folder" : "mongo"
     }
   }
 }
