@@ -3,6 +3,7 @@
     "osbased" : [
       "preinstall",
       "php7.1",
+      "nodejs",
       "mongo",
       "apache",
       "apache.host.install.simple",
