@@ -7,4 +7,4 @@ export SETTINGS=$(cat vm/settings.json)
 sudo chmod 777 -R /install
 cd /install
 chmod +x ./vagrant.install.sh
-vagrant.install.sh
+./vagrant.install.sh
