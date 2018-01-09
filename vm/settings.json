@@ -18,11 +18,13 @@
   },
   "properties" : {
     "vm_folder" : "vm",
-    "projectPath" : "/var/www/html/project",
+    "projectPath" : "/var/www/html/perfectclick",
     "apache" : {
       "host_file_folder" : "vhosts",
       "host_file_source" : "project.conf",
-      "host_file_name" : "perfectclick.conf"
+      "host_file_name" : "perfectclick.conf",
+      "host_replace_parameter_from" : "{projectname}",
+      "host_replace_parameter_to" : "perfectclick"
     },
     "mongo" : {
       "dumps_folder" : "mongo"

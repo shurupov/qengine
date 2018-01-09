@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export OS_TYPE="ubuntu1604"
-cd /var/www/html/project
+cd /var/www/html/perfectclick
 export SETTINGS=$(cat vm/settings.json)
 
 sudo chmod 777 -R /install
