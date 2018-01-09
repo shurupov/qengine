@@ -21,7 +21,8 @@
     "projectPath" : "/var/www/html/project",
     "apache" : {
       "host_file_folder" : "vhosts",
-      "host_file" : "project.conf"
+      "host_file_source" : "project.conf",
+      "host_file_name" : "perfectclick.conf"
     },
     "mongo" : {
       "dumps_folder" : "mongo"
