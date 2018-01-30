@@ -6,9 +6,9 @@
  * Time: 15:12
  */
 
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
+/*$app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__.'/../cache/log/log',
-));
+));*/
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',

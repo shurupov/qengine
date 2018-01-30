@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provider "virtualbox" do |v|
-    v.name = "qe_perfectclick_vm"
+    v.name = "qe_travelling_vm"
   end
 
 end
