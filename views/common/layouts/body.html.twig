@@ -7,14 +7,14 @@
 
 {% block body %}
 
-    {{ admin.pageProperties(page, editMode) }}
+    {#{{ admin.pageProperties(page, editMode) }}#}
 
     {% for key, section in page.sections %}
         {{ content.component(key, section, page._id, 'sections.' ~ key, editMode, settings) }}
     {% endfor %}
 
     {% if editMode %}
-        <section class="section text-center add-component-button-wrapper">
+        <section class="section text-center add-component-button-wrapper{% if page.sections | length == 0 %} top-wrapper{% endif %}">
             {{ data.addComponentModal(page._id, editMode) }}
         </section>
     {% endif %}
