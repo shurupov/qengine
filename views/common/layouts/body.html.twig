@@ -1,7 +1,7 @@
 {% extends '/common/layouts/head.html.twig' %}
 {% import '/common/components/admin.html.twig' as admin %}
 {% import '/common/components/data.html.twig' as data %}
-{% import '/templates/' ~ template ~ '/content.html.twig' as content %}
+{% import '/template/content.html.twig' as content %}
 
 {% block title %}{{ page.title | raw }}{% if page.title | length > 0 and settings.title.value | length > 0 %} | {% endif %}{{ settings.title.value }}{% endblock %}
 
