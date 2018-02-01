@@ -26,7 +26,7 @@
     {% if editMode %}
         <button class="btn" data-pk={{ id }} data-icon="{{ value }}" data-path="{{ path }}" {% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-iconset="{{ iconset }}" role="iconpicker"></button>
     {% else %}
-        <{{ tag }} class="{{ value | default('fa fa-road') }}" aria-hidden="true"></{{ tag }}>
+        <{{ tag }} class="{{ ( value | split('-')[0] ) ~ ' ' ~ value }}" aria-hidden="true"></{{ tag }}>
     {% endif %}
 {% endmacro %}
 
