@@ -174,11 +174,11 @@ class PageService implements ServiceProviderInterface
             $topMenu = array_merge( $topMenu, [
                 [
                     'uri' => $this->app['settings']['admin']['page']['uri'],
-                    'text' => 'Настройки'
+                    'text' => $this->app['settings']['admin']['page']['caption']
                 ],
                 [
                     'uri' => $this->app['settings']['admin']['logout']['uri'],
-                    'text' => 'Выход'
+                    'text' => $this->app['settings']['admin']['logout']['caption']
                 ],
             ]);
         }
