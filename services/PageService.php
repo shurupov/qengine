@@ -39,7 +39,7 @@ class PageService implements ServiceProviderInterface
         return $this->editMode;
     }
 
-    public function renderAdminPanel()
+    public function renderAdminPanel($dataType, $collection)
     {
         try {
 
@@ -52,9 +52,11 @@ class PageService implements ServiceProviderInterface
             }
 
             return $this->renderBody([
-                'allPages' => $this->app['dataService']->getAllDocuments('page'),
-                'menu' => $this->app['dataService']->getAllDocuments('menu'),
-                'formfields' => $this->app['dataService']->getAllDocuments('formfields')
+                'dataType' => $dataType,
+                'collection' => $collection,
+                'pages' => ( $dataType == 'page' ? $this->app['dataService']->getAllDocuments('page') : [] ),
+                'menu' => ( $dataType == 'menu' ? $this->app['dataService']->getAllDocuments('menu') : []),
+                'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getAllDocuments('formfields') : [] )
             ], 'admin');
 
         } catch (\Exception $e) {
@@ -137,7 +139,8 @@ class PageService implements ServiceProviderInterface
             'requestUri' => $this->uri,
             'settings' => $this->getSettings(),
             'topMenu' => $this->getTopMenu(),
-            'template' => $this->template
+            'template' => $this->template,
+            'app' => $this->app
         ], $parameters);
 
         return $this->app['twig']->render("/common/layouts/$type.html.twig", $parameters);

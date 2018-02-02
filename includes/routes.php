@@ -12,9 +12,11 @@ if ($app['pageService']->isEditMode()) {
     require_once __DIR__.'/../includes/routesApi.php';
 }
 
-$app->match($app['settings']['admin']['page']['uri'], function () use ($app) {
-    return $app['pageService']->renderAdminPanel();
-})->method('GET|POST');
+$app->match($app['settings']['admin']['page']['uri'] . '/{dataType}/{collection}', function ($dataType, $collection) use ($app) {
+    return $app['pageService']->renderAdminPanel($dataType, $collection);
+})->method('GET|POST')
+    ->value('dataType', 'page')
+    ->value('collection', null);
 
 $app->get($app['settings']['admin']['logout']['uri'], function () use ($app) {
     return $app['pageService']->logout();

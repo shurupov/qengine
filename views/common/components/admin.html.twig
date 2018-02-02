@@ -125,7 +125,7 @@
 
 {% endmacro %}
 
-{% macro adminPanel(pages, menu, settings, formfields) %}
+{% macro adminPanel(dataType, pages, menu, settings, formfields) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -133,6 +133,18 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
+
+                <ul class="nav nav-tabs">
+                    <li role="presentation"{% if dataType == 'page' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/page">Страницы</a></li>
+                    <li role="presentation"{% if dataType == 'menu' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/menu">Меню</a></li>
+                    <li role="presentation"{% if dataType == 'setting' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/setting">Свойства</a></li>
+                    <li role="presentation"{% if dataType == 'form' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/form">Форма</a></li>
+                    <li role="presentation"{% if dataType == 'additional' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/additional">Дополнительные данные</a></li>
+                </ul>
+
+                <br/>
+
+                {% if dataType == 'page' %}
 
                 {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
                     {
@@ -149,7 +161,7 @@
                     }
                 ]) }}
 
-                <br/><br/><br/>
+                {% elseif dataType == 'menu' %}
 
                 {{ admin.table(menu, 'menu', 'Ссылки меню сайта', 'Добавить ссылку', [
                     {
@@ -166,7 +178,7 @@
                     }
                 ]) }}
 
-                <br/><br/><br/>
+                {% elseif dataType == 'setting' %}
 
                 {{ admin.table(settings, 'setting', 'Общие свойства сайта', 'Добавить свойство', [
                     {
@@ -189,6 +201,8 @@
                     }
                 ]) }}
 
+                {% elseif dataType == 'form' %}
+
                 {{ admin.table(formfields, 'formfields', 'Поля формы', 'Добавить поле', [
                     {
                         'name': 'key',
@@ -205,6 +219,8 @@
                     }
                 ]) }}
 
+                {% endif %}
+
                 {{ admin.removeAdminElementModal() }}
 
             </div>
@@ -213,12 +229,12 @@
 
 {% endmacro %}
 
-{% macro admin(editMode, pages = [], menu = [], settings = [], formfields = []) %}
+{% macro admin(editMode, dataType, pages = [], menu = [], settings = [], formfields = []) %}
 
     {% import _self as admin %}
 
     {% if editMode %}
-        {{ admin.adminPanel(pages, menu, settings, formfields) }}
+        {{ admin.adminPanel(dataType, pages, menu, settings, formfields) }}
     {% else %}
         {{ admin.loginForm() }}
     {% endif %}
