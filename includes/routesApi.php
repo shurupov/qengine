@@ -35,7 +35,7 @@ $app->post('/e/{collection}/add', function (Request $request, $collection) use (
         $app['dataService']->addDocument(
             $request->request->all(), $collection
         );
-        return new RedirectResponse($app['settings']['admin']['page']['uri']);
+        return new RedirectResponse($request->headers->get('referer'));
     } catch (\Exception $e) {
         return new JsonResponse([
             'status' => 'error',
@@ -46,10 +46,10 @@ $app->post('/e/{collection}/add', function (Request $request, $collection) use (
     }
 });
 
-$app->get('/e/{collection}/remove/{id}', function ($collection, $id) use ($app) {
+$app->get('/e/{collection}/remove/{id}', function (Request $request, $collection, $id) use ($app) {
     try {
         $app['dataService']->removeDocument( $id, $collection );
-        return new RedirectResponse($app['settings']['admin']['page']['uri']);
+        return new RedirectResponse($request->headers->get('referer'));
     } catch (\Exception $e) {
         return new JsonResponse([
             'status' => 'error',

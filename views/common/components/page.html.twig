@@ -1,0 +1,232 @@
+{% macro text(value, id, path, editMode = false, inModal = false, placement = 'top') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.text('page', value, id, path, editMode, inModal, placement) }}
+{% endmacro %}
+
+{% macro iconpicker(value, id, path, editMode = false, iconset = 'fontawesome', attrs ={}, tag = 'i') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.iconpicker('page', value, id, path, editMode, iconset, attrs, tag ) }}
+{% endmacro %}
+
+{%- macro textarea(value, id, path, editMode = false, inModal = false) -%}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.textarea('page', value, id, path, editMode, inModal) }}
+{%- endmacro -%}
+
+{%- macro a(value, id, path, editMode = false, attrs = {}) -%}
+    {%- import '/common/components/data.html.twig' as data -%}
+    {%- if editMode -%}
+        <e data-type="link"{% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-url="/e/page/edit" data-pk="{{ id }}" data-name="{{ path }}" data-value="{url: '{{ value.url | raw }}', text: '{{ value.text | raw }}'}">{{ value.text | raw }}</e>
+    {%- else -%}
+        <a href="{{ value.url | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %} data-name="{{ path }}">{{ value.text | raw }}</a>
+    {%- endif -%}
+{% endmacro %}
+
+{%- macro checklist(value, id, path, editMode = false, variants = {}, inModal = false) -%}
+    {%- import '/common/components/data.html.twig' as data -%}
+    {{ data.checklist('page', value, id, path, editMode, variants, inModal) }}
+{% endmacro %}
+
+{% macro image(value, id, path, editMode = false, attrs = {}, default = "") %}
+    {%- import '/common/components/data.html.twig' as data -%}
+    {{- data.image('page', value, id, path, editMode, attrs, default) -}}
+{% endmacro %}
+
+{% macro setImageButton(value, id, path, editMode = false, default = "") %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.setImageButton('page', value, id, path, editMode, default) }}
+{% endmacro %}
+
+{% macro setImagePreviewButton(value, id, path, editMode = false, default = '/source/previewDefault.jpg') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.setImagePreviewButton(type, value, id, path, editMode, default) }}
+{% endmacro %}
+
+{% macro addImagePreviewButton(path, id, editMode = false, caption = "Добавить элемент") %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.addImagePreviewButton('page', path, id, editMode, caption) }}
+{% endmacro %}
+
+{% macro select(value, id, path, editMode = false, options = [], inSettings = false) %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.select('page', value, id, path, editMode, options, inSettings) }}
+{% endmacro %}
+
+{% macro settingsButton(path, editMode = false) %}
+    {% if editMode %}
+        <edse data-toggle="modal" data-target="#{{ path | replace({'.': '-'}) | raw }}-modal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></edse>
+    {% endif %}
+{% endmacro %}
+
+{% macro addElementButton(path, id, editMode = false, caption = "Добавить объект") %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.addElementButton('page', path, id, editMode, caption) }}
+{% endmacro %}
+
+{% macro addItemButton(path, id, editMode = false, caption = "Добавить пункт", inModal = false) %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.addItemButton('page', path, id, editMode, caption, inModal) }}
+{% endmacro %}
+
+{% macro removeElementButton(path, id, editMode = false, inModal = false) %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.removeElementButton('page', path, id, editMode, inModal) }}
+{% endmacro %}
+
+{% macro removeElementBigButton(path, id, editMode = false, caption = "Удалить элемент") %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.removeElementBigButton('page', path, id, editMode, caption) }}
+{% endmacro %}
+
+{% macro settingsModal(value, id, path, editors, editMode = false, defaultCollection = 'page') %}
+
+    {% import '/common/components/data.html.twig' as data %}
+
+    <!-- Settings Modal -->
+    {% set blockId = path | replace({'.': '-'}) %}
+    <div class="modal modal-settings modal-custom-qe" id="{{ blockId | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ blockId | raw }}-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 id="{{ blockId | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            {% for key,editor in editors %}
+                                {% set collection = editor.collection | default(defaultCollection) %}
+                                {% set itemId = editor.itemId | default(id) %}
+                                {% set cPath = path ~ '.' ~ key %}
+                                {% if editor.collection %}{% set cPath = key %}{% endif %}
+                                {% if editor.value %}
+                                    {% set cValue = editor.value %}
+                                {% else %}
+                                    {% set cValue = value[key] %}
+                                {% endif %}
+                                {% if editor.type == "text" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td style="width:40%;">{{ data.text(collection, cValue, itemId, cPath, editMode, true) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "textarea" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td style="width:40%;">{{ data.textarea(collection, cValue, itemId, cPath, editMode, true) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "select" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td style="width:40%;">{{ data.select(collection, cValue, itemId, cPath, editMode,  editor.options, true) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "image" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td style="width:40%;">{{ data.setImagePreviewButton(collection, cValue, itemId, cPath, editMode) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "checklist" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td style="width:40%;">{{ data.checklist(collection, cValue, itemId, cPath, editMode, editor.variants, true) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "list" and editor.listType == "image" %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>{{ editor.title }}</h4>
+                                            <div class="image-list">
+                                                {% for ki, image in cValue %}
+                                                    <div class="pull-left editor-image-list-element" id="{{ (cPath ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
+                                                        {% set imagePath = cPath ~ '.' ~ ki %}
+                                                        {{ data.setImagePreviewButton(collection, image, itemId, imagePath, editMode) }}
+                                                        {{ data.removeElementButton(collection, imagePath, itemId, editMode, true ) }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            {{ data.addImagePreviewButton(collection, cPath, itemId, editMode, "Добавить картинку") }}
+                                        </td>
+                                    </tr>
+                                {% elseif editor.type == "list" and editor.listType == "text" %}
+                                    <tr>
+                                        <td colspan="2">
+                                            <h4>{{ editor.title }}</h4>
+                                            <div class="image-list">
+                                                {% for ki, text in cValue %}
+                                                    <div class="pull-left editor-image-list-element" id="{{ (cPath ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
+                                                        {% set textPath = cPath ~ '.' ~ ki %}
+                                                        {{ data.text(collection, text, itemId, textPath, editMode, true) }}
+                                                        {{ data.removeElementButton(collection, textPath, itemId, editMode, true ) }}
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            {{ data.addItemButton(cPath, itemId, editMode, "Добавить тэг", true) }}
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </table>
+                    </div>
+
+                </div><!--//modal-body-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary btn-apply-now">Обновить сейчас</button>
+                </div>
+            </div><!--//modal-content-->
+        </div><!--//modal-dialog-->
+    </div><!--//modal-->
+
+{% endmacro %}
+
+{% macro addComponentModal(id, editMode, list = {}) %}
+    {% if editMode %}
+        <button class="btn btn-primary btn-add-component" data-toggle="modal" data-target="#add-component-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Добавить компонент</button>
+
+        {% import '/common/components/data.html.twig' as data %}
+
+        <!-- Settings Modal -->
+        <div class="modal modal-settings modal-custom-qe" id="add-component-modal" tabindex="-1" role="dialog" aria-labelledby="add-component-modal-label" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 id="add-component-modal-label" class="modal-title text-center">Добавить компонент</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <select class="form-control" id="add-component-select">
+                            </select>
+                        </div>
+
+                    </div><!--//modal-body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary" id="add-component-button" data-pk="{{ id }}">Добавить</button>
+                    </div>
+                </div><!--//modal-content-->
+            </div><!--//modal-dialog-->
+        </div><!--//modal-->
+
+    {% endif %}
+{% endmacro %}
+
+{% macro removeElementModal() %}
+    <div class="modal fade modal-custom-qe" id="delete-item-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Удаление элемента</h4>
+                </div>
+                <div class="modal-body">
+                    Уверены, что хотите удалить этот элемент?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-theme btn-primary" id="confirm-delete-button" data-dismiss="modal">Да</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Нет</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

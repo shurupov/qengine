@@ -1,6 +1,7 @@
 {% extends '/template/base.html.twig' %}
 {% import '/template/content.html.twig' as content %}
 {% import "/common/components/data.html.twig" as data %}
+{% import "/common/components/page.html.twig" as pages %}
 
 
 {% block stylesheets %}
@@ -41,7 +42,8 @@
 
 {% block pageSettings %}
     {% if editMode %}
-        {{ data.removeElementModal() }}
+        {{ pages.removeElementModal() }}
+        {{ data.removeDocumentModal() }}
     {% endif %}
 {% endblock %}
 
