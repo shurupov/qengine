@@ -28,9 +28,6 @@ class PageService implements ServiceProviderInterface
     /** @var boolean $editMode **/
     private $editMode;
 
-    /** @var string $template **/
-    private $template;
-
     /** @var string $uri **/
     private $uri;
 
@@ -39,7 +36,7 @@ class PageService implements ServiceProviderInterface
         return $this->editMode;
     }
 
-    public function renderAdminPanel($dataType, $collection)
+    public function renderAdminPanel($dataType, $additionalCollectionName)
     {
         try {
 
@@ -53,9 +50,10 @@ class PageService implements ServiceProviderInterface
 
             return $this->renderBody([
                 'dataType' => $dataType,
-                'collection' => $collection,
-                'pages' => ( $dataType == 'page' ? $this->app['dataService']->getAllDocuments('page') : [] ),
-                'menu' => ( $dataType == 'menu' ? $this->app['dataService']->getAllDocuments('menu') : []),
+                'additionalCollectionName' => $additionalCollectionName,
+                'additionalCollection' => ( $additionalCollectionName ? $this->app['dataService']->getAllDocuments($additionalCollectionName) : [] ),
+                'pageList' => ( $dataType == 'page' ? $this->app['dataService']->getAllDocuments('page') : [] ),
+                'menu' => ( ($dataType == 'menu' || $dataType == 'page') ? $this->app['dataService']->getAllDocuments('menu') : []),
                 'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getAllDocuments('formfields') : [] )
             ], 'admin');
 
@@ -78,22 +76,44 @@ class PageService implements ServiceProviderInterface
         }
     }
 
-    public function render($uri = null)
+    public function render($pageSlug, $itemId)
     {
-
-        if ($uri == null) {
-            $uri = $this->uri;
-        }
 
         try {
 
-            $page = $this->app['dataService']->getPage($uri);
+            $page = $this->app['dataService']->getPage($pageSlug);
+
+            $additional = [];
+
+            foreach ($page['getAdditional'] as $collectionName) {
+                if ($this->editMode) {
+                    $additional[$collectionName] = $this->app['dataService']->getAllDocuments($collectionName);
+                } else {
+                    $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, ['visibility' => 'visible']);
+                }
+            }
+
+            if (!array_key_exists('display', $page) ||  $page['display'] == 'default') {
+                return $this->renderBody([
+                    'page' => $page,
+                    'additional' => $additional
+                ]);
+            }
+
+            if ($itemId != null) {
+                $item = $this->app['dataService']->getItem($page['display'], $itemId);
+                return $this->renderBody([
+                    'page' => $page,
+                    'additional' => $additional,
+                    'item' => $item,
+                    'pageUri' => $pageSlug,
+                    'itemId' => $itemId]
+                );
+            }
 
             if ($page == null) {
                 throw new NotFoundHttpException();
             }
-
-            return $this->renderBody(['page' => $page]);
 
         } catch (NotFoundHttpException $e) {
             throw new NotFoundHttpException();
@@ -139,7 +159,6 @@ class PageService implements ServiceProviderInterface
             'requestUri' => $this->uri,
             'settings' => $this->getSettings(),
             'topMenu' => $this->getTopMenu(),
-            'template' => $this->template,
             'app' => $this->app
         ], $parameters);
 
@@ -155,8 +174,6 @@ class PageService implements ServiceProviderInterface
         }
 
         $this->editMode = $this->request->getSession()->get('editMode', false);
-
-        $this->template = $this->app['settings']['template']['name'];
 
         $this->uri = $this->request->getRequestUri();
 

@@ -1,0 +1,5 @@
+{% macro text(setting, editMode = false, placement = 'top') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.text('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
+{% endmacro %}
+

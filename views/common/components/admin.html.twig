@@ -1,49 +1,15 @@
 {% macro pageProperties(page, editMode) %}
 
-    {% import "/common/components/data.html.twig" as data %}
+    {% import "/common/components/page.html.twig" as pages %}
 
     {% if editMode %}
         <input type="checkbox" name="toggle" id="toggle" />
         <div class="message">
             <label id="settings-label" class="btn" for="toggle">Параметры страницы</label>
             <h1>Параметры страницы</h1>
-            <h2>Title {{ data.text(page.title, page._id, 'title', editMode) }}</h2>
+            <h2>Title {{ pages.text(page.title, page._id, 'title', editMode) }}</h2>
         </div>
     {% endif %}
-
-{% endmacro %}
-
-{% macro addItemButton(type, caption, fields = []) %}
-
-    <button class="btn btn-primary btn-add-{{ type }}" data-toggle="modal" data-target="#add-{{ type }}-modal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> {{ caption }}</button>
-
-    <!-- Settings Modal -->
-    <div class="modal modal-settings modal-custom-qe" id="add-{{ type }}-modal" tabindex="-1" role="dialog" aria-labelledby="add-{{ type }}-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="/e/{{ type }}/add" method="post">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="add-{{ type }}-modal-label" class="modal-title text-center">{{ caption }}</h4>
-                </div>
-                <div class="modal-body">
-
-                    {% for field in fields %}
-                        <div class="form-group">
-                            <label for="new-{{ type }}-{{ field.name }}-input">{{ field.caption }}</label>
-                            <input type="text" name="{{ field.name }}" class="form-control" id="new-{{ type }}-{{ field.name }}-input" placeholder="{{ field.placeholder }}">
-                        </div>
-                    {% endfor %}
-
-                </div><!--//modal-body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="submit" class="btn btn-primary" id="add-{{ type }}-button">Добавить</button>
-                </div>
-                </form>
-            </div><!--//modal-content-->
-        </div><!--//modal-dialog-->
-    </div><!--//modal-->
 
 {% endmacro %}
 
@@ -97,7 +63,7 @@
             <th>
                 <div class="row">
                     {% for field in fields %}
-                        <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption }}</div>
+                        <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption | raw }}</div>
                     {% endfor %}
                 </div>
             </th>
@@ -109,7 +75,14 @@
                 <td>
                     <div class="row">
                         {% for field in fields %}
-                            <div class="col-md-{{ field.columns }}">{{ data.universalText(type, item[field.name], item._id, field.name, not field.readonly) }}
+                            <div class="col-md-{{ field.columns }}">
+                                {% if field.type =='select' %}
+                                    {{ data.select(type, item[field.name], item._id, field.name, not field.readonly, field.options) }}
+                                {% elseif field.type =='checklist' %}
+                                    {{ data.checklist(type, item[field.name], item._id, field.name, not field.readonly, field.variants) }}
+                                {% else %}
+                                    {{ data.text(type, item[field.name], item._id, field.name, not field.readonly) }}
+                                {% endif %}
                                 {% if field.link %} <a href="{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
@@ -121,11 +94,11 @@
         </tbody>
     </table>
 
-    {{ admin.addItemButton(type, addCaption, fields) }}
+    {{ data.addDocumentButton(type, addCaption, fields, true) }}
 
 {% endmacro %}
 
-{% macro adminPanel(dataType, pages, menu, settings, formfields) %}
+{% macro adminPanel(dataType, pages, menu, settings, formfields, collectionName, additionalCollection) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -133,6 +106,8 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
+
+                <h1>Контент панель</h1>
 
                 <ul class="nav nav-tabs">
                     <li role="presentation"{% if dataType == 'page' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/page">Страницы</a></li>
@@ -146,18 +121,49 @@
 
                 {% if dataType == 'page' %}
 
+                {% set options = [{ 'value': 'default', 'text': 'Обычное' }] %}
+                {% for value, text in app.settings.additionalData %}
+                    {% set options = options | merge([{ 'value': value, 'text': 'Элемент "' ~ text ~ '"' }]) %}
+                {% endfor %}
+
+                {% set menuOptions = [{ 'value': '', 'text': 'Пусто' }] %}
+                {% for menuItem in menu %}
+                    {% set menuOptions = menuOptions | merge([{ 'value': menuItem.uri, 'text': menuItem.text }]) %}
+                {% endfor %}
+
                 {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
                     {
                         'name': 'uri',
                         'caption': 'URI',
                         'placeholder': '/newpage',
-                        'columns': 3,
+                        'columns': 2,
                         'link': true
                     }, {
                         'name': 'title',
                         'caption': 'Заголовок',
                         'placeholder': 'Заголовок новой страницы',
-                        'columns': 8
+                        'columns': 3
+                    }, {
+                        'name': 'display',
+                        'caption': 'Отображение',
+                        'placeholder': 'Обычное',
+                        'columns': 2,
+                        'type': 'select',
+                        'options': options
+                    }, {
+                        'name': 'getAdditional',
+                        'caption': 'Дополнительные данные',
+                        'placeholder': '',
+                        'columns': 2,
+                        'type': 'checklist',
+                        'variants': app.settings.additionalData
+                    }, {
+                        'name': 'selectedMenu',
+                        'caption': 'Выделенное меню<br/>(с другим uri)',
+                        'placeholder': '',
+                        'columns': 2,
+                        'type': 'select',
+                        'options': menuOptions
                     }
                 ]) }}
 
@@ -219,9 +225,54 @@
                     }
                 ]) }}
 
+                {% elseif dataType == 'additional' %}
+
+                    <br/>
+                    <h2>Дополнительные данные</h2>
+
+                    <ul class="nav nav-tabs">
+                        {% for id, caption in app.settings.additionalData %}
+                            <li role="presentation"{% if collectionName == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/additional/{{ id }}">{{ caption }}</a></li>
+                        {% endfor %}
+                    </ul>
+
+                    <br/>
+                    {% if collectionName %}
+
+                        {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName], 'Добавить', [
+                            {
+                                'name': 'itemId',
+                                'caption': 'Текстовый идентификатор',
+                                'placeholder': 'item-22-12-2017',
+                                'columns': 3,
+                                'readonly': false
+                            }, {
+                                'name': 'title',
+                                'caption': 'Заголовок',
+                                'placeholder': 'Элемент данных',
+                                'columns': 6,
+                                'readonly': false
+                            }, {
+                                'name': 'visibility',
+                                'caption': 'Видимость',
+                                'placeholder': 'Виден',
+                                'columns': 2,
+                                'readonly': false,
+                                'type': 'select',
+                                'options': [
+                                    {'value': 'visible', 'text': 'Виден'},
+                                    {'value': 'hidden',  'text': 'Скрыт'}
+                                ]
+                            }
+                        ]) }}
+
+                    {% else %}
+                        <h3>Выберите тип данных</h3>
+                    {% endif %}
+
                 {% endif %}
 
-                {{ admin.removeAdminElementModal() }}
+                {{ data.removeDocumentModal() }}
 
             </div>
         </div>
@@ -229,34 +280,14 @@
 
 {% endmacro %}
 
-{% macro admin(editMode, dataType, pages = [], menu = [], settings = [], formfields = []) %}
+{% macro admin(editMode, dataType, pages = [], menu = [], settings = [], formfields = [], additionalCollectionName = '', additionalCollection = []) %}
 
     {% import _self as admin %}
 
     {% if editMode %}
-        {{ admin.adminPanel(dataType, pages, menu, settings, formfields) }}
+        {{ admin.adminPanel(dataType, pages, menu, settings, formfields, additionalCollectionName, additionalCollection) }}
     {% else %}
         {{ admin.loginForm() }}
     {% endif %}
 
-{% endmacro %}
-
-{% macro removeAdminElementModal() %}
-    <div class="modal fade modal-custom-qe" id="remove-page-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="remove-page-confirm-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="remove-page-confirm-modal-label" class="modal-title text-center">Удаление страницы</h4>
-                </div>
-                <div class="modal-body">
-                    Уверены, что хотите удалить элемент?
-                </div><!--//modal-body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <a class="btn btn-primary" id="remove-page-confirm-button">Удалить</a>
-                </div>
-            </div><!--//modal-content-->
-        </div><!--//modal-dialog-->
-    </div><!--//modal-->
 {% endmacro %}
