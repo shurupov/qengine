@@ -58,6 +58,12 @@
     {% endif %}
 {% endmacro %}
 
+{% macro settingsBigButton(path, editMode = false) %}
+    {% if editMode %}
+        <button class="btn btn-primary btn-add-component" data-toggle="modal" data-target="#{{ path | replace({'.': '-'}) | raw }}-modal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Настройки компонента</button>
+    {% endif %}
+{% endmacro %}
+
 {% macro addElementButton(path, id, editMode = false, caption = "Добавить объект") %}
     {% import '/common/components/data.html.twig' as data %}
     {{ data.addElementButton('page', path, id, editMode, caption) }}
