@@ -33,6 +33,15 @@
     {%- endif -%}
 {% endmacro %}
 
+{%- macro code(type, value, id, path, editMode = false, inModal = false) -%}
+    {%- import _self as data -%}
+    {%- if editMode -%}
+        <e{% if inModal %}s{% endif %} data-type="code" data-url="/e/{{ type }}/edit" data-pk="{{ id }}" data-name="{{ path }}" data-value="{{ value | raw | e }}">Код</e{% if inModal %}s{% endif %}>
+    {%- else -%}
+        {{- value | raw -}}
+    {%- endif -%}
+{% endmacro %}
+
 {%- macro checklist(type, value, id, path, editMode = false, variants = {}, inModal = false) -%}
     {%- import _self as data -%}
     {%- if editMode -%}
