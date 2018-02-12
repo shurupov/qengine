@@ -19,6 +19,16 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 ));
 
+$test = new Twig_Filter('remained', function ($dateStr) { //todo refactoring
+    $now = new DateTime('now');
+    $now->setTime(0,0);
+    $date = new DateTime($dateStr);
+    $date->setTime(0,0);
+    $diff = $now->diff($date);
+    return $diff->d;
+});
+$app['twig']->addFilter($test);
+
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false,
     'swiftmailer.options' => $app['settings']['mail']
