@@ -19,13 +19,29 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 ));
 
-$test = new Twig_Filter('remained', function ($dateStr) { //todo refactoring
+$test = new Twig_Filter('remained', function ($dateStr, $days = 0, $day1 = 'день', $days234 = 'дня', $days567890 = 'дней') { //todo refactoring
     $now = new DateTime('now');
     $now->setTime(0,0);
     $date = new DateTime($dateStr);
     $date->setTime(0,0);
     $diff = $now->diff($date);
-    return $diff->d;
+    $result = $diff->d - $days;
+
+    if ($result > 10 && $result < 20) {
+        $dayString = $days567890;
+    } else switch ($result % 10) {
+        case 1 :
+            $dayString = $day1;
+            break;
+        case 2 :case 3 :case 4 :
+            $dayString = $days234;
+            break;
+        default :
+            $dayString = $days567890;
+            break;
+    }
+
+    return $result . ' ' . $dayString;
 });
 $app['twig']->addFilter($test);
 
