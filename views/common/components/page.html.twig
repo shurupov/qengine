@@ -58,15 +58,13 @@
 {% endmacro %}
 
 {% macro settingsButton(path, editMode = false) %}
-    {% if editMode %}
-        <edse data-toggle="modal" data-target="#{{ path | replace({'.': '-'}) | raw }}-modal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></edse>
-    {% endif %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.settingsButton('page', editMode, path) }}
 {% endmacro %}
 
-{% macro settingsBigButton(path, editMode = false) %}
-    {% if editMode %}
-        <button class="btn btn-primary btn-add-component" data-toggle="modal" data-target="#{{ path | replace({'.': '-'}) | raw }}-modal"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Настройки компонента</button>
-    {% endif %}
+{% macro settingsBigButton(path, editMode = false, caption = 'Настройки компонента') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.settingsBigButton('page', editMode, caption, path) }}
 {% endmacro %}
 
 {% macro addElementButton(path, id, editMode = false, caption = "Добавить объект") %}
@@ -89,110 +87,9 @@
     {{ data.removeElementBigButton('page', path, id, editMode, caption) }}
 {% endmacro %}
 
-{% macro settingsModal(value, id, path, editors, editMode = false, defaultCollection = 'page') %}
-
+{% macro settingsModal(value, id, editors, editMode, path) %}
     {% import '/common/components/data.html.twig' as data %}
-
-    <!-- Settings Modal -->
-    {% set blockId = path | replace({'.': '-'}) %}
-    <div class="modal modal-settings modal-custom-qe" id="{{ blockId | raw }}-modal" tabindex="-1" role="dialog" aria-labelledby="{{ blockId | raw }}-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="{{ blockId | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            {% for key,editor in editors %}
-                                {% set collection = editor.collection | default(defaultCollection) %}
-                                {% set itemId = editor.itemId | default(id) %}
-                                {% set cPath = path ~ '.' ~ key %}
-                                {% if editor.collection %}{% set cPath = key %}{% endif %}
-                                {% if editor.value %}
-                                    {% set cValue = editor.value %}
-                                {% else %}
-                                    {% set cValue = value[key] %}
-                                {% endif %}
-                                {% if editor.type == "text" %}
-                                    <tr>
-                                        <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.text(collection, cValue, itemId, cPath, editMode, true) }}</td>
-                                    </tr>
-                                {% elseif editor.type == "textarea" %}
-                                    <tr>
-                                        <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.textarea(collection, cValue, itemId, cPath, editMode, true) }}</td>
-                                    </tr>
-                                {% elseif editor.type == "code" %}
-                                    <tr>
-                                        <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.code(collection, cValue, itemId, cPath, editMode, true) }}</td>
-                                    </tr>
-                                {% elseif editor.type == "select" %}
-                                    <tr>
-                                        <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.select(collection, cValue, itemId, cPath, editMode,  editor.options, true) }}</td>
-                                    </tr>
-                                {% elseif editor.type == "image" %}
-                                    <tr>
-                                        <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.setImagePreviewButton(collection, cValue, itemId, cPath, editMode) }}</td>
-                                    </tr>
-                                {% elseif editor.type == "checklist" %}
-                                    <tr>
-                                        <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.checklist(collection, cValue, itemId, cPath, editMode, editor.variants, true) }}</td>
-                                    </tr>
-                                {% elseif editor.type == "list" and editor.listType == "image" %}
-                                    <tr>
-                                        <td colspan="2">
-                                            <h4>{{ editor.title }}</h4>
-                                            <div class="image-list">
-                                                {% for ki, image in cValue %}
-                                                    <div class="pull-left editor-image-list-element" id="{{ (cPath ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
-                                                        {% set imagePath = cPath ~ '.' ~ ki %}
-                                                        {{ data.setImagePreviewButton(collection, image, itemId, imagePath, editMode) }}
-                                                        {{ data.removeElementButton(collection, imagePath, itemId, editMode, true ) }}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            {{ data.addImagePreviewButton(collection, cPath, itemId, editMode, "Добавить картинку") }}
-                                        </td>
-                                    </tr>
-                                {% elseif editor.type == "list" and editor.listType == "text" %}
-                                    <tr>
-                                        <td colspan="2">
-                                            <h4>{{ editor.title }}</h4>
-                                            <div class="image-list">
-                                                {% for ki, text in cValue %}
-                                                    <div class="pull-left editor-image-list-element" id="{{ (cPath ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
-                                                        {% set textPath = cPath ~ '.' ~ ki %}
-                                                        {{ data.text(collection, text, itemId, textPath, editMode, true) }}
-                                                        {{ data.removeElementButton(collection, textPath, itemId, editMode, true ) }}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            {{ data.addItemButton(cPath, itemId, editMode, "Добавить тэг", true) }}
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                        </table>
-                    </div>
-
-                </div><!--//modal-body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary btn-apply-now">Обновить сейчас</button>
-                </div>
-            </div><!--//modal-content-->
-        </div><!--//modal-dialog-->
-    </div><!--//modal-->
-
+    {{ data.settingsModal('page', value, id, editors, editMode, path) }}
 {% endmacro %}
 
 {% macro addComponentModal(id, editMode, list = {}) %}
