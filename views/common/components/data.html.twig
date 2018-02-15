@@ -209,7 +209,7 @@
     {% endif %}
 {% endmacro %}
 
-{% macro settingsModal(defaultCollection, value, id, editors, editMode = false, path = '') %}
+{% macro settingsModal(defaultCollection, value, id, editors, editMode = false, path = '', title = 'Редактирование документа') %}
 
     {% import '/common/components/data.html.twig' as data %}
 
@@ -220,7 +220,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 id="{{ blockId | raw }}-modal-label" class="modal-title text-center">Настройки секции</h4>
+                    <h4 id="{{ blockId | raw }}-modal-label" class="modal-title text-center">{{ title }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">

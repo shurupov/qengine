@@ -79,7 +79,7 @@ class PageService implements ServiceProviderInterface
     public function render($pageSlug, $itemId)
     {
 
-        try {
+//        try {
 
             $page = $this->app['dataService']->getPage($pageSlug);
 
@@ -115,11 +115,11 @@ class PageService implements ServiceProviderInterface
                 throw new NotFoundHttpException();
             }
 
-        } catch (NotFoundHttpException $e) {
-            throw new NotFoundHttpException();
-        } catch (\Exception $e) {
-            throw new HttpException(500, $e->getMessage());
-        }
+//        } catch (NotFoundHttpException $e) {
+//            throw new NotFoundHttpException();
+//        } catch (\Exception $e) {
+//            throw new HttpException(500, $e->getMessage());
+//        }
 
     }
 

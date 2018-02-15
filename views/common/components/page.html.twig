@@ -87,9 +87,9 @@
     {{ data.removeElementBigButton('page', path, id, editMode, caption) }}
 {% endmacro %}
 
-{% macro settingsModal(value, id, editors, editMode, path) %}
+{% macro settingsModal(value, id, editors, editMode, path, title = "Настройки секциии") %}
     {% import '/common/components/data.html.twig' as data %}
-    {{ data.settingsModal('page', value, id, editors, editMode, path) }}
+    {{ data.settingsModal('page', value, id, editors, editMode, path, title) }}
 {% endmacro %}
 
 {% macro addComponentModal(id, editMode, list = {}) %}

@@ -45,6 +45,34 @@ $test = new Twig_Filter('remained', function ($dateStr, $days = 0, $day1 = 'де
 });
 $app['twig']->addFilter($test);
 
+$function = new Twig_Function('flightSearchUrl', function ($destinationCity, $dateStart, $dateEnd) {
+
+    try {
+
+        $ip = substr($_SERVER['REMOTE_ADDR'], 0, 8) == '192.168.' ? '195.218.132.254' : $_SERVER['REMOTE_ADDR'];
+
+        $sourcePlace = json_decode(file_get_contents('http://freegeoip.net/json/' . $ip), true);
+
+        $sourceCity = $sourcePlace['city'];
+
+        $url = 'https://avia.yandex.ru/search/result/?fromName=' . $sourceCity .
+            '&toName=' . $destinationCity .
+            '&when=' . $dateStart .
+            '&return_date=' . $dateEnd .
+            '&oneway=2' .
+            '&adult_seats=1'.
+            '&children_seats=0'.
+            '&infant_seats=0&'.
+            'klass=economy';
+
+        return $url;
+        
+    } catch (Exception $e) {
+        return false;
+    }
+});
+$app['twig']->addFunction($function);
+
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false,
     'swiftmailer.options' => $app['settings']['mail']
