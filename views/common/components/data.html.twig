@@ -56,7 +56,7 @@
     {% endif %}
     {% if editMode %}
         {% set inputId = 'i' ~ random(10000) %}
-        <input type="hidden" data-type="{{ type }}" id="{{ inputId | raw }}" data-pk="{{ id }}" />
+        <input type="hidden" data-type="{{ type }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-path="{{ path }}" />
         <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><img id="{{ inputId | raw }}-image" src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
     {% else %}
         <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
