@@ -36,7 +36,7 @@ class PageService implements ServiceProviderInterface
         return $this->editMode;
     }
 
-    public function renderAdminPanel($dataType, $additionalCollectionName)
+    public function renderAdminPanel($dataType)
     {
         try {
 
@@ -50,8 +50,7 @@ class PageService implements ServiceProviderInterface
 
             return $this->renderBody([
                 'dataType' => $dataType,
-                'additionalCollectionName' => $additionalCollectionName,
-                'additionalCollection' => ( $additionalCollectionName ? $this->app['dataService']->getAllDocuments($additionalCollectionName) : [] ),
+                'additionalCollection' => ( array_key_exists($dataType, $this->app['settings']['additionalData']) ? $this->app['dataService']->getAllDocuments($dataType) : [] ),
                 'pageList' => ( $dataType == 'page' ? $this->app['dataService']->getAllDocuments('page') : [] ),
                 'menu' => ( ($dataType == 'menu' || $dataType == 'page') ? $this->app['dataService']->getAllDocuments('menu') : []),
                 'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getAllDocuments('formfields') : [] )

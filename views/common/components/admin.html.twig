@@ -114,7 +114,9 @@
                     <li role="presentation"{% if dataType == 'menu' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/menu">Меню</a></li>
                     <li role="presentation"{% if dataType == 'setting' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/setting">Свойства</a></li>
                     <li role="presentation"{% if dataType == 'form' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/form">Форма</a></li>
-                    <li role="presentation"{% if dataType == 'additional' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/additional">Дополнительные данные</a></li>
+                    {% for id, caption in app.settings.additionalData %}
+                        <li role="presentation"{% if dataType == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/{{ id }}">{{ caption }}</a></li>
+                    {% endfor %}
                 </ul>
 
                 <br/>
@@ -225,50 +227,34 @@
                     }
                 ]) }}
 
-                {% elseif dataType == 'additional' %}
+                {% else %}
 
-                    <br/>
-                    <h2>Дополнительные данные</h2>
-
-                    <ul class="nav nav-tabs">
-                        {% for id, caption in app.settings.additionalData %}
-                            <li role="presentation"{% if collectionName == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/additional/{{ id }}">{{ caption }}</a></li>
-                        {% endfor %}
-                    </ul>
-
-                    <br/>
-                    {% if collectionName %}
-
-                        {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName], 'Добавить', [
-                            {
-                                'name': 'itemId',
-                                'caption': 'Текстовый идентификатор',
-                                'placeholder': 'item-22-12-2017',
-                                'columns': 3,
-                                'readonly': false
-                            }, {
-                                'name': 'title',
-                                'caption': 'Заголовок',
-                                'placeholder': 'Элемент данных',
-                                'columns': 6,
-                                'readonly': false
-                            }, {
-                                'name': 'visibility',
-                                'caption': 'Видимость',
-                                'placeholder': 'Виден',
-                                'columns': 2,
-                                'readonly': false,
-                                'type': 'select',
-                                'options': [
-                                    {'value': 'visible', 'text': 'Виден'},
-                                    {'value': 'hidden',  'text': 'Скрыт'}
-                                ]
-                            }
-                        ]) }}
-
-                    {% else %}
-                        <h3>Выберите тип данных</h3>
-                    {% endif %}
+                    {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName], 'Добавить', [
+                        {
+                            'name': 'itemId',
+                            'caption': 'Текстовый идентификатор',
+                            'placeholder': 'item-22-12-2017',
+                            'columns': 3,
+                            'readonly': false
+                        }, {
+                            'name': 'title',
+                            'caption': 'Заголовок',
+                            'placeholder': 'Элемент данных',
+                            'columns': 6,
+                            'readonly': false
+                        }, {
+                            'name': 'visibility',
+                            'caption': 'Видимость',
+                            'placeholder': 'Виден',
+                            'columns': 2,
+                            'readonly': false,
+                            'type': 'select',
+                            'options': [
+                                {'value': 'visible', 'text': 'Виден'},
+                                {'value': 'hidden',  'text': 'Скрыт'}
+                            ]
+                        }
+                    ]) }}
 
                 {% endif %}
 
