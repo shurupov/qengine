@@ -189,8 +189,8 @@
             success: function () {
                 $('#' + fieldId + '-image').attr('src', uri);
                 $('#' + fieldId + '-preview').attr('src', uri.replace('/source/', '/thumbs/'));
-                $('[image-id=' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + ']').attr('src', uri);
-                $('[background-id=' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + ']').css('background-image', 'url(' + uri + ')');
+                $('[image-id="' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + '"]').attr('src', uri);
+                $('[background-id="' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + '"]').css('background-image', 'url("' + uri + '")');
             },
             dataType: 'json'
         });
