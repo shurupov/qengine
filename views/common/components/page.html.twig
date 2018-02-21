@@ -77,6 +77,11 @@
     {{ data.addItemButton('page', path, id, editMode, caption, inModal) }}
 {% endmacro %}
 
+{% macro addItemMicroButton(path, id, editMode = false, inModal = false) %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.addItemMicroButton('page', path, id, editMode, inModal) }}
+{% endmacro %}
+
 {% macro removeElementButton(path, id, editMode = false, inModal = false) %}
     {% import '/common/components/data.html.twig' as data %}
     {{ data.removeElementButton('page', path, id, editMode, inModal) }}
