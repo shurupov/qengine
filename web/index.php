@@ -10,6 +10,8 @@ $app = new Silex\Application();
 
 require_once __DIR__ . '/../settings/settings.php';
 
+setlocale(LC_ALL, $app['settings']['locale']);
+
 require_once __DIR__.'/../includes/register.php';
 
 $app['debug'] = $app['settings']['debug'];

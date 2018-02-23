@@ -19,7 +19,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 ));
 
-$test = new Twig_Filter('remained', function ($dateStr, $days = 0, $day1 = 'день', $days234 = 'дня', $days567890 = 'дней') { //todo refactoring
+$remained = new Twig_Filter('remained', function ($dateStr, $days = 0, $day1 = 'день', $days234 = 'дня', $days567890 = 'дней') { //todo refactoring
     $now = new DateTime('now');
     $now->setTime(0,0);
     $date = new DateTime($dateStr);
@@ -43,7 +43,12 @@ $test = new Twig_Filter('remained', function ($dateStr, $days = 0, $day1 = 'де
 
     return $result . ' ' . $dayString;
 });
-$app['twig']->addFilter($test);
+$app['twig']->addFilter($remained);
+
+$datetostr = new Twig_Filter('datetostr', function ($date, $format) {
+    return strftime($format, date_timestamp_get(date_create($date)));
+});
+$app['twig']->addFilter($datetostr);
 
 $function = new Twig_Function('flightSearchUrl', function ($destinationCity, $dateStart, $dateEnd) {
 
