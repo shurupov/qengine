@@ -106,8 +106,8 @@
     {% endif %}
 {% endmacro %}
 
-{% macro addElementButton(type, path, id, editMode = false, caption = "Добавить объект") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-add-object" data-type="{{ type }}" data-path="{{ path | raw }}" data-pk="{{ id }}">{{ caption }}</button>{% endif %}
+{% macro addElementButton(type, path, id, editMode = false, caption = "Добавить объект", field = "title", fieldValue = null) %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-object" data-type="{{ type }}" data-path="{{ path | raw }}" data-pk="{{ id }}" data-object-field="{{ field }}" data-field-value="{{ fieldValue }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
 {% macro addItemButton(type, path, id, editMode = false, caption = "Добавить пункт", inModal = false) %}

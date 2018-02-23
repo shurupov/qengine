@@ -25,8 +25,8 @@
             type: "POST",
             url: '/e/' + $(this).data('type') + '/edit',
             data: {
-                name: $(this).data('path') + '.' + str_rand() + '.title',
-                value: null,
+                name: $(this).data('path') + '.' + str_rand() + '.' + $(this).data('object-field'),
+                value: ($(this).data('field-value') == 'null' ? null : $(this).data('field-value')),
                 pk: $(this).data('pk')
             },
             success: function () {
