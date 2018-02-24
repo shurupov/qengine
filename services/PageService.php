@@ -75,7 +75,7 @@ class PageService implements ServiceProviderInterface
         }
     }
 
-    public function render($pageSlug, $itemId)
+    public function render($pageSlug, $itemId, Request $request)
     {
 
 //        try {
@@ -95,7 +95,8 @@ class PageService implements ServiceProviderInterface
             if (!array_key_exists('display', $page) ||  $page['display'] == 'default') {
                 return $this->renderBody([
                     'page' => $page,
-                    'additional' => $additional
+                    'additional' => $additional,
+                    'request' => $request
                 ]);
             }
 
@@ -106,8 +107,9 @@ class PageService implements ServiceProviderInterface
                     'additional' => $additional,
                     'item' => $item,
                     'pageUri' => $pageSlug,
-                    'itemId' => $itemId]
-                );
+                    'itemId' => $itemId,
+                    'request' => $request
+                ]);
             }
 
             if ($page == null) {

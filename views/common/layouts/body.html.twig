@@ -11,7 +11,7 @@
     {#{{ admin.pageProperties(page, editMode) }}#}
 
     {% for key, section in page.sections %}
-        {{ content.component(key, section, page._id, 'sections.' ~ key, editMode, settings, additional, page.display, item) }}
+        {{ content.component(request, key, section, page._id, 'sections.' ~ key, editMode, settings, additional, page.display, item) }}
     {% endfor %}
 
     {% if editMode %}
