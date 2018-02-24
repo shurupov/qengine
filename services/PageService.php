@@ -38,7 +38,7 @@ class PageService implements ServiceProviderInterface
 
     public function renderAdminPanel($dataType)
     {
-        try {
+//        try {
 
             if (!$this->editMode) {
                 if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
@@ -50,15 +50,15 @@ class PageService implements ServiceProviderInterface
 
             return $this->renderBody([
                 'dataType' => $dataType,
-                'additionalCollection' => ( array_key_exists($dataType, $this->app['settings']['additionalData']) ? $this->app['dataService']->getAllDocuments($dataType) : [] ),
-                'pageList' => ( $dataType == 'page' ? $this->app['dataService']->getAllDocuments('page') : [] ),
-                'menu' => ( ($dataType == 'menu' || $dataType == 'page') ? $this->app['dataService']->getAllDocuments('menu') : []),
-                'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getAllDocuments('formfields') : [] )
+                'additionalCollection' => ( array_key_exists($dataType, $this->app['settings']['additionalData']) ? $this->app['dataService']->getDocuments($dataType, [], ['_id' => -1]) : [] ),
+                'pageList' => ( $dataType == 'page' ? $this->app['dataService']->getDocuments('page') : [] ),
+                'menu' => ( ($dataType == 'menu' || $dataType == 'page') ? $this->app['dataService']->getDocuments('menu') : []),
+                'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getDocuments('formfields') : [] )
             ], 'admin');
 
-        } catch (\Exception $e) {
-            throw new HttpException(500, $e->getMessage());
-        }
+//        } catch (\Exception $e) {
+//            throw new HttpException(500, $e->getMessage());
+//        }
     }
 
     public function logout()
@@ -86,9 +86,9 @@ class PageService implements ServiceProviderInterface
 
             foreach ($page['getAdditional'] as $collectionName) {
                 if ($this->editMode) {
-                    $additional[$collectionName] = $this->app['dataService']->getAllDocuments($collectionName);
+                    $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, [], ['_id' => -1]);
                 } else {
-                    $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, ['visibility' => 'visible']);
+                    $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, ['visibility' => 'visible'], ['_id' => -1]);
                 }
             }
 
@@ -187,7 +187,7 @@ class PageService implements ServiceProviderInterface
 
     private function getTopMenu()
     {
-        $topMenu = $this->app['dataService']->getAllDocuments('menu');
+        $topMenu = $this->app['dataService']->getDocuments('menu');
 
         if ($this->editMode) {
             $topMenu = array_merge( $topMenu, [
@@ -215,7 +215,7 @@ class PageService implements ServiceProviderInterface
     private function getSettings()
     {
         $settings = [];
-        foreach ($this->app['dataService']->getAllDocuments('setting') as $setting) {
+        foreach ($this->app['dataService']->getDocuments('setting') as $setting) {
             $settings[$setting->key] = $setting;
         }
         return $settings;
