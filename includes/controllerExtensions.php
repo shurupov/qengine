@@ -1,6 +1,8 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 $app->get('/c/{method}', function (Request $request, $method) use ($app) {
 
@@ -24,7 +26,16 @@ $app->get('/c/{method}', function (Request $request, $method) use ($app) {
 
                         foreach ($methods as $controllerMethod) {
                             if ($method == $controllerMethod) {
-                                return $controller->$method($request);
+
+                                $response = $controller->$method($request->query->all(), $request->request->all(), $request->files->all());
+
+                                if (is_array($response)) {
+                                    return new JsonResponse( $response );
+                                } else {
+                                    return new Response( $response );
+                                }
+
+
                             }
                         }
 
