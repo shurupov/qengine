@@ -47,5 +47,5 @@ $app->get('/c/{method}', function (Request $request, $method) use ($app) {
     }
 
 
-});
+})->method('GET|POST');
 
