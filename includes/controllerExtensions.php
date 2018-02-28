@@ -20,14 +20,34 @@ $app->get('/c/{method}', function (Request $request, $method) use ($app) {
 
                     if (class_exists($className)) {
 
-                        $methods = get_class_methods($className);
+                        $reflectionClass = new ReflectionClass($className);
+                        $reflectionMethods = $reflectionClass->getMethods();
 
-                        $controller = new $className($app);
+                        foreach ($reflectionMethods as $reflectionMethod) {
+                            if ($method == $reflectionMethod->name) {
 
-                        foreach ($methods as $controllerMethod) {
-                            if ($method == $controllerMethod) {
+                                $reflectionParameters = $reflectionMethod->getParameters();
 
-                                $response = $controller->$method($request->query->all(), $request->request->all(), $request->files->all());
+                                $parameters = [];
+
+                                foreach ($reflectionParameters as $reflectParameter) {
+                                    switch ($reflectParameter->name) {
+                                        case 'get':
+                                        case 'GET':
+                                            $parameters [] = $request->query->all();
+                                            break;
+                                        case 'post':
+                                        case 'POST':
+                                            $parameters [] = $request->request->all();
+                                            break;
+                                        case 'files':
+                                        case 'FILES':
+                                            $parameters [] = $request->files->all();
+                                            break;
+                                    }
+                                }
+
+                                $response = $reflectionMethod->invokeArgs(new $className($app), $parameters);
 
                                 if (is_array($response)) {
                                     return new JsonResponse( $response );
