@@ -19,9 +19,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 ));
 
-require_once __DIR__.'/../includes/twigExtensions.php';
-require_once __DIR__.'/../includes/controllerExtensions.php';
-
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false,
     'swiftmailer.options' => $app['settings']['mail']

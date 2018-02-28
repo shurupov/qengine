@@ -14,6 +14,9 @@ setlocale(LC_ALL, $app['settings']['locale']);
 
 require_once __DIR__.'/../includes/register.php';
 
+require_once __DIR__.'/../includes/twigExtensions.php';
+require_once __DIR__.'/../includes/controllerExtensions.php';
+
 $app['debug'] = $app['settings']['debug'];
 
 require_once __DIR__.'/../includes/routes.php';
