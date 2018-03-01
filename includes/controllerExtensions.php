@@ -44,6 +44,18 @@ $app->get('/c/{method}', function (Request $request, $method) use ($app) {
                                         case 'FILES':
                                             $parameters [] = $request->files->all();
                                             break;
+                                        case 'dataService':
+                                        case 'dataservice':
+                                            $parameters [] = $app['dataService'];
+                                            break;
+                                        case 'pageService':
+                                        case 'pageservice':
+                                            $parameters [] = $app['pageService'];
+                                            break;
+                                        case 'postService':
+                                        case 'postservice':
+                                            $parameters [] = $app['postService'];
+                                            break;
                                     }
                                 }
 

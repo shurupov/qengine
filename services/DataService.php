@@ -25,6 +25,11 @@ class DataService implements ServiceProviderInterface
         return $this->db->$collection->findOne(['itemId' => $itemId]);
     }
 
+    public function getDocumentById($collection, $id)
+    {
+        return $this->db->$collection->findOne([ '_id' => new ObjectId($id) ]);
+    }
+
     public function getDocuments($collection, $filter = [], $sort = ['_id' => 1])
     {
         return $this->db->$collection->find($filter, [ 'sort' => $sort ])->toArray();
