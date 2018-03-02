@@ -37,7 +37,8 @@ class DataService implements ServiceProviderInterface
 
     public function addDocument($fields, $collection)
     {
-        $this->db->$collection->insertOne($fields);
+        $insertResult = $this->db->$collection->insertOne($fields);
+        return $insertResult->getInsertedId();
     }
 
     public function removeDocument($id, $collection)
@@ -77,14 +78,14 @@ class DataService implements ServiceProviderInterface
         $this->update($id, $path, $type);
     }
 
-    private function update($id, $path, $value, $collection = 'page')
+    public function update($id, $path, $value, $collection = 'page')
     {
         $this->db->$collection->findOneAndUpdate(['_id' => new ObjectId($id)], [
             '$set' => $this->getArray($path, $value)
         ]);
     }
 
-    private function randomString()
+    public function randomString()
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randstring = '';

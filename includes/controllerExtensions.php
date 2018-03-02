@@ -1,5 +1,6 @@
 <?php
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +25,7 @@ $app->get('/c/{method}', function (Request $request, $method) use ($app) {
                         $reflectionMethods = $reflectionClass->getMethods();
 
                         foreach ($reflectionMethods as $reflectionMethod) {
-                            if ($method == $reflectionMethod->name) {
+                            if ($method == preg_replace('/^([\w\d]+)(Redirect|Json)$/', '${1}', $reflectionMethod->name)) {
 
                                 $reflectionParameters = $reflectionMethod->getParameters();
 
@@ -61,12 +62,26 @@ $app->get('/c/{method}', function (Request $request, $method) use ($app) {
 
                                 $response = $reflectionMethod->invokeArgs(new $className($app), $parameters);
 
+                                if (preg_match('/^([\w\d]+?)(Redirect|Json)?$/', $reflectionMethod->name, $matches)) {
+
+                                    $type = $matches[2];
+
+                                    switch ($type) {
+                                        case 'Redirect' :
+                                            return new RedirectResponse( $response );
+                                            break;
+                                        case 'Json' :
+                                            return new JsonResponse( $response );
+                                            break;
+                                    }
+
+                                }
+
                                 if (is_array($response)) {
                                     return new JsonResponse( $response );
                                 } else {
                                     return new Response( $response );
                                 }
-
 
                             }
                         }
