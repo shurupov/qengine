@@ -7,6 +7,7 @@
  */
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 if ($app['pageService']->isEditMode()) {
     require_once __DIR__.'/../includes/routesApi.php';
@@ -33,7 +34,7 @@ $app->get('/{slug}/{id}', function ($slug, $id, Request $request) use ($app) {
 
 if (!$app['debug']) {
 
-    $app->error(function ($code) use ($app) {
-        return $app['pageService']->renderErrorPage($code);
+    $app->error(function (HttpException $error) use ($app) {
+        return $app['pageService']->renderErrorPage($error->getStatusCode());
     });
 }
