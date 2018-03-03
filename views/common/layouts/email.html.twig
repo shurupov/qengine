@@ -67,6 +67,10 @@
                                 <tr>
                                     <td style="box-sizing: border-box; font-family: 'Roboto', Helvetica, Arial, sans-serif; font-size: 14px; vertical-align: top;" valign="top">
 
+                                        {% if body is defined %}
+                                            <p>{{ body | raw }}</p>
+                                        {% endif %}
+
                                         {% for field in data %}
                                             <p style="font-family: 'Roboto', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
                                                 {{ field.title | raw }}: {{ field.value | raw }}
