@@ -38,27 +38,22 @@ class PageService implements ServiceProviderInterface
 
     public function renderAdminPanel($dataType)
     {
-//        try {
 
-            if (!$this->editMode) {
-                if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
-                    $this->request->request->get('password') == $this->app['settings']['admin']['credentials']['password']) {
+        if (!$this->editMode) {
+            if ($this->request->request->get('username') == $this->app['settings']['admin']['credentials']['login'] &&
+                $this->request->request->get('password') == $this->app['settings']['admin']['credentials']['password']) {
 
-                    $this->setEditMode(true);
-                }
+                $this->setEditMode(true);
             }
+        }
 
-            return $this->renderBody([
-                'dataType' => $dataType,
-                'additionalCollection' => ( array_key_exists($dataType, $this->app['settings']['additionalData']) ? $this->app['dataService']->getDocuments($dataType, [], ['_id' => -1]) : [] ),
-                'pageList' => ( $dataType == 'page' ? $this->app['dataService']->getDocuments('page') : [] ),
-                'menu' => ( ($dataType == 'menu' || $dataType == 'page') ? $this->app['dataService']->getDocuments('menu') : []),
-                'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getDocuments('formfields') : [] )
-            ], 'admin');
-
-//        } catch (\Exception $e) {
-//            throw new HttpException(500, $e->getMessage());
-//        }
+        return $this->renderBody([
+            'dataType' => $dataType,
+            'additionalCollection' => ( array_key_exists($dataType, $this->app['settings']['additionalData']) ? $this->app['dataService']->getDocuments($dataType, [], ['_id' => -1]) : [] ),
+            'pageList' => ( $dataType == 'page' ? $this->app['dataService']->getDocuments('page') : [] ),
+            'menu' => ( ($dataType == 'menu' || $dataType == 'page') ? $this->app['dataService']->getDocuments('menu') : []),
+            'formfields' => ( $dataType == 'form' ? $this->app['dataService']->getDocuments('formfields') : [] )
+        ], 'admin');
     }
 
     public function logout()
@@ -78,49 +73,45 @@ class PageService implements ServiceProviderInterface
     public function render($pageSlug, $itemId, Request $request)
     {
 
-//        try {
+        $page = $this->app['dataService']->getPage($pageSlug);
 
-            $page = $this->app['dataService']->getPage($pageSlug);
+        if ($page == null) {
+            throw new NotFoundHttpException();
+        }
 
-            $additional = [];
+        $additional = [];
 
-            foreach ($page['getAdditional'] as $collectionName) {
-                if ($this->editMode) {
-                    $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, [], ['_id' => -1]);
-                } else {
-                    $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, ['visibility' => 'visible'], ['_id' => -1]);
-                }
+        foreach ($page['getAdditional'] as $collectionName) {
+            if ($this->editMode) {
+                $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, [], ['_id' => -1]);
+            } else {
+                $additional[$collectionName] = $this->app['dataService']->getDocuments($collectionName, ['visibility' => 'visible'], ['_id' => -1]);
             }
+        }
 
-            if (!array_key_exists('display', $page) ||  $page['display'] == 'default') {
-                return $this->renderBody([
-                    'page' => $page,
-                    'additional' => $additional,
-                    'request' => $request
-                ]);
-            }
+        if (!array_key_exists('display', $page) ||  $page['display'] == 'default') {
+            return $this->renderBody([
+                'page' => $page,
+                'additional' => $additional,
+                'request' => $request
+            ]);
+        }
 
-            if ($itemId != null) {
-                $item = $this->app['dataService']->getItem($page['display'], $itemId);
-                return $this->renderBody([
-                    'page' => $page,
-                    'additional' => $additional,
-                    'item' => $item,
-                    'pageUri' => $pageSlug,
-                    'itemId' => $itemId,
-                    'request' => $request
-                ]);
-            }
 
-            if ($page == null) {
-                throw new NotFoundHttpException();
-            }
 
-//        } catch (NotFoundHttpException $e) {
-//            throw new NotFoundHttpException();
-//        } catch (\Exception $e) {
-//            throw new HttpException(500, $e->getMessage());
-//        }
+        if ($itemId != null && ($item = $this->app['dataService']->getItem($page['display'], $itemId)) != null) {
+
+            return $this->renderBody([
+                'page' => $page,
+                'additional' => $additional,
+                'item' => $item,
+                'pageUri' => $pageSlug,
+                'itemId' => $itemId,
+                'request' => $request
+            ]);
+        }
+
+        throw new NotFoundHttpException();
 
     }
 
