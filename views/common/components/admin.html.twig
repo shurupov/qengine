@@ -98,180 +98,206 @@
 
 {% endmacro %}
 
-{% macro adminPanel(dataType, pages, menu, settings, formfields, collectionName, additionalCollection) %}
+{% macro standardPanel(adminType, dataType, pages, menu, settings, formfields, collectionName, additionalCollection) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
+    <ul class="nav nav-tabs">
+        <li role="presentation"{% if dataType == 'page' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard/page">Страницы</a></li>
+        <li role="presentation"{% if dataType == 'menu' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard/menu">Меню</a></li>
+        <li role="presentation"{% if dataType == 'setting' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard/setting">Свойства</a></li>
+        <li role="presentation"{% if dataType == 'form' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard/form">Форма</a></li>
+    </ul>
 
-                <h1>Контент панель</h1>
+    <br/>
 
-                <ul class="nav nav-tabs">
-                    <li role="presentation"{% if dataType == 'page' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/page">Страницы</a></li>
-                    <li role="presentation"{% if dataType == 'menu' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/menu">Меню</a></li>
-                    <li role="presentation"{% if dataType == 'setting' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/setting">Свойства</a></li>
-                    <li role="presentation"{% if dataType == 'form' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/form">Форма</a></li>
-                    {% for id, caption in app.settings.additionalData %}
-                        <li role="presentation"{% if dataType == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/{{ id }}">{{ caption }}</a></li>
-                    {% endfor %}
-                </ul>
+    {% if dataType == 'page' %}
 
-                <br/>
+        {% set options = [{ 'value': 'default', 'text': 'Обычное' }] %}
+        {% for value, text in app.settings.additionalData %}
+            {% set options = options | merge([{ 'value': value, 'text': 'Элемент "' ~ text ~ '"' }]) %}
+        {% endfor %}
 
-                {% if dataType == 'page' %}
+        {% set menuOptions = [{ 'value': '', 'text': 'Пусто' }] %}
+        {% for menuItem in menu %}
+            {% set menuOptions = menuOptions | merge([{ 'value': menuItem.uri, 'text': menuItem.text }]) %}
+        {% endfor %}
 
-                {% set options = [{ 'value': 'default', 'text': 'Обычное' }] %}
-                {% for value, text in app.settings.additionalData %}
-                    {% set options = options | merge([{ 'value': value, 'text': 'Элемент "' ~ text ~ '"' }]) %}
-                {% endfor %}
+        {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
+            {
+                'name': 'uri',
+                'caption': 'URI',
+                'placeholder': '/newpage',
+                'columns': 2,
+                'link': true
+            }, {
+                'name': 'title',
+                'caption': 'Заголовок',
+                'placeholder': 'Заголовок новой страницы',
+                'columns': 3
+            }, {
+                'name': 'display',
+                'caption': 'Отображение',
+                'placeholder': 'Обычное',
+                'columns': 2,
+                'type': 'select',
+                'options': options
+            }, {
+                'name': 'getAdditional',
+                'caption': 'Дополнительные данные',
+                'placeholder': '',
+                'columns': 2,
+                'type': 'checklist',
+                'variants': app.settings.additionalData
+            }, {
+                'name': 'selectedMenu',
+                'caption': 'Выделенное меню<br/>(с другим uri)',
+                'placeholder': '',
+                'columns': 2,
+                'type': 'select',
+                'options': menuOptions
+            }
+        ]) }}
 
-                {% set menuOptions = [{ 'value': '', 'text': 'Пусто' }] %}
-                {% for menuItem in menu %}
-                    {% set menuOptions = menuOptions | merge([{ 'value': menuItem.uri, 'text': menuItem.text }]) %}
-                {% endfor %}
+    {% elseif dataType == 'menu' %}
 
-                {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
-                    {
-                        'name': 'uri',
-                        'caption': 'URI',
-                        'placeholder': '/newpage',
-                        'columns': 2,
-                        'link': true
-                    }, {
-                        'name': 'title',
-                        'caption': 'Заголовок',
-                        'placeholder': 'Заголовок новой страницы',
-                        'columns': 3
-                    }, {
-                        'name': 'display',
-                        'caption': 'Отображение',
-                        'placeholder': 'Обычное',
-                        'columns': 2,
-                        'type': 'select',
-                        'options': options
-                    }, {
-                        'name': 'getAdditional',
-                        'caption': 'Дополнительные данные',
-                        'placeholder': '',
-                        'columns': 2,
-                        'type': 'checklist',
-                        'variants': app.settings.additionalData
-                    }, {
-                        'name': 'selectedMenu',
-                        'caption': 'Выделенное меню<br/>(с другим uri)',
-                        'placeholder': '',
-                        'columns': 2,
-                        'type': 'select',
-                        'options': menuOptions
-                    }
-                ]) }}
+        {{ admin.table(menu, 'menu', 'Ссылки меню сайта', 'Добавить ссылку', [
+            {
+                'name': 'uri',
+                'caption': 'URI',
+                'placeholder': '/page',
+                'columns': 3,
+                'link': true
+            }, {
+                'name': 'text',
+                'caption': 'Текст',
+                'placeholder': 'Ссылка на страницу',
+                'columns': 8
+            }
+        ]) }}
 
-                {% elseif dataType == 'menu' %}
+    {% elseif dataType == 'setting' %}
 
-                {{ admin.table(menu, 'menu', 'Ссылки меню сайта', 'Добавить ссылку', [
-                    {
-                        'name': 'uri',
-                        'caption': 'URI',
-                        'placeholder': '/page',
-                        'columns': 3,
-                        'link': true
-                    }, {
-                        'name': 'text',
-                        'caption': 'Текст',
-                        'placeholder': 'Ссылка на страницу',
-                        'columns': 8
-                    }
-                ]) }}
+        {{ admin.table(settings, 'setting', 'Общие свойства сайта', 'Добавить свойство', [
+            {
+                'name': 'key',
+                'caption': 'Ключ',
+                'placeholder': 'title',
+                'columns': 3,
+                'readonly': true
+            }, {
+                'name': 'title',
+                'caption': 'Название',
+                'placeholder': 'Заголовок сайта',
+                'columns': 4,
+                'readonly': true
+            }, {
+                'name': 'value',
+                'caption': 'Значение',
+                'placeholder': 'Наш сайт',
+                'columns': 4
+            }
+        ]) }}
 
-                {% elseif dataType == 'setting' %}
+    {% elseif dataType == 'form' %}
 
-                {{ admin.table(settings, 'setting', 'Общие свойства сайта', 'Добавить свойство', [
-                    {
-                        'name': 'key',
-                        'caption': 'Ключ',
-                        'placeholder': 'title',
-                        'columns': 3,
-                        'readonly': true
-                    }, {
-                        'name': 'title',
-                        'caption': 'Название',
-                        'placeholder': 'Заголовок сайта',
-                        'columns': 4,
-                        'readonly': true
-                    }, {
-                        'name': 'value',
-                        'caption': 'Значение',
-                        'placeholder': 'Наш сайт',
-                        'columns': 4
-                    }
-                ]) }}
+        {{ admin.table(formfields, 'formfields', 'Поля формы', 'Добавить поле', [
+            {
+                'name': 'key',
+                'caption': 'Ключ',
+                'placeholder': 'phone',
+                'columns': 3,
+                'readonly': true
+            }, {
+                'name': 'title',
+                'caption': 'Заголовок',
+                'placeholder': 'Телефон',
+                'columns': 4,
+                'readonly': true
+            }
+        ]) }}
 
-                {% elseif dataType == 'form' %}
+    {% endif %}
 
-                {{ admin.table(formfields, 'formfields', 'Поля формы', 'Добавить поле', [
-                    {
-                        'name': 'key',
-                        'caption': 'Ключ',
-                        'placeholder': 'phone',
-                        'columns': 3,
-                        'readonly': true
-                    }, {
-                        'name': 'title',
-                        'caption': 'Заголовок',
-                        'placeholder': 'Телефон',
-                        'columns': 4,
-                        'readonly': true
-                    }
-                ]) }}
-
-                {% else %}
-
-                    {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName], 'Добавить', [
-                        {
-                            'name': 'itemId',
-                            'caption': 'Текстовый идентификатор',
-                            'placeholder': 'item-22-12-2017',
-                            'columns': 3,
-                            'readonly': false
-                        }, {
-                            'name': 'title',
-                            'caption': 'Заголовок',
-                            'placeholder': 'Элемент данных',
-                            'columns': 6,
-                            'readonly': false
-                        }, {
-                            'name': 'visibility',
-                            'caption': 'Видимость',
-                            'placeholder': 'Виден',
-                            'columns': 2,
-                            'readonly': false,
-                            'type': 'select',
-                            'options': [
-                                {'value': 'visible', 'text': 'Виден'},
-                                {'value': 'hidden',  'text': 'Скрыт'}
-                            ]
-                        }
-                    ]) }}
-
-                {% endif %}
-
-                {{ data.removeDocumentModal() }}
-
-            </div>
-        </div>
-    </div>
+    {{ data.removeDocumentModal() }}
 
 {% endmacro %}
 
-{% macro admin(editMode, dataType, pages = [], menu = [], settings = [], formfields = [], additionalCollectionName = '', additionalCollection = []) %}
+{% macro dataPanel(adminType, dataType, additionalCollectionName, additionalCollection) %}
+
+    {% import "/common/components/data.html.twig" as data %}
+    {% import _self as admin %}
+
+    <ul class="nav nav-tabs">
+        {% for id, caption in app.settings.additionalData %}
+            <li role="presentation"{% if dataType == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data/{{ id }}">{{ caption }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <br/>
+
+    {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName], 'Добавить', [
+        {
+            'name': 'itemId',
+            'caption': 'Текстовый идентификатор',
+            'placeholder': 'item-22-12-2017',
+            'columns': 3,
+            'readonly': false
+        }, {
+            'name': 'title',
+            'caption': 'Заголовок',
+            'placeholder': 'Элемент данных',
+            'columns': 6,
+            'readonly': false
+        }, {
+            'name': 'visibility',
+            'caption': 'Видимость',
+            'placeholder': 'Виден',
+            'columns': 2,
+            'readonly': false,
+            'type': 'select',
+            'options': [
+                {'value': 'visible', 'text': 'Виден'},
+                {'value': 'hidden',  'text': 'Скрыт'}
+            ]
+        }
+    ]) }}
+
+    {{ data.removeDocumentModal() }}
+
+{% endmacro %}
+
+{% macro admin(editMode, adminType, dataType, pages = [], menu = [], settings = [], formfields = [], additionalCollectionName = '', additionalCollection = []) %}
 
     {% import _self as admin %}
 
     {% if editMode %}
-        {{ admin.adminPanel(dataType, pages, menu, settings, formfields, additionalCollectionName, additionalCollection) }}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <h1>Панель управления</h1>
+
+                    <ul class="nav nav-tabs">
+                        <li role="presentation"{% if adminType == 'standard' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard">Стандартные данные</a></li>
+                        <li role="presentation"{% if adminType == 'data' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data">Данные</a></li>
+                        <li role="presentation"{% if adminType == 'panels' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/panels">Данные</a></li>
+                    </ul>
+
+                    <br/>
+
+                    {% if adminType == 'standard' %}
+                        {{ admin.standardPanel(adminType, dataType, pages, menu, settings, formfields) }}
+                    {% elseif adminType == 'data' %}
+                        {{ admin.dataPanel(adminType, dataType, additionalCollectionName, additionalCollection) }}
+                    {% elseif adminType == 'panels' %}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
     {% else %}
         {{ admin.loginForm() }}
     {% endif %}

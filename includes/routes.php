@@ -13,9 +13,10 @@ if ($app['pageService']->isEditMode()) {
     require_once __DIR__.'/../includes/routesApi.php';
 }
 
-$app->match($app['settings']['admin']['page']['uri'] . '/{dataType}', function ($dataType) use ($app) {
-    return $app['pageService']->renderAdminPanel($dataType);
+$app->match($app['settings']['admin']['page']['uri'] . '/{adminType}/{dataType}', function ($adminType, $dataType) use ($app) {
+    return $app['pageService']->renderAdminPanel($adminType, $dataType);
 })->method('GET|POST')
+    ->value('adminType', 'standard')
     ->value('dataType', 'page')
     ->value('collection', null);
 
