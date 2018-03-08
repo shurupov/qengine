@@ -5,6 +5,32 @@
 
 {% block body %}
     <div class="admin-panel-wrapper">
-        {{ admin.admin(editMode, adminType, dataType, pageList, menu, settings, formfields, additionalCollectionName, additionalCollection) }}
+        {% if editMode %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>Панель управления</h1>
+
+                        <ul class="nav nav-tabs">
+                            <li role="presentation"{% if adminType == 'standard' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard">Стандартные данные</a></li>
+                            <li role="presentation"{% if adminType == 'data' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data">Данные</a></li>
+                            <li role="presentation"{% if adminType == 'panels' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/panels">Панели</a></li>
+                        </ul>
+
+                        <br/>
+
+                        {% if adminType == 'standard' %}
+                            {{ admin.standardPanel(dataType, list, menu, settings) }}
+                        {% elseif adminType == 'data' %}
+                            {{ admin.dataPanel(dataType, additionalCollection, linkPrefix) }}
+                        {% elseif adminType == 'panels' %}
+                            {{ admin.panelsPanel(panel, panels, panelData, method) }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {{ admin.loginForm() }}
+        {% endif %}
     </div>
 {% endblock %}
