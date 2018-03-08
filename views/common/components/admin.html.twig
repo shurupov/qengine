@@ -83,7 +83,7 @@
                                 {% else %}
                                     {{ data.text(type, item[field.name], item._id, field.name, not field.readonly) }}
                                 {% endif %}
-                                {% if field.link %} <a href="{{ item[field.name] }}">Перейти</a>{% endif %}
+                                {% if field.link %} <a href="{% if field.linkPrefix is not empty %}{{ field.linkPrefix }}{% endif %}{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
                         <div class="col-md-1"><a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
@@ -98,7 +98,7 @@
 
 {% endmacro %}
 
-{% macro standardPanel(adminType, dataType, pages, menu, settings, formfields, collectionName, additionalCollection) %}
+{% macro standardPanel(dataType, list, menu, settings, formfields, collectionName, additionalCollection) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -124,7 +124,7 @@
             {% set menuOptions = menuOptions | merge([{ 'value': menuItem.uri, 'text': menuItem.text }]) %}
         {% endfor %}
 
-        {{ admin.table(pages, 'page', 'Страницы сайта', 'Добавить страницу', [
+        {{ admin.table(list, 'page', 'Страницы сайта', 'Добавить страницу', [
             {
                 'name': 'uri',
                 'caption': 'URI',
@@ -162,7 +162,7 @@
 
     {% elseif dataType == 'menu' %}
 
-        {{ admin.table(menu, 'menu', 'Ссылки меню сайта', 'Добавить ссылку', [
+        {{ admin.table(list, 'menu', 'Ссылки меню сайта', 'Добавить ссылку', [
             {
                 'name': 'uri',
                 'caption': 'URI',
@@ -202,7 +202,7 @@
 
     {% elseif dataType == 'form' %}
 
-        {{ admin.table(formfields, 'formfields', 'Поля формы', 'Добавить поле', [
+        {{ admin.table(list, 'formfields', 'Поля формы', 'Добавить поле', [
             {
                 'name': 'key',
                 'caption': 'Ключ',
@@ -224,14 +224,14 @@
 
 {% endmacro %}
 
-{% macro dataPanel(adminType, dataType, additionalCollectionName, additionalCollection) %}
+{% macro dataPanel(collectionName, additionalCollection, linkPrefix) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
 
     <ul class="nav nav-tabs">
         {% for id, caption in app.settings.additionalData %}
-            <li role="presentation"{% if dataType == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data/{{ id }}">{{ caption }}</a></li>
+            <li role="presentation"{% if collectionName == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data/{{ id }}">{{ caption }}</a></li>
         {% endfor %}
     </ul>
 
@@ -243,7 +243,9 @@
             'caption': 'Текстовый идентификатор',
             'placeholder': 'item-22-12-2017',
             'columns': 3,
-            'readonly': false
+            'readonly': false,
+            'link': (linkPrefix is not empty),
+            'linkPrefix': linkPrefix
         }, {
             'name': 'title',
             'caption': 'Заголовок',
@@ -268,38 +270,22 @@
 
 {% endmacro %}
 
-{% macro admin(editMode, adminType, dataType, pages = [], menu = [], settings = [], formfields = [], additionalCollectionName = '', additionalCollection = []) %}
+{% macro panelsPanel(selectedName, panels, panelData, method) %}
 
+    {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
 
-    {% if editMode %}
+    <ul class="nav nav-tabs">
+        {% for panel in panels %}
+            <li role="presentation"{% if selectedName == panel.name %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/panels/{{ panel.name }}">{{ panel.title }}</a></li>
+        {% endfor %}
+    </ul>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
+    <br/>
 
-                    <h1>Панель управления</h1>
-
-                    <ul class="nav nav-tabs">
-                        <li role="presentation"{% if adminType == 'standard' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard">Стандартные данные</a></li>
-                        <li role="presentation"{% if adminType == 'data' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data">Данные</a></li>
-                        <li role="presentation"{% if adminType == 'panels' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/panels">Панели</a></li>
-                    </ul>
-
-                    <br/>
-
-                    {% if adminType == 'standard' %}
-                        {{ admin.standardPanel(adminType, dataType, pages, menu, settings, formfields) }}
-                    {% elseif adminType == 'data' %}
-                        {{ admin.dataPanel(adminType, dataType, additionalCollectionName, additionalCollection) }}
-                    {% elseif adminType == 'panels' %}
-                    {% endif %}
-
-                </div>
-            </div>
-        </div>
-    {% else %}
-        {{ admin.loginForm() }}
+    {% if selectedName is defined and selectedName != 'page' %}
+        {% include "/panels/" ~ selectedName ~ "/views/" ~ method ~".html.twig" with panelData only %}
     {% endif %}
 
 {% endmacro %}
+

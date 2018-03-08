@@ -14,10 +14,12 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views/',
     'twig.options' => array(
         'cache' => ( $app['settings']['debug'] ? false : __DIR__.'/../cache/views/' ),
-        'strict_variables' => false
+        'strict_variables' => false,
+        'debug' => $app['settings']['debug']
     ),
-
 ));
+
+$app['twig']->addExtension(new Twig_Extension_Debug());
 
 $app->register(new Silex\Provider\SwiftmailerServiceProvider(), [
     'swiftmailer.use_spool' => false,
