@@ -143,7 +143,7 @@ class PageService implements ServiceProviderInterface
     private function renderDataAdminPanel($dataType)
     {
         if (empty($dataType)) {
-            foreach ($this->app['settings']['additionalData'] as $collectionName=>$collectionTitle) {
+            foreach ($this->app['settings']['additionalData'] as $collectionName=>$collection) {
                 return new RedirectResponse($this->app['settings']['admin']['page']['uri'].'/'.self::DATA_ADMIN_PANEL.'/'.$collectionName);
             }
         }

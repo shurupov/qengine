@@ -21,7 +21,7 @@
 
             <div class="col-sm-offset-3 col-md-offset-4 col-sm-6 col-md-4">
 
-                <div class="title"><span>Вход в админку</span></div>
+                <div class="title"><span>Вход в панель управления</span></div>
 
                 <form action="" method="post">
 
@@ -115,8 +115,13 @@
     {% if dataType == 'page' %}
 
         {% set options = [{ 'value': 'default', 'text': 'Обычное' }] %}
-        {% for value, text in app.settings.additionalData %}
-            {% set options = options | merge([{ 'value': value, 'text': 'Элемент "' ~ text ~ '"' }]) %}
+        {% for value, collection in app.settings.additionalData %}
+            {% set options = options | merge([{ 'value': value, 'text': 'Элемент "' ~ collection.title ~ '"' }]) %}
+        {% endfor %}
+
+        {% set additional = [] %}
+        {% for value, collection in app.settings.additionalData %}
+            {% set additional = additional | merge([{ 'value': value, 'text': collection.title }]) %}
         {% endfor %}
 
         {% set menuOptions = [{ 'value': '', 'text': 'Пусто' }] %}
@@ -149,7 +154,7 @@
                 'placeholder': '',
                 'columns': 2,
                 'type': 'checklist',
-                'variants': app.settings.additionalData
+                'variants': additional
             }, {
                 'name': 'selectedMenu',
                 'caption': 'Выделенное меню<br/>(с другим uri)',
@@ -230,14 +235,14 @@
     {% import _self as admin %}
 
     <ul class="nav nav-tabs">
-        {% for id, caption in app.settings.additionalData %}
-            <li role="presentation"{% if collectionName == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data/{{ id }}">{{ caption }}</a></li>
+        {% for id, collection in app.settings.additionalData %}
+            <li role="presentation"{% if collectionName == id %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data/{{ id }}">{{ collection.title }}</a></li>
         {% endfor %}
     </ul>
 
     <br/>
 
-    {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName], 'Добавить', [
+    {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName].title, 'Добавить', [
         {
             'name': 'itemId',
             'caption': 'Текстовый идентификатор',
