@@ -242,34 +242,51 @@
 
     <br/>
 
-    {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName].title, 'Добавить', [
-        {
-            'name': 'itemId',
-            'caption': 'Текстовый идентификатор',
-            'placeholder': 'item-22-12-2017',
-            'columns': 3,
-            'readonly': false,
-            'link': (linkPrefix is not empty),
-            'linkPrefix': linkPrefix
-        }, {
-            'name': 'title',
-            'caption': 'Заголовок',
-            'placeholder': 'Элемент данных',
-            'columns': 6,
-            'readonly': false
-        }, {
-            'name': 'visibility',
-            'caption': 'Видимость',
-            'placeholder': 'Виден',
-            'columns': 2,
-            'readonly': false,
-            'type': 'select',
-            'options': [
-                {'value': 'visible', 'text': 'Виден'},
-                {'value': 'hidden',  'text': 'Скрыт'}
-            ]
-        }
-    ]) }}
+    {% if app.settings.additionalData[collectionName].fields is defined %}
+
+        {% set tableSettings = [] %}
+        {% for fieldName, fieldTitle in app.settings.additionalData[collectionName].fields %}
+            {% set tableSettings = tableSettings | merge([{
+                'name': fieldName,
+                'caption': fieldTitle,
+                'columns' : (12 // app.settings.additionalData[collectionName].fields | length - (loop.last ? 1 : 0))
+            }]) %}
+        {% endfor %}
+
+        {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName].title, 'Добавить', tableSettings) }}
+
+    {% else %}
+
+        {{ admin.table(additionalCollection, collectionName, app.settings.additionalData[collectionName].title, 'Добавить', [
+            {
+                'name': 'itemId',
+                'caption': 'Текстовый идентификатор',
+                'placeholder': 'item-22-12-2017',
+                'columns': 3,
+                'readonly': false,
+                'link': (linkPrefix is not empty),
+                'linkPrefix': linkPrefix
+            }, {
+                'name': 'title',
+                'caption': 'Заголовок',
+                'placeholder': 'Элемент данных',
+                'columns': 6,
+                'readonly': false
+            }, {
+                'name': 'visibility',
+                'caption': 'Видимость',
+                'placeholder': 'Виден',
+                'columns': 2,
+                'readonly': false,
+                'type': 'select',
+                'options': [
+                    {'value': 'visible', 'text': 'Виден'},
+                    {'value': 'hidden',  'text': 'Скрыт'}
+                ]
+            }
+        ]) }}
+
+    {% endif %}
 
     {{ data.removeDocumentModal() }}
 
