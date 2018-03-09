@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Yaml\Yaml;
 
 class PageService implements ServiceProviderInterface
 {
@@ -90,7 +91,7 @@ class PageService implements ServiceProviderInterface
                     continue;
                 }
                 $panelFound = $panelFound || ($dir == $panel);
-                $settings = json_decode( file_get_contents($panelPath.$dir.'/settings.json'), true );
+                $settings = Yaml::parseFile($panelPath.$dir.'/settings.yml');
                 $panels[] = [
                     'name' => $dir,
                     'title' => $settings['title']
