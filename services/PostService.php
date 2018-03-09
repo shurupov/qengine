@@ -49,7 +49,7 @@ class PostService implements ServiceProviderInterface
 
         $message = new \Swift_Message();
 
-        $embedImage = $message->embed(Swift_Image::fromPath($this->app['settings']['form']['logo']));
+        $embedImage = $message->embed(Swift_Image::fromPath(INDEX_PATH . $this->app['settings']['form']['logo']));
 
         $message->setSubject($contentParameters['subject'])
             ->setFrom($this->app['settings']['mail']['emailFrom'] ? $this->app['settings']['mail']['emailFrom'] : $this->app['settings']['mail']['username'])

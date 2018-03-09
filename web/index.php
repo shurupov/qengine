@@ -1,5 +1,7 @@
 <?php
 
+use Symfony\Component\Yaml\Yaml;
+
 define('INDEX_PATH', __DIR__);
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -8,7 +10,7 @@ require_once __DIR__.'/../includes/load.php';
 
 $app = new Silex\Application();
 
-require_once __DIR__ . '/../settings/settings.php';
+$app['settings'] = Yaml::parseFile('../settings/settings.yml');
 
 setlocale(LC_ALL, $app['settings']['locale']);
 

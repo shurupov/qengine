@@ -1,1 +1,0 @@
-../../qesetting/settings.php
