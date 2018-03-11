@@ -23,7 +23,7 @@ class PostService implements ServiceProviderInterface
 
         $fields = [];
 
-        foreach ($this->app['dataService']->getDocuments('formfields') as $document) {
+        foreach ($this->app['dataService']->getDocuments('form') as $document) {
             $key = $document['key'];
             if (array_key_exists($key, $enteredData)) {
                 $fields[$document['key']] = [

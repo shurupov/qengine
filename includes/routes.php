@@ -28,8 +28,8 @@ $app->post($app['settings']['form']['postControllerUri'], function (Request $req
     return $app['postService']->post($request->request->all());
 });
 
-$app->get('/{slug}/{id}', function ($slug, $id, Request $request) use ($app) {
-    return $app['pageService']->render('/' . $slug, $id, $request);
+$app->get('/{slug}/{id}', function ($slug, $id) use ($app) {
+    return $app['pageService']->render('/' . $slug, $id);
 })  ->value('id', null)
     ->value('slug', '');
 

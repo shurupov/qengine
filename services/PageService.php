@@ -183,7 +183,7 @@ class PageService implements ServiceProviderInterface
         }
     }
 
-    public function render($pageSlug, $itemId, Request $request)
+    public function render($pageSlug, $itemId = null)
     {
 
         $page = $this->app['dataService']->getPage($pageSlug);
@@ -206,7 +206,7 @@ class PageService implements ServiceProviderInterface
             return $this->renderBody([
                 'page' => $page,
                 'additional' => $additional,
-                'request' => $request
+                'request' => $this->request
             ]);
         }
 
@@ -220,7 +220,7 @@ class PageService implements ServiceProviderInterface
                 'item' => $item,
                 'pageUri' => $pageSlug,
                 'itemId' => $itemId,
-                'request' => $request
+                'request' => $this->request
             ]);
         }
 

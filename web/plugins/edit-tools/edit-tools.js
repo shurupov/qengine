@@ -198,3 +198,7 @@
         });
 
     }
+
+    function resize_and_crop_uploaded_image($input) {
+
+    }

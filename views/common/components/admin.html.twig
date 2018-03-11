@@ -98,7 +98,7 @@
 
 {% endmacro %}
 
-{% macro standardPanel(dataType, list, menu, settings, formfields, collectionName, additionalCollection) %}
+{% macro standardPanel(dataType, list, menu, settings) %}
 
     {% import "/common/components/data.html.twig" as data %}
     {% import _self as admin %}
@@ -207,19 +207,19 @@
 
     {% elseif dataType == 'form' %}
 
-        {{ admin.table(list, 'formfields', 'Поля формы', 'Добавить поле', [
+        {{ admin.table(list, 'form', 'Поля формы', 'Добавить поле', [
             {
                 'name': 'key',
                 'caption': 'Ключ',
                 'placeholder': 'phone',
                 'columns': 3,
-                'readonly': true
+                'readonly': false
             }, {
                 'name': 'title',
                 'caption': 'Заголовок',
                 'placeholder': 'Телефон',
                 'columns': 4,
-                'readonly': true
+                'readonly': false
             }
         ]) }}
 
