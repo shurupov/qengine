@@ -1,4 +1,5 @@
 <?php
+$version = "9.12.1";
 if (session_id() == '') session_start();
 
 mb_internal_encoding('UTF-8');
@@ -8,6 +9,7 @@ mb_language('uni');
 mb_regex_encoding('UTF-8');
 ob_start('mb_output_handler');
 date_default_timezone_set('Europe/Rome');
+setlocale(LC_CTYPE, 'ru_RU'); //correct transliteration
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +65,7 @@ $config = array(
 	| without final / (DON'T TOUCH)
 	|
 	*/
-	'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'],
-
+	'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http"). "://". @$_SERVER['HTTP_HOST'],
 	/*
 	|--------------------------------------------------------------------------
 	| path from base_url to base of upload folder
@@ -106,23 +107,29 @@ $config = array(
 	| upload dir will be ftp_base_folder + upload_dir so without final /
 	|
 	*/
-	'ftp_host'         => false,
+	'ftp_host'         => false, //put the FTP host
 	'ftp_user'         => "user",
 	'ftp_pass'         => "pass",
 	'ftp_base_folder'  => "base_folder",
 	'ftp_base_url'     => "http://site to ftp root",
-	/* --------------------------------------------------------------------------
-	| path from ftp_base_folder to base of thumbs folder with start and final |
-	|--------------------------------------------------------------------------*/
+	// Directory where place files before to send to FTP with final /
+	'ftp_temp_folder'  => "../temp/",
+	/*
+	|---------------------------------------------------------------------------
+	| path from ftp_base_folder to base of thumbs folder with start and final /
+	|---------------------------------------------------------------------------
+	*/
 	'ftp_thumbs_dir' => '/thumbs/',
 	'ftp_ssl' => false,
 	'ftp_port' => 21,
 
-
-	// 'ftp_host'         => "s108707.gridserver.com",
-	// 'ftp_user'         => "test@responsivefilemanager.com",
-	// 'ftp_pass'         => "Test.1234",
-	// 'ftp_base_folder'  => "/domains/responsivefilemanager.com/html",
+	/* EXAMPLE
+	'ftp_host'         => "host.com",
+	'ftp_user'         => "test@host.com",
+	'ftp_pass'         => "pass.1",
+	'ftp_base_folder'  => "",
+	'ftp_base_url'     => "http://host.com/testFTP",
+	*/
 
 
 	/*
@@ -165,7 +172,7 @@ $config = array(
 	| in Megabytes
 	|
 	*/
-	'MaxSizeUpload' => 100,
+	'MaxSizeUpload' => 10000,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -173,7 +180,8 @@ $config = array(
 	|--------------------------------------------------------------------------
 	|
 	*/
-	'fileFolderPermission' => 0755,
+	'filePermission' => 0755,
+	'folderPermission' => 0777,
 
 
 	/*
@@ -181,7 +189,7 @@ $config = array(
 	| default language file name
 	|--------------------------------------------------------------------------
 	*/
-	'default_language' => "ru",
+	'default_language' => "ru_RU",
 
 	/*
 	|--------------------------------------------------------------------------
@@ -208,7 +216,7 @@ $config = array(
 	//active or deactive the transliteration (mean convert all strange characters in A..Za..z0..9 characters)
 	'transliteration'						=> false,
 	//convert all spaces on files name and folders name with $replace_with variable
-	'convert_spaces'						=> false,
+	'convert_spaces'						=> true,
 	//convert all spaces on files name and folders name this value
 	'replace_with'							=> "_",
 	//convert to lowercase the files and folders name
@@ -216,10 +224,6 @@ $config = array(
 
 	//Add ?484899493349 (time value) to returned images to prevent cache
 	'add_time_to_img'                       => false,
-
-	// -1: There is no lazy loading at all, 0: Always lazy-load images, 0+: The minimum number of the files in a directory
-	// when lazy loading should be turned on.
-	'lazy_loading_file_number_threshold'	=> 0,
 
 
 	//*******************************************
@@ -317,14 +321,10 @@ $config = array(
 	// if you want you can add html,css etc.
 	// but for security reasons it's NOT RECOMMENDED!
 	'editable_text_file_exts'                 => array( 'txt', 'log', 'xml', 'html', 'css', 'htm', 'js' ),
-
+	
 	// Preview with Google Documents
 	'googledoc_enabled'                       => true,
-	'googledoc_file_exts'                     => array( 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx' ),
-
-	// Preview with Viewer.js
-	'viewerjs_enabled'                        => true,
-	'viewerjs_file_exts'                      => array( 'pdf', 'odt', 'odp', 'ods' ),
+	'googledoc_file_exts'                     => array( 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx' , 'pdf', 'odt', 'odp', 'ods'),
 
 	// defines size limit for paste in MB / operation
 	// set 'FALSE' for no limit
@@ -371,12 +371,6 @@ $config = array(
 	* URL upload
 	*******************/
 	'url_upload'                             => true,
-
-	/*******************
-	* JAVA upload
-	*******************/
-	'java_upload'                             => true,
-	'JAVAMaxSizeUpload'                       => 200, //Gb
 
 
 	//************************************
@@ -436,8 +430,6 @@ $config = array(
 return array_merge(
 	$config,
 	array(
-		'MaxSizeUpload' => ((int)(ini_get('post_max_size')) < $config['MaxSizeUpload'])
-			? (int)(ini_get('post_max_size')) : $config['MaxSizeUpload'],
 		'ext'=> array_merge(
 			$config['ext_img'],
 			$config['ext_file'],
