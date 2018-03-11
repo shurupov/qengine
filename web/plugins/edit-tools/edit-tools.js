@@ -95,6 +95,8 @@
 
     });
 
+    $.fancybox.defaults.iframe.scrolling = "auto";
+
     $('.btn-add-image-preview').click(function () {
 
 
