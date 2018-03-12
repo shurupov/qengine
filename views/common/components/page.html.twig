@@ -32,24 +32,24 @@
     {{ data.checklist('page', value, id, path, editMode, variants, inModal) }}
 {% endmacro %}
 
-{% macro image(value, id, path, editMode = false, attrs = {}, default = "") %}
+{% macro image(value, id, path, editMode = false, attrs = {}, default = "", settings = {}) %}
     {%- import '/common/components/data.html.twig' as data -%}
-    {{- data.image('page', value, id, path, editMode, attrs, default) -}}
+    {{- data.image('page', value, id, path, editMode, attrs, default, settings) -}}
 {% endmacro %}
 
-{% macro setImageButton(value, id, path, editMode = false, default = "") %}
+{% macro setImageButton(value, id, path, editMode = false, settings = {}) %}
     {% import '/common/components/data.html.twig' as data %}
-    {{ data.setImageButton('page', value, id, path, editMode, default) }}
+    {{ data.setImageButton('page', value, id, path, editMode, settings) }}
 {% endmacro %}
 
-{% macro setImagePreviewButton(value, id, path, editMode = false, default = '/source/previewDefault.jpg') %}
+{% macro setImagePreviewButton(value, id, path, editMode = false, default = '/source/previewDefault.jpg', settings = {}) %}
     {% import '/common/components/data.html.twig' as data %}
-    {{ data.setImagePreviewButton(type, value, id, path, editMode, default) }}
+    {{ data.setImagePreviewButton(type, value, id, path, editMode, width, height, default) }}
 {% endmacro %}
 
-{% macro addImagePreviewButton(path, id, editMode = false, caption = "Добавить элемент") %}
+{% macro addImagePreviewButton(path, id, editMode = false, caption = "Добавить элемент", settings = {}) %}
     {% import '/common/components/data.html.twig' as data %}
-    {{ data.addImagePreviewButton('page', path, id, editMode, caption) }}
+    {{ data.addImagePreviewButton('page', path, id, editMode, caption, settings) }}
 {% endmacro %}
 
 {% macro select(value, id, path, editMode = false, options = [], inSettings = false) %}

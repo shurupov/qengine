@@ -37,6 +37,7 @@ $app->register(new Lalbert\Silex\Provider\MongoDBServiceProvider(), [
 $app->register(new Qe\PostService());
 $app->register(new Qe\DataService());
 $app->register(new Qe\PageService());
+$app->register(new Qe\PictureService());
 
 // Вывод логов
 $logger = new Swift_Plugins_Loggers_ArrayLogger();
