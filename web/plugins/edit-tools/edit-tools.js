@@ -103,9 +103,11 @@
         var id = $(this).data('pk');
         var path = $(this).data('path') + '.' + str_rand();
         var inputId = $(this).data('type') + '-' + $(this).data('pk') + '-' + path.split('.').join('-');
+        var width = $(this).data('width');
+        var height = $(this).data('height');
 
         var html = '<div class="pull-left editor-image-list-element" id="' + inputId + '-container">' +
-            '<input type="hidden" id="' + inputId + '" data-type="' + $(this).data('type') + '" data-pk="' + id + '" data-path="' + path + '">' +
+            '<input type="hidden" id="' + inputId + '" data-type="' + $(this).data('type') + '" data-pk="' + id + '" data-path="' + path + '" data-width="' + width + '" data-height="' + height + '">' +
             '<edim id="' + inputId + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + inputId + '" data-type="iframe"><img id="' + inputId + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
             '<reel class="btn-remove-element" data-path="' + inputId + '" data-pk="" data-inModal="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
         '</div>';
@@ -182,23 +184,22 @@
 
         $.ajax({
             type: "POST",
-            url: '/e/' + $input.data('type') + '/edit',
+            url: '/e/' + $input.data('type') + '/picture',
             data: {
                 pk : $input.data('pk'),
                 name: $input.data('path'),
-                value: uri
+                value: uri,
+                width: $input.data('width'),
+                height: $input.data('height')
             },
-            success: function () {
-                $('#' + fieldId + '-image').attr('src', uri);
+            success: function (response) {
+                $('#' + fieldId + '-image').attr('src', response.uri);
                 $('#' + fieldId + '-preview').attr('src', uri.replace('/source/', '/thumbs/'));
-                $('[image-id="' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + '"]').attr('src', uri);
-                $('[background-id="' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + '"]').css('background-image', 'url("' + uri + '")');
+                $('[image-id="' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + '"]').attr('src', response.uri);
+                $('[background-id="' + $input.data('type') + '-' + $input.data('pk') + '-' + $input.data('path') + '"]').css('background-image', 'url("' + response.uri + '")');
             },
             dataType: 'json'
         });
 
     }
 
-    function resize_and_crop_uploaded_image($input) {
-
-    }

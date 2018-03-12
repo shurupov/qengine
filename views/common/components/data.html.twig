@@ -49,46 +49,43 @@
     {%- endif -%}
 {% endmacro %}
 
-{% macro image(type, value, id, path, editMode = false, attrs = {}, default = "") %}
+{% macro image(type, value, id, path, editMode = false, attrs = {}, default = "", settings = {}) %}
     {% import _self as data %}
     {% if value is empty %}
         {% set value = default %}
     {% endif %}
     {% if editMode %}
         {% set inputId = 'i' ~ random(10000) %}
-        <input type="hidden" data-type="{{ type }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-path="{{ path }}" />
+        <input type="hidden" data-type="{{ type }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-path="{{ path }}" data-width="{{ settings.width | default(0) }}" data-height="{{ settings.height | default(0) }}"/>
         <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><img id="{{ inputId | raw }}-image" src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}></edim>
     {% else %}
         <img src="{{ value | raw }}"{% for key,val in attrs %} {{ key | raw }}="{{ val | raw }}"{% endfor %}>
     {% endif %}
 {% endmacro %}
 
-{% macro setImageButton(type, value, id, path, editMode = false, default = "") %}
+{% macro setImageButton(type, value, id, path, editMode = false, settings = {}) %}
     {% import _self as data %}
-    {% if value is empty %}
-        {% set value = default %}
-    {% endif %}
     {% if editMode %}
         {% set inputId = 'i' ~ random(10000) %}
-        <input type="hidden" data-type="{{ type }}" data-path="{{ path }}" id="{{ inputId | raw }}" data-pk="{{ id }}" />
+        <input type="hidden" data-type="{{ type }}" data-path="{{ path }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-width="{{ settings.width | default(0) }}" data-height="{{ settings.height | default(0) }}"/>
         <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></edim>
     {% endif %}
 {% endmacro %}
 
-{% macro setImagePreviewButton(type, value, id, path, editMode = false, default = '/source/previewDefault.jpg') %}
+{% macro setImagePreviewButton(type, value, id, path, editMode = false, default = '/source/previewDefault.jpg', settings = {}) %}
     {% import _self as data %}
     {% if value is empty %}
         {% set value = default %}
     {% endif %}
     {% if editMode %}
         {% set inputId = 'i' ~ random(10000) %}
-        <input type="hidden" data-type="{{ type }}" data-path="{{ path }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-bg-el="" />
+        <input type="hidden" data-type="{{ type }}" data-path="{{ path }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-width="{{ settings.width | default(0) }}" data-height="{{ settings.height | default(0) }}"/>
         <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><img id="{{ inputId | raw }}-preview" src="{{ value | replace({'/source/': '/thumbs/'}) }}" /></edim>
     {% endif %}
 {% endmacro %}
 
-{% macro addImagePreviewButton(type, path, id, editMode = false, caption = "Добавить элемент") %}
-    {% if editMode %}<button type="button" class="btn btn-primary btn-add-image-preview" data-type="{{ type }}" data-path="{{ path | raw }}" data-pk="{{ id }}">{{ caption }}</button>{% endif %}
+{% macro addImagePreviewButton(type, path, id, editMode = false, caption = "Добавить элемент", settings = {}) %}
+    {% if editMode %}<button type="button" class="btn btn-primary btn-add-image-preview" data-type="{{ type }}" data-path="{{ path | raw }}" data-pk="{{ id }}" data-width="{{ settings.width | default(0) }}" data-height="{{ settings.height | default(0) }}">{{ caption }}</button>{% endif %}
 {% endmacro %}
 
 {% macro select(type, value, id, path, editMode = false, options = [], inSettings = false) %}
@@ -279,7 +276,7 @@
                                                 {% endfor %}
                                             </div>
                                             <div class="clearfix"></div>
-                                            {{ data.addImagePreviewButton(collection, cPath, itemId, editMode, "Добавить картинку") }}
+                                            {{ data.addImagePreviewButton(collection, cPath, itemId, editMode, "Добавить картинку", editor.settings) }}
                                         </td>
                                     </tr>
                                 {% elseif editor.type == "list" and editor.listType == "text" %}

@@ -94,3 +94,24 @@ $app->post('/e/page/block/add', function (Request $request) use ($app) {
         ]);
     }
 });
+
+$app->post('/e/{collection}/picture', function (Request $request, $collection) use ($app) {
+    try {
+        $uri = $app['pictureService']->adjustImage(
+            $request->request->get('pk'),
+            $request->request->get('name'),
+            $request->request->get('value'),
+            $request->request->get('width'),
+            $request->request->get('height'),
+            $collection
+        );
+        return new JsonResponse(['status' => 'ok', 'uri' => $uri]);
+    } catch (\Exception $e) {
+        return new JsonResponse([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ]);
+    }
+});
