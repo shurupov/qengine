@@ -28,6 +28,10 @@ class PictureService implements ServiceProviderInterface
             return $sourceUri;
         }
 
+        $targetSettings = array_merge([
+            'quality' => 75
+        ], $targetSettings);
+
         $uri = $sourceUri;
 
         if (!empty($targetSettings['width']) && !empty($targetSettings['height'])) {
@@ -41,7 +45,8 @@ class PictureService implements ServiceProviderInterface
                 INDEX_PATH . $sourceUri,
                 INDEX_PATH.$folder, $filename,
                 $targetSettings['width'], $targetSettings['height'],
-                ( !empty($targetSettings['position']) ? $targetSettings['position'] : 'MM' )
+                ( !empty($targetSettings['position']) ? $targetSettings['position'] : 'MM' ),
+                $targetSettings['quality']
             );
 
             $uri = $folder.'/'.$filename;
@@ -56,7 +61,8 @@ class PictureService implements ServiceProviderInterface
             $this->resize(
                 INDEX_PATH . $sourceUri,
                 INDEX_PATH.$folder, $filename,
-                $targetSettings['width'], null
+                $targetSettings['width'], null,
+                $targetSettings['quality']
             );
 
             $uri = $folder.'/'.$filename;
@@ -70,7 +76,8 @@ class PictureService implements ServiceProviderInterface
             $this->resize(
                 INDEX_PATH . $sourceUri,
                 INDEX_PATH.$folder, $filename,
-                null, $targetSettings['height']
+                null, $targetSettings['height'],
+                $targetSettings['quality']
             );
 
             $uri = $folder.'/'.$filename;
@@ -94,16 +101,16 @@ class PictureService implements ServiceProviderInterface
         );
     }
 
-    private function resize($sourcePath, $destinationFolder, $destinationFileName, $width, $height)
+    private function resize($sourcePath, $destinationFolder, $destinationFileName, $width, $height, $quality = 75)
     {
         $image = ImageWorkshop::initFromPath($sourcePath);
 
         $image->resizeInPixel($width, $height, true);
 
-        $image->save($destinationFolder, $destinationFileName);
+        $image->save($destinationFolder, $destinationFileName, true, true, $quality);
     }
 
-    private function resizeAndCrop($sourcePath, $destinationFolder, $destinationFileName, $width, $height, $position = 'MM')
+    private function resizeAndCrop($sourcePath, $destinationFolder, $destinationFileName, $width, $height, $position = 'MM', $quality = 75)
     {
         $image = ImageWorkshop::initFromPath($sourcePath);
 
@@ -115,7 +122,7 @@ class PictureService implements ServiceProviderInterface
 
         $image->resizeInPixel($width, $height, true);
 
-        $image->save($destinationFolder, $destinationFileName);
+        $image->save($destinationFolder, $destinationFileName, true, true, $quality);
 
     }
 
