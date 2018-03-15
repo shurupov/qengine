@@ -101,8 +101,7 @@ $app->post('/e/{collection}/picture', function (Request $request, $collection) u
             $request->request->get('pk'),
             $request->request->get('name'),
             $request->request->get('value'),
-            $request->request->get('width'),
-            $request->request->get('height'),
+            $request->request->get('settings'),
             $collection
         );
         return new JsonResponse(['status' => 'ok', 'uri' => $uri]);

@@ -22,54 +22,55 @@ class PictureService implements ServiceProviderInterface
     /* @var DataService $dataService */
     private $dataService;
 
-    public function adjustImage($id, $path, $sourceUri, $targetWidth = null, $targetHeight = null, $collection = 'page')
+    public function adjustImage($id, $path, $sourceUri, $targetSettings, $collection = 'page')
     {
-        if (empty($targetWidth) && empty($targetHeight)) {
+        if (empty($targetSettings['width']) && empty($targetSettings['height'])) {
             return $sourceUri;
         }
 
         $uri = $sourceUri;
 
-        if (!empty($targetWidth) && !empty($targetHeight)) {
+        if (!empty($targetSettings['width']) && !empty($targetSettings['height'])) {
 
             $pathInfo = pathinfo($sourceUri);
 
             $folder = str_replace('/source/', '/source/generated/', $pathInfo['dirname']);
-            $filename = $pathInfo['filename'].'-'.$targetWidth.'x'.$targetHeight.'.'.$pathInfo['extension'];
+            $filename = $pathInfo['filename'].'-'.$targetSettings['width'].'x'.$targetSettings['height'].'.'.$pathInfo['extension'];
 
             $this->resizeAndCrop(
                 INDEX_PATH . $sourceUri,
                 INDEX_PATH.$folder, $filename,
-                $targetWidth, $targetHeight
+                $targetSettings['width'], $targetSettings['height'],
+                ( !empty($targetSettings['position']) ? $targetSettings['position'] : 'MM' )
             );
 
             $uri = $folder.'/'.$filename;
 
         }
-        elseif (!empty($targetWidth) && empty($targetHeight)) { //Width exists, height doesn't
+        elseif (!empty($targetSettings['width']) && empty($targetSettings['height'])) { //Width exists, height doesn't
             $pathInfo = pathinfo($sourceUri);
 
             $folder = str_replace('/source/', '/source/generated/', $pathInfo['dirname']);
-            $filename = $pathInfo['filename'].'-w'.$targetWidth.'.'.$pathInfo['extension'];
+            $filename = $pathInfo['filename'].'-w'.$targetSettings['width'].'.'.$pathInfo['extension'];
 
             $this->resize(
                 INDEX_PATH . $sourceUri,
                 INDEX_PATH.$folder, $filename,
-                $targetWidth, null
+                $targetSettings['width'], null
             );
 
             $uri = $folder.'/'.$filename;
         }
-        elseif (empty($targetWidth) && !empty($targetHeight)) { //Height exists, width doesn't
+        elseif (empty($targetSettings['width']) && !empty($targetSettings['height'])) { //Height exists, width doesn't
             $pathInfo = pathinfo($sourceUri);
 
             $folder = str_replace('/source/', '/source/generated/', $pathInfo['dirname']);
-            $filename = $pathInfo['filename'].'-h'.$targetHeight.'.'.$pathInfo['extension'];
+            $filename = $pathInfo['filename'].'-h'.$targetSettings['height'].'.'.$pathInfo['extension'];
 
             $this->resize(
                 INDEX_PATH . $sourceUri,
                 INDEX_PATH.$folder, $filename,
-                null, $targetHeight
+                null, $targetSettings['height']
             );
 
             $uri = $folder.'/'.$filename;
@@ -102,14 +103,14 @@ class PictureService implements ServiceProviderInterface
         $image->save($destinationFolder, $destinationFileName);
     }
 
-    private function resizeAndCrop($sourcePath, $destinationFolder, $destinationFileName, $width, $height)
+    private function resizeAndCrop($sourcePath, $destinationFolder, $destinationFileName, $width, $height, $position = 'MM')
     {
         $image = ImageWorkshop::initFromPath($sourcePath);
 
         $image->cropToAspectRatioInPixel(
             $width,
             $height,
-            0, 0, 'MM'
+            0, 0, $position
         );
 
         $image->resizeInPixel($width, $height, true);

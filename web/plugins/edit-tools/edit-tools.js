@@ -182,6 +182,10 @@
 
         $.fancybox.close();
 
+        console.log($input.data('settings'));
+        console.log(fieldId);
+        console.log($input);
+
         $.ajax({
             type: "POST",
             url: '/e/' + $input.data('type') + '/picture',
@@ -189,8 +193,7 @@
                 pk : $input.data('pk'),
                 name: $input.data('path'),
                 value: uri,
-                width: $input.data('width'),
-                height: $input.data('height')
+                settings: $input.data('settings')
             },
             success: function (response) {
                 $('#' + fieldId + '-image').attr('src', response.uri);
