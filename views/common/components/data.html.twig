@@ -29,7 +29,7 @@
     {%- if editMode -%}
         <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/e/{{ type }}/edit" data-pk="{{ id }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {%- else -%}
-        {{- value | raw -}}
+        {{- value | raw | nl2br -}}
     {%- endif -%}
 {% endmacro %}
 
