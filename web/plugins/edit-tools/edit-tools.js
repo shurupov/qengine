@@ -103,12 +103,10 @@
         var id = $(this).data('pk');
         var path = $(this).data('path') + '.' + str_rand();
         var inputId = $(this).data('type') + '-' + $(this).data('pk') + '-' + path.split('.').join('-');
-        var width = $(this).data('width');
-        var height = $(this).data('height');
         var settings = JSON.stringify( $(this).data('settings') );
 
         var html = '<div class="pull-left editor-image-list-element" id="' + inputId + '-container">' +
-            '<input type="hidden" id="' + inputId + '" data-type="' + $(this).data('type') + '" data-pk="' + id + '" data-path="' + path + '" data-width="' + width + '" data-height="' + height + '" data-settings=\'' + settings + '\'>' +
+            '<input type="hidden" id="' + inputId + '" data-type="' + $(this).data('type') + '" data-pk="' + id + '" data-path="' + path + '" data-settings=\'' + settings + '\'>' +
             '<edim id="' + inputId + '-button" class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id=' + inputId + '" data-type="iframe"><img id="' + inputId + '-preview" src="/thumbs/previewDefault.jpg"></edim>' +
             '<reel class="btn-remove-element" data-path="' + inputId + '" data-pk="" data-inModal="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></reel>' +
         '</div>';
