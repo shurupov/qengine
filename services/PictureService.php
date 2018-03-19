@@ -24,10 +24,6 @@ class PictureService implements ServiceProviderInterface
 
     public function adjustImage($id, $path, $sourceUri, $targetSettings, $collection = 'page')
     {
-        if (empty($targetSettings['width']) && empty($targetSettings['height'])) {
-            return $sourceUri;
-        }
-
         $targetSettings = array_merge([
             'quality' => 75
         ], $targetSettings);
