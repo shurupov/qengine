@@ -183,7 +183,7 @@
 
         $.ajax({
             type: "POST",
-            url: '/e/' + $input.data('type') + '/picture',
+            url: '/e/' + $input.data('type') + ( $input.data('dialog-type') == 'file' ? '/edit' : '/picture' ),
             data: {
                 pk : $input.data('pk'),
                 name: $input.data('path'),

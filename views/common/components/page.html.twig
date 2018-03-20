@@ -37,6 +37,11 @@
     {{- data.image('page', value, id, path, editMode, attrs, default, settings) -}}
 {% endmacro %}
 
+{% macro setFileButton(value, id, path, editMode = false, settings = {}) %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.setFileButton('page', value, id, path, editMode, settings) }}
+{% endmacro %}
+
 {% macro setImageButton(value, id, path, editMode = false, settings = {}) %}
     {% import '/common/components/data.html.twig' as data %}
     {{ data.setImageButton('page', value, id, path, editMode, settings) }}
