@@ -50,7 +50,7 @@
 
 {% endmacro %}
 
-{% macro table(items, type, caption, addCaption, fields) %}
+{% macro table(items, type, caption, addCaption, fields, changeList = true) %}
 
     {% set editMode = true %}
     {% import "/common/components/data.html.twig" as data %}
@@ -90,7 +90,7 @@
                                 {% if field.link %} <a href="{% if field.linkPrefix is not empty %}{{ field.linkPrefix }}{% endif %}{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
-                        <div class="col-md-1"><a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
+                        <div class="col-md-1 text-right">{% if changeList %}<a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>{% endif %}</div>
                     </div>
                 </td>
             </tr>
@@ -98,7 +98,7 @@
         </tbody>
     </table>
 
-    {{ data.addDocumentButton(type, addCaption, fields, true) }}
+    {% if changeList %}{{ data.addDocumentButton(type, addCaption, fields, true) }}{% endif %}
 
 {% endmacro %}
 
@@ -221,7 +221,7 @@
                 'placeholder': 'Наш сайт',
                 'columns': 6
             }
-        ]) }}
+        ], app.settings.debug) }}
 
     {% elseif dataType == 'form' %}
 
@@ -236,10 +236,10 @@
                 'name': 'title',
                 'caption': 'Заголовок',
                 'placeholder': 'Телефон',
-                'columns': 4,
+                'columns': 8,
                 'readonly': false
             }
-        ]) }}
+        ], app.settings.debug) }}
 
     {% endif %}
 
