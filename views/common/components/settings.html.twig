@@ -3,3 +3,7 @@
     {{ data.text('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
 {% endmacro %}
 
+{% macro textarea(setting, editMode = false, placement = 'top') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.textarea('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
+{% endmacro %}

@@ -63,7 +63,9 @@
             <th>
                 <div class="row">
                     {% for field in fields %}
-                        <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption | raw }}</div>
+                        {% if not field.hideInTable %}
+                            <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption | raw }}</div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </th>
@@ -74,12 +76,14 @@
             <tr>
                 <td>
                     <div class="row">
-                        {% for field in fields %}
+                        {% for field in fields if not field.hideInTable %}
                             <div class="col-md-{{ field.columns }}">
-                                {% if field.type =='select' %}
+                                {% if field.type =='select' or (field.type == 'dependsOnItem' and item.type == 'select') %}
                                     {{ data.select(type, item[field.name], item._id, field.name, not field.readonly, field.options) }}
-                                {% elseif field.type =='checklist' %}
+                                {% elseif field.type =='checklist' or (field.type == 'dependsOnItem' and item.type == 'checklist') %}
                                     {{ data.checklist(type, item[field.name], item._id, field.name, not field.readonly, field.variants) }}
+                                {% elseif field.type =='textarea' or (field.type == 'dependsOnItem' and item.type == 'textarea') %}
+                                    {{ data.textarea(type, item[field.name], item._id, field.name, not field.readonly) }}
                                 {% else %}
                                     {{ data.text(type, item[field.name], item._id, field.name, not field.readonly) }}
                                 {% endif %}
@@ -189,19 +193,33 @@
                 'name': 'key',
                 'caption': 'Ключ',
                 'placeholder': 'title',
-                'columns': 3,
-                'readonly': true
+                'columns': 2,
+                'readonly': true,
+                'hideInTable': true
+            }, {
+                'name': 'type',
+                'caption': 'Тип свойства',
+                'placeholder': 'Текст',
+                'columns': 2,
+                'readonly': true,
+                'hideInTable': true,
+                'type': 'select',
+                'options': [
+                    {value: 'text', text: 'Однострочный текст'},
+                    {value: 'textarea', text: 'Многострочный текст'}
+                ]
             }, {
                 'name': 'title',
                 'caption': 'Название',
                 'placeholder': 'Заголовок сайта',
-                'columns': 4,
+                'columns': 5,
                 'readonly': true
             }, {
                 'name': 'value',
+                'type': 'dependsOnItem',
                 'caption': 'Значение',
                 'placeholder': 'Наш сайт',
-                'columns': 4
+                'columns': 6
             }
         ]) }}
 
