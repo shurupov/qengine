@@ -3,7 +3,7 @@
     {{ data.text('page', value, id, path, editMode, inModal, placement) }}
 {% endmacro %}
 
-{% macro iconpicker(value, id, path, editMode = false, iconset = 'fontawesome', attrs ={}, tag = 'i') %}
+{% macro iconpicker(value, id, path, editMode = false, iconset = 'fontawesome', attrs ={'style': 'padding: 0; margin: 0; background: none; font-size: inherit;'}, tag = 'i') %}
     {% import '/common/components/data.html.twig' as data %}
     {{ data.iconpicker('page', value, id, path, editMode, iconset, attrs, tag ) }}
 {% endmacro %}

@@ -16,7 +16,7 @@
     {% endif %}
 {% endmacro %}
 
-{% macro iconpicker(type, value, id, path, editMode = false, iconset = 'fontawesome', attrs ={}, tag = 'i') %}
+{% macro iconpicker(type, value, id, path, editMode = false, iconset = 'fontawesome', attrs ={'style': 'padding: 0; margin: 0; background: none; font-size: inherit;'}, tag = 'i') %}
     {% if editMode %}
         <button class="btn" data-type="{{ type }}" data-pk={{ id }} data-icon="{{ value }}" data-path="{{ path }}" {% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-iconset="{{ iconset }}" role="iconpicker"></button>
     {% else %}
