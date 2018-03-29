@@ -12,3 +12,8 @@
     {% import '/common/components/data.html.twig' as data %}
     {{ data.image('setting', setting.value, setting._id, 'value', editMode, setting.attrs, "", setting.settings) }}
 {% endmacro %}
+
+{% macro code(setting, editMode = false, placement = 'top') %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.code('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
+{% endmacro %}

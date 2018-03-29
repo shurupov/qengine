@@ -84,6 +84,8 @@
                                     {{ data.checklist(type, item[field.name], item._id, field.name, not field.readonly, field.variants) }}
                                 {% elseif field.type =='textarea' or (field.type == 'dependsOnItem' and item.type == 'textarea') %}
                                     {{ data.textarea(type, item[field.name], item._id, field.name, not field.readonly) }}
+                                {% elseif field.type =='code' or (field.type == 'dependsOnItem' and item.type == 'code') %}
+                                    {{ data.code(type, item[field.name], item._id, field.name, not field.readonly) }}
                                 {% elseif field.type =='image' or (field.type == 'dependsOnItem' and item.type == 'image') %}
                                     {{ data.image(type, item[field.name], item._id, field.name, not field.readonly, {}, '/source/previewDefault.jpg', item.settings) }}
                                 {% else %}
@@ -209,7 +211,8 @@
                 'options': [
                     {value: 'text', text: 'Однострочный текст'},
                     {value: 'textarea', text: 'Многострочный текст'},
-                    {value: 'image', text: 'Изображение'}
+                    {value: 'image', text: 'Изображение'},
+                    {value: 'code', text: 'Код'}
                 ]
             }, {
                 'name': 'title',
