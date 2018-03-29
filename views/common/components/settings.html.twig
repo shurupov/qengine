@@ -7,3 +7,8 @@
     {% import '/common/components/data.html.twig' as data %}
     {{ data.textarea('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
 {% endmacro %}
+
+{% macro image(setting, editMode = false) %}
+    {% import '/common/components/data.html.twig' as data %}
+    {{ data.image('setting', setting.value, setting._id, 'value', editMode, setting.attrs, "", setting.settings) }}
+{% endmacro %}
