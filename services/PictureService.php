@@ -24,10 +24,6 @@ class PictureService implements ServiceProviderInterface
 
     public function adjustImage($id, $path, $sourceUri, $targetSettings, $collection = 'page')
     {
-        if (empty($targetSettings['width']) && empty($targetSettings['height'])) {
-            return $sourceUri;
-        }
-
         $targetSettings = array_merge([
             'quality' => 75
         ], $targetSettings);
@@ -38,7 +34,7 @@ class PictureService implements ServiceProviderInterface
 
             $pathInfo = pathinfo($sourceUri);
 
-            $folder = str_replace('/source/', '/source/generated/', $pathInfo['dirname']);
+            $folder = str_replace('/source', '/source/generated', $pathInfo['dirname']);
             $filename = $pathInfo['filename'].'-'.$targetSettings['width'].'x'.$targetSettings['height'].'.'.$pathInfo['extension'];
 
             $this->resizeAndCrop(
@@ -55,7 +51,7 @@ class PictureService implements ServiceProviderInterface
         elseif (!empty($targetSettings['width']) && empty($targetSettings['height'])) { //Width exists, height doesn't
             $pathInfo = pathinfo($sourceUri);
 
-            $folder = str_replace('/source/', '/source/generated/', $pathInfo['dirname']);
+            $folder = str_replace('/source', '/source/generated', $pathInfo['dirname']);
             $filename = $pathInfo['filename'].'-w'.$targetSettings['width'].'.'.$pathInfo['extension'];
 
             $this->resize(
@@ -70,7 +66,7 @@ class PictureService implements ServiceProviderInterface
         elseif (empty($targetSettings['width']) && !empty($targetSettings['height'])) { //Height exists, width doesn't
             $pathInfo = pathinfo($sourceUri);
 
-            $folder = str_replace('/source/', '/source/generated/', $pathInfo['dirname']);
+            $folder = str_replace('/source', '/source/generated', $pathInfo['dirname']);
             $filename = $pathInfo['filename'].'-h'.$targetSettings['height'].'.'.$pathInfo['extension'];
 
             $this->resize(
@@ -90,7 +86,7 @@ class PictureService implements ServiceProviderInterface
 
     private function createThumb($sourcePath)
     {
-        $thumbPath = str_replace('/source/', '/thumbs/', $sourcePath);
+        $thumbPath = str_replace('/source', '/thumbs', $sourcePath);
 
         $pathInfo = pathinfo($thumbPath);
 

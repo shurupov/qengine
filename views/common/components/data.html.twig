@@ -16,7 +16,7 @@
     {% endif %}
 {% endmacro %}
 
-{% macro iconpicker(type, value, id, path, editMode = false, iconset = 'fontawesome', attrs ={}, tag = 'i') %}
+{% macro iconpicker(type, value, id, path, editMode = false, iconset = 'fontawesome', attrs ={'style': 'padding: 0; margin: 0; background: none; font-size: inherit;'}, tag = 'i') %}
     {% if editMode %}
         <button class="btn" data-type="{{ type }}" data-pk={{ id }} data-icon="{{ value }}" data-path="{{ path }}" {% for key,val in attrs %} {% if not (key == 'class' and val starts with 'scrollto') %}{{ key | raw }}="{{ val | raw }}"{% endif %}{% endfor %} data-iconset="{{ iconset }}" role="iconpicker"></button>
     {% else %}
@@ -29,7 +29,7 @@
     {%- if editMode -%}
         <e{% if inModal %}s{% endif %} data-type="textarea" data-url="/e/{{ type }}/edit" data-pk="{{ id }}" data-name="{{ path }}">{{ value | raw }}</e{% if inModal %}s{% endif %}>
     {%- else -%}
-        {{- value | raw -}}
+        {{- value | raw | nl2br -}}
     {%- endif -%}
 {% endmacro %}
 
@@ -63,13 +63,18 @@
     {% endif %}
 {% endmacro %}
 
-{% macro setImageButton(type, value, id, path, editMode = false, settings = {}) %}
+{% macro setFileButton(type, value, id, path, editMode = false, settings = {}, dialogType = "file") %}
     {% import _self as data %}
     {% if editMode %}
         {% set inputId = 'i' ~ random(10000) %}
-        <input type="hidden" data-type="{{ type }}" data-path="{{ path }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-settings='{{ settings | json_encode }}'/>
-        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type=1&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span></edim>
+        <input type="hidden" data-type="{{ type }}" data-path="{{ path }}" id="{{ inputId | raw }}" data-pk="{{ id }}" data-settings='{{ settings | json_encode }}' data-dialog-type="{{ dialogType }}"/>
+        <edim class="edit-image" data-fancybox data-src="/filemanager/dialog.php?type={% if dialogType == "file"%}2{% else %}1{% endif %}&lang=ru&relative_url=1&field_id={{ inputId | raw }}" data-type="iframe"><span class="glyphicon glyphicon-{% if dialogType == "file"%}file{% else %}picture{% endif %}" aria-hidden="true"></span></edim>
     {% endif %}
+{% endmacro %}
+
+{% macro setImageButton(type, value, id, path, editMode = false, settings = {}) %}
+    {% import _self as data %}
+    {{ data.setFileButton(type, value, id, path, editMode, settings, "picture") }}
 {% endmacro %}
 
 {% macro setImagePreviewButton(type, value, id, path, editMode = false, default = '/source/previewDefault.jpg', settings = {}) %}
@@ -255,7 +260,12 @@
                                 {% elseif editor.type == "image" %}
                                     <tr>
                                         <td>{{ editor.title }}</td>
-                                        <td style="width:40%;">{{ data.setImagePreviewButton(collection, cValue, itemId, cPath, editMode) }}</td>
+                                        <td style="width:40%;">{{ data.setImagePreviewButton(collection, cValue, itemId, cPath, editMode, '/source/previewDefault.jpg', editor.settings) }}</td>
+                                    </tr>
+                                {% elseif editor.type == "file" %}
+                                    <tr>
+                                        <td>{{ editor.title }}</td>
+                                        <td style="width:40%;">{{ data.setFileButton(collection, cValue, itemId, cPath, editMode, editor.settings) }}</td>
                                     </tr>
                                 {% elseif editor.type == "checklist" %}
                                     <tr>
@@ -270,7 +280,7 @@
                                                 {% for ki, image in cValue %}
                                                     <div class="pull-left editor-image-list-element" id="{{ (cPath ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
                                                         {% set imagePath = cPath ~ '.' ~ ki %}
-                                                        {{ data.setImagePreviewButton(collection, image, itemId, imagePath, editMode) }}
+                                                        {{ data.setImagePreviewButton(collection, image, itemId, imagePath, editMode, '/source/previewDefault.jpg', editor.settings) }}
                                                         {{ data.removeElementButton(collection, imagePath, itemId, editMode, true ) }}
                                                     </div>
                                                 {% endfor %}

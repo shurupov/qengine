@@ -13,7 +13,7 @@
 
                         <ul class="nav nav-tabs">
                             <li role="presentation"{% if adminType == 'standard' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/standard">Стандартные данные</a></li>
-                            {% if additionalCollection | length > 0 %}<li role="presentation"{% if adminType == 'data' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data">Данные</a></li>{% endif %}
+                            {% if app.settings.additionalData | length > 0 %}<li role="presentation"{% if adminType == 'data' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/data">Данные</a></li>{% endif %}
                             <li role="presentation"{% if adminType == 'panels' %} class="active"{% endif %}><a href="{{ app.settings.admin.page.uri }}/panels">Панели</a></li>
                         </ul>
 

@@ -50,7 +50,7 @@
 
 {% endmacro %}
 
-{% macro table(items, type, caption, addCaption, fields) %}
+{% macro table(items, type, caption, addCaption, fields, changeList = true) %}
 
     {% set editMode = true %}
     {% import "/common/components/data.html.twig" as data %}
@@ -63,7 +63,9 @@
             <th>
                 <div class="row">
                     {% for field in fields %}
-                        <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption | raw }}</div>
+                        {% if not field.hideInTable %}
+                            <div class="col-md-{% if loop.last %}{{ (field.columns + 1) }}{% else %}{{ field.columns }}{% endif %}">{{ field.caption | raw }}</div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </th>
@@ -74,19 +76,25 @@
             <tr>
                 <td>
                     <div class="row">
-                        {% for field in fields %}
+                        {% for field in fields if not field.hideInTable %}
                             <div class="col-md-{{ field.columns }}">
-                                {% if field.type =='select' %}
+                                {% if field.type =='select' or (field.type == 'dependsOnItem' and item.type == 'select') %}
                                     {{ data.select(type, item[field.name], item._id, field.name, not field.readonly, field.options) }}
-                                {% elseif field.type =='checklist' %}
+                                {% elseif field.type =='checklist' or (field.type == 'dependsOnItem' and item.type == 'checklist') %}
                                     {{ data.checklist(type, item[field.name], item._id, field.name, not field.readonly, field.variants) }}
+                                {% elseif field.type =='textarea' or (field.type == 'dependsOnItem' and item.type == 'textarea') %}
+                                    {{ data.textarea(type, item[field.name], item._id, field.name, not field.readonly) }}
+                                {% elseif field.type =='code' or (field.type == 'dependsOnItem' and item.type == 'code') %}
+                                    {{ data.code(type, item[field.name], item._id, field.name, not field.readonly) }}
+                                {% elseif field.type =='image' or (field.type == 'dependsOnItem' and item.type == 'image') %}
+                                    {{ data.image(type, item[field.name], item._id, field.name, not field.readonly, {}, '/source/previewDefault.jpg', item.settings) }}
                                 {% else %}
                                     {{ data.text(type, item[field.name], item._id, field.name, not field.readonly) }}
                                 {% endif %}
                                 {% if field.link %} <a href="{% if field.linkPrefix is not empty %}{{ field.linkPrefix }}{% endif %}{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
-                        <div class="col-md-1"><a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></div>
+                        <div class="col-md-1 text-right">{% if changeList %}<a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>{% endif %}</div>
                     </div>
                 </td>
             </tr>
@@ -94,7 +102,7 @@
         </tbody>
     </table>
 
-    {{ data.addDocumentButton(type, addCaption, fields, true) }}
+    {% if changeList %}{{ data.addDocumentButton(type, addCaption, fields, true) }}{% endif %}
 
 {% endmacro %}
 
@@ -189,21 +197,37 @@
                 'name': 'key',
                 'caption': 'Ключ',
                 'placeholder': 'title',
-                'columns': 3,
-                'readonly': true
+                'columns': 2,
+                'readonly': true,
+                'hideInTable': true
+            }, {
+                'name': 'type',
+                'caption': 'Тип свойства',
+                'placeholder': 'Текст',
+                'columns': 2,
+                'readonly': true,
+                'hideInTable': true,
+                'type': 'select',
+                'options': [
+                    {value: 'text', text: 'Однострочный текст'},
+                    {value: 'textarea', text: 'Многострочный текст'},
+                    {value: 'image', text: 'Изображение'},
+                    {value: 'code', text: 'Код'}
+                ]
             }, {
                 'name': 'title',
                 'caption': 'Название',
                 'placeholder': 'Заголовок сайта',
-                'columns': 4,
+                'columns': 5,
                 'readonly': true
             }, {
                 'name': 'value',
+                'type': 'dependsOnItem',
                 'caption': 'Значение',
                 'placeholder': 'Наш сайт',
-                'columns': 4
+                'columns': 6
             }
-        ]) }}
+        ], app.settings.debug) }}
 
     {% elseif dataType == 'form' %}
 
@@ -218,10 +242,10 @@
                 'name': 'title',
                 'caption': 'Заголовок',
                 'placeholder': 'Телефон',
-                'columns': 4,
+                'columns': 8,
                 'readonly': false
             }
-        ]) }}
+        ], app.settings.debug) }}
 
     {% endif %}
 
