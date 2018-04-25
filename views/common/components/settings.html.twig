@@ -8,9 +8,9 @@
     {{ data.textarea('setting', setting.value, setting._id, 'value', editMode, false, placement) }}
 {% endmacro %}
 
-{% macro image(setting, editMode = false) %}
+{% macro image(setting, editMode = false, default = '') %}
     {% import '/common/components/data.html.twig' as data %}
-    {{ data.image('setting', setting.value, setting._id, 'value', editMode, setting.attrs, "", setting.settings) }}
+    {{ data.image('setting', setting.value, setting._id, 'value', editMode, setting.attrs, default, setting.settings) }}
 {% endmacro %}
 
 {% macro code(setting, editMode = false, placement = 'top') %}
