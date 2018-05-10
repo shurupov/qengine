@@ -22,7 +22,38 @@ class PictureService implements ServiceProviderInterface
     /* @var DataService $dataService */
     private $dataService;
 
-    public function adjustImage($id, $path, $sourceUri, $targetSettings, $collection = 'page')
+    public function saveImage($id, $path, $sourceUri, $targetSettings, $collection = 'page')
+    {
+
+        if (!empty($targetSettings['instances'])) {
+            foreach ($targetSettings['instances'] as $key => &$instanceSettings) {
+                if (empty($instanceSettings['postfix'])) {
+                    $instanceSettings['postfix'] = '-'.$key;
+                }
+                $uri = $this->adjustImage($sourceUri, $instanceSettings);
+                $this->dataService->edit($id, $path . '.' . $key, $uri, $collection);
+                $instanceSettings['uri'] = $uri;
+            }
+
+            if (!empty($targetSettings['mainInstance']) && $targetSettings['instances'][ $targetSettings['mainInstance'] ]) {
+                $this->createThumb(INDEX_PATH. $targetSettings['instances'][ $targetSettings['mainInstance'] ]['uri']);
+            } else {
+                $this->createThumb(INDEX_PATH. $uri);
+            }
+
+            if (!empty($targetSettings['returnInstance']) && $targetSettings['instances'][ $targetSettings['returnInstance'] ]) {
+                return $targetSettings['instances'][ $targetSettings['returnInstance'] ]['uri'];
+            }
+        } else {
+            $uri = $this->adjustImage($sourceUri, $targetSettings);
+            $this->dataService->edit($id, $path, $uri, $collection);
+            $this->createThumb(INDEX_PATH. $uri);
+        }
+
+        return $uri;
+    }
+
+    private function adjustImage($sourceUri, $targetSettings)
     {
         $targetSettings = array_merge([
             'quality' => 75
@@ -79,8 +110,6 @@ class PictureService implements ServiceProviderInterface
             $uri = $folder.'/'.$filename;
         }
 
-        $this->dataService->edit($id, $path, $uri, $collection);
-        $this->createThumb(INDEX_PATH.$uri);
         return $uri;
     }
 

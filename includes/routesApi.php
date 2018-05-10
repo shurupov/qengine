@@ -97,7 +97,7 @@ $app->post('/e/page/block/add', function (Request $request) use ($app) {
 
 $app->post('/e/{collection}/picture', function (Request $request, $collection) use ($app) {
     try {
-        $uri = $app['pictureService']->adjustImage(
+        $uri = $app['pictureService']->saveImage(
             $request->request->get('pk'),
             $request->request->get('name'),
             $request->request->get('value'),

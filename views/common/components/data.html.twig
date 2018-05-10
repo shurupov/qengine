@@ -280,7 +280,12 @@
                                                 {% for ki, image in cValue %}
                                                     <div class="pull-left editor-image-list-element" id="{{ (cPath ~ '.' ~ ki) | replace({'.' : '-'}) }}-container">
                                                         {% set imagePath = cPath ~ '.' ~ ki %}
-                                                        {{ data.setImagePreviewButton(collection, image, itemId, imagePath, editMode, '/source/previewDefault.jpg', editor.settings) }}
+                                                        {% if editor.settings.returnInstance is not empty %}
+                                                            {% set imageUri = image[ editor.settings.returnInstance ] %}
+                                                        {% else %}
+                                                            {% set imageUri = image %}
+                                                        {% endif %}
+                                                        {{ data.setImagePreviewButton(collection, imageUri, itemId, imagePath, editMode, '/source/previewDefault.jpg', editor.settings) }}
                                                         {{ data.removeElementButton(collection, imagePath, itemId, editMode, true ) }}
                                                     </div>
                                                 {% endfor %}
