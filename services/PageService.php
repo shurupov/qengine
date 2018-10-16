@@ -189,6 +189,12 @@ class PageService implements ServiceProviderInterface
         $page = $this->app['dataService']->getPage($pageSlug);
 
         if ($page == null) {
+            $page = $this->app['dataService']->getPageWithDisplay();
+            $itemId = substr($pageSlug, 1);
+            $pageSlug = $page['uri'];
+        }
+
+        if ($page == null) {
             throw new NotFoundHttpException();
         }
 

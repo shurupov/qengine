@@ -20,6 +20,11 @@ class DataService implements ServiceProviderInterface
         return $this->db->page->findOne(['uri' => $uri]);
     }
 
+    public function getPageWithDisplay()
+    {
+        return $this->db->page->findOne(['display' => ['$ne' => 'default']]);
+    }
+
     public function getItem($collection, $itemId)
     {
         return $this->db->$collection->findOne(['itemId' => $itemId]);
