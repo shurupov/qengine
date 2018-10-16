@@ -72,9 +72,9 @@
     {{ data.settingsBigButton('page', editMode, caption, path) }}
 {% endmacro %}
 
-{% macro addElementButton(path, id, editMode = false, caption = "Добавить объект") %}
+{% macro addElementButton(path, id, editMode = false, caption = "Добавить объект", field = "title", fieldValue = null) %}
     {% import '/common/components/data.html.twig' as data %}
-    {{ data.addElementButton('page', path, id, editMode, caption) }}
+    {{ data.addElementButton('page', path, id, editMode, caption, field, fieldValue) }}
 {% endmacro %}
 
 {% macro addItemButton(path, id, editMode = false, caption = "Добавить пункт", inModal = false) %}
