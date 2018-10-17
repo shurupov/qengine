@@ -94,7 +94,11 @@
                                 {% if field.link %} <a href="{% if field.linkPrefix is not empty %}{{ field.linkPrefix }}{% endif %}{{ item[field.name] }}">Перейти</a>{% endif %}
                             </div>
                         {% endfor %}
-                        <div class="col-md-1 text-right">{% if changeList %}<a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>{% endif %}</div>
+                        <div class="col-md-1 text-right">
+                            {% if changeList %}
+                                <a class="remove-page-button" href="/e/{{ type }}/remove/{{ item._id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                            {% endif %}
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -148,7 +152,12 @@
                 'name': 'title',
                 'caption': 'Заголовок',
                 'placeholder': 'Заголовок новой страницы',
-                'columns': 3
+                'columns': 2
+            }, {
+                'name': 'description',
+                'caption': 'Description',
+                'placeholder': 'Description страницы',
+                'columns': 2
             }, {
                 'name': 'display',
                 'caption': 'Отображение',
@@ -160,7 +169,7 @@
                 'name': 'getAdditional',
                 'caption': 'Дополнительные данные',
                 'placeholder': '',
-                'columns': 2,
+                'columns': 1,
                 'type': 'checklist',
                 'variants': additional
             }, {
@@ -294,7 +303,13 @@
                 'name': 'title',
                 'caption': 'Заголовок',
                 'placeholder': 'Элемент данных',
-                'columns': 6,
+                'columns': 3,
+                'readonly': false
+            }, {
+                'name': 'description',
+                'caption': 'Description',
+                'placeholder': 'Элемент данных',
+                'columns': 3,
                 'readonly': false
             }, {
                 'name': 'visibility',
