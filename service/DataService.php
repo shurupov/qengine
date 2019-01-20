@@ -1,6 +1,6 @@
 <?php
 
-namespace Qe;
+namespace QEngine\Service;
 
 
 use MongoDB\BSON\ObjectID;

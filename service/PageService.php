@@ -6,7 +6,7 @@
  * Time: 0:17
  */
 
-namespace Qe;
+namespace QEngine\Service;
 
 
 use Pimple\Container;

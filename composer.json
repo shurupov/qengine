@@ -1,27 +1,35 @@
 {
-    "name": "shurupov/qengine",
-    "type": "project",
-    "description": "Simple CMS",
-    "keywords": ["cms", "engine"],
-    "homepage": "https://github.com/shurupov/qengine",
-    "version": "0.1",
-    "license": "MIT",
-    "authors": [
-      {
-        "name": "Evgeny Shurupov",
-        "email": "bolteg86@ya.ru",
-        "homepage": "https://vk.com/shurupov",
-        "role": "developer"
-      }
-    ],
-    "require": {
-        "silex/silex": "~2.0",
-        "symfony/twig-bridge": "^3.3",
-        "monolog/monolog": "^1.22",
-        "swiftmailer/swiftmailer": "^6.0",
-        "lalbert/silex-mongodb": "^1.0",
-        "symfony/yaml": "^4.0",
-        "sybio/image-workshop": "^2.0",
-        "ext-mongodb": "*"
+  "name": "shurupov/qengine",
+  "type": "project",
+  "description": "Simple CMS",
+  "keywords": ["cms", "engine"],
+  "homepage": "https://github.com/shurupov/qengine",
+  "version": "0.1",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Evgeny Shurupov",
+      "email": "bolteg86@ya.ru",
+      "homepage": "https://vk.com/shurupov",
+      "role": "developer"
     }
+  ],
+  "require": {
+    "php": ">= 5.5",
+    "silex/silex": "~2.0",
+    "symfony/twig-bridge": "^3.3",
+    "monolog/monolog": "^1.22",
+    "swiftmailer/swiftmailer": "^6.0",
+    "lalbert/silex-mongodb": "^1.0",
+    "symfony/yaml": "^4.0",
+    "sybio/image-workshop": "^2.0",
+    "ext-mongodb": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "classmap": [
+      "services",
+      "core"
+    ]
+  }
 }

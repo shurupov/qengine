@@ -71,7 +71,7 @@ $app->match($app['settings']['admin']['page']['uri'] . '/{panelType}/{panel}/{me
 
                     }
 
-                    return $app['pageService']->renderAdminPanel(\Qe\PageService::PANELS_ADMIN_PANEL, $panel, $response);
+                    return $app['pageService']->renderAdminPanel(\QEngine\Service\PageService::PANELS_ADMIN_PANEL, $panel, $response);
                 }
             }
 

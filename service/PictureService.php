@@ -6,7 +6,7 @@
  * Time: 12:44
  */
 
-namespace Qe;
+namespace QEngine\Service;
 
 
 use PHPImageWorkshop\ImageWorkshop;
@@ -36,9 +36,9 @@ class PictureService implements ServiceProviderInterface
             }
 
             if (!empty($targetSettings['mainInstance']) && $targetSettings['instances'][ $targetSettings['mainInstance'] ]) {
-                $this->createThumb(INDEX_PATH. $targetSettings['instances'][ $targetSettings['mainInstance'] ]['uri']);
+                $this->createThumb(QENGINE_INDEX_PATH. $targetSettings['instances'][ $targetSettings['mainInstance'] ]['uri']);
             } else {
-                $this->createThumb(INDEX_PATH. $uri);
+                $this->createThumb(QENGINE_INDEX_PATH. $uri);
             }
 
             if (!empty($targetSettings['returnInstance']) && $targetSettings['instances'][ $targetSettings['returnInstance'] ]) {
@@ -47,7 +47,7 @@ class PictureService implements ServiceProviderInterface
         } else {
             $uri = $this->adjustImage($sourceUri, $targetSettings);
             $this->dataService->edit($id, $path, $uri, $collection);
-            $this->createThumb(INDEX_PATH. $uri);
+            $this->createThumb(QENGINE_INDEX_PATH. $uri);
         }
 
         return $uri;
@@ -69,8 +69,8 @@ class PictureService implements ServiceProviderInterface
             $filename = $pathInfo['filename'].'-'.$targetSettings['width'].'x'.$targetSettings['height'].'.'.$pathInfo['extension'];
 
             $this->resizeAndCrop(
-                INDEX_PATH . $sourceUri,
-                INDEX_PATH.$folder, $filename,
+                QENGINE_INDEX_PATH . $sourceUri,
+                QENGINE_INDEX_PATH.$folder, $filename,
                 $targetSettings['width'], $targetSettings['height'],
                 ( !empty($targetSettings['position']) ? $targetSettings['position'] : 'MM' ),
                 $targetSettings['quality']
@@ -86,8 +86,8 @@ class PictureService implements ServiceProviderInterface
             $filename = $pathInfo['filename'].'-w'.$targetSettings['width'].'.'.$pathInfo['extension'];
 
             $this->resize(
-                INDEX_PATH . $sourceUri,
-                INDEX_PATH.$folder, $filename,
+                QENGINE_INDEX_PATH . $sourceUri,
+                QENGINE_INDEX_PATH.$folder, $filename,
                 $targetSettings['width'], null,
                 $targetSettings['quality']
             );
@@ -101,8 +101,8 @@ class PictureService implements ServiceProviderInterface
             $filename = $pathInfo['filename'].'-h'.$targetSettings['height'].'.'.$pathInfo['extension'];
 
             $this->resize(
-                INDEX_PATH . $sourceUri,
-                INDEX_PATH.$folder, $filename,
+                QENGINE_INDEX_PATH . $sourceUri,
+                QENGINE_INDEX_PATH.$folder, $filename,
                 null, $targetSettings['height'],
                 $targetSettings['quality']
             );
