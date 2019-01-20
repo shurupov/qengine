@@ -21,6 +21,7 @@
         "swiftmailer/swiftmailer": "^6.0",
         "lalbert/silex-mongodb": "^1.0",
         "symfony/yaml": "^4.0",
-        "sybio/image-workshop": "^2.0"
+        "sybio/image-workshop": "^2.0",
+        "ext-mongodb": "*"
     }
 }
