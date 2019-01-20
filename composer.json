@@ -1,4 +1,7 @@
 {
+    "name": "shurupov/qengine",
+    "description": "Simple CMS",
+    "version": "0.1",
     "require": {
         "silex/silex": "~2.0",
         "symfony/twig-bridge": "^3.3",
