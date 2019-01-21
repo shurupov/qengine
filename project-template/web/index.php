@@ -3,9 +3,9 @@
 //use Symfony\Component\Yaml\Yaml;
 
 define('QENGINE_INDEX_PATH', __DIR__);
-define('QENGINE_ROOT_PATH', __DIR__ . '/..');
+define('QENGINE_ROOT_PATH', __DIR__ . '/qengine');
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $app = new \QEngine\Core\App();
 
@@ -17,10 +17,10 @@ $app = new \QEngine\Core\App();
 
 //require_once __DIR__.'/../includes/register.php';
 
-require_once __DIR__.'/../includes/twigExtensions.php';
-require_once __DIR__.'/../includes/controllerExtensions.php';
+require_once __DIR__ . '/../includes/twigExtensions.php';
+require_once __DIR__ . '/../includes/controllerExtensions.php';
 
-$app['debug'] = $app['settings']['debug'];
+//$app['debug'] = $app['settings']['debug'];
 
 //require_once __DIR__.'/../includes/routes.php';
 
