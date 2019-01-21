@@ -4,7 +4,7 @@
   "description": "Simple CMS",
   "keywords": ["cms", "engine"],
   "homepage": "https://github.com/shurupov/qengine",
-  "version": "0.3",
+  "version": "0.4",
   "license": "MIT",
   "authors": [
     {
@@ -15,7 +15,7 @@
     }
   ],
   "require": {
-    "php": ">= 5.5",
+    "php": ">= 7.2",
     "silex/silex": "~2.0",
     "symfony/twig-bridge": "^3.3",
     "monolog/monolog": "^1.22",

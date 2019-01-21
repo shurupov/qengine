@@ -21,7 +21,7 @@ class App
     {
         $this->app = new Application();
 
-        $this->app['settings'] = Yaml::parseFile(QENGINE_ROOT_PATH . '/settings/settings.yml');
+        $this->app['settings'] = Yaml::parseFile(QENGINE_ROOT_PATH . '/settings.yml');
         setlocale(LC_ALL, $this->app['settings']['locale']);
 
         $registrar = new Registrar($this->app);
