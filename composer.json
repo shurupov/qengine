@@ -4,7 +4,7 @@
   "description": "Simple CMS",
   "keywords": ["cms", "engine"],
   "homepage": "https://github.com/shurupov/qengine",
-  "version": "0.4",
+  "version": "0.5",
   "license": "MIT",
   "authors": [
     {
