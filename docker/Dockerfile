@@ -4,6 +4,7 @@ COPY ./vendor/shurupov/qengine/setup/host.conf /etc/apache2/sites-available
 
 RUN apt-get update && apt-get install --yes --no-install-recommends libssl-dev mc
 RUN pecl install mongodb && docker-php-ext-enable mongodb
+RUN a2enmod rewrite
 
 ENV user weber
 

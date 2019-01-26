@@ -1,8 +1,19 @@
 version: '3'
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: vendor/shurupov/qengine/docker/Dockerfile
     ports:
       - "8080:80"
     volumes:
       - ".:/var/www/html"
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    #    volumes:
+    #      - ./data/db/mongo:/data/db
+    ports:
+      - "27020:27017"
+#    command: --storageEngine wiredTiger
