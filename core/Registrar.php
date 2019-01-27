@@ -83,7 +83,11 @@ class Registrar
                     'driverOptions' => [],
                 ]
             ]);
+            echo "mongodb registered";
         }
+
+        echo "<pre>";
+        print_r($this->app);
     }
 
     private function registerServices()
