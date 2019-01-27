@@ -75,14 +75,15 @@ class Registrar
 
     private function registerDatabaseConnector()
     {
-        //TODO: Add logic to search what db driver is included in project
-        $this->app->register(new MongoDBServiceProvider(), [
-            'mongodb.config' => [
-                'server' => 'mongodb://localhost:27017', //TODO: Move this to settings
-                'options' => [],
-                'driverOptions' => [],
-            ]
-        ]);
+        if ($this->app['settings']['db']['type'] == 'db') {
+            $this->app->register(new MongoDBServiceProvider(), [
+                'mongodb.config' => [
+                    'server' => $this->app['settings']['db']['url'],
+                    'options' => [],
+                    'driverOptions' => [],
+                ]
+            ]);
+        }
     }
 
     private function registerServices()
